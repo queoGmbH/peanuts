@@ -1,0 +1,11 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/organism/cards-grid
+
+block headline
+    | content
+
+block modules
+    .container
+        +cards-grid()
+        +highlight
+          +cards-grid()

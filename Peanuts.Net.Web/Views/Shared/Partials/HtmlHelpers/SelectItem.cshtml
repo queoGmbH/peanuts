@@ -1,0 +1,8 @@
+﻿@model SelectListItem
+    @{
+        string selectedString = Model.Selected ? "selected" : "";
+    }
+    
+<option value="@Model.Value" @selectedString>
+@Model.Text
+</option>"

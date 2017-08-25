@@ -1,0 +1,20 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Documents
+@model IList<Document>
+
+@if (Model != null && Model.Any()) {
+    <div class="grid-fileupload__container js-fileuploader-uploaded-files-container">
+        @foreach (Document doc in Model) {
+            <div class="file-uploaded js-fileuploader-uploaded-file">
+                <div class="js-fileuploader-uploaded-file-content">
+                    <div class="file-uploaded__image js-fileupload-uploaded-file-preview" style="background-image: url(@Url.Action("Preview", "Document", new { area = "", document = doc.BusinessId }));">
+                    </div>
+                    <span class="file-uploaded__name">@doc.OriginalFileName</span>
+                </div>
+            </div>
+        }
+    </div>
+} else {
+    <p>
+        Bisher wurden keine Bilder hinterlegt.
+    </p>
+}

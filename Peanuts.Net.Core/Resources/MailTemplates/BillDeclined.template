@@ -1,0 +1,18 @@
+﻿Subject: Bezahlung der Rechnung "{bill.Subject}" wurde abgelehnt
+
+<p>Hallo {creditor.FirstName},</p>
+<p>
+du hast am {bill.CreatedAt:D} eine Rechnung mit dem Betreff <a href="{billUrl}" title="Rechnung anzeigen">"{bill.Subject}"</a> gestellt.<br/>
+Die Bezahlung der Rechnung wurde jedoch von {debitor.DisplayName} mit folgendem Grund abgelehnt:<br/>
+<br/>
+"{userGroupDebitor.RefuseComment}"
+</p>
+<p>
+Eine Rechnung die nicht von allen Schuldnern akzeptiert wurde, <br/>
+kann nicht abgerechnet und somit deinem Konto gutgeschrieben werden. <br/>
+Du solltest dich also darum kümmern ...
+</p>
+<p>
+Trotzdem einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>

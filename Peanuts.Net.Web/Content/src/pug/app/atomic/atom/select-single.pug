@@ -1,0 +1,5 @@
+mixin select-single(name, options)
+    select.form-control(id=name name=name).js-select-single&attributes(attributes)
+        option(value="") Bitte wählen
+        each item, k in options
+            option(value=k)= item

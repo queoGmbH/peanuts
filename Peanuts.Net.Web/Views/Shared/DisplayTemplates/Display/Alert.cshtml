@@ -1,0 +1,8 @@
+﻿@model Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Display.AlertModel
+
+<div class="alert @Model.AlertType.CssClass @Model.GetDismissableCss()" role="alert">
+    @if (Model.Dismissable){
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    }
+    @Model.Alert
+</div>

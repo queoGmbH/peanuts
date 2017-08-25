@@ -1,0 +1,56 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting.Payment
+    
+@{
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+    string title;
+    if (Model.Sender.Membership.User.Equals(Model.RequestRecipient)) {
+        /*Jemand hat von mir Geld erhalten (ich bin der Absender), hat ein Ticket erstellt und ich muss das bestätigen*/
+        title = string.Format("Zahlung von {0:C} an {1} bestätigen", Model.Amount, Model.Recipient.Membership.User.DisplayName);
+    } else if (Model.Recipient.Membership.User.Equals(Model.RequestRecipient)) {
+        /*Jemand hat mir Geld gegeben (ich bin der Empfänger), hat ein Ticket erstellt und ich muss das bestätigen*/
+        title = string.Format("Bezahlung von {0:C} durch {1} bestätigen", Model.Amount, Model.Sender.Membership.User.DisplayName);
+    } else {
+        /*Irgendjemand hat von Irgendjemand anderem Geld erhalten und ich darf das bestätigen (zB weil ich Admin bin)*/
+        title = string.Format("Zahlung von {0:C} durch {1} an {2} bestätigen", Model.Amount, Model.Sender.Membership.User.DisplayName, Model.Recipient.Membership.User.DisplayName);
+    }
+
+    ViewBag.Title = title;
+}
+
+@section toolbar{
+    <a href="@Url.Action("PendingPayments", "Payment")" class="btn btn-default">
+        <span class="icon-arrow-left"></span>
+        @Resources_Web.btn_Cancel
+    </a>
+}
+
+@using (Html.BeginForm("AcceptPayment", "Payment", new { payment = Model.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.HttpMethodOverride(HttpVerbs.Patch)
+
+    <p class="alert alert-info">
+        @if (Model.Sender.Membership.User.Equals(Model.RequestRecipient)) {
+            /*Jemand hat von mir Geld erhalten (ich bin der Absender), hat ein Ticket erstellt und ich muss das bestätigen*/
+            @(string.Format("Ich bestätige die Zahlung von {0:C} an {1}!", Model.Amount, Model.Sender.Membership.User.DisplayName))
+        } else if (Model.Recipient.Membership.User.Equals(Model.RequestRecipient)) {
+            /*Jemand hat mir Geld gegeben (ich bin der Empfänger), hat ein Ticket erstellt und ich muss das bestätigen*/
+            @(string.Format("Ich bestätige die Bezahlung von {0:C} durch {1} an mich.", Model.Amount, Model.Sender.Membership.User.DisplayName))
+        } else {
+            /*Irgendjemand hat von Irgendjemand anderem Geld erhalten und ich darf das bestätigen (zB weil ich Admin bin)*/
+            @(string.Format("Ich bestätige die Zahlung von {0:C} durch {1} an {2}!", Model.Amount, Model.Sender.Membership.User.DisplayName, Model.Recipient.Membership.User.DisplayName))
+        }
+    </p>
+
+    <p class="alert alert-danger">
+        Die Abrechnung der Zahlung kann nicht rückgängig gemacht werden.
+    </p>
+
+    <p>
+        <button type="submit" class="btn btn-danger">
+            <span class="icon-thumbs-up"></span>
+            Bestätigen
+        </button>
+    </p>
+}

@@ -1,0 +1,7 @@
+﻿@model IEnumerable<SelectListItem>
+
+<select id="@Guid.NewGuid()" name="@ViewData["name"]" multiple="multiple" size="@ViewData["size"]">
+    @foreach (SelectListItem item in Model) {
+        @Html.Partial("Partials/HtmlHelpers/SelectItem", item);
+    }
+</select>

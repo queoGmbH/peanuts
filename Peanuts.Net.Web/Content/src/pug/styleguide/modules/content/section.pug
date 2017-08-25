@@ -1,0 +1,15 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/molecule/section
+
+block headline
+    | C03 - Text-Section
+
+block modules
+    .container
+        +section()
+            +headline(2) Headline
+            p.text-justify= lipsum(20, 'sentences')
+        +highlight
+          +section()
+              +headline(2) Headline
+              p.text-justify= lipsum(20, 'sentences')

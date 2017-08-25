@@ -1,0 +1,6 @@
+mixin card-dashboard(item)
+    a.card-dashboard(href= item.url)
+        span.card-dashboard__icon(class= "icon-" + item.icon)
+        span.card-dashboard__text
+            span.h2= item.title
+            span= item.message

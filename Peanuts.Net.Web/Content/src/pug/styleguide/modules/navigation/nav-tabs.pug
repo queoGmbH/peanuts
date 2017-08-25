@@ -1,0 +1,35 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/molecule/nav-tabs
+include ../../../app/atomic/molecule/nav-tabs-panel
+
+block headline
+    | navigation
+
+block modules
+    -
+        var tabs = {
+            core: 'Stammdaten',
+            description: 'Objektbeschreibung',
+            pictures: 'Bilder',
+            documents: 'Dokumente & Links',
+            units: 'Einheiten'
+        }
+        var active = 'core';
+
+    .container
+        +form('horizontal')
+            +nav-tabs(tabs, active)
+            .nav-tabs-content.tab-content
+                each caption, key in tabs
+                    +nav-tabs-panel(key)(class=(key=='active'?'active':null))
+                        fieldset
+                            legend.form__legend= caption
+
+        +highlight
+            +form('horizontal')
+                +nav-tabs(tabs, active)
+                .nav-tabs-content.tab-content
+                    each caption, key in tabs
+                        +nav-tabs-panel(key)(class=(key == 'active' ? 'active' : null))
+                            fieldset
+                                legend.form__legend= caption

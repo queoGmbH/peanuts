@@ -1,0 +1,65 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutsListViewModel
+
+@{
+    if (Model.From == Model.To) {
+        ViewBag.Title = "Peanuts am " + Model.From.ToShortDateString();
+    } else {
+        ViewBag.Title = "Peanuts von " + Model.From.ToShortDateString() + " bis " + Model.To.ToShortDateString();
+    }
+}
+
+<h2>Peanuts an denen ich teilnehme</h2>
+@if (Model.PeanutParticipations.Any()) {
+
+    <div class="container-content--full">
+        @(Html.DisplayFor()
+                  .GridFor(m => m.PeanutParticipations, true)
+                  .ColumnFor(part => part.Peanut.Name, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Name)
+                  .ColumnFor(part => part.Peanut.PeanutState, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_PeanutState).Display("PeanutState")
+                  .ColumnFor(part => part.Peanut, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipations).Display("PeanutParticipations")
+                  .ColumnFor(part => part.Peanut.Day, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Day).Display("Date")
+                  .ColumnFor(part => part.Peanut.UserGroup.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_UserGroup)
+                  .ColumnFor(part => part.Peanut.CreatedBy.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_CreatedBy)
+                  .ColumnFor(part => part.Peanut.CreatedAt, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_CreatedAt)
+                  .UrlColumn(part => Url.Action("Show", "Peanut", new { peanut = part.Peanut.BusinessId })).UrlAttribute("class", "icon icon-search").UrlAttribute("title", "Anzeigen")
+                  )
+    </div>
+} else {
+    <p>Ich nehme an keinen Peanuts teil.</p>
+}
+
+@if (Model.AttendablePeanuts.Any()) {
+    <h2>Weitere Peanuts in meinen Gruppen</h2>
+    <div class="container-content--full">
+        @(Html.DisplayFor()
+              .GridFor(m => m.AttendablePeanuts, true)
+              .ColumnFor(peanut => peanut.Name, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Name)
+              .ColumnFor(peanut => peanut.PeanutState, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_PeanutState).Display("PeanutState")
+              .ColumnFor(peanut => peanut, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipations).Display("PeanutParticipations")
+              .ColumnFor(peanut => peanut.Day, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Day).Display("Date")
+              .ColumnFor(peanut => peanut.UserGroup.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_UserGroup)
+              .ColumnFor(peanut => peanut.CreatedBy.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_CreatedBy)
+              .ColumnFor(peanut => peanut.CreatedAt, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_CreatedAt)
+              .UrlColumn(peanut => Url.Action("AttendForm", "Peanut", new {  peanut = peanut.BusinessId })).UrlAttribute("class", "icon icon-thumbs-up").UrlAttribute("title", "Teilnehmen")
+              .UrlColumn(peanut => Url.Action("Show", "Peanut", new { peanut = peanut.BusinessId })).UrlAttribute("class", "icon icon-search").UrlAttribute("title", "Anzeigen")
+        )
+    </div>
+}
+
+
+@section toolbar {
+    <a href="@Url.Action("Index", "Peanut")" class="btn btn-default">
+        <span class="icon icon-arrow-left">@Resources_Web.btn_Cancel</span>
+        
+    </a>
+
+
+    <a href="@Url.Action("CreateForm", new {day = Model.From.Date})" class="btn btn-warning pull-right">
+        <span class="icon icon-plus">Peanut erstellen</span>
+    </a>
+
+
+}

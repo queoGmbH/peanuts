@@ -1,0 +1,240 @@
+extends app/atomic/template/default
+include app/atomic/organism/table
+include app/atomic/organism/pagination
+include app/atomic/molecule/table-head
+include app/atomic/molecule/table-body
+include app/atomic/atom/table-row
+include app/atomic/atom/table-row-link
+include app/atomic/atom/pagination-link
+
+block content
+    .container-content
+        -
+            var tDataIn = {
+                tName: 't',
+                head: [{
+                        label: 'Gruppe',
+                        sortable: 'True',
+                        initialSort: 'asc'
+                    },{
+                        label: 'Absender',
+                        sortable: 'True'
+                    },{
+                        label: 'Rechnungsdatum',
+                        sortable: 'True'
+                    },{
+                        label: 'Text',
+                        sortable: 'True'
+                    },{
+                        label: 'Betrag',
+                        sortable: 'True'
+                    }],
+                data: [
+                    [
+                        {
+                            type: 'text',
+                            content: 'C# and friends',
+                            rowIndex: 0
+                        },{
+                            type: 'text',
+                            content: 'Daniel Wuttig',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '20.04.2017',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: 'Gulasch mit Knödeln und Rotkraut',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '2,50 €',
+                            rowIndex: 1
+                        }
+                    ],
+                    [
+                        {
+                            type: 'text',
+                            content: 'C# and friends',
+                            rowIndex: 0
+                        },{
+                            type: 'text',
+                            content: 'Bernd Boruttau',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '21.04.2017',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: 'Nudeln mit weißer Soße',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '1,78 €',
+                            rowIndex: 1
+                        }
+                    ],
+                    [
+                        {
+                            type: 'text',
+                            content: 'C# and friends',
+                            rowIndex: 0
+                        },{
+                            type: 'text',
+                            content: 'Dana Henkens',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '23.04.2017',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: 'Kasslerauflauf',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '3,01 €',
+                            rowIndex: 1
+                        }
+                    ],
+                    [
+                        {
+                            type: 'text',
+                            content: 'Testgruppe',
+                            rowIndex: 0
+                        },{
+                            type: 'text',
+                            content: 'Testnutzer',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '24.04.2017',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: 'Test',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '404,50 €',
+                            rowIndex: 1
+                        }
+                    ]
+                ]
+            }
+            var tDataOut = {
+                tName: 't',
+                head: [{
+                        label: 'Gruppe',
+                        sortable: 'True',
+                        initialSort: 'asc'
+                    },{
+                        label: 'Empfänger',
+                        sortable: 'True'
+                    },{
+                        label: 'Rechnungsdatum',
+                        sortable: 'True'
+                    },{
+                        label: 'Text',
+                        sortable: 'True'
+                    },{
+                        label: 'Betrag',
+                        sortable: 'True'
+                    }],
+                data: [
+                    [
+                        {
+                            type: 'text',
+                            content: 'C# and friends',
+                            rowIndex: 0
+                        },{
+                            type: 'text',
+                            content: 'Daniel Wuttig',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '22.04.2017',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: 'Quarkkeulchen',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '1,20 €',
+                            rowIndex: 1
+                        }
+                    ],
+                    [
+                        {
+                            type: 'text',
+                            content: 'C# and friends',
+                            rowIndex: 0
+                        },{
+                            type: 'text',
+                            content: 'Bernd Boruttau',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '22.04.2017',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: 'Quarkkeulchen',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '1,20 €',
+                            rowIndex: 1
+                        }
+                    ],
+                    [
+                        {
+                            type: 'text',
+                            content: 'C# and friends',
+                            rowIndex: 0
+                        },{
+                            type: 'text',
+                            content: 'Dana Henkens',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '22.04.2017',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: 'Quarkkeulchen',
+                            rowIndex: 1
+                        },{
+                            type: 'text',
+                            content: '1,20 €',
+                            rowIndex: 1
+                        }
+                    ]
+                ]
+            }
+
+
+        h1 Rechnungseingang
+            +badge(4)
+        .container-content--full
+            +table('bills_in')
+                +table-head(tDataIn)
+                +table-body()
+                    each rowData, index in tDataIn.data
+                        +table-row('bills_in', index, rowData)
+        +pagination()
+            +pagination-link('fast-backward', 'Erster')
+            +pagination-link('step-backward', 'Zurück')
+            +pagination-link('after-step-forward', 'Weiter')
+            +pagination-link('after-fast-forward', 'Letzer')
+        h1 Rechnungsausgang
+            +badge(3)
+        .container-content--full
+            +table('bills_out')
+                +table-head(tDataOut)
+                +table-body()
+                    each rowData, index in tDataOut.data
+                        +table-row('bills_out', index, rowData)

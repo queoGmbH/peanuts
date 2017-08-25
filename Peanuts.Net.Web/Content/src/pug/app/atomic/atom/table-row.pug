@@ -1,0 +1,20 @@
+include table-data-text
+include table-data-number
+include table-data-image
+include table-data-action
+include table-data-icon
+
+mixin table-row(tableName,rowIndex,data)
+    tr.webGridRow(webgrid-row-index=rowIndex)&attributes(attributes)
+        each item, index in data
+            if item.type == 'text'
+                +table-data-text(tableName,index,item)
+            if item.type == 'number'
+                +table-data-number(tableName,index,item)
+            if item.type == 'image'
+                +table-data-image(tableName,index,item)
+            if item.type == 'action'
+                +table-data-action(tableName,index,item)
+            else if item.type == 'icon'
+                +table-data-icon(tableName,index,item)
+

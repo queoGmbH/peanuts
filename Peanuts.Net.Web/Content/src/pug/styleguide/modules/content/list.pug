@@ -1,0 +1,26 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/molecule/list
+include ../../../app/atomic/molecule/list-head
+include ../../../app/atomic/molecule/list-body
+include ../../../app/atomic/atom/list-row
+
+block headline
+    | C04 - Data Tables - List
+
+block modules
+    .container
+        +list()
+            +list-body()
+                +list-row(['Gebietslage', 'Wohngebiet'], 'text')
+                +list-row(['Flur', 'Wohngebiet'], 'text')
+                +list-row(['Flurstück', '---'], 'text')
+                +list-row(['Bemarkung', 'Dresden-Seidnitz'], 'text')
+                +list-row(['Grundstücksfläche', '2831,00 m²'], 'text')
+        +highlight
+            +list()
+                +list-body()
+                    +list-row(['Gebietslage', 'Wohngebiet'], 'text')
+                    +list-row(['Flur', 'Wohngebiet'], 'text')
+                    +list-row(['Flurstück', '---'], 'text')
+                    +list-row(['Bemarkung', 'Dresden-Seidnitz'], 'text')
+                    +list-row(['Grundstücksfläche', '2831,00 m²'], 'text')

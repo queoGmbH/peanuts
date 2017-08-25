@@ -1,0 +1,10 @@
+extends base
+
+block page
+    +header(navigation.header)
+
+    .container-fluid.container-lg
+        +sidebar(navigation.menu)
+        main(class=mainClass)
+            block content-toolbar
+            block content

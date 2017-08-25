@@ -1,0 +1,78 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutCreateViewModel
+
+@{
+    ViewBag.Title = "Peanut erstellen";
+
+    string userGroupPlaceholder = null;
+    if (Model.PeanutCreateCommand.UserGroup == null) {
+        userGroupPlaceholder = "Gruppe wählen ...";
+    }
+}
+
+
+
+@using (Html.BeginForm("Create", "Peanut", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<Peanut>(IdForElement.Form, IdForAction.Create) })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+
+    <fieldset>
+        <legend>Allgemein</legend>
+        @Html.Form().Select(m => m.PeanutCreateCommand.UserGroup, Objects.GetPropertyName<UserGroup>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<UserGroup>(userGroup => userGroup.Name), (IList)Model.UserGroups, userGroupPlaceholder, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup)
+
+        @Html.Form().TextBox(m => m.PeanutCreateCommand.PeanutDto.Name)
+        @Html.Form().TextArea(m => m.PeanutCreateCommand.PeanutDto.Description)
+        @Html.Form().Date(m => m.PeanutCreateCommand.PeanutDto.Day)
+    </fieldset>
+
+    <fieldset>
+        <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Participations</legend>
+        @Html.Form().Select(m => m.PeanutCreateCommand.MyParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), (IList)Model.ParticipationTypes, "Ich werde nicht teilnehmen", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType)
+    </fieldset>
+    <fieldset>
+        <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Requirements</legend>
+        @using (MvcDynamicList<RequirementDto> dynList = Html.Form().BeginDynamicList(m => m.PeanutCreateCommand.Requirements, new RouteValueDictionary { { "class", "peanut-requirements-list" } })) {
+            foreach (KeyValuePair<string, RequirementDto> requirement in dynList.ListItems) {
+                using (MvcDynamicListItem<RequirementDto> item = dynList.BeginListItem(requirement, new RouteValueDictionary { { "class", "peanut-requirements-list-item" } })) {
+                    @item.Html.Form().Number(m => m.Quantity, "1")
+                    @item.Html.Form().TextBox(m => m.Unit, "x")
+                    @item.Html.Form().TextBox(m => m.Name)
+                    @item.Html.Form().Url(m => m.Url)
+                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                        <span class="icon icon-trash"></span>
+                    </button>
+                }
+            }
+
+            using (MvcDynamicListItemAdder<RequirementDto> addItem = dynList.BeginListItemAdder(RequirementDto.Default)) {
+                <div class="dynamic-list-item peanut-requirements-list-item">
+                    @addItem.Html.Form().Number(m => m.Quantity, Resources_Web.peanut_requirement_quantity_placeholder)
+                    @addItem.Html.Form().TextBox(m => m.Unit, Resources_Web.peanut_requirement_unit_placeholder)
+                    @addItem.Html.Form().TextBox(m => m.Name, Resources_Web.peanut_requirement_name_placeholder)
+                    @addItem.Html.Form().Url(m => m.Url, Resources_Web.peanut_requirement_url_placeholder)
+                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                        <span class="icon icon-trash"></span>
+                    </button>
+                </div>
+            }
+        }
+    </fieldset>
+}
+
+@section toolbar {
+    <button type="submit" class="btn btn-primary pull-right" form="@(Html.GenerateId<Peanut>(IdForElement.Form, IdForAction.Create))">
+        <span class="icon-plus"></span>
+        <span>@Resources_Web.peanut_btn_create</span>
+    </button>
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <span class="icon-arrow-left"></span>
+        <span>@Resources_Web.btn_Cancel_Create</span>
+    </a>
+
+}

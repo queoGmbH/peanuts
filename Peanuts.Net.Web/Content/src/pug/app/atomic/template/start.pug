@@ -1,0 +1,12 @@
+extends base
+
+block templateControls
+    - var bodyClass = "no-sidebar"
+
+block page
+    +header(navigation.header)
+
+    .container-fluid.bg-gray-lightest
+        .content-fullscreen.container-lg
+            .content-fullscreen__wrap
+                block content

@@ -1,0 +1,60 @@
+﻿a {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+        color .1s ease,
+        background-color .1s ease;
+}
+
+.link {
+    &--text {
+        color: @brand-primary;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:before {
+            margin-right: 5px;
+        }
+
+        &:after {
+            margin-left: 5px;
+        }
+    }
+}
+
+.styleguide-link {
+    position: fixed;
+    z-index: 10000;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid @brand-secondary;
+    text-align: center;
+
+    span {
+        color: @brand-primary;
+        line-height: 29px;
+    }
+}
+
+.toolbar-link {
+    line-height: 33px;
+    padding-right: 10px;
+
+    &:before {
+        padding-right: 5px;
+    }
+}
+
+*:target:before {
+    content: "";
+    display: block;
+    height: 125px;
+    margin: -125px 0 0;
+    visibility: hidden;
+}

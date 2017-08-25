@@ -1,0 +1,16 @@
+﻿Subject: Rechnung "{bill.Subject}" wurde von allen Schuldnern akzeptiert
+
+<p>Hallo {creditor.FirstName},</p>
+<p>
+du hast am {bill.CreatedAt:D} eine Rechnung mit dem Betreff <a href="{billUrl}" title="Rechnung anzeigen">"{bill.Subject}"</a> gestellt.
+</p>
+<p>
+Inzwischen haben alle Schuldner die Rechnung akzeptiert, so dass sie abgerechnet werden kann.<br/>
+Die Abrechnung erfolgt automatisch innerhalb der nächsten 24 Stunden. Wenn dir das zu lange dauert,<br/>
+kannst du die Rechnung auch <a href="{settleBillUrl}" title="Selber abbrechnen">selber abrechnen</a>. 
+</p>
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>
+

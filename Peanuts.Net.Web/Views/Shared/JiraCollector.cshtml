@@ -1,0 +1,9 @@
+﻿@using Spring.Context.Support
+@{
+    string jiraCollectorUrl = ContextRegistry.GetContext().GetObject<string>("jiraCollectorUrl");
+    // TODO: Warum wird der string schon vorher encoded?
+    jiraCollectorUrl = HttpUtility.HtmlDecode(jiraCollectorUrl);
+}
+<script type="text/javascript" src="@Html.Raw(jiraCollectorUrl)"></script>
+
+

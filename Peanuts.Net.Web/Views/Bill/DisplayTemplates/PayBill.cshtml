@@ -1,0 +1,24 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Bill.DebitorBillViewModel
+
+@{
+    BillUserGroupDebitor billUserGroupDebitor = Model.Bill.UserGroupDebitors.SingleOrDefault(deb => deb.UserGroupMembership.User.Equals(Model.User));
+}
+@if (billUserGroupDebitor == null) {
+    <span>-</span>
+} else if (billUserGroupDebitor.BillAcceptState == BillAcceptState.Accepted) {
+    <span class="icon icon-hourglass-half" title="Die Rechnung ist bezahlt aber noch nicht abgerechnet."></span>
+} else if (billUserGroupDebitor.BillAcceptState == BillAcceptState.Refused) {
+    <span class="icon icon-ban" title="Die Rechnung wurde abgelehnt: @(billUserGroupDebitor.RefuseComment)" ></span>
+} else if (billUserGroupDebitor.BillAcceptState == BillAcceptState.Pending) {
+    using (Html.BeginForm("AcceptBill", "Bill", FormMethod.Post, new {@class = "form form-inline", role="form"})) {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("bill", Model.Bill.BusinessId)
+        <div class="btn-group" role="group">
+            <button type="submit" title="Die Rechnung bezahlen." class="btn btn-link icon icon-thumbs-up text-success" formmethod="Post" formaction="@Url.Action("AcceptBill", "Bill", new { bill = Model.Bill.BusinessId })">
+            </button>
+            <button type="submit" title="Die Rechnung ablehnen." class="btn btn-link icon icon-thumbs-down text-danger" formmethod="Get" formaction="@Url.Action("RefuseBillForm", "Bill", new { bill = Model.Bill.BusinessId })">
+            </button>
+        </div>
+    }
+}

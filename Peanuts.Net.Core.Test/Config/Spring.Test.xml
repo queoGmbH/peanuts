@@ -1,0 +1,77 @@
+﻿<?xml version="1.0"
+      encoding="utf-8" ?>
+
+<objects xmlns="http://www.springframework.net"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.net 
+             http://www.springframework.net/xsd/spring-objects.xsd">
+
+  <!--Hier werden die Test-Klassen definiert. Bitte ALPHABETISCH sortieren.-->
+  <object id="documentCreator"
+          type="Com.QueoFlow.Peanuts.Net.Core.CreatorUtils.DocumentCreator, Peanuts.Net.Core.Test"
+          autowire="autodetect">
+    <constructor-arg>
+      <value>${documentContentBasePath}</value>
+    </constructor-arg>
+    <constructor-arg>
+      <value>${uploadedFileBasePath}</value>
+    </constructor-arg>
+  </object>
+
+
+  <object id="userGroupCreator"
+        type="Com.QueoFlow.Peanuts.Net.Core.CreatorUtils.UserGroupCreator, Peanuts.Net.Core.Test"
+        autowire="autodetect">
+  </object>
+
+  <object id="userGroupMembershipCreator"
+        type="Com.QueoFlow.Peanuts.Net.Core.CreatorUtils.UserGroupMembershipCreator, Peanuts.Net.Core.Test"
+        autowire="autodetect">
+  </object>
+
+  <object id="billCreator"
+        type="Com.QueoFlow.Peanuts.Net.Core.CreatorUtils.BillCreator, Peanuts.Net.Core.Test"
+        autowire="autodetect">
+  </object>
+  
+  <object id="proposedUserCreator"
+        type="Com.QueoFlow.Peanuts.Net.Core.CreatorUtils.ProposedUserCreator, Peanuts.Net.Core.Test"
+        autowire="autodetect">
+  </object>
+  
+  <object id="userCreator"
+        type="Com.QueoFlow.Peanuts.Net.Core.CreatorUtils.UserCreator, Peanuts.Net.Core.Test"
+        autowire="autodetect">
+  </object>
+
+  <object id="accountBuilder"
+        type="Com.QueoFlow.Peanuts.Net.Core.TestDataBuilders.AccountBuilder, Peanuts.Net.Core.Test"
+        singleton="false"
+        autowire="autodetect">
+  </object>
+
+  <object id="userBuilder"
+        type="Com.QueoFlow.Peanuts.Net.Core.TestDataBuilders.UserBuilder, Peanuts.Net.Core.Test"
+        singleton="false"
+        autowire="autodetect">
+  </object>
+  
+  <object id="paymentBuilder"
+        type="Com.QueoFlow.Peanuts.Net.Core.TestDataBuilders.PaymentBuilder, Peanuts.Net.Core.Test"
+        singleton="false"
+        autowire="autodetect">
+  </object>
+
+  <object id="userGroupBuilder"
+        type="Com.QueoFlow.Peanuts.Net.Core.TestDataBuilders.UserGroupBuilder, Peanuts.Net.Core.Test"
+        singleton="false"
+        autowire="autodetect">
+  </object>
+
+  <object id="userGroupMembershipBuilder"
+        type="Com.QueoFlow.Peanuts.Net.Core.TestDataBuilders.UserGroupMembershipBuilder, Peanuts.Net.Core.Test"
+        singleton="false"
+        autowire="autodetect">
+  </object>
+
+</objects>

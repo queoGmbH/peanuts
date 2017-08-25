@@ -1,0 +1,135 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutParticipationCreateFormViewModel
+
+@section toolbar {
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <span class="icon icon-arrow-left"></span>
+        <span>@Resources_Web.btn_Cancel_Create</span>
+    </a>
+
+
+    <button type="submit" class="btn btn-primary pull-right" form="@(Html.GenerateId<PeanutParticipation>(IdForElement.Form, IdForAction.Create))">
+        <span class="icon icon-thumbs-up"></span>
+        <span>Teilnehmen</span>
+    </button>
+}
+
+
+@using (Html.BeginForm("Attend", "Peanut", new { peanut = Model.Peanut.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<PeanutParticipation>(IdForElement.Form, IdForAction.Create) })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+
+    <fieldset>
+        <legend class="form__legend pull-left">Teilnahme</legend>
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().Select(m => m.PeanutParticipationCreateCommand.PeanutParticipationType, Objects.GetPropertyName<PeanutParticipationType>(participationType => participationType.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(participationType => participationType.Name), (IList)Model.PeanutParticipationTypes, null, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType)
+            </div>
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend class="form__legend pull-left">Allgemein</legend>
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().Static(m => m.Peanut.Name)
+                @Html.Form().Static(m => m.Peanut.UserGroup.DisplayName)
+                @Html.Form().Static(m => m.Peanut.Day, formatString: "{0:D}")
+            </div>
+            <div class="form__col">
+                @Html.Form().Static(m => m.Peanut.CreatedAt)
+                @Html.Form().Static(m => m.Peanut.CreatedBy.DisplayName)
+                @if (Model.Peanut.ChangedAt.HasValue) {
+                    @Html.Form().Static(m => m.Peanut.ChangedAt)
+                }
+                @if (Model.Peanut.ChangedBy != null) {
+                    @Html.Form().Static(m => m.Peanut.ChangedBy)
+                }
+            </div>
+        </div>
+        @Html.Form().Static(m => m.Peanut.Description)
+
+    </fieldset>
+
+    if (Model.Peanut.Requirements.Any()) {
+        <div class="form__col">
+            <fieldset>
+                <legend class="form__legend pull-left">
+                    <span>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Requirements (@Model.Peanut.Requirements.Count)</span>
+                </legend>
+
+                <table class="list">
+                    @foreach (PeanutRequirement req in Model.Peanut.Requirements) {
+                        <tr>
+                            <td>
+                                @req.QuantityAndUnit
+                                @req.Name
+                            </td>
+                            <td class="list-data--link">
+                                @if (!string.IsNullOrEmpty(req.Url)) {
+                                    <a href="@req.Url" target="_blank" class="icon icon-external-link"></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+
+            </fieldset>
+        </div>
+    }
+
+    <fieldset>
+        <legend class="form__legend">Bisherige Teilnehmer</legend>
+        <table class="list">
+            @foreach (PeanutParticipation participation in Model.Peanut.Participations) {
+                <tr>
+                    <td>
+                        @participation.UserGroupMembership.User.DisplayName
+                    </td>
+                    <td>
+                        @participation.ParticipationType.Name
+                    </td>
+                    <td>
+                        @switch (participation.ParticipationState) {
+                            case PeanutParticipationState.Confirmed: {
+                                <div class="label label-success">
+                                    @participation.ParticipationState
+                                </div>
+                                break;
+                            }
+                            case PeanutParticipationState.Requested: {
+                                <div class="label label-warning">
+                                    @participation.ParticipationState
+                                </div>
+                                break;
+                            }
+                            case PeanutParticipationState.Refused: {
+                                <div class="label label-danger">
+                                    @participation.ParticipationState
+                                </div>
+                                break;
+                            }
+                            case PeanutParticipationState.Pending:
+                            default: {
+                                <div class="label label-default">
+                                    @participation.ParticipationState
+                                </div>
+                                break;
+                            }
+                        }
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </fieldset>
+}

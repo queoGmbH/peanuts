@@ -1,0 +1,4 @@
+mixin list-row(data, type)
+    tr
+        each item in data
+            td(class=type?"list-data--" + type:null)= item

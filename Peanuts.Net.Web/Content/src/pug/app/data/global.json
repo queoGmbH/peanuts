@@ -1,0 +1,109 @@
+{
+  "navigation": {
+    "header": {
+      "text": "Max Mustermann Mustermann",
+      "icon": "user-o",
+      "items": [
+        {
+          "text": "Nutzerprofil",
+          "url": "/me.html",
+          "icon": "drivers-license-o"
+        },{
+          "text": "Logout",
+          "url": "/index.html",
+          "icon": "power-off",
+          "class": "logout"
+        }
+      ]
+    },
+    "dashboard":[
+      {
+        "title": "Gruppen",
+        "url": "/groups.html",
+        "icon": "group",
+        "message": "Sie sind Mitglied in 3 Gruppen"
+      },
+      {
+        "title": "Rechnungen",
+        "url": "/bills.html",
+        "icon": "eur",
+        "message": "Sie haben 4 unbezahlte Rechnungen!"
+      },
+      {
+        "title": "Vorgänge",
+        "url": "/tickets.html",
+        "icon": "ticket",
+        "message": "Sie wurden zu 2 Tickets eingeladen."
+      }
+    ],
+    "menu": [
+      {
+        "title": "Dashboard",
+        "url": "/start.html",
+        "icon": "home",
+        "active": true
+      },{
+        "title": "Gruppen",
+        "url": "/groups.html",
+        "icon": "group"
+      },
+      {
+        "title": "Rechnungen",
+        "url": "/bills.html",
+        "icon": "eur",
+        "badge": 4
+      },
+      {
+        "title": "Vorgänge",
+        "url": "/tickets.html",
+        "icon": "ticket",
+        "badge": 1
+      },{
+        "title": "Administration",
+        "url": "/admin/dashboard.html",
+        "icon": "gears",
+        "linkClass": "admin"
+      },{
+        "title": "Feedback",
+        "url": "mailto:email@echoecho.com?subject=Feedback",
+        "icon": "envelope",
+        "linkClass": "bottom"
+      }
+    ],
+    "content": [
+      {
+        "text": "Bilder",
+        "url": "#",
+        "icon": "icon-placeholder"
+      },{
+        "text": "Objektbeschreibug",
+        "url": "#",
+        "icon": "icon-placeholder"
+      },{
+        "text": "Preise",
+        "url": "#",
+        "icon": "icon-placeholder"
+      },{
+        "text": "Karte",
+        "url": "#",
+        "icon": "icon-placeholder"
+      },{
+        "text": "Dokumente/Links",
+        "url": "#",
+        "icon": "icon-placeholder"
+      }
+    ]
+  },
+  "startHeadline": {
+    "title": "Willkommen, Max Mustermann!",
+    "text": "Es ist der 26. Januar 2017. Womit möchten Sie heute beginnen?"
+  },
+  "errormsg": {
+    "required": "Das Feld ist erforderlich.",
+    "email": "Keine gültige E-Mail-Adresse.",
+    "password": "Das Passwort ist nicht valide.",
+    "length": "Die Länge ist nicht zulässig.",
+    "number": "Das Feld ist keine Zahl.",
+    "date": "Das Feld ist kein valides Datum."
+  }
+}

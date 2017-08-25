@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:db="http://www.springframework.net/database"
+         xmlns:tx="http://www.springframework.net/tx"
+         xsi:schemaLocation="http://www.springframework.net 
+             http://www.springframework.net/xsd/spring-objects.xsd
+             http://www.springframework.net/database http://www.springframework.net/schema/db/spring-database.xsd
+             http://www.springframework.net/schema/tx http://www.springframework.net/schema/tx/spring-tx-1.1.xsd">
+  <object name="appConfigPropertyHolder"
+          type="Spring.Objects.Factory.Config.VariablePlaceholderConfigurer, Spring.Core">
+    <property name="VariableSources">
+      <list>
+        <object type="Spring.Objects.Factory.Config.PropertyFileVariableSource, Spring.Core">
+          <property name="Location"
+                    value="~\bin\Config\Spring.Properties.config" />
+        </object>
+      </list>
+    </property>
+  </object>
+
+  <db:provider id="applicationDbProvider" provider="${dbProvider}" connectionString="${dbConnectionString}" />
+ 
+  <object id="applicationSessionFactory"
+          type="Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Persistence.FluentSessionFactory, Peanuts.Net.Core">
+    <property name="DbProvider"
+              ref="applicationDbProvider" />
+    <property name="HibernateProperties">
+      <dictionary>
+        <entry key="connection.provider"
+               value="NHibernate.Connection.DriverConnectionProvider" />
+        <entry key="dialect"
+               value="NHibernate.Dialect.MsSql2005Dialect" />
+        <entry key="connection.driver_class"
+               value="NHibernate.Driver.SqlClientDriver" />
+        <entry key="show_sql"
+               value="true" />
+        <entry key="validate"
+               value="false" />
+        <entry key="generate_statistics" value="true"/>
+      </dictionary>
+    </property>
+    <!--<property name="ExposeTransactionAwareSessionFactory" value="true" />-->
+    <property name="MappingAssemblies">
+      <list>
+      </list>
+    </property>
+    <property name="FluentMappingAssemblies">
+      <value>Peanuts.Net.Core</value>
+    </property>
+  </object>
+
+  <object id="applicationTransactionManager"
+          type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate4">
+    <property name="DbProvider"
+              ref="applicationDbProvider" />
+    <property name="SessionFactory"
+              ref="applicationSessionFactory" />
+  </object>
+
+  <tx:attribute-driven transaction-manager="applicationTransactionManager" />
+
+</objects>

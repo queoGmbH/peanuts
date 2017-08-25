@@ -1,0 +1,6 @@
+mixin card-image(url, imageUrl, title)
+    +link(url).card
+        span.card__image(title=title style="background-image: url("+imageUrl+")")
+        span.card__text
+            span.card-text__title= title
+            block

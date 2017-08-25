@@ -1,0 +1,12 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Documents
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@model UploadedFile
+
+
+@Html.Hidden(Objects.GetPropertyName<UploadedFile>(m => m.FileInfo), Model.FileInfo.Name)
+<div class="file-uploaded__image js-fileupload-uploaded-file-preview" style="background-image: url(@Url.Action("UploadAsyncPreview", "Document", new { area = "", uploadedFile = Model.FileInfo.Name }));">
+    <div class="file-uploaded__overlay">
+        <a class="link icon-trash js-fileupload-delete"></a>
+    </div>
+</div>
+@Html.TextBoxFor(m => m.FileName, new {@class = "file-uploaded__name"})

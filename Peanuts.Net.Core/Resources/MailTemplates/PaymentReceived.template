@@ -1,0 +1,16 @@
+﻿Subject: Zahlung "{payment.Text}" von {sender.DisplayName} über {amount:C} erhalten
+
+<p>Hallo {recipient.FirstName},</p>
+
+<p>
+du hast eine Zahlung von {sender.DisplayName} über {amount:C} mit dem Betreff "{payment.Text}" erhalten.
+</p>
+<p>
+Damit die Zahlung vollzogen werden kann, musst du diese bestätigen.<br/>
+Das kannst du <a href="{paymentUrl}" title="Zahlung anzeigen und bestätigen">hier tun</a>.
+</p>
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>
+

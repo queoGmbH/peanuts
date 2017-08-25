@@ -1,0 +1,18 @@
+extends app/atomic/template/login
+
+include app/atomic/atom/headline-login
+
+block content
+
+    +headline-login('Partner-Login')
+
+    +form('horizontal').form-login(action='/start.html')
+        +form-group('Benutzername', 'username')
+            +input-text('username')(data-val="true" data-val-required=errormsg.required)
+        +form-group('Passwort', 'password')
+            +input-text('password', null, 'password')(data-val="true" data-val-required=errormsg.required)
+        +form-group(null, "save")
+            +checkbox-inline('save', 'auf diesem Gerät angemeldet bleiben')(data-val="true" data-val-mandatory=errormsg.required)
+        +form-group.btn-group
+            +button('primary')(type='submit') Login
+            +link('start.html') Passwort vergessen

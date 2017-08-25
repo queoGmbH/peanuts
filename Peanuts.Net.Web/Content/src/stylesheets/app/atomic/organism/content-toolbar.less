@@ -1,0 +1,41 @@
+.content-toolbar {
+    position: fixed;
+    top: auto;
+    left: auto;
+    margin-top: -@default-nav-width;
+    width: ~"calc(100% - @{default-nav-width})";
+    height: @default-nav-width;
+    background-color: @gray-lightest;
+    padding: 9px (@grid-gutter-width / 2) 8px;
+    z-index: 950;
+
+    &__wrap {
+        // overflow: hidden;
+        height: @input-height-base;
+    }
+
+    .btn.pull-right, .btn-group.pull-right {
+        margin-right: 10px;
+    }
+
+    .btn-group > .btn {
+        margin-right: 0;
+    }
+
+    @media (min-width: @screen-lg-min) {
+        width: @container-lg - @default-nav-width - @grid-gutter-width;
+    }
+
+    @media (max-width: @screen-xs-max) {
+        
+        .btn span.icon-arrow-left{
+            &:before{
+                padding-right: 0;
+            }
+        }
+        
+        .btn span.icon-arrow-left + span{
+            display: none;
+        }
+    }
+}

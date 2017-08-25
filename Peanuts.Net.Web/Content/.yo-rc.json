@@ -1,0 +1,306 @@
+{
+  "generator-queo-blendid": {
+    "enableStaticFiles": false,
+    "enableAssetRevisioning": false,
+    "appName": "immoTwist Maklerportal",
+    "appDescription": "Prototyp & Styleguide für das immoTwist Maklerportal zum Bereitstellen der CSS- und Javascript-Assets",
+    "repositoryName": "immotwist-maklerportal",
+    "appAuthorName": "Ricardo Schmidt",
+    "appAuthorEmail": "r.schmidt@queo-group.com",
+    "urlWiki": "https://wiki.queo-group.com/display/PROJ/iTWISTMP+-+ImmoTwist+Maklerportal",
+    "urlJira": "https://jira.queo-group.com/browse/ITWISTMP",
+    "enablePug": true,
+    "enableJavascript": true,
+    "enableTypescript": false,
+    "enableStylesheet": true,
+    "cssPreprocessor": "less",
+    "bootstrapVersion": "3.3.7",
+    "enableStyleguide": true,
+    "cssAutoprefixer": true,
+    "enableImages": true,
+    "enableFonts": true,
+    "watch": true,
+    "browserSync": true,
+    "devServer": true,
+    "devBrowserOpen": false,
+    "devBrowser": "chrome",
+    "organism": {
+      "header": {
+        "id": "header",
+        "css": true,
+        "category": "page"
+      },
+      "sidebar": {
+        "id": "sidebar",
+        "css": true,
+        "category": "page"
+      },
+      "toolbar": {
+        "id": "content-toolbar",
+        "css": true,
+        "category": "page"
+      },
+      "cards-grid-dashboard": {
+        "id": "cards-grid-dashboard",
+        "css": true,
+        "category": "content"
+      },
+      "form": {
+        "id": "form",
+        "css": false,
+        "category": "form"
+      },
+      "list-row": {
+        "id": "list-row",
+        "css": false,
+        "category": ""
+      },
+      "list-row-link": {
+        "id": "list-row-link",
+        "css": false,
+        "category": ""
+      },
+      "cards-grid": {
+        "id": "cards-grid",
+        "css": true,
+        "category": "content"
+      },
+      "grid-fileupload": {
+        "id": "grid-files",
+        "css": true,
+        "category": "content"
+      },
+      "table": {
+        "id": "table",
+        "css": false,
+        "category": "content"
+      },
+      "slider": {
+        "id": "slider",
+        "css": true,
+        "category": ""
+      },
+      "dynamic-list": {
+        "id": "dynamic-list",
+        "css": false
+      }
+    },
+    "molecule": {
+      "header-nav": {
+        "id": "header-nav",
+        "css": true,
+        "category": ""
+      },
+      "sidebar-nav": {
+        "id": "sidebar-nav",
+        "css": true,
+        "category": ""
+      },
+      "form-group": {
+        "id": "form-group",
+        "css": true,
+        "category": "form"
+      },
+      "headline-start": {
+        "id": "headline-start",
+        "css": true,
+        "category": "content"
+      },
+      "card-dashboard": {
+        "id": "card-dashboard",
+        "css": true,
+        "category": ""
+      },
+      "section": {
+        "id": "section",
+        "css": true,
+        "category": "content"
+      },
+      "list": {
+        "id": "list",
+        "css": true,
+        "category": "content"
+      },
+      "list-head": {
+        "id": "list-head",
+        "css": true,
+        "category": ""
+      },
+      "list-body": {
+        "id": "list-body",
+        "css": false,
+        "category": ""
+      },
+      "highlight": {
+        "id": "highlight",
+        "css": false,
+        "category": ""
+      },
+      "card-icon": {
+        "id": "card-icon",
+        "css": true,
+        "category": ""
+      },
+      "card-image": {
+        "id": "card-image",
+        "css": false,
+        "category": ""
+      },
+      "card-admin": {
+        "id": "card-admin",
+        "css": false,
+        "category": ""
+      },
+      "table-head": {
+        "id": "table-head",
+        "css": false,
+        "category": ""
+      },
+      "table-body": {
+        "id": "table-body",
+        "css": false,
+        "category": ""
+      },
+      "file-upload-container": {
+        "id": "file-upload-container",
+        "css": true,
+        "category": ""
+      },
+      "file-uploaded": {
+        "id": "file-uploaded",
+        "css": true,
+        "category": ""
+      },
+      "nav-tabs": {
+        "id": "nav-tabs",
+        "css": true,
+        "category": "navigation"
+      },
+      "nav-tabs-panel": {
+        "id": "nav-tabs-panel",
+        "css": false,
+        "category": ""
+      },
+      "form-validation-summary": {
+        "id": "form-validation-summary",
+        "css": false
+      },
+      "dynamic-list-item": {
+        "id": "dynamic-list-item",
+        "css": false,
+        "category": ""
+        "css": false
+      },
+      "slider-item": {
+        "id": "slider-item",
+        "css": true,
+        "category": ""
+      }
+    },
+    "atom": {
+      "link": {
+        "id": "link",
+        "css": true
+      },
+      "link-icon": {
+        "id": "link-icon",
+        "css": true
+      },
+      "button": {
+        "id": "button",
+        "css": false
+      },
+      "button-submit": {
+        "id": "button-submit",
+        "css": false
+      },
+      "badge": {
+        "id": "badge",
+        "css": true
+      },
+      "headline": {
+        "id": "headline",
+        "css": false
+      },
+      "input-text": {
+        "id": "input-text",
+        "css": false
+      },
+      "input-number": {
+        "id": "input-number",
+        "css": false
+      },
+      "input-static": {
+        "id": "input-static",
+        "css": false
+      },
+      "input-date": {
+        "id": "input-date",
+        "css": false,
+        "category": ""
+      },
+      "label": {
+        "id": "label",
+        "css": false
+      },
+      "textarea": {
+        "id": "textarea",
+        "css": false
+      },
+      "checkbox": {
+        "id": "checkbox",
+        "css": true
+      },
+      "checkbox-inline": {
+        "id": "checkbox-inline",
+        "css": false
+      },
+      "select-single": {
+        "id": "select-single",
+        "css": true,
+        "category": ""
+      },
+      "select-multiple": {
+        "id": "select-multiple",
+        "css": true,
+        "category": ""
+      },
+      "headline-login": {
+        "id": "headline-login",
+        "css": true
+      },
+      "circle": {
+        "id": "circle",
+        "css": false
+      },
+      "table-row": {
+        "id": "table-row",
+        "css": false
+      },
+      "table-data": {
+        "id": "table-data",
+        "css": false
+      },
+      "table-data-icon": {
+        "id": "table-data-icon",
+        "css": false
+      },
+      "table-data-image": {
+        "id": "table-data-image",
+        "css": false
+      },
+      "table-data-number": {
+        "id": "table-data-number",
+        "css": false
+      },
+      "admin-link-start": {
+        "id": "admin-link-start",
+        "css": true
+      },
+      "link-button": {
+        "id": "link-button",
+        "css": false
+      }
+    }
+  }
+}

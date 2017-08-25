@@ -1,0 +1,65 @@
+ul.nav-tabs {
+    @media (max-width: @screen-xs-max) {
+        padding: 0 20px !important;
+
+        > li {
+            float: none;
+
+            a:before {
+                .icon();
+
+                font-family: 'icomoon' !important;
+                display: inline-block;
+                content: @icon-angle-right;
+                margin-right: 5px;
+            }
+
+            &.active {
+                & > a,
+                & > a:focus,
+                & > a:hover {
+                    border: 0;
+                    background-color: @gray-lighter;
+                }
+            }
+        }
+
+        li a {
+            margin-left: -20px;
+            margin-right: -20px;
+            padding: 5px 20px;
+            border: 0;
+        }
+    }
+
+    padding: 0 30px !important;
+
+    > li.active > a {
+        &,
+        &:hover {
+            font-weight: @font-weight-bold;
+            color: @brand-primary;
+        }
+    }
+
+    > li > a:hover {
+        background-color: @gray-lighter;
+    }
+
+    > li.invalid > a {
+        &,
+        &:focus,
+        &:hover {
+            color: @red;
+        }
+
+        &:after {
+            .icon();
+
+            content: @icon-exclamation-circle;
+            font-family: 'icomoon' !important;
+            font-size: @font-size-small;
+            padding-left: 5px;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting.Bill
+
+
+@{
+    ViewBag.Title = "Rechnung abrechnen";
+    ViewBag.Subtitle = Model.DisplayName;
+}
+
+@section toolbar{
+    <a href="@Url.Action("Show", "Bill", new { bill = Model.BusinessId })" class="btn btn-default">
+        <span class="icon icon-arrow-left">@Resources_Web.btn_Cancel</span>
+    </a>
+}
+
+@using (Html.BeginForm("Settle", "Bill", new { bill = Model.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.HttpMethodOverride(HttpVerbs.Patch)
+
+    if (!Model.IsSettled) {
+        <p>
+            Soll die Rechnung über @(string.Format("{0:C}", Model.Amount)) abgerechnet werden?
+        </p>
+
+        <p class="alert alert-info">
+            Die Abrechnung kann nicht rückgängig gemacht werden.
+        </p>
+
+        <p>
+            <button type="submit" class="btn btn-warning">
+                <span class="icon-check"></span>
+                Abrechnen
+            </button>
+        </p>
+    } else {
+        <p class="alert alert-danger">
+            Die Abrechnung wurde bereits abgerechnet.
+        </p>
+    }
+}

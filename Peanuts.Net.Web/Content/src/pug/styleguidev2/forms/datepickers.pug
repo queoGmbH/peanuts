@@ -1,0 +1,31 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Datepicker
+
+        ol
+            li
+                +link('#f1') Datepicker
+            li
+                +link('#f2') Datetimepicker
+
+        h2#f1 Datepicker
+        +form('horizontal')
+            +form-group('Datepicker', 'birthday')
+                +input-date('birthday')(data-val-date=errormsg.date data-val-required=errormsg.required data-val="true")
+        +highlight()
+            +form('horizontal')
+                +form-group('Datepicker', 'birthday')
+                    +input-date('birthday')(data-val-date=errormsg.date data-val-required=errormsg.required data-val="true")
+
+        h2#f2 Datetimepicker
+        +form('horizontal')
+            +form-group('Datetimepicker', 'birthday')
+                +input-datetime('birthday')(data-val-date=errormsg.date data-val-required=errormsg.required data-val="true")
+            +highlight()
+                +form('horizontal')
+                    +form-group('Datetimepicker', 'birthday')
+                        +input-datetime('birthday')(data-val-date=errormsg.date data-val-required=errormsg.required data-val="true")

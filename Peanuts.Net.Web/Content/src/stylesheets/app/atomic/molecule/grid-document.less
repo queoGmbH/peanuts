@@ -1,0 +1,81 @@
+﻿.grid-document {
+    margin-bottom: 10px;
+    position: relative;
+    width: 33.333333%;
+    padding: 0 2px;
+
+    &__name {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+
+    &__select {
+        display: none;
+
+
+
+        &:checked + .grid-document__image .grid-document__overlay {
+            display: flex;
+            background-color: rgba(255,255,255,.8);
+
+            &:hover{
+                background-color: rgba(255,255,255,.6);
+            }
+
+            .link {
+                color: @red;
+                &:hover {
+                    color: @gray-dark;
+                }
+            }
+        }
+    }
+
+    &__image {
+        margin-bottom: 5px;
+        position: relative;
+        height: 150px;
+        background-size: cover;
+
+        &:hover .grid-document__overlay {
+            display: flex;
+        }
+    }
+
+    &__overlay {
+        background-color: rgba(255,255,255,.5);
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        display: none;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .link {
+            &:hover {
+                color: @red;
+            }
+
+            .icon-circle(default, 1px solid @brand-secondary);
+            cursor: pointer;
+
+            &:before {
+                line-height: 28px;
+            }
+        }
+    }
+
+    @media (min-width: @screen-xs) {
+        &__overlay {
+            flex-direction: row;
+        }
+    }
+
+    @media (min-width: @screen-sm) {
+        width: 20%;
+    }
+}

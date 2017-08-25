@@ -1,0 +1,21 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.UserGroup.UserGroupDeleteViewModel
+
+@{
+    ViewBag.Title = "Maklerpool löschen";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        Der Maklerpool @Model.UserGroup.Name kann nicht gelöscht werden, da ihm noch Nutzer zugeordnet sind.
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <a href="@Url.Action("Index")" class="btn btn-default">
+            <span>@Resources_Web.btn_Cancel</span>
+        </a>
+    </div>
+</div>

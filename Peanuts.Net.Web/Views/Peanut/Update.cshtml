@@ -1,0 +1,137 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutUpdateViewModel
+
+@{
+    ViewBag.Title = "Peanut ändern";
+    ViewBag.Subtitle = Model.Peanut.Name;
+}
+
+@functions {
+
+    string GetPeanutParticipationStateModifierClass(PeanutParticipationState participationState) {
+        switch (participationState) {
+            case PeanutParticipationState.Confirmed: {
+                return "success";
+            }
+            case PeanutParticipationState.Requested: {
+                return "warning";
+            }
+            case PeanutParticipationState.Refused: {
+                return "danger";
+            }
+            case PeanutParticipationState.Pending:
+            default: {
+                return "default";
+            }
+        }
+    }
+
+}
+
+@using (Html.BeginForm("Update", "Peanut", FormMethod.Post, new {
+    @class = "form form-horizontal", role = "form", id = Html.GenerateId<Peanut>(IdForElement.Form, IdForAction.Update)
+})) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {
+        @class = "form-validation-summary"
+    }, "p")
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    <fieldset>
+        <legend>Allgemein</legend>
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().Static(m => m.Peanut.UserGroup.DisplayName)
+                @Html.Form().TextBox(m => m.PeanutUpdateCommand.PeanutDto.Name)
+                @Html.Form().Date(m => m.PeanutUpdateCommand.PeanutDto.Day)
+                @Html.Form().Select(m => m.PeanutUpdateCommand.PeanutState, null, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_PeanutState)
+            </div>
+            <div class="form__col">
+                @Html.Form().TextArea(m => m.PeanutUpdateCommand.PeanutDto.Description)
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form__row">
+        <div class="form__col">
+            <fieldset>
+                <legend>Teilnehmer (@Model.Peanut.Participations.Count(s => s.ParticipationState == PeanutParticipationState.Confirmed)/@Model.Peanut.Participations.Count)</legend>
+                <table class="list">
+                    @foreach (PeanutParticipation participation in Model.Peanut.Participations) {
+                        <tr>
+                            <td>
+                                @participation.UserGroupMembership.User.DisplayName
+                            </td>
+                            <td>
+                                @participation.ParticipationType.Name
+                            </td>
+                            <td>
+                                <div class="label label-@(GetPeanutParticipationStateModifierClass(participation.ParticipationState))">
+                                    @(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutParticipationState), participation.ParticipationState.ToString()))
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </fieldset>
+        </div>
+        <div class="form__col">
+            <fieldset>
+                <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Requirements</legend>
+                <div class="alert alert-info">
+                    Was wird für den Peanut benötigt?
+                </div>
+                @using (MvcDynamicList<RequirementDto> dynList = Html.Form().BeginDynamicList(m => m.PeanutUpdateCommand.Requirements, new RouteValueDictionary { { "class", "peanut-requirements-list" } })) {
+                    foreach (KeyValuePair<string, RequirementDto> requirement in dynList.ListItems) {
+                        using (MvcDynamicListItem<RequirementDto> item = dynList.BeginListItem(requirement, new RouteValueDictionary { { "class", "peanut-requirements-list-item" } })) {
+                            @item.Html.Form().Number(m => m.Quantity, "1")
+                            @item.Html.Form().TextBox(m => m.Unit, "x")
+                            @item.Html.Form().TextBox(m => m.Name, Resources_Web.peanut_requirement_name_placeholder)
+                            @item.Html.Form().Url(m => m.Url, Resources_Web.peanut_requirement_url_placeholder)
+                            <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                                <span class="icon icon-trash"></span>
+                            </button>
+                        }
+                    }
+
+                    using (MvcDynamicListItemAdder<RequirementDto> addItem = dynList.BeginListItemAdder(RequirementDto.Default)) {
+                        <div class="dynamic-list-item peanut-requirements-list-item">
+                            @addItem.Html.Form().Number(m => m.Quantity, Resources_Web.peanut_requirement_quantity_placeholder)
+                            @addItem.Html.Form().TextBox(m => m.Unit, Resources_Web.peanut_requirement_unit_placeholder)
+                            @addItem.Html.Form().TextBox(m => m.Name, Resources_Web.peanut_requirement_name_placeholder)
+                            @addItem.Html.Form().Url(m => m.Url, Resources_Web.peanut_requirement_url_placeholder)
+                            <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                                <span class="icon icon-trash"></span>
+                            </button>
+                        </div>
+                    }
+                }
+            </fieldset>
+        </div>
+    </div>
+    <div class="form__row">
+        <div class="form__col">
+            <fieldset>
+                <legend class="form__legend pull-left">Änderung</legend>
+                @Html.Form().TextArea(m => m.PeanutUpdateCommand.PeanutCommentCreateCommand.Comment, placeholder: "Was wurde geändert und warum?", label: "Änderungsbeschreibung")
+                @Html.Form().Checkbox(m => m.PeanutUpdateCommand.PeanutCommentCreateCommand.SendUpdateNotification, "Teilnehmer benachrichtigen ...")
+            </fieldset>
+        </div>
+    </div>
+}
+
+@section toolbar {
+    <button type="submit" class="btn btn-primary pull-right" form="@(Html.GenerateId<Peanut>(IdForElement.Form, IdForAction.Update))">
+        <span class="icon icon-check"></span>
+        <span>@Resources_Web.btn_Save_Update</span>
+    </button>
+    <a href="@Url.Action("Show", new { peanut = Model.Peanut.BusinessId })" class="btn btn-default">
+        <span class="icon icon-arrow-left"></span>
+        <span>@Resources_Web.btn_Cancel_Create</span>
+    </a>
+
+}

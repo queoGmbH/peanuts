@@ -1,0 +1,109 @@
+.sidebar-nav {
+    height: 100%;
+    background-color: @gray-lightest;
+
+    &-item {
+        .link,
+        .link--admin {
+            padding: 0;
+            height: @default-nav-width;
+            width: @default-nav-width;
+            color: @gray;
+            border-left: @sidenav-border-width solid transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &.active,
+            &:focus {
+                background-color: @white;
+                border-left: @sidenav-border-width solid @brand-primary;
+                color: @brand-primary;
+            }
+
+            &:hover {
+                background-color: @brand-primary;
+                color: @white;
+            }
+
+            &:active {
+                background-color: @brand-secondary;
+            }
+
+            span:before {
+                font-size: 1.25em;
+                text-align: center;
+                line-height: @default-nav-width;
+            }
+
+            .sidebar-nav-item__info {
+                display: none;
+                z-index: 10;
+                position: absolute;
+                width: 200px;
+                height: @default-nav-width;
+                bottom: 0;
+                left: (@default-nav-width - @sidenav-border-width);
+                padding-left: 20px;
+                background-color: @brand-secondary;
+                border-radius: 0 @border-radius-large @border-radius-large 0;
+                color: @white;
+                line-height: @default-nav-width;
+            }
+
+            &:hover .sidebar-nav-item__info {
+                display: block;
+                text-align: left;
+            }
+        }
+
+        .link--admin {
+            span {
+                .icon-circle(sm, 1px solid @gray, transparent);
+            }
+
+            &.active {
+                border-left-color: @brand-secondary;
+                color: @brand-secondary;
+
+                span:before {
+                    border-color: @brand-secondary;
+                }
+            }
+
+            &:focus {
+                border-left-color: @brand-secondary;
+                color: @brand-secondary;
+
+                span:before {
+                    border-color: @brand-secondary;
+                }
+            }
+
+            &:hover {
+                background-color: @brand-primary;
+                color: @white;
+
+                span:before {
+                    border-color: @white;
+                }
+            }
+
+            &:active {
+                border-left-color: @brand-primary;
+                background-color: @brand-secondary;
+            }
+        }
+
+        &:last-child {
+            position: absolute;
+            bottom: @navbar-height;
+        }
+
+        .badge {
+            position: absolute;
+            right: 6px;
+            bottom: 6px;
+        }
+    }
+}

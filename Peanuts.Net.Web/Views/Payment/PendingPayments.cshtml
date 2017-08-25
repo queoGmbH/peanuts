@@ -1,0 +1,112 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Payment.PendingPaymentsViewModel
+
+@{
+    ViewBag.Title = "Zahlungsübersicht";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+
+
+@section tabs {
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation">
+            <a href="@Url.Action("AcceptedPayments")" aria-controls="creditor" role="tab">Abgerechnete Zahlungen</a>
+        </li>
+        <li class="active" role="presentation">
+            <a href="@Url.Action("PendingPayments")" aria-controls="debitor" role="tab">
+                Zu bestätigende Zahlungen
+                @{
+                    long pendingCount = Model.PendingPaymentsAsRecipient.Count + Model.PendingPaymentsAsSender.Count;
+                    if (pendingCount > 0) {
+                        <span class="badge">@pendingCount</span>
+                    }
+                }
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="@Url.Action("DeclinedPayments")" aria-controls="creditor" role="tab">
+                Abgelehnte Zahlungen
+                @{
+                    long declinedCount = Model.DeclinedPayments.TotalElements;
+                    if (declinedCount > 0) {
+                        <span class="badge">@declinedCount</span>
+                    }
+                }
+            </a>
+        </li>
+
+    </ul>
+}
+
+<div class="form form-horizontal">
+    <div class="nav-tabs-content tab-content">
+        <div class="nav-tabs-panel tab-pane active" role="tabpanel" id="debitor">
+            <fieldset>
+                <legend class="form__legend" title="Listet die Zahlungen auf, bei denen ich bestätigen muss, die Zahlung erhalten oder getätigt zu haben.">Zu bestätigende Zahlungen</legend>
+                @if (Model.PendingPaymentsAsRecipient.Any()) {
+                    <div class="container-content--full">
+                        @(Html.DisplayFor().GridFor(m => m.PendingPaymentsAsRecipient, true)
+                                  .ColumnFor(payment => payment.Sender.Membership.UserGroup.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup).OrderBy()
+                                  .ColumnFor(payment => payment.Amount, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Amount).DisplayFormat("{0:C}").OrderBy()
+                                  .ColumnFor(payment => payment.PaymentType, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_PaymentType).OrderBy()
+                                  .ColumnFor(payment => payment.Text, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Text).OrderBy()
+                                  .ColumnFor(payment => payment.Sender.Membership.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Sender).OrderBy()
+                                  .ColumnFor(payment => payment.Recipient.Membership.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Recipient).OrderBy()
+                                  .ColumnFor(payment => payment.RequestSender.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_RequestSender).OrderBy()
+                                  .ColumnFor(payment => payment.CreatedAt, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_CreatedAt).OrderBy()
+                                  .UrlColumn(payment => Url.Action("AcceptPaymentForm", "Payment", new {
+                                      payment = payment.BusinessId
+                                  })).UrlAttribute("title", "Zahlung akzeptieren").UrlAttribute("class", "icon icon-thumbs-up")
+                                  .UrlColumn(payment => Url.Action("DeclinePaymentForm", "Payment", new {
+                                      payment = payment.BusinessId
+                                  })).UrlAttribute("title", "Zahlung ablehnen").UrlAttribute("class", "icon icon-thumbs-down")
+                                  )
+                    </div>
+                } else {
+                    <p>
+                        Keine unbestätigten Zahlungen
+                    </p>
+                }
+            </fieldset>
+            <hr />
+            <fieldset>
+                <legend class="form__legend" title="Listet die Zahlungen auf, bei denen ich auf die Bestätigung warte, dass ich die Zahlung erhalten oder getätigt habe.">Warte auf Bestätigung</legend>
+                @if (Model.PendingPaymentsAsSender.Any()) {
+                    <div class="container-content--full">
+                        @(Html.DisplayFor().GridFor(m => m.PendingPaymentsAsSender, true)
+                                  .ColumnFor(payment => payment.Sender.Membership.UserGroup.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup).OrderBy()
+                                  .ColumnFor(payment => payment.Amount, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Amount).DisplayFormat("{0:C}").OrderBy()
+                                  .ColumnFor(payment => payment.PaymentType, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_PaymentType).OrderBy()
+                                  .ColumnFor(payment => payment.Text, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Text).OrderBy()
+                                  .ColumnFor(payment => payment.Sender.Membership.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Sender).OrderBy()
+                                  .ColumnFor(payment => payment.Recipient.Membership.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Recipient).OrderBy()
+                                  .ColumnFor(payment => payment.RequestRecipient.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_RequestRecipient).OrderBy()
+                                  .ColumnFor(payment => payment.CreatedAt, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_CreatedAt).OrderBy()
+                                  .UrlColumn(payment => Url.Action("DeleteForm", "Payment", new {
+                                      payment = payment.BusinessId
+                                  })).UrlAttribute("title", "Zahlung löschen").UrlAttribute("class", "icon icon-trash")
+                                  )
+                    </div>
+                } else {
+                    <p>
+                        Keine unbestätigten Zahlungen
+                    </p>
+                }
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+
+@section toolbar{
+    <a href="@Url.Action("PayMoneyForm")" class="btn btn-warning pull-right">
+        <span class="icon icon-sign-out"></span>
+        <span>Geld bezahlt</span>
+    </a>
+
+    <a href="@Url.Action("GotMoneyForm")" class="btn btn-warning pull-right">
+        <span class="icon icon-sign-in"></span>
+        <span>Geld erhalten</span>
+    </a>
+}

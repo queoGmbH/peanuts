@@ -1,0 +1,357 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Extensions
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutsIndexViewModel
+
+@{
+    DateTime firstDayInMonth = new DateTime(Model.Year, Model.Month, 1);
+    DateTime firstDayInNextMonth = firstDayInMonth.AddMonths(1);
+    DateTime firstDayInCalendar = firstDayInMonth.GetFirstDayOfWeek();
+    ViewBag.Title = string.Format("Peanuts im {0:MMMM} {1}", firstDayInMonth, firstDayInMonth.Year);
+
+    DateTime firstDayFirstMonth = firstDayInMonth.AddMonths(-12);
+    DateTime firstDayPreviousMonth = firstDayInMonth.AddMonths(-1);
+    DateTime today = DateTime.Today;
+    DateTime firstDayLastMonth = firstDayInMonth.AddMonths(12);
+    DateTime firstDayNextMonth = firstDayInMonth.AddMonths(1);
+}
+
+@functions {
+
+    string GetPeanutStatusClass(IList<PeanutParticipation> participations, IList<Peanut> attendablePeanuts) {
+        if (participations.Any(p => p.ParticipationState == PeanutParticipationState.Confirmed && p.Peanut.IsFixed && !p.Peanut.IsCanceled)) {
+    /*Der Nutzer nimmt an einem Peanut teil, dessen Planung abgeschlossen ist.*/
+            return "calendar-day--success";
+        }
+        if (participations.Any(p => p.ParticipationState == PeanutParticipationState.Confirmed && !p.Peanut.IsFixed && !p.Peanut.IsCanceled)) {
+    /*Der Nutzer nimmt an einem Peanut teil, dessen Planung NOCH NICHT abgeschlossen ist.*/
+            return "calendar-day--warning";
+        }
+        if (participations.Any(p => p.ParticipationState == PeanutParticipationState.Refused || p.Peanut.IsCanceled)) {
+    /*Die Teilnahme des Nutzers an einem Peanut wurde abgelehnt oder der Peanut wurde abgesagt*/
+            return "calendar-day--danger";
+        }
+        if (participations.Any(part => part.ParticipationState != PeanutParticipationState.Confirmed && !part.Peanut.IsCanceled)) {
+    /*Der Nutzer nimmt bisher nicht an Peanuts teil, es existieren aber (nicht abgesagte) Peanuts zu denen er eingeladen ist.*/
+            return "calendar-day--info";
+        }
+        if (!participations.Any() && attendablePeanuts.Any(p => !p.IsCanceled)) {
+    /*Der Nutzer nimmt bisher nicht an Peanuts teil, es existieren aber Peanuts an denen er teilnehmen könnte.*/
+            return "calendar-day--info";
+        }
+
+        return "";
+    }
+
+    string GetDayTitle(IList<PeanutParticipation> participations) {
+        if (!participations.Any()) {
+            return "";
+        } else if (participations.Count == 1) {
+            return participations.Single().Peanut.Name;
+        } else {
+            return participations.Count + " Peanuts";
+        }
+    }
+
+    string GetDayDescription(IList<PeanutParticipation> participations, IList<Peanut> attendablePeanuts) {
+        if (!participations.Any() && !attendablePeanuts.Any()) {
+            return "Keine Peanuts an diesem Tag";
+        } else if (!participations.Any()) {
+    /*Keine Teilnahme bisher, aber es gibt Peanuts in Gruppen*/
+            return string.Join(Environment.NewLine, attendablePeanuts.Select(peanut => peanut.DisplayName));
+        } else if (participations.Count == 1) {
+    /*Teilnahme an genau einem Peanut*/
+            return participations.Single().Peanut.DisplayName;
+        } else {
+            return string.Join(Environment.NewLine, participations.Select(part => part.Peanut).Concat(attendablePeanuts).Select(peanut => peanut.DisplayName));
+        }
+    }
+
+}
+
+
+<div class="calendar">
+
+<ul class="pager calender__pager">
+    <li>
+        <a href="@Url.Action("Index", new { year = firstDayFirstMonth.Year, month = firstDayFirstMonth.Month })">
+            <span class="icon icon-fast-backward"></span>
+            @firstDayFirstMonth.ToString("MMMM yyyy")
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", new { year = firstDayPreviousMonth.Year, month = firstDayPreviousMonth.Month })">
+            <span class="icon icon-step-backward"></span>
+            @firstDayPreviousMonth.ToString("MMMM yyyy")
+        </a>
+    </li>
+    <li class="dropup">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @firstDayInMonth.ToString("MMMM")
+            <span class="icon icon-after-caret-down"></span>
+        </a>
+        <ul class="dropdown-menu">
+            @for (int month = 1; month <= 12; month++) {
+                DateTime monthDate = new DateTime(Model.Year, month, 1);
+                <li>
+                    <a href="@Url.Action("Index", new { year = monthDate.Year, month = monthDate.Month })">@(monthDate.ToString("MMMM"))</a>
+                </li>
+            }
+        </ul>
+    </li>
+    <li class="dropup">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @Model.Year
+            <span class="icon icon-after-caret-down"></span>
+        </a>
+        <ul class="dropdown-menu">
+            @for (int year = Model.Year - 5; year <= Model.Year + 5; year++) {
+                <li>
+                    <a href="@Url.Action("Index", new { year = year, month = Model.Month })">@(year)</a>
+                </li>
+            }
+        </ul>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", new { year = today.Year, month = today.Month })">
+            <span class="icon icon-calendar"></span>
+            Heute
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", new { year = firstDayNextMonth.Year, month = firstDayNextMonth.Month })">
+            @firstDayNextMonth.ToString("MMMM yyyy")
+            <span class="icon icon-step-forward"></span>
+        </a>
+    </li>
+    <li>
+
+        <a href="@Url.Action("Index", new { year = firstDayLastMonth.Year, month = firstDayLastMonth.Month })">
+            @firstDayLastMonth.ToString("MMMM yyyy")
+            <span class="icon icon-fast-forward"></span>
+        </a>
+    </li>
+</ul>
+
+<div class="calendar-head">
+    <div class="calendar-week__number">
+        KW
+        <div class="btn-group">
+            <a class="dropdown-toggle link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="icon icon-info-circle"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="disabled">
+                    <a href="#">
+                        <span class="text-black">Legende:</span>
+                    </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li class="disabled">
+                    <a href="#">
+                        <span class="text-success">
+                            Teilnahme an Peanut
+                        </span>
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a href="#">
+                        <span class="text-warning">
+                            Teilnahme an geplanten Peanut
+                        </span>
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a href="#">
+                        <span class="text-info">
+                            Es existiert ein Peanut
+                        </span>
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a href="#">
+                        <span class="text-danger">
+                            Teilnahme wurde abgelehnt
+                        </span>
+                    </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li class="disabled">
+                    <a href="#">
+                        <span class="text-black">
+                            <span class="icon icon-shopping-cart">
+                            </span>
+                            Ich muss für einen Peanut Sachen einkaufen.
+                        </span>
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a href="#">
+                        <span class="text-black">
+                            <span class="icon icon-legal">
+                            </span>
+                            Ich bin für die Herstellung bzw. Vorbereitung eines Peanut verantwortlich.
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="calendar-day">
+        <div class="calendar-day__dayname">
+            Montag
+        </div>
+    </div>
+    <div class="calendar-day">
+        <div class="calendar-day__dayname">
+            Dienstag
+        </div>
+    </div>
+    <div class="calendar-day">
+        <div class="calendar-day__dayname">
+            Mittwoch
+        </div>
+    </div>
+    <div class="calendar-day">
+        <div class="calendar-day__dayname">
+            Donnerstag
+        </div>
+    </div>
+    <div class="calendar-day">
+        <div class="calendar-day__dayname">
+            Freitag
+        </div>
+    </div>
+    <div class="calendar-day">
+        <div class="calendar-day__dayname">
+            Samstag
+        </div>
+    </div>
+    <div class="calendar-day">
+        <div class="calendar-day__dayname">
+            Sonntag
+        </div>
+    </div>
+</div>
+
+@for (DateTime firstDayInWeek = firstDayInCalendar; firstDayInWeek < firstDayInNextMonth; firstDayInWeek = firstDayInWeek.AddDays(7)) {
+    string calendarWeekModifiers = "";
+    if (Model.PeanutParticipations.Any(pp => pp.Key >= firstDayInWeek && pp.Key < firstDayInWeek.AddDays(7))) {
+        calendarWeekModifiers += " calendar-week--show-description";
+    }
+
+    <div class="calendar-week @calendarWeekModifiers">
+        <div class="calendar-week__number">@firstDayInWeek.GetWeekOfYear()</div>
+        @for (int weekDayNumber = 0; weekDayNumber < 7; weekDayNumber++) {
+            DateTime date = firstDayInWeek.AddDays(weekDayNumber);
+            string classes = "";
+            if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) {
+                classes += " calendar-day--weekend";
+            }
+            if (date.Month != Model.Month) {
+                classes += " calendar-day--other-month";
+            }
+            if (date.Date == DateTime.Today) {
+                classes += " calendar-day--today";
+            }
+
+            IList<PeanutParticipation> peanutsThisDay = Model.GetPeanutParticipationsForDay(date);
+            IList<Peanut> attendablePeanutsThisDay = Model.GetAttendablePeanutForDay(date);
+
+            classes += " " + GetPeanutStatusClass(peanutsThisDay, attendablePeanutsThisDay);
+            /*Hier ist die Benennung etwas unglücklich, 
+                 * da das HTML-Attribut für den Tooltip Title heißt, 
+                 * dort allerdings eine langeBeschreibung drin steht.*/
+            string dayDescription = date.ToShortDateString() + ":" + Environment.NewLine + GetDayDescription(peanutsThisDay, attendablePeanutsThisDay);
+            string dayTitle = GetDayTitle(peanutsThisDay);
+            <div class="calendar-day @(classes)" title="@dayDescription">
+                <div class="calendar-day__daynumber">
+                    @date.Day
+                    @if (peanutsThisDay.Any(p => p.Peanut.IsFixed && (p.ParticipationType.IsCreditor || p.ParticipationType.IsProducer))) {
+                        <div>
+                            @if (peanutsThisDay.Any(p => p.Peanut.IsFixed && p.ParticipationType.IsCreditor)) {
+                                <span class="icon icon-shopping-cart" title="Ich muss für einen Peanut Sachen einkaufen."></span>
+                            }
+                            @if (peanutsThisDay.Any(p => p.Peanut.IsFixed && p.ParticipationType.IsProducer)) {
+                                <span class="icon icon-legal" title="Ich bin für die Herstellung bzw. Vorbereitung eines Peanut verantwortlich."></span>
+                            }
+                        </div>
+                    }
+
+                </div>
+                <div class="calendar-day__description">
+
+                    @dayTitle
+                </div>
+                <div class="calendar-day__overlay">
+                    <a class="link icon icon-plus" href="@Url.Action("CreateForm", "Peanut", new { day = date.Date })" title="Neuen Peanut erstellen!"></a>
+                    <a class="link icon icon-search" href="@Url.Action("Day", "Peanut", new { day = date.Day, month = date.Month, year = date.Year })" title="Peanut(s) anzeigen!"></a>
+                    @if (attendablePeanutsThisDay.Count == 1) {
+                        <a class="link icon icon-thumbs-up italic" href="@Url.Action("AttendForm", "Peanut", new { peanut = attendablePeanutsThisDay.Single().BusinessId })" title="An @(attendablePeanutsThisDay.Single().Name) teilnehmen!"></a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+
+<ul class="pager calender__pager">
+    <li>
+        <a href="@Url.Action("Index", new { year = firstDayFirstMonth.Year, month = firstDayFirstMonth.Month })">
+            <span class="icon icon-fast-backward"></span>
+            @firstDayFirstMonth.ToString("MMMM yyyy")
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", new { year = firstDayPreviousMonth.Year, month = firstDayPreviousMonth.Month })">
+            <span class="icon icon-step-backward"></span>
+            @firstDayPreviousMonth.ToString("MMMM yyyy")
+        </a>
+    </li>
+    <li class="dropup">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @firstDayInMonth.ToString("MMMM")
+            <span class="icon icon-after-caret-down"></span>
+        </a>
+        <ul class="dropdown-menu">
+            @for (int month = 1; month <= 12; month++) {
+                DateTime monthDate = new DateTime(Model.Year, month, 1);
+                <li>
+                    <a href="@Url.Action("Index", new { year = monthDate.Year, month = monthDate.Month })">@(monthDate.ToString("MMMM"))</a>
+                </li>
+            }
+        </ul>
+    </li>
+    <li class="dropup">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @Model.Year
+            <span class="icon icon-after-caret-down"></span>
+        </a>
+        <ul class="dropdown-menu">
+            @for (int year = Model.Year - 5; year <= Model.Year + 5; year++) {
+                <li>
+                    <a href="@Url.Action("Index", new { year = year, month = Model.Month })">@(year)</a>
+                </li>
+            }
+        </ul>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", new { year = today.Year, month = today.Month })">
+            <span class="icon icon-calendar"></span>
+            Heute
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", new { year = firstDayNextMonth.Year, month = firstDayNextMonth.Month })">
+            @firstDayNextMonth.ToString("MMMM yyyy")
+            <span class="icon icon-step-forward"></span>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", new { year = firstDayLastMonth.Year, month = firstDayLastMonth.Month })">
+            @firstDayLastMonth.ToString("MMMM yyyy")
+            <span class="icon icon-fast-forward"></span>
+        </a>
+    </li>
+</ul>
+</div>

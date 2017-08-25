@@ -1,0 +1,9 @@
+include link
+
+mixin table-data-action(tableName,columnIndex,item)
+    td.webGridCell.webGridCell--action(webgrid-column-name=tableName + '_column_' + columnIndex webgrid-row-index=item.rowIndex)
+        if item.url
+            +link(item.url)(class='icon-search')
+            +link(item.url)(class='icon-pencil')
+            +link(item.url)(class='icon-trash')
+

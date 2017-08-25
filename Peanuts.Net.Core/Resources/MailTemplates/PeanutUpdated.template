@@ -1,0 +1,19 @@
+﻿Subject: Peanut geändert
+<p>
+Hallo {recipient.FirstName},
+</p>
+<p>
+{editor.DisplayName} hat den für {peanutSourceDay:D} geplanten Peanut <a href="{peanutUrl}" title="Peanut anzeigen">"{peanutSourceName}"</a> geändert.
+</p>
+<p>
+Änderungen:<br/>
+{updateSummary}
+</p>
+<p>
+Änderungskommentar:<br/>
+{comment}
+</p>
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>

@@ -1,0 +1,42 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.UserGroupUpdateViewModel
+
+@{
+    ViewBag.Title = "Gruppe ändern";
+    ViewBag.Subtitle = Model.UserGroup.Name;
+}
+
+
+
+@using (Html.BeginForm("Update", "UserGroup", new {userGroup = Model.UserGroup.BusinessId}, FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<UserGroup>(IdForElement.Form, IdForAction.Create) })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {@class = "form-validation-summary"}, "p")
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.Form().TextBox(m => m.UserGroupUpdateCommand.UserGroupDto.Name)
+    @Html.Form().TextArea(m => m.UserGroupUpdateCommand.UserGroupDto.AdditionalInformations)
+    @Html.Form().TextBox(m => m.UserGroupUpdateCommand.UserGroupDto.BalanceOverdraftLimit)    
+    <div class="form-group">
+        <label class="control-label"></label>
+        <div class="control-value">
+            <div class="alert alert-info">
+                Ist hier eine Grenze definiert, können Nutzer, welche die Grenze überschreiten nicht mehr selbstständig an Peanuts teilnehmen.
+            </div>
+        </div>
+    </div>
+}
+
+@section toolbar {
+    <button type="submit" class="btn btn-primary pull-right" form="@(Html.GenerateId<UserGroup>(IdForElement.Form, IdForAction.Create))">
+        <span class="icon icon-check"></span>
+        <span>@Resources_Web.btn_Save_Update</span>
+    </button>
+    <a href="@Url.Action("AllMemberships")" class="btn btn-default">
+        <span class="icon icon-arrow-left"></span>
+        <span>@Resources_Web.btn_Cancel_Update</span>
+    </a>
+
+}

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0"
+      encoding="utf-8" ?>
+
+<objects xmlns="http://www.springframework.net"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.net 
+             http://www.springframework.net/xsd/spring-objects.xsd">
+
+  <!-- Spring-Konfiguration der Services. Die Services sind in alphabetischer Reihenfolge (Id) zu definieren.-->
+  <object id="authorizationManager"
+        type="Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Security.AuthorizationManager, Peanuts.Net.Core"
+        autowire="autodetect">
+  </object>
+
+  <object id="billService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.BillService, Peanuts.Net.Core"
+          autowire="autodetect">
+  </object>
+
+  <object id="bookingService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.BookingService, Peanuts.Net.Core"
+          autowire="autodetect">
+  </object>
+
+  <object id="emailService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.EmailService, Peanuts.Net.Core"
+          autowire="autodetect">
+    <property name="EmailSenderAddress" value="${emailSenderAddress}"/>
+    <property name="EmailSenderName" value="${emailSenderName}"/>
+    <property name="SmtpHostAddress" value="${smtpHostAddress}" />
+    <property name="SmtpPort" value="${smtpPort}" />
+    <property name="SmtpServerLogin" value="${smtpServerLogin}" />
+    <property name="SmtpServerPassword" value="${smtpServerPassword}" />
+    <property name="SmtpSslEnabled" value="${smtpSslEnabled}" />
+    <property name="IgnoreInvalidSslCertificate" value="${smtpIgnoreInvalidSslCertificate}" />
+  </object>
+
+  <object id="documentService" type="Com.QueoFlow.Peanuts.Net.Core.Service.DocumentRepository, Peanuts.Net.Core" autowire="autodetect">
+    <constructor-arg>
+      <value>${documentContentBasePath}</value>
+    </constructor-arg>
+    <constructor-arg ref="documentDao">
+    </constructor-arg>
+    <constructor-arg>
+      <value>${uploadedFileBasePath}</value>
+    </constructor-arg>
+  </object>
+  
+  <object id="mailMessageProvider"
+          type="Com.QueoFlow.Peanuts.Net.Core.Infrastructure.ResourceManagement.FileMessageProvider"
+          autowire="autodetect">
+    <property name="ResourceRelativePath" value="${resourceRelativePath}" />
+  </object>
+
+  <object id="notificationService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.NotificationService"
+          autowire="autodetect">
+  </object>
+
+  <object id="paymentService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.PaymentService, Peanuts.Net.Core"
+          autowire="autodetect">
+  </object>
+
+  <object id="peanutService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.PeanutService, Peanuts.Net.Core"
+          autowire="autodetect">
+  </object>
+
+  <object id="peanutParticipationTypeService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.PeanutParticipationTypeService, Peanuts.Net.Core"
+          autowire="autodetect">
+  </object>
+
+  <object id="proposedUserService"
+         type="Com.QueoFlow.Peanuts.Net.Core.Service.ProposedUserService, Peanuts.Net.Core"
+         autowire="autodetect">
+  </object>
+
+  <object id="userGroupService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.UserGroupService, Peanuts.Net.Core"
+          autowire="autodetect">
+  </object>
+
+  <object id="userService"
+          type="Com.QueoFlow.Peanuts.Net.Core.Service.UserService, Peanuts.Net.Core"
+          autowire="autodetect">
+  </object>
+
+</objects>

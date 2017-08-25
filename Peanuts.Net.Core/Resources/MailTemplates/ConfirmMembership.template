@@ -1,0 +1,13 @@
+﻿Subject: Deine Anfrage zur Mitgliedschaft in der Gruppe {groupName} wurde akzeptiert
+<p>
+Hallo {user.FirstName},
+</p>
+<p>
+Deine Anfrage zur Mitgliedschaft in der Gruppe {groupName} wurde akzeptiert. <br/>
+<a href="{groupLink}">Hier</a> kommst du zur Gruppe.
+</p>
+
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>

@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "E-Mail-Adresse bestätigt";
+    Layout = "~/Views/Shared/_LayoutFullscreen.cshtml";
+}
+
+
+<div>
+    <p>
+        Danke für die Bestätigung deiner E-Mail-Adresse. @Html.ActionLink("Hier kannst du dich jetzt anzumelden.", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class ="link link--text" })
+    </p>
+</div>

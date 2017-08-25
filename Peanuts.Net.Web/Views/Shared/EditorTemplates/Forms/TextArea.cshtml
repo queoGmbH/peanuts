@@ -1,0 +1,8 @@
+﻿@model Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms.TextAreaModel
+
+<div class="form-group entity-property" data-required-field="@(Model.IsRequired)" data-valmsg-for="@Model.Id"  data-valmsg-replace="false">
+    <label for="@Model.Id" class="control-label">@Model.Label</label>
+    <div class="control-value">
+        <textarea id="@Model.Id" name="@Model.Name" placeholder="@Model.Placeholder" class="form-control @Model.GetResizeable()" @Model.GetValidationAttributes()>@Model.Value</textarea>
+    </div>
+</div>

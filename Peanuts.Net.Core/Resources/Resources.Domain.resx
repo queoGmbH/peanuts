@@ -1,0 +1,864 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_FirstName" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_IsEnabled" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_LastName" xml:space="preserve">
+    <value>Nachname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Roles" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_UserName" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="_label_namespace_class_property" xml:space="preserve">
+    <value>[ignore]</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User" xml:space="preserve">
+    <value>Nutzer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer" xml:space="preserve">
+    <value>Kunde</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_AdditionalInformations" xml:space="preserve">
+    <value>Sonstige Informationen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Birthday" xml:space="preserve">
+    <value>Geburtstag</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_City" xml:space="preserve">
+    <value>Stadt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Email" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Firstname" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_HouseNumber" xml:space="preserve">
+    <value>Hausnummer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Lastname" xml:space="preserve">
+    <value>Nachname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_PartnerBirthday" xml:space="preserve">
+    <value>Partner Geburtstag</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_PartnerEmail" xml:space="preserve">
+    <value>Partner E-Mail</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_PartnerFirstname" xml:space="preserve">
+    <value>Partner Vorname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_PartnerLastname" xml:space="preserve">
+    <value>Partner Nachname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Salutation" xml:space="preserve">
+    <value>Anrede</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Street" xml:space="preserve">
+    <value>Straße</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Zip" xml:space="preserve">
+    <value>PLZ</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Salutation" xml:space="preserve">
+    <value>Anrede</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Salutation_Miss" xml:space="preserve">
+    <value>Frau</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Salutation_Mister" xml:space="preserve">
+    <value>Herr</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Owner" xml:space="preserve">
+    <value>Nutzer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_City" xml:space="preserve">
+    <value>Ort</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Company" xml:space="preserve">
+    <value>Unternehmen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Mobile" xml:space="preserve">
+    <value>Mobil</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_PhonePrivate" xml:space="preserve">
+    <value>Telefon (privat)</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_PostalCode" xml:space="preserve">
+    <value>Postleitzahl</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Street" xml:space="preserve">
+    <value>Straße</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_StreetNumber" xml:space="preserve">
+    <value>Hausnummer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_AgentId" xml:space="preserve">
+    <value>Maklernummer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Birthday" xml:space="preserve">
+    <value>Geburtstag</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_CommissionRate" xml:space="preserve">
+    <value>Provisionssatz</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_ExternalAgentId" xml:space="preserve">
+    <value>externe Maklernummer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_HobbiesAndInterests" xml:space="preserve">
+    <value>Hobbies und Interessen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_InternalInformation" xml:space="preserve">
+    <value>interne Informationen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customers" xml:space="preserve">
+    <value>Kunden</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup" xml:space="preserve">
+    <value>Gruppen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroups" xml:space="preserve">
+    <value>Gruppen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_AdditionalInformations" xml:space="preserve">
+    <value>sonstige Informationen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_CanUserChangePassword" xml:space="preserve">
+    <value>Nutzer kann Password ändern</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_ChangedAt" xml:space="preserve">
+    <value>geändert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_ChangedBy" xml:space="preserve">
+    <value>geändert von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_City" xml:space="preserve">
+    <value>Ort</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_Commission" xml:space="preserve">
+    <value>Provision</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_ContactPersonAssistance" xml:space="preserve">
+    <value>Ansprechpartner Betreuung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_ContactPersonBilling" xml:space="preserve">
+    <value>Ansprechpartner Abrechnung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_ContactPersonBillingPhone" xml:space="preserve">
+    <value>Abweichende Telefonnummer Abrechnung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_ContactPersonManagement" xml:space="preserve">
+    <value>Ansprechpartner Geschäftsleitung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_ContactPersonBillingEmail" xml:space="preserve">
+    <value>Abweichende E-Mail Abrechnung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_CreatedAt" xml:space="preserve">
+    <value>erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_CreatedBy" xml:space="preserve">
+    <value>erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_Email" xml:space="preserve">
+    <value>E-Mail (allgemein)</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_Firm" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_HouseNumber" xml:space="preserve">
+    <value>Hausnummer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_Name" xml:space="preserve">
+    <value>Gruppenname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_Street" xml:space="preserve">
+    <value>Straße</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_Zip" xml:space="preserve">
+    <value>Postleitzahl</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Users" xml:space="preserve">
+    <value>Nutzer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser" xml:space="preserve">
+    <value>Beantragter Nutzer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Birthday" xml:space="preserve">
+    <value>Geburtstag</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_ChangedAt" xml:space="preserve">
+    <value>Geändert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_ChangedBy" xml:space="preserve">
+    <value>Geändert vom</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_City" xml:space="preserve">
+    <value>Stadt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Company" xml:space="preserve">
+    <value>Unternehmen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_ExternalAgentId" xml:space="preserve">
+    <value>externe Maklernummer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_UserGroup" xml:space="preserve">
+    <value>Gruppen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_FirstName" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_LastName" xml:space="preserve">
+    <value>Nachname</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Mobile" xml:space="preserve">
+    <value>Mobil</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_PhonePrivate" xml:space="preserve">
+    <value>Telefon (privat)</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_PostalCode" xml:space="preserve">
+    <value>Postleitzahl</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Salutation" xml:space="preserve">
+    <value>Anrede</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Street" xml:space="preserve">
+    <value>Straße</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_StreetNumber" xml:space="preserve">
+    <value>Hausnummer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUser_UserName" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_ProposedUsers_ProposedUsers" xml:space="preserve">
+    <value>Beantragte Nutzer</value>
+  </data>
+  <data name="error_Com_QueoFlow_Peanuts_Net_Core_Domain_Estate_Apartment_ApartmentNumber_Unique" xml:space="preserve">
+    <value>Die Nummer einer Wohneinheit muss innerhalb eines Objektes eindeutig sein!</value>
+  </data>
+  <data name="error_Com_QueoFlow_Peanuts_Net_Core_Domain_Estate_ParkingPosition_ParkingPositionNumber_Unique" xml:space="preserve">
+    <value>Die Stellplatznummer muss innerhalb eines Objektes eindeutig sein.</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Documents" xml:space="preserve">
+    <value>Dokumente</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Documents" xml:space="preserve">
+    <value>Dokumente</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_ChangedAt" xml:space="preserve">
+    <value>Geändert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_ChangedBy" xml:space="preserve">
+    <value>Geändert von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_DisplayName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_MembershipType" xml:space="preserve">
+    <value>Mitgliedstyp</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_IsEnabled_False" xml:space="preserve">
+    <value>Inaktiv</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_IsEnabled_True" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_UserGroup" xml:space="preserve">
+    <value>Gruppe</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_ChangedAt" xml:space="preserve">
+    <value>Geändert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_ChangedBy" xml:space="preserve">
+    <value>Geändert von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_PaymentType_Cash" xml:space="preserve">
+    <value>Bar</value>
+  </data>
+  <data name="error_Com_QueoFlow_Peanuts_Net_Core_Domain_Estate_Estate_EstateState_NoTitleImage" xml:space="preserve">
+    <value>Damit das Objekt freigegeben bzw. archiviert werden kann, muss ein Titelbild hinterlegt sein!</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_PaymentType_PayPal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance" xml:space="preserve">
+    <value>Kontostand</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut" xml:space="preserve">
+    <value>Peanut</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation" xml:space="preserve">
+    <value>Teilnahme</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipations" xml:space="preserve">
+    <value>Teilnahmen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType" xml:space="preserve">
+    <value>Teilnahmeart</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationTypes" xml:space="preserve">
+    <value>Teilnahmearten</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType_ChangedAt" xml:space="preserve">
+    <value>Geändert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType_ChangedBy" xml:space="preserve">
+    <value>Geändert von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType_IsCreditor" xml:space="preserve">
+    <value>Rolle legt Geld aus?</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType_MaxParticipatorsOfType" xml:space="preserve">
+    <value>Maximale Teilnehmer dieser Art</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationType_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ChangedAt" xml:space="preserve">
+    <value>Geändert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ChangedBy" xml:space="preserve">
+    <value>Geändert von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationState" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType" xml:space="preserve">
+    <value>Teilnehmen als ...</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_UserGroupMembership" xml:space="preserve">
+    <value>Teilnehmer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanuts" xml:space="preserve">
+    <value>Peanuts</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_ChangedAt" xml:space="preserve">
+    <value>Geändert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_ChangedBy" xml:space="preserve">
+    <value>Geändert von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Day" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Documents" xml:space="preserve">
+    <value>Dateien</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_IsFixed" xml:space="preserve">
+    <value>Planung abgeschlossen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_UserGroup" xml:space="preserve">
+    <value>Gruppe</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill" xml:space="preserve">
+    <value>Rechnung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bills" xml:space="preserve">
+    <value>Rechnungen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Amount" xml:space="preserve">
+    <value>Rechnungsbetrag</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_ChangedAt" xml:space="preserve">
+    <value>Geändert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_ChangedBy" xml:space="preserve">
+    <value>Geändert von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Creditor" xml:space="preserve">
+    <value>Kreditor</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_GuestDebitors" xml:space="preserve">
+    <value>Gäste als Schuldner</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_SettlementDate" xml:space="preserve">
+    <value>Buchungsdatum</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Subject" xml:space="preserve">
+    <value>Betreff</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_UserGroup" xml:space="preserve">
+    <value>Gruppe</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_UserGroupDebitors" xml:space="preserve">
+    <value>Schuldner aus der Gruppe</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillGuestDebitor" xml:space="preserve">
+    <value>Gastschuldner</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillGuestDebitors" xml:space="preserve">
+    <value>Gastschuldner</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillGuestDebitor_Email" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillGuestDebitor_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillGuestDebitor_Portion" xml:space="preserve">
+    <value>Anteil</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitor" xml:space="preserve">
+    <value>Schuldner aus der Gruppe</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitors" xml:space="preserve">
+    <value>Schuldner aus der Gruppe</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitor_BillAcceptState" xml:space="preserve">
+    <value>Rechnungsstatus</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitor_Portion" xml:space="preserve">
+    <value>Anteil</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitor_UserGroupMembership" xml:space="preserve">
+    <value>Nutzer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_IsSettled" xml:space="preserve">
+    <value>Abgerechnet/Gebucht</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_DebitorCount" xml:space="preserve">
+    <value>Anzahl der Schuldner</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Id" xml:space="preserve">
+    <value>Rechnungsnummer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitor_RefuseComment" xml:space="preserve">
+    <value>Begründung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment" xml:space="preserve">
+    <value>Zahlung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payments" xml:space="preserve">
+    <value>Zahlungen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_AcceptedAt" xml:space="preserve">
+    <value>Akzeptiert am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_AcceptedBy" xml:space="preserve">
+    <value>Akzeptiert von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Amount" xml:space="preserve">
+    <value>Betrag</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_BillingDate" xml:space="preserve">
+    <value>Abrechnungsdatum</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_CreatedAt" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_CreatedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_DeclinedAt" xml:space="preserve">
+    <value>Abgelehnt am</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_DeclinedBy" xml:space="preserve">
+    <value>Abgelehnt von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_DeclineReason" xml:space="preserve">
+    <value>Grund der Ablehnung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_PaymentStatus" xml:space="preserve">
+    <value>Zahlungsstatus</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_PaymentType" xml:space="preserve">
+    <value>Zahlungsart</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Recipient" xml:space="preserve">
+    <value>Empfänger</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_RequestRecipient" xml:space="preserve">
+    <value>Zahlung zu bestätigen durch</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_RequestSender" xml:space="preserve">
+    <value>Zahlung erfasst von</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Sender" xml:space="preserve">
+    <value>Absender</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Payment_Text" xml:space="preserve">
+    <value>Betreff</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Booking" xml:space="preserve">
+    <value>Überweisung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BookingEntries" xml:space="preserve">
+    <value>Buchungen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BookingEntry" xml:space="preserve">
+    <value>Buchung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BookingEntry_Amount" xml:space="preserve">
+    <value>Betrag</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BookingEntry_EntryDate" xml:space="preserve">
+    <value>Buchungsdatum</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BookingEntry_EntryText" xml:space="preserve">
+    <value>Buchungstext</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bookings" xml:space="preserve">
+    <value>Überweisungen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Booking_Amount" xml:space="preserve">
+    <value>Betrag</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Booking_BookingDate" xml:space="preserve">
+    <value>Buchungsdatum</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Booking_BookingText" xml:space="preserve">
+    <value>Buchungstext</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Booking_Recipient" xml:space="preserve">
+    <value>Empfänger</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Booking_Sender" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Accounts" xml:space="preserve">
+    <value>Konten</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Member" xml:space="preserve">
+    <value>Mitglied</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Quit" xml:space="preserve">
+    <value>Gruppe verlassen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Request" xml:space="preserve">
+    <value>Beantragt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Requirements" xml:space="preserve">
+    <value>Benötigt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Requirement" xml:space="preserve">
+    <value>Voraussetzung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Requirements" xml:space="preserve">
+    <value>Voraussetzungen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Requirement_Name" xml:space="preserve">
+    <value>Voraussetzung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Requirement_Quantity" xml:space="preserve">
+    <value>Menge</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Requirement_Unit" xml:space="preserve">
+    <value>Einheit</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Requirement_Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Participations" xml:space="preserve">
+    <value>Teilnehmer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Peanut" xml:space="preserve">
+    <value>Aus Peanut erstellt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_Roles_Administrator" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_Roles_Member" xml:space="preserve">
+    <value>Mitglied</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_AutoAcceptPayPalPayments" xml:space="preserve">
+    <value>Zahlungen automatisch akzeptieren</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_PayPalBusinessName" xml:space="preserve">
+    <value>Paypal-Account</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_NotifyMeAsCreditorOnPeanutDeleted" xml:space="preserve">
+    <value>Peanut gelöscht</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_NotifyMeAsCreditorOnPeanutRequirementsChanged" xml:space="preserve">
+    <value>Peanut Voraussetzung geändert</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_NotifyMeAsParticipatorOnPeanutChanged" xml:space="preserve">
+    <value>Peanut geändert</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_NotifyMeAsCreditorOnDeclinedBills" xml:space="preserve">
+    <value>Rechnung abgelehnt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_NotifyMeAsCreditorOnSettleableBills" xml:space="preserve">
+    <value>Rechung kann abgerechnet werden</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_NotifyMeAsDebitorOnIncomingBills" xml:space="preserve">
+    <value>Rechnung erhalten</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_NotifyMeOnIncomingPayment" xml:space="preserve">
+    <value>Zahlung zu bestätigen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_NotifyMeOnPeanutInvitation" xml:space="preserve">
+    <value>Zu Peanut eingeladen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_SendMeWeeklySummaryAndForecast" xml:space="preserve">
+    <value>Wöchentliche Zusammenfassung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState" xml:space="preserve">
+    <value>Peanut Status</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState_Assembling" xml:space="preserve">
+    <value>Herstellung läuft</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState_Canceled" xml:space="preserve">
+    <value>Abgesagt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState_PurchasingDone" xml:space="preserve">
+    <value>Beschaffung abgeschlossen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState_PurchasingStarted" xml:space="preserve">
+    <value>Beschaffung läuft</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState_Realized" xml:space="preserve">
+    <value>Durchgeführt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState_Scheduling" xml:space="preserve">
+    <value>In Planung</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState_Started" xml:space="preserve">
+    <value>Gestartet</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_PeanutState" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState_SchedulingDone" xml:space="preserve">
+    <value>Planung abgeschlossen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationState_Confirmed" xml:space="preserve">
+    <value>Zugesagt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationState_Pending" xml:space="preserve">
+    <value>Eingeladen</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationState_Refused" xml:space="preserve">
+    <value>Abgelehnt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipationState_Requested" xml:space="preserve">
+    <value>Angefragt</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_BalanceOverdraftLimit" xml:space="preserve">
+    <value>Dispo-Limit</value>
+  </data>
+</root>

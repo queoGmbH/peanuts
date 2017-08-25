@@ -1,0 +1,6 @@
+mixin card-icon(url, icon, title)
+    +link(url).card
+        span.card__icon(class= "icon-" + icon)
+        span.card__text
+            span.card-text__title= title
+            block

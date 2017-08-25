@@ -1,0 +1,21 @@
+﻿.dynamic-list-item {
+    margin-bottom: @form-group-margin-bottom;
+
+    .add-list-item {
+        .btn;
+        .button-variant(@white; @brand-secondary; transparent);
+        .icon();
+
+        line-height: @line-height-base;
+        color: @white;
+        vertical-align: center;
+
+        &:before {
+            content: @icon-plus;
+        }
+    }
+
+    .remove-list-item{
+        z-index: 1000;
+    }
+}

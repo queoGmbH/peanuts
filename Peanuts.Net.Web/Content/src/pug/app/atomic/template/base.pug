@@ -1,0 +1,27 @@
+include ../_commons
+include ../../helper/_helper
+include ../atom/map-script
+
+block templateControls
+    -
+        var bodyClass = null
+        var mainClass = null
+
+doctype
+html(lang='de')
+    head
+        meta(name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0,width=device-width")
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=Edge")
+        title Peanuts.net
+        meta(name="description" content="Prototyp &amp; Styleguide für Peanuts.net zum Bereitstellen der CSS- und Javascript-Assets")
+
+        +favicon("/images/favicons/")
+
+        link(rel="stylesheet" href="/stylesheets/app.min.css")
+        script(src="/javascripts/app.min.js" defer)
+        block javascript
+    body(class=bodyClass)
+        +link('/styleguidev2/index.html').styleguide-link(title='Styleguide')
+            span.icon-info-circle
+        block page

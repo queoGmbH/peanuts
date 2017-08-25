@@ -1,0 +1,48 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Bill.BillRefuseViewModel
+
+
+@{
+    ViewBag.Title = "Rechnung ablehnen";
+    BillUserGroupDebitor billUserGroupDebitor = Model.Bill.UserGroupDebitors.Single(m => m.UserGroupMembership.User.Equals(Model.User));
+}
+
+@section toolbar{
+    <a href="@Url.Action("Index", "Bill")" class="btn btn-default">
+        <span class="icon icon-arrow-left">@Resources_Web.btn_Cancel</span>
+    </a>
+
+    <button type="submit" class="btn btn-primary pull-right" form="@(Html.GenerateId<BillUserGroupDebitor>(IdForElement.Form, IdForAction.Delete))">
+        <span class="icon icon-thumbs-down"></span>
+        <span>Ablehnen</span>
+    </button>
+}
+
+@using (Html.BeginForm("RefuseBill", "Bill", new { bill = Model.Bill.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<BillUserGroupDebitor>(IdForElement.Form, IdForAction.Delete) })) {
+    @Html.AntiForgeryToken()
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+    <div class="form__row">
+        <div class="form__col">
+            @Html.Form().Static(m => m.Bill.Subject)
+            @Html.Form().Static(m => m.Bill.Creditor.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Creditor)
+            @Html.Form().Static(m => m.Bill.CreatedAt, formatString: "{0:d}")
+        </div>
+        <div class="form__col">
+            @Html.Form().Static(Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Amount, Model.Bill.Amount.ToString("C"))
+            @if (Model.Bill.IsSettled) {
+                @Html.Form().Static(m => m.Bill.SettlementDate, formatString: "{0:d}")
+            }
+        </div>
+    </div>
+
+    <div class="form__row">
+        <div class="form__col">
+            @Html.Form().Static("Zu zahlender Betrag:", Model.Bill.GetPartialAmountByPortion(billUserGroupDebitor.Portion).ToString("C"))
+        </div>
+    </div>
+    @Html.Form().TextArea(m => m.BillRefuseCommand.RefuseComment, label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitor_RefuseComment)
+}

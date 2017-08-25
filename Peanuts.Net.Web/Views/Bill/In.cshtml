@@ -1,0 +1,86 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Bill.BillIndexViewModel
+
+
+@{
+    ViewBag.Title = "Rechnungsübersicht";
+}
+
+@section toolbar {
+    <a href="@Url.Action("CreateForm")" class="btn btn-warning pull-right">
+        <span class="icon icon-plus"></span>
+        <span>Rechnung erstellen</span>
+    </a>
+}
+
+
+@section tabs {
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="presentation">
+            <a href="@Url.Action("In")" aria-controls="debitor" role="tab">
+                Rechnungseingang
+                @if (Model.UnsettledDebitorBills.Any()) {
+                    <span class="badge">
+                        @Model.UnsettledDebitorBills.Count
+                    </span>
+                }
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="@Url.Action("Out")" aria-controls="creditor" role="tab">
+                Rechnungsausgang
+                @if (Model.UnsettledCreditorBills.Any()) {
+                    <span class="badge">
+                        @Model.UnsettledCreditorBills.Count
+                    </span>
+                }
+            </a>
+        </li>
+    </ul>
+}
+
+
+<div class="form form-horizontal">
+    <div class="nav-tabs-content tab-content">
+        <div class="nav-tabs-panel tab-pane active" role="tabpanel" id="debitor">
+            @if (Model.UnsettledDebitorBills.Any()) {
+                <fieldset>
+                    <legend class="form__legend">Unbezahlte Rechnungen</legend>
+                    <div class="container-content--full">
+                        @(Html.DisplayFor()
+                                  .GridFor(m => m.UnsettledDebitorBills, true)
+                                  .ColumnFor(b => b.Bill.Id, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Id).OrderBy()
+                                  .ColumnFor(b => b.Bill.Subject, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Subject).OrderBy()
+                                  .ColumnFor(b => b.Bill.UserGroup.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_UserGroup).OrderBy()
+                                  .ColumnFor(b => b.Bill.Creditor.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Creditor).OrderBy()
+                                  .ColumnFor(b => b.Bill.Amount, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Amount).DisplayFormat("{0:C}").OrderBy()
+                                  .ColumnFor(b => b.Portion, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitor_Portion).DisplayFormat("{0:C}").OrderBy()
+                                  .ColumnFor(b => b.Bill.CreatedAt, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_CreatedAt).OrderBy()
+                                  .ColumnFor(b => b, "Bezahlen").Display("PayBill")
+                                  .UrlColumn(b => Url.Action("Show", new { bill = b.Bill.BusinessId })).UrlAttribute("title", "Rechnung anzeigen").UrlAttribute("class", "icon icon-search")
+
+                                  )
+                    </div>
+                </fieldset>
+            }
+            <fieldset>
+                <legend class="form__legend">Bezahlte Rechnungen</legend>
+                <div class="container-content--full">
+                    @(Html.DisplayFor().GridFor(m => m.SettledDebitorBills, true)
+                              .ColumnFor(b => b.Bill.Id, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Id).OrderBy()
+                              .ColumnFor(b => b.Bill.Subject, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Subject).OrderBy()
+                              .ColumnFor(b => b.Bill.UserGroup.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_UserGroup).OrderBy()
+                              .ColumnFor(b => b.Bill.Creditor.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Creditor).OrderBy()
+                              .ColumnFor(b => b.Bill.Amount, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Amount).DisplayFormat("{0:C}").OrderBy()
+                              .ColumnFor(b => b.Portion, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_BillUserGroupDebitor_Portion).DisplayFormat("{0:C}").OrderBy()
+                              .ColumnFor(b => b.Bill.CreatedAt, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_CreatedAt).OrderBy()
+                              .ColumnFor(b => b.Bill.SettlementDate, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_SettlementDate).OrderBy()
+                              .UrlColumn(b => Url.Action("Show", new { bill = b.Bill.BusinessId })).UrlAttribute("title", "Rechnung anzeigen").UrlAttribute("class", "icon icon-search")
+                              )
+                </div>
+                @Html.DisplayFor().Pagination(m => m.SettledDebitorBills)
+            </fieldset>
+        </div>        
+    </div>
+</div>

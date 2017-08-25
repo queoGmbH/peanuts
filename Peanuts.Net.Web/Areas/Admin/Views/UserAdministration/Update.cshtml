@@ -1,0 +1,148 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Documents
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.User
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@using Roles = Com.QueoFlow.Peanuts.Net.Core.Domain.Users.Roles
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.User.UserUpdateViewModel
+@{
+    ViewBag.Title = string.Format(Resources_Web.common_title_UpdateCommand, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User, Model.UserToUpdate.UserName);
+    IList countries = Enum.GetValues(typeof(Country)).Cast<Country>().Select(country => new { Key = country, Text = country.ToLocalizedString() }).OrderBy(c => c.Text).ToList();
+    IList selectableStates = new [] { new { key = true, value = Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_IsEnabled_True }, new { key = false, value = Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_IsEnabled_False } };
+    IList roles = new[] { new { key = Roles.Member, value = Roles.Member }, new { key = Roles.Administrator, value = Roles.Administrator } };
+}
+
+
+@section tabs {
+    <ul class="nav nav-tabs" role="tablist">
+    <li class="active" role="presentation">
+        <a href="#core" aria-controls="core" role="tab" data-toggle="tab">Stammdaten</a>
+    </li>
+    <li role="presentation">
+        <a href="#admin" aria-controls="description" role="tab" data-toggle="tab">Administration</a>
+    </li>
+    <li role="presentation">
+        <a href="#documents" aria-controls="document" role="tab" data-toggle="tab">@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Documents</a>
+    </li>
+</ul>
+}
+
+@using (Html.BeginForm("Update", "UserAdministration", FormMethod.Post, new { role = "form", @class = "form-horizontal", id = Html.GenerateId<User>(IdForElement.Form, IdForAction.Update) })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {
+    @class = "form-validation-summary"
+}, "p")
+
+    <div class="nav-tabs-content tab-content">
+        <div class="nav-tabs-panel tab-pane active" role="tabpanel" id="core">
+            <fieldset>
+                <legend class="form__legend">Stammdaten</legend>
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.UserToUpdate.CreatedAt)
+                        @Html.Form().Static(m => m.UserToUpdate.CreatedBy.DisplayName, label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_CreatedBy)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.UserToUpdate.ChangedAt)
+                        @Html.Form().Static(m => m.UserToUpdate.ChangedBy.DisplayName, label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_ChangedBy)
+                    </div>
+                </div>
+
+
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserDataDto.FirstName)
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserDataDto.LastName)
+                        @Html.Form().Date(m => m.UserUpdateCommand.UserDataDto.Birthday)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Email(m => m.UserUpdateCommand.UserContactDto.Email)
+                    </div>
+                </div>
+
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserContactDto.Company)
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserContactDto.Street)
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserContactDto.StreetNumber)
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserContactDto.PostalCode)
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserContactDto.City)
+                        @Html.Form().Select(m => m.UserUpdateCommand.UserContactDto.Country, "Key", "Text", countries, null)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserContactDto.Phone)
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserContactDto.PhonePrivate)
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserContactDto.Mobile)
+                        @Html.Form().Url(m => m.UserUpdateCommand.UserContactDto.Url)
+                    </div>
+                </div>
+                
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserPaymentDto.PayPalBusinessName)
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserPaymentDto.AutoAcceptPayPalPayments)
+                    </div>
+                </div>
+                
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.NotifyMeOnPeanutInvitation)
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.NotifyMeAsCreditorOnPeanutDeleted)
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.NotifyMeAsCreditorOnPeanutRequirementsChanged)
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.NotifyMeAsParticipatorOnPeanutChanged)
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.SendMeWeeklySummaryAndForecast)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.NotifyMeAsDebitorOnIncomingBills)
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.NotifyMeAsCreditorOnDeclinedBills)
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.NotifyMeAsCreditorOnSettleableBills)
+                        @Html.Form().Checkbox(m => m.UserUpdateCommand.UserNotificationOptionsDto.NotifyMeOnIncomingPayment)
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="nav-tabs-panel tab-pane" role="tabpanel" id="admin">
+            <fieldset>
+                <legend class="form__legend">Administration</legend>
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.Username, label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_UserName)
+                        @Html.Form().Password(m => m.UserUpdateCommand.NewPassword)
+                        @Html.Form().Password(m => m.UserUpdateCommand.NewPasswordConfirmation)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Select(m => m.UserUpdateCommand.UserPermissionDto.Roles, new List<string> {Roles.Administrator, Roles.Member}, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Roles)
+                        @Html.Form().Select(m => m.UserUpdateCommand.UserPermissionDto.IsEnabled, "key", "value", selectableStates, null)
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="nav-tabs-panel tab-pane" role="tabpanel" id="documents">
+            <fieldset>
+                <legend class="form__legend">@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Documents</legend>
+                @Html.Form().FileUploadAsync(m => m.UserUpdateCommand.NewDocuments, Url.Action("UploadAsync", "Document", new { area = "", key = Objects.GetPropertyPath<UserUpdateViewModel>(viewModel => viewModel.UserUpdateCommand.NewDocuments) }), label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Documents)
+                <ul>
+                    @foreach (Document document in Model.UserToUpdate.Documents) {
+                        <li>
+                            <span>@document.OriginalFileName</span>
+                            <input type="checkbox" class="btn-delete-uploaded-file" name="@Html.ViewData.TemplateInfo.GetFullHtmlFieldName(Objects.GetPropertyPath<UserUpdateViewModel>(cmd => cmd.UserUpdateCommand.DeleteDocuments))" value="@document.BusinessId"/>
+                        </li>
+                    }
+                </ul>
+            </fieldset>
+        </div>
+    </div>
+}
+
+@section toolbar {
+    <button type="submit" class="btn btn-primary" form="@(Html.GenerateId<User>(IdForElement.Form, IdForAction.Update))">
+        <span>@Resources_Web.btn_Save_Update</span>
+    </button>
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <span>@Resources_Web.btn_Cancel_Update</span>
+    </a>
+
+}

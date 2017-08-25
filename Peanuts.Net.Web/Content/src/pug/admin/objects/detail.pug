@@ -1,0 +1,62 @@
+extends ../../app/atomic/template/default
+
+include ../../app/atomic/molecule/nav-tabs
+include ../../app/atomic/molecule/nav-tabs-panel
+
+block content-toolbar
+    +content-toolbar
+        +link-button('/admin/objects/edit.html','primary') Bearbeiten
+        +link-button('../objects.html','info') Abbrechen
+        +link-button('#delete','danger') Löschen
+
+block content
+    -
+        var formName = 'details'
+        var tabs = {
+            core: 'Stammdaten',
+            description: 'Objektbeschreibung',
+            pictures: 'Bilder',
+            documents: 'Dokumente & Links',
+            units: 'Einheiten'
+        }
+        var active = 'core';
+
+    .container-content
+        +form('horizontal')(id=formName data-val-ignore="")
+
+            .container-content__header
+                +headline(1)
+                    strong Wohnung 01:
+                    =" 2-Raum-Eigentumswohnung, Dresden, Rennplatzstraße 2"
+
+                +nav-tabs(tabs, active)
+
+            +form-validation-summary
+
+            .nav-tabs-content.tab-content
+                +nav-tabs-panel('core').active
+                    fieldset
+                        legend.form__legend Status
+
+                        .form__row
+                            .form__col
+                                +form-group('Onlinestatus', 'status')
+                                    +input-static('Published')
+
+                    fieldset
+                        legend.form__legend Stammdaten
+
+                        .form__row
+                            .form__col
+                                +form-group('Onlinestatus', 'status')
+                                    +input-static('Published')
+                +nav-tabs-panel('description')
+
+                +nav-tabs-panel('pictures')
+
+                +nav-tabs-panel('documents')
+
+                +nav-tabs-panel('units')
+                    fieldset
+                        legend.form__legend Wohneinheiten
+                            +link-button("/admin/parking-position/new.html",'primary').pull-right Wohneinheit erstellen

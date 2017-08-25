@@ -1,0 +1,32 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Users.UserGroupMembership
+
+@using (Html.BeginForm("QuitMembership", "UserGroup", new { userGroup = Model.UserGroup.BusinessId, userGroupMembership = Model.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+
+    if (Model.MembershipType != UserGroupMembershipType.Request) {
+        ViewBag.Title = "Mitgliedschaft von "+ Model.User.DisplayName + " beenden";
+        <p>
+            Mitgliedschaft des Nutzers @Model.User.DisplayName in der Gruppe @Model.UserGroup.Name beenden!
+        </p>
+    } else {
+        ViewBag.Title = "Mitgliedschaftsantrag von " + Model.User.DisplayName + " ablehnen";
+        <p>
+            Antrag des Nutzers @Model.User.DisplayName auf Mitgliedschaft in der Gruppe @Model.UserGroup.Name ablehnen!
+        </p>
+    }
+
+    <p>
+        <button type="submit" class="btn btn-danger">
+            <span class="icon-check"></span>
+            @Resources_Web.label_Yes
+        </button>
+        <a href="@Url.Action("AllMemberships")" class="btn btn-default">
+            <span class="icon-close"></span>
+            @Resources_Web.label_No
+        </a>
+    </p>
+}

@@ -1,0 +1,12 @@
+﻿Subject: Alle Voraussetzungen erfüllt: "{peanut.Name}"
+<p>
+Hallo {recipient.FirstName},
+</p>
+<p>
+Du nimmst als {participation.ParticipationType.DispayName} am Peanut <a href="{peanutUrl}" title="Peanut anzeigen">"{peanut.Name}"</a> teil.<br/>
+{editor.DisplayName} hat die Beschaffung abgeschlossen - du kannst also loslegen!
+</p>
+<p>
+Gutes Gelingen wünscht,<br/>
+Dein Peanuts-Team
+</p>

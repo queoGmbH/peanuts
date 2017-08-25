@@ -1,0 +1,45 @@
+.card-dashboard {
+    color: @gray;
+    display: flex;
+    align-items: stretch;
+    text-align: center;
+    margin-bottom: 15px;
+
+    &__icon {
+        .icon-circle(md);
+
+        display: block;
+        text-align: center;
+        margin: 0 15px 0 0;
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        justify-content: flex-start;
+        margin-bottom: 0;
+    }
+
+    .h2 {
+        margin-bottom: 20px;
+        color: inherit;
+    }
+
+    @media (min-width: @screen-sm) {
+        width: 204px;
+        display: inline-block;
+        padding: 0 15px;
+        margin: 0;
+
+        &__icon {
+            .icon-circle(xl);
+
+            margin: 0 auto 50px;
+        }
+
+        &__text {
+            text-align: center;
+        }
+    }
+}

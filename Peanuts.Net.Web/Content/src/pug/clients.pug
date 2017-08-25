@@ -1,0 +1,198 @@
+extends app/atomic/template/default
+
+include app/atomic/organism/table
+include app/atomic/molecule/table-head
+include app/atomic/molecule/table-body
+include app/atomic/atom/table-row
+
+block content-toolbar
+    +content-toolbar
+        +form('inline')(id='search' name='search')
+            +form-group('Kundensuche', 'cSearch')
+                +input-text('cSearch', 'Suche nach Kunden')
+        +link('/clients-new.html').btn.btn-primary.pull-right neuer Kunde
+
+block content
+    .container-content
+        -
+            var tData = {
+                tName: 't',
+                head: [{
+                        label: 'Name',
+                        sortable: 'True',
+                        initialSort: 'asc'
+                    },{
+                        label: 'Straße',
+                        sortable: 'True'
+                    },{
+                        label: 'Ort',
+                        sortable: 'True'
+                    },{
+                        label: 'Status',
+                        sortable: 'True'
+                    },{
+                        label: 'Telefon',
+                        sortable: 'True'
+                    },{
+                        label: 'E-Mail',
+                        sortable: 'False'
+                    },{
+                        label: 'erfasst am',
+                        sortable: 'True'
+                    },{
+                        label: 'Makler',
+                        sortable: 'True'
+                    },{
+                        label: '',
+                        sortable: 'False'
+                    },{
+                        label: '',
+                        sortable: 'False'
+                    },{
+                        label: '',
+                        sortable: 'False'
+                }],
+                data: [[{
+                        type: 'text',
+                        content: 'Adelig, Abrecht',
+                        rowIndex: 0
+                    },{
+                        type: 'text',
+                        content: 'Tharandter Str. 13',
+                        rowIndex: 1
+                    },{
+                        type: 'text',
+                        content: 'Leipzig',
+                        rowIndex: 1
+                    },{
+                        type: 'text',
+                        content: 'gelöscht',
+                        rowIndex: 1
+                    },{
+                        type: 'text',
+                        content: '+49 213 4567890',
+                        rowIndex: 1
+                    },{
+                        type: 'icon',
+                        content: 'envelope-o',
+                        rowIndex: 1,
+                        url: '#'
+                    },{
+                        type: 'text',
+                        content: '13.04.2010',
+                        rowIndex: 1
+                    },{
+                        type: 'text',
+                        content: 'John Doe',
+                        rowIndex: 0
+                    },{
+                        type: 'icon',
+                        content: 'pencil',
+                        rowIndex: 0,
+                        url: '#'
+                    },{
+                        type: 'icon',
+                        content: 'copy',
+                        rowIndex: 0,
+                        url: '#'
+                    },{
+                        type: 'icon',
+                        content: 'trash',
+                        rowIndex: 0,
+                        url: '#',
+                        modClass: 'text-red'
+                }],[{
+                        type: 'text',
+                        content: 'Grün, Gerda',
+                        rowIndex: 1
+                    },{
+                        type: 'text',
+                        content: 'Kesselsdorfer Str. 13',
+                        rowIndex: 0
+                    },{
+                        type: 'text',
+                        content: 'Dresden',
+                        rowIndex: 0
+                    },{
+                        type: 'text',
+                        content: 'angelegt',
+                        rowIndex: 0
+                    },{
+                        type: 'text',
+                        content: '+49 113 4567890',
+                        rowIndex: 0
+                    },{
+                        type: 'icon',
+                        content: 'envelope-o',
+                        rowIndex: 0,
+                        url: '#'
+                    },{
+                        type: 'text',
+                        content: '03.04.2010',
+                        rowIndex: 0
+                    },{
+                        type: 'text',
+                        content: 'Max Mustermann',
+                        rowIndex: 1
+                    },{
+                        type: 'icon',
+                        content: 'pencil',
+                        rowIndex: 1,
+                        url: '#'
+                    },{
+                        type: 'icon',
+                        content: 'copy',
+                        rowIndex: 1,
+                        url: '#'
+                    },{
+                        type: 'icon',
+                        content: 'trash',
+                        rowIndex: 1,
+                        url: '#',
+                        modClass: 'text-red'
+                }]
+                ]
+            }
+
+        .container-content--full
+            +table(tData.tName,'0','asc')
+                +table-head(tData)
+                +table-body()
+                    +table-row(tData.tName,'0',tData.data[0])
+                    +table-row(tData.tName,'1',tData.data[1])
+
+        -
+            var tData1 = {
+            tName: 't',
+            head: [{
+                    label: 'Name',
+                    sortable: 'True',
+                    initialSort: 'asc'
+                },{
+                    label: 'Straße',
+                    sortable: 'True'
+                },{
+                    label: '',
+                    sortable: 'False'
+            }],
+                data: [[{
+                    type: 'text',
+                    content: 'Adelig, Abrecht',
+                    rowIndex: 0
+                },{
+                    type: 'text',
+                    content: 'Tharandter Str. 13',
+                    rowIndex: 1
+                },{
+                    type: 'action',
+                    rowIndex: 1,
+                    url: '#',
+            }]
+            ]
+            }
+
+        .container-content--full
+            +table(tData1.tName,'0','asc')
+                +table-head(tData1)
+                +table-body()
+                    +table-row(tData1.tName,'0',tData1.data[0])

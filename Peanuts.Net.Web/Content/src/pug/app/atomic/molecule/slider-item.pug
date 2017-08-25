@@ -1,0 +1,6 @@
+mixin slider-item(category,title,imageUrl)
+    figure.slider-item
+        div.slider-item__image(style="background-image: url(" + imageUrl + ")" title=category + ": " + title)
+        figcaption.slider-item__title
+            strong= category
+            = title

@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+
+<ul class="nav navbar-nav navbar-right header-nav">
+    <li class="header-nav__item">
+        <button class="header-nav__toggle" role="button" aria-haspopup="true" aria-expanded="false" title="@User.Identity.GetUserName()">
+            <span class="icon-before icon-user-o"></span><span class="caption">@User.Identity.GetUserName()</span><span class="icon-after icon-angle-down"></span>
+        </button>
+        <ul class="header-nav__menu dropdown-menu">
+            @if (false@*SecurityContext.Current.IsImpersonation*@) {
+                <li>
+                    @*@Html.ActionLink("Simulierter Nutzer: " + SecurityContext.Current.CurrentIdentity.Name, "Personate", "UserAdministration", routeValues: new { area = "Admin" }, htmlAttributes: null)*@
+                </li>
+            } else {
+                <li>
+                    @Html.ActionLink("Nutzerprofil", "Index", "UserProfile", routeValues: new { area = "" }, htmlAttributes: new {@class = "link icon-drivers-license-o"})
+                </li>
+            }
+            <li>
+                @using (Html.BeginForm("LogOff", "Account", new { area = ""  }, FormMethod.Get, new { id = "logoutForm", @class = "navbar-right" })) {
+                    @Html.AntiForgeryToken()
+                }
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="link icon-power-off logout">Logout</a>
+            </li>
+        </ul>
+
+    </li>
+</ul>

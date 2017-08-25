@@ -1,0 +1,11 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+
+@model DateTime?
+
+@if (Model.HasValue) {
+    if (Model.Value.Date.Equals(Model.Value)){
+        @(string.Format(Resources_Web.common_format_Date, Model.Value))
+    } else {
+        @(string.Format(Resources_Web.common_format_DateTime, Model.Value))
+    }
+}

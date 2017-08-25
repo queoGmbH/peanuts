@@ -1,0 +1,31 @@
+﻿.form-validation-summary {
+    height: 0;
+    padding: 0;
+    opacity: 0;
+    transition: .2s opacity ease-out;
+
+    &.validation-summary-errors {
+        &:extend(.alert);
+        &:extend(.alert-danger);
+
+        opacity: 1;
+        height: auto;
+        margin-bottom: 40px;
+    }
+
+    &__title {
+        font-weight: @font-weight-bold;
+    }
+}
+
+.field-validation-error {
+    .checkbox label,
+    .control-label {
+        color: @red;
+    }
+
+    .input-validation-error,
+    .select2-selection {
+        border-color: @brand-danger !important;
+    }
+}
