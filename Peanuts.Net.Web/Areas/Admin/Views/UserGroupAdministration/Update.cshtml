@@ -1,0 +1,43 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.UserGroup.UserGroupUpdateViewModel
+
+@{
+    ViewBag.Title = "Gruppe bearbeiten";
+}
+
+@using (Html.BeginForm("Update", "UserGroupAdministration", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<UserGroup>(IdForElement.Form, IdForAction.Update) })) {
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {
+    @class = "form-validation-summary"
+}, "p")
+
+
+    <div class="form__row">
+        <div class="form__col">
+            @Html.Form().TextBox(m => m.UserGroupUpdateCommand.UserGroupDto.Name)
+            @Html.Form().TextArea(m => m.UserGroupUpdateCommand.UserGroupDto.AdditionalInformations)
+ 
+        </div>
+        <div class="form__col">
+            @Html.Form().Select(m => m.UserGroupUpdateCommand.CanUserChangePassword)        
+            @Html.Form().TextBox(m => m.UserGroupUpdateCommand.UserGroupDto.BalanceOverdraftLimit)
+        </div>
+    </div>
+}
+
+@section toolbar {
+
+    <button type="submit" class="btn btn-primary" form="@(Html.GenerateId<UserGroup>(IdForElement.Form, IdForAction.Update))">
+        <i></i>
+        <span>@Resources_Web.btn_Save_Update</span>
+    </button>
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <i></i>
+        <span>@Resources_Web.btn_Cancel_Update</span>
+    </a>
+
+}

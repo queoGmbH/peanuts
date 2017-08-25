@@ -1,0 +1,26 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/organism/dynamic-list
+include ../../app/atomic/molecule/dynamic-list-item
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Dynamic Input
+                =" List"
+
+        ol
+            li
+                +link('#f1') Dynamic Input List
+
+        h2#f1 Dynamic List
+        +form('horizontal')
+            +form-group('Static')
+                +dynamic-list()
+                    +dynamic-list-item()
+        +highlight()
+            +form('horizontal')
+                +form-group('Static')
+                    +dynamic-list()
+                        +dynamic-list-item()
+

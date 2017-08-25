@@ -1,0 +1,9 @@
+﻿@model Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Infrastructure.ErrorHandling.HttpExceptionViewModel
+
+@{
+    ViewBag.Title = Model.ErrorTitle;
+    ViewBag.CanSave = false;
+}
+
+<h3>@Model.ErrorTitle</h3>
+<p>@Model.ErrorMessage</p>

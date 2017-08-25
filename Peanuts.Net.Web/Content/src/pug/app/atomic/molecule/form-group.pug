@@ -1,0 +1,8 @@
+include ../atom/label
+
+mixin form-group(label, name, labelSize)
+    .form-group(data-valmsg-for=(name?name:null) data-valmsg-replace="false")&attributes(attributes)
+        if label
+            +label(name)(class=labelSize?"control-label--" + labelSize:null)= label
+        .control-value
+            block

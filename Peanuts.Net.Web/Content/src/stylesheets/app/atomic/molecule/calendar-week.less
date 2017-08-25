@@ -1,0 +1,46 @@
+.calendar-week {
+
+    display: flex;          
+    display: -webkit-flex;
+    flex-direction: row;    
+    -webkit-flex-direction: row; 
+    flex-wrap: no-wrap;     
+    -webkit-flex-wrap: no-wrap;
+    width: 100%;
+    justify-content: space-around;
+
+    color: @gray;
+    display: flex;
+    text-align: center;
+
+    &__number{
+        color: @brand-primary;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    
+}
+
+@media (max-width: @screen-sm){
+    .calendar-week {
+        display: flex;          
+        display: -webkit-flex;
+        flex-direction: column;    
+        -webkit-flex-direction: column;
+        width: 100%;
+        flex: 1;
+        align-items: stretch;
+        max-width: unset;
+        
+        &__number{
+            width: 100%;
+            border-bottom: medium double @gray;
+            height: 40px;
+            display: block;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 5px;
+
+        }
+    }
+}

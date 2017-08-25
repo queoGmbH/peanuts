@@ -1,0 +1,22 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.UserGroup.UserGroupListViewModel
+
+
+@{
+    ViewBag.Title = string.Format(Resources_Web.common_title_IndexView, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup);
+}
+
+@section toolbar {
+    <a href="@Url.Action("CreateForm")" class="btn btn-primary pull-right">
+        <i></i>
+        <span>@Resources_Web.common_btn_Add</span>
+    </a>
+}
+
+<div class="container-content--full">
+    @(Html.DisplayFor().GridFor(m => m.UserGroups, false)
+              .ColumnFor(f => f.Name)
+              .ColumnFor(m => m, Resources_Web.common_label_Options).AttributeBody("class", "webGridCell--action").Display("UserGroupOptions"))
+</div>

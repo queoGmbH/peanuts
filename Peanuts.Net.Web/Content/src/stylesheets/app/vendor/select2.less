@@ -1,0 +1,79 @@
+﻿@import (less) "../../../../node_modules/select2/dist/css/select2.min.css";
+
+.select2 {
+    width: 100% !important;
+}
+
+.select2-container--default .select2 {
+    &-dropdown--below {
+        border-color: @input-border-focus;
+    }
+
+    &-selection {
+        &--single,
+        &--multiple {
+            outline: none;
+            border-color: @gray-lighter;
+            border-radius: @input-border-radius;
+            min-height: 33px;
+
+            &[aria-expanded=true] {
+                border-color: @input-border-focus;
+
+                .select2-selection__arrow:before {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        &--multiple {
+            .select2-selection__choice {
+                border-radius: @input-border-radius;
+            }
+        }
+
+        &--single {
+            .select2-selection__rendered {
+                line-height: 1.3572;
+                padding: @padding-base-vertical @padding-base-horizontal + 20px @padding-base-vertical @padding-base-horizontal;
+            }
+
+            .select2-selection__arrow {
+                .icon();
+
+                height: auto;
+                top: 8px;
+
+                > b {
+                    display: none;
+                }
+
+                &:before {
+                    transition: .15s transform linear;
+                    content: @icon-angle-down;
+                    font-size: 16px;
+                    display: inline-block;
+                }
+            }
+
+            .select2-selection__choice {
+                margin-top: 0;
+                line-height: (@line-height-base * @font-size-base - 2px);
+            }
+
+            .select2-search__field {
+                width: auto !important;
+            }
+        }
+    }
+
+    &-dropdown {
+        border-bottom-left-radius: @input-border-radius;
+        border-bottom-right-radius: @input-border-radius;
+    }
+
+    &-search__field {
+        outline: none;
+        margin-top: 0;
+    }
+}

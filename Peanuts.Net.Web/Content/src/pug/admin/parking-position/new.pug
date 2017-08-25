@@ -1,0 +1,41 @@
+extends ../../app/atomic/template/default
+include ../../app/atomic/molecule/dynamic-list-item
+include ../../app/atomic/organism/dynamic-list
+
+block content-toolbar
+    +content-toolbar
+        +link-button('#create','primary') Hinzufügen
+        +link-button('/admin/objects/detail.html','info') Abbrechen
+
+block content
+    -
+        var formName = 'new'
+
+    .container-content
+        +form('horizontal')(id=formName data-val-ignore="")
+            button.hidden(id=formName + '-submit' type='submit')
+
+            .container-content__header
+                +headline(1)
+                    strong Stellplatz/Stellplätze erstellen:
+                    =" Rennplatzstraße 2, 01159 Dresden"
+
+            +form-validation-summary
+
+            fieldset
+                .form__row
+                    .form__col
+                        +form-group('Bezeichnung', 'title')
+                            +input-text('title')(data-val-required=errormsg.required data-val="true")
+                        +form-group('Stellplatzart', 'type')
+                            +select-single('type', ["Tiefgaragen-Stellplatz", "Außenplatz", "Carport", "Garage"])(data-val="true" data-val-required=errormsg.required)
+                        +form-group('Stellplatznummer', 'number')
+                            +input-text('number')(data-val-required=errormsg.required data-val="true")
+                    .form__col
+                        +form-group('Beschreibung', 'description')
+                            +textarea('description')(data-val="true" data-val-required=errormsg.required)
+                .form__row
+                    .form__col
+                        +form-group('Weitere Stellplätze','additional')
+                            +dynamic-list()
+                                +dynamic-list-item()

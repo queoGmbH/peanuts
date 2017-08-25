@@ -1,0 +1,5 @@
+mixin select-multiple(name, options)
+    select.form-control(id=name name=name multiple="multiple").js-select-multiple&attributes(attributes)
+        option(value="") Bitte auswählen
+        each item, k in options
+            option(value=k)= item

@@ -1,0 +1,184 @@
+extends ../../app/atomic/template/default
+
+include ../../app/atomic/organism/grid-fileupload
+include ../../app/atomic/molecule/file-uploaded
+
+include ../../app/atomic/atom/button-submit
+include ../../app/atomic/molecule/nav-tabs
+include ../../app/atomic/molecule/nav-tabs-panel
+
+include ../../app/atomic/organism/table
+include ../../app/atomic/molecule/table-head
+include ../../app/atomic/molecule/table-body
+include ../../app/atomic/atom/table-row
+
+block content-toolbar
+    -
+        var formName = 'object'
+
+    +content-toolbar
+        +button-submit('edit', 'Speichern')
+        +link('/admin/objects.html').btn.btn-info(onclick="return confirm('Sind sie sich sicher?');") Änderungen verwerfen
+
+block content
+    -
+        var formName = 'edit'
+        var tabs = {
+            core: 'Stammdaten',
+            description: 'Objektbeschreibung',
+            pictures: 'Bilder',
+            documents: 'Dokumente & Links',
+            units: 'Einheiten'
+        }
+        var active = 'core';
+
+    .container-content
+        +form('horizontal')(id=formName data-val-ignore="")
+            button.hidden(id=formName + '-submit' type='submit')
+
+            .container-content__header
+                +headline(1)
+                    strong ID: 00233
+                    =" Rennplatzstraße 52, 01237 Dresden, Seidnitz"
+
+                +nav-tabs(tabs, active)
+
+            +form-validation-summary
+
+            .nav-tabs-content.tab-content
+                +nav-tabs-panel('core').active
+                    fieldset
+                        legend.form__legend Status
+
+                        .form__row
+                            .form__col
+                                +form-group('Onlinestatus', 'status')
+                                    +select-single('status', ["auf Freigabe wartend", "freigeschaltet", "archiviert"])(data-val="true" data-val-required=errormsg.required)
+
+                    fieldset
+                        legend.form__legend Stammdaten
+
+                        .form__row
+                            .form__col
+                                +form-group('Stadt', 'city')
+                                    +select-single('city', ["Dresden", "Radeberg", "Weinböhla"])(data-val="true" data-val-required=errormsg.required)
+                                +form-group('Stadtteil', 'district')
+                                    +select-single('district', ["Striesen", "Löbtau", "Friedrichstadt"])(data-val="true" data-val-required=errormsg.required)
+                                +form-group('Straße', 'address')
+                                    +input-text('address')(data-val-required=errormsg.required data-val="true")
+                                +form-group('Gebäudeart', 'building_type')
+                                    +select-single('building_type', ["Neubau Erstbezug", "Bestandsobjekt"])
+                                +form-group('Baujahr', 'baujahr')
+                                    +input-number('baujahr', null, null, 1)(value="1950")
+                                +form-group('Sanierungsjahr', 'sanierungsjahr')
+                                    +input-number('sanierungsjahr', null, null, 1)
+                            .form__col
+                                +form-group('Gebietslage', 'location_detail')
+                                    +input-text('location_detail')
+                                +form-group('Flur', 'flur')
+                                    +input-text('flur')(data-val-required=errormsg.required data-val="true")
+                                +form-group('Flurstück', 'flurstueck')
+                                    +input-text('flurstueck')(data-val-required=errormsg.required data-val="true")
+                                +form-group('Gemarkung', 'gemarkung')
+                                    +input-text('gemarkung')
+                                +form-group('Grundstücksfläche', 'grundstuecksflaeche')
+                                    +input-number('grundstuecksflaeche', '2.999,33', 'm²', 0.01)(data-val-required=errormsg.required data-val="true")
+
+                +nav-tabs-panel('description')
+                    fieldset
+                        legend.form__legend Beschreibung
+                        .form__row
+                            .form__col
+                                +form-group('Objektbeschreibung', 'description').form-group--textarea
+                                    +textarea('description')(data-val="true" data-val-required=errormsg.required)
+                            .form__col
+                                +form-group('Lagebeschreibung', 'location_description').form-group--textarea
+                                    +textarea('location_description')
+
+                +nav-tabs-panel('pictures')
+                    fieldset
+                        legend.form__legend Bilder
+                        +grid-fileupload('Titelbild', 'control_name')
+                            +file-uploaded('/images/img_1.png','#edit','#delete')
+                            +file-uploaded('/images/img_1.png','#edit','#delete')
+                            +file-uploaded('/images/img_1.png','#edit','#delete')
+                            +file-uploaded('/images/img_1.png','#edit','#delete')
+                            +file-uploaded('/images/img_1.png','#edit','#delete')
+                +nav-tabs-panel('documents')
+                    fieldset
+                        legend.form__legend Dokumente
+                +nav-tabs-panel('units')
+                    fieldset
+                        legend.form__legend Wohneinheiten
+                            a(href="#").btn.btn-primary.pull-right Wohneinheit erstellen
+
+                    -
+                        var tData1 = {
+                                tName: 't',
+                                head: [{
+                                    label: 'Wohnung',
+                                    sortable: 'True',
+                                    initialSort: 'asc'
+                                },{
+                                    label: 'Status',
+                                    sortable: 'True'
+                                },{
+                                    label: 'Lage',
+                                    sortable: 'True'
+                                },{
+                                    label: 'Objektbezeichung',
+                                    sortable: 'True'
+                                },{
+                                    label: 'Fläche',
+                                    sortable: 'True'
+                                },{
+                                    label: 'Zimmer',
+                                    sortable: 'True'
+                                },{
+                                    label: 'Preis',
+                                    sortable: 'True'
+                                },{
+                                    label: '',
+                                    sortable: 'False'
+                                }],
+                                data: [[{
+                                    type: 'text',
+                                    content: '01',
+                                    rowIndex: 0
+                                },{
+                                    type: 'text',
+                                    content: 'Verfügbar',
+                                    rowIndex: 1
+                                },{
+                                    type: 'number',
+                                    content: 'EG',
+                                    rowIndex: 1
+                                },{
+                                    type: 'text',
+                                    content: '2-Raum-Wohnung',
+                                    rowIndex: 1
+                                },{
+                                    type: 'number',
+                                    content: '49,50 m²',
+                                    rowIndex: 1
+                                },{
+                                    type: 'number',
+                                    content: '12',
+                                    rowIndex: 1
+                                },{
+                                    type: 'number',
+                                    content: '98.100,00 €',
+                                    rowIndex: 1
+                                },{
+                                    type: 'action',
+                                    rowIndex: 1,
+                                    url: '#',
+                                }]
+                            ]
+                            }
+
+                    .container-content--full
+                      +table(tData1.tName,'0','asc')
+                          +table-head(tData1)
+                          +table-body()
+                              +table-row(tData1.tName,'0',tData1.data[0])

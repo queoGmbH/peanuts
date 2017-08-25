@@ -1,0 +1,79 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Display.PaginationModel
+
+<nav>
+    <ul class="pager">
+
+        @if (Model.HasPreviousPage) {
+            <li class="previous">
+                <a href="@Url.RouteUrl(Model.GetRouteValueDictionary(1))">
+                    <i></i>
+                    @Resources_Web.common_btn_PagerFirstPage
+                </a>
+            </li>
+            <li class="previous">
+                <a href="@Url.RouteUrl(Model.GetRouteValueDictionary(Model.PageNumber - 1))">
+                    <i></i>
+                    @Resources_Web.common_btn_PagerPrevious
+                </a>
+            </li>
+        } else {
+            <li class="previous disabled">
+                <a>
+                    <i></i>
+                    @Resources_Web.common_btn_PagerFirstPage
+                </a>
+            </li>
+            <li class="previous disabled">
+                <a>
+                    <i></i>
+                    @Resources_Web.common_btn_PagerPrevious
+                </a>
+            </li>
+        }
+
+        <li class="disabled">
+            <a>
+                <i></i>
+                @(string.Format(Resources_Web.label_Page_Current_Of_Total, Model.PageNumber, Model.TotalPages))
+            </a>
+            @*<a>
+                Seite @Model.PageNumber
+            </a>
+            <a href="@Url.RouteUrl(Model.GetRouteValueDictionary(Model.TotalPages))"> von @Model.TotalPages</a>*@
+        </li>
+
+        @if (Model.HasNextPage) {
+            <li class="next">
+                <a href="@Url.RouteUrl(Model.GetRouteValueDictionary(Model.PageNumber + 1))">
+                    @Resources_Web.common_btn_PagerNext
+                    <i></i>
+                </a>
+            </li>
+            <li class="next">
+                @{
+                    RouteValueDictionary routeValueDictionary = Model.GetRouteValueDictionary(Model.TotalPages);
+                    string routeUrl = Url.RouteUrl(routeValueDictionary);
+                }
+                <a href="@routeUrl">
+                    <i></i>
+                    @Resources_Web.common_btn_PagerLastPage
+                </a>
+            </li>
+        } else {
+            <li class="next disabled">
+                <a>
+                    <i></i>
+                    @Resources_Web.common_btn_PagerLastPage
+                </a>
+            </li>
+            <li class="next disabled">
+                <a>
+                    <i></i>
+                    @Resources_Web.common_btn_PagerNext
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

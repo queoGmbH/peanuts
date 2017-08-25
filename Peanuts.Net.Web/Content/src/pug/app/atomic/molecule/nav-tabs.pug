@@ -1,0 +1,5 @@
+mixin nav-tabs(tabs, active)
+    ul.nav.nav-tabs(role="tablist")
+        each caption, key in tabs
+            li(class=(key == active?'active':null) role="presentation")
+                a(href="#"+key aria-controls=key role="tab" data-toggle="tab")= caption

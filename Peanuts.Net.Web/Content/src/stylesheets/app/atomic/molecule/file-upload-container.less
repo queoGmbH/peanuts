@@ -1,0 +1,30 @@
+.file-upload-container {
+    padding: 0 @grid-gutter-width/2;
+    margin-bottom: 10px;
+    height: 150px;
+    border: 2px dotted @brand-primary;
+    border-radius: @border-radius-large;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+
+    .icon {
+        font-size: 20px;
+        margin-bottom: 10px;
+
+        &:before {
+            color: @brand-primary;
+        }
+    }
+
+    @media (min-width: @screen-xs) {
+        width: 33.333333%;
+    }
+
+    @media (min-width: @screen-sm) {
+        width: 20%;
+    }
+}

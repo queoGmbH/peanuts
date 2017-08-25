@@ -1,0 +1,11 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/molecule/headline-start
+
+block headline
+    | content
+
+block modules
+    .container
+        +headline-start(startHeadline.title, startHeadline.text)
+        +highlight
+          +headline-start(startHeadline.title, startHeadline.text)

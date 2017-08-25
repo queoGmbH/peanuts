@@ -1,0 +1,125 @@
+.list {
+    .table;
+    .table-condensed;
+
+    table-layout: fixed;
+    margin-bottom: @module-margin-bottom;
+
+    td,
+    th {
+        padding: @padding-base-vertical 0 !important;
+
+        &:first-child {
+            font-weight: @font-weight-bold;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding-right: 10px;
+        }
+
+        &:not(:first-child) {
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .link {
+            font-weight: @font-weight-bold;
+            color: @brand-primary;
+
+            span:before {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    thead {
+        td,
+        th {
+            border: none !important;
+            font-weight: @font-weight-bold;
+
+            &:first-child {
+                font-weight: @font-weight-thicker;
+            }
+        }
+    }
+
+    tr:first-child td {
+        border: none !important;
+    }
+
+    &-data {
+        &--text {
+            &:first-child {
+                min-width: percentage(5/12);
+            }
+
+            &:not(:first-child) {
+                width: auto;
+                text-align: left;
+                white-space: normal;
+            }
+        }
+
+        &--bold {
+            font-weight: @font-weight-thicker !important;
+            border-top-color: @gray !important;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        td,
+        th {
+            &:first-child {
+                min-width: none;
+                white-space: normal;
+                width: percentage(4/12);
+            }
+
+            &:not(:first-child) {
+                width: 15%;
+            }
+        }
+
+        td,
+        th {
+            &.list-data--text {
+                &:first-child {
+                    width: percentage(6/12);
+                }
+
+                &:not(:first-child) {
+                    width: auto;
+                    white-space: normal;
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    @media (min-width: @screen-md-min) {
+        td,
+        th {
+            &:first-child {
+                width: auto;
+            }
+
+            &:not(:first-child) {
+                width: 25%;
+            }
+        }
+
+        td,
+        th {
+            &.list-data--text {
+                &:first-child {
+                    width: percentage(5/12);
+                }
+
+                &:not(:first-child) {
+                    width: auto;
+                }
+            }
+        }
+    }
+}

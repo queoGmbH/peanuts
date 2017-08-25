@@ -1,0 +1,5 @@
+mixin circle(status, percent, start)
+    .circle.c100(class=["p"+percent, (start?"s"+start:null), status])&attributes(attributes)
+        .slice
+            .bar
+            .fill

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0"
+      encoding="utf-8" ?>
+
+<objects xmlns="http://www.springframework.net"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <object id="accountController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Controllers.AccountController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+  <object id="billController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Controllers.BillController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+  <object id="documentController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Controllers.DocumentController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+  <object id="userGroupAdministrationController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Controllers.UserGroupAdministrationController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+  <object id="homeAdministrationController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Controllers.HomeAdministrationController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+  
+  <object id="homeController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Controllers.HomeController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+  <object id="manageController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Controllers.UserProfileController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+  <object id="paymentController"
+         singleton="false"
+         type="Com.QueoFlow.Peanuts.Net.Web.Controllers.PaymentController, Peanuts.Net"
+         autowire="autodetect">
+    <property name="PayPalUrl" value="${paypalUrl}"/>
+  </object>
+
+  <object id="peanutController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Controllers.PeanutController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+
+  <object id="userController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Controllers.UserAdministrationController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+  <object id="userGroupController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Controllers.UserGroupController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
+  <object id="userStoreAdapter"
+          type="Com.QueoFlow.Peanuts.Net.Web.Infrastructure.Security.UserStoreAdapter, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+  
+  <object id="fileInfoModelBinder"
+          type="Com.QueoFlow.Peanuts.Net.Web.Infrastructure.ModelBinding.FileInfoModelBinder, Peanuts.Net"
+          autowire="autodetect">
+    <constructor-arg>
+      <value>${uploadedFileBasePath}</value>
+    </constructor-arg>
+  </object>
+
+
+
+  <object id="jiraCollectorUrl" type="System.String" factory-method="Copy">
+    <constructor-arg index="0">
+      <value>${jiraCollectorUrl}</value>
+    </constructor-arg>
+  </object>
+
+</objects>

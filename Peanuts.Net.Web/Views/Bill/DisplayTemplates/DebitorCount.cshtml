@@ -1,0 +1,46 @@
+﻿@using System.Text
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting
+@model Bill
+
+@functions {
+    string GetDebitorsDescription() {
+
+        StringBuilder sb = new StringBuilder();
+
+        if (Model.UserGroupDebitors.Any(deb => deb.BillAcceptState == BillAcceptState.Accepted)) {
+            sb.AppendLine("Rechnung bestätigt:");
+            sb.AppendLine(string.Join(Environment.NewLine, Model.UserGroupDebitors.Where(deb => deb.BillAcceptState == BillAcceptState.Accepted).Select(deb => deb.UserGroupMembership.User.DisplayName)));
+            sb.AppendLine();
+        }
+        if (Model.UserGroupDebitors.Any(deb => deb.BillAcceptState == BillAcceptState.Refused)) {
+            sb.AppendLine("Rechnung abgelehnt:");
+            sb.AppendLine(string.Join(Environment.NewLine, Model.UserGroupDebitors.Where(deb => deb.BillAcceptState == BillAcceptState.Refused).Select(deb => string.Format("{0}: {1}", deb.UserGroupMembership.User.DisplayName, deb.RefuseComment))));
+            sb.AppendLine();
+        }
+        if (Model.UserGroupDebitors.Any(deb => deb.BillAcceptState == BillAcceptState.Pending)) {
+            sb.AppendLine("Warte auf Bestätigung:");
+            sb.AppendLine(string.Join(Environment.NewLine, Model.UserGroupDebitors.Where(deb => deb.BillAcceptState == BillAcceptState.Pending).Select(deb => deb.UserGroupMembership.User.DisplayName)));
+            sb.AppendLine();
+        }
+
+        return sb.ToString();
+    }
+}
+
+@if (Model.HasAnyoneRefused) {
+    <span class="text-danger" title="@GetDebitorsDescription()">
+        @Model.DebitorCount
+    </span>
+} else if (Model.HasEveryoneAccepted) {
+    <span class="text-success" title="@GetDebitorsDescription()">
+        @Model.DebitorCount
+    </span>
+} else {
+    <span title="@GetDebitorsDescription()">
+        @Model.DebitorCount
+    </span>
+}
+
+
+
+

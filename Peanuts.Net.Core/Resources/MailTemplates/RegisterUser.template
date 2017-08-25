@@ -1,0 +1,19 @@
+﻿Subject: Bestätigung der Registrierung für peanuts
+
+<p>Hallo {name},</p>
+
+<p>zur Bestätigung der Registrierung auf peanuts klicke bitte auf den nachfolgenden Link. 
+Sollte das nicht funktionieren, kopiere den gesamten Link und füge diesen in die Adressleiste des Browsers ein.
+</p>
+<p>
+{confirmationLink}
+</p>
+<p>
+Solltest du dich nicht registriert haben, ignoriere diese E-Mail.
+Mit Fragen wende dich bitte an info@queo-group.com
+</p>
+
+<p>
+Bis gleich, <br/>
+Dein Peanuts-Team
+</p>

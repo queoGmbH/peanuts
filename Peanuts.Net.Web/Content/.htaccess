@@ -1,0 +1,8 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(www.)?([a-z]*-)?metzler-relaunch2016-frontend.dev.(queo-group\.com|queo\.org)$
+RewriteCond %{REQUEST_URI} !^/build/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /build/$1
+RewriteCond %{HTTP_HOST} ^(www.)?([a-z]*-)?metzler-relaunch2016-frontend.dev.(queo-group\.com|queo\.org)$
+RewriteRule ^(/)?$ build/index.html [L]

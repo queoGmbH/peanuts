@@ -1,0 +1,151 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Home.IndexViewModel
+
+@{
+    string title = "Hallo, " + Model.UserName;
+    string subtitle = string.Format("Es ist {0:dddd', der' dd. MMMM yyyy}. Womit möchten Sie beginnen?", DateTime.Now);
+    Layout = "~/Views/Shared/_LayoutFullscreen.cshtml";
+}
+
+@functions {
+
+    IHtmlString RenderTodaysPeanutsDescription(IList<PeanutParticipation> todaysPeanuts) {
+        if (!todaysPeanuts.Any()) {
+            return Html.Raw("Heute keine Peanuts");
+        } else if (todaysPeanuts.Count == 1) {
+            return Html.Raw("Heute 1 Peanut: <br/>" + todaysPeanuts.First().Peanut.Name);
+        } else {
+            return Html.Raw("Heute " + todaysPeanuts.Count + " Peanuts");
+        }
+    }
+
+    IHtmlString RenderTodaysPeanutsTitle(IList<PeanutParticipation> todaysPeanuts) {
+        if (!todaysPeanuts.Any()) {
+            return Html.Raw("0 Peanuts");
+        } else if (todaysPeanuts.Count == 1) {
+            return Html.Raw("1 Peanut");
+        } else {
+            return Html.Raw(todaysPeanuts.Count + " Peanuts");
+        }
+    }
+
+}
+
+
+<div class="headline-start">
+    <h1 class="h1--lg">
+        @title
+    </h1>
+    <p class="lead">
+        @subtitle
+    </p>
+</div>
+
+@if (Model.Memberships.Any()) {
+
+
+    foreach (UserGroupMembership userGroupMembership in Model.Memberships) {
+
+        if (userGroupMembership.Account.Balance > 50) {
+            <div class="alert alert-info">
+                Dein Konto in der Gruppe <a href="@Url.Action("Membership", "UserGroup", new {userGroup = userGroupMembership.UserGroup.BusinessId, userGroupMembership = userGroupMembership.BusinessId})">@(userGroupMembership.UserGroup.DisplayName)</a> steht inzwischen bei @(string.Format("{0:C}", userGroupMembership.Account.Balance)).
+            </div>
+        }
+        if (userGroupMembership.Account.Balance < -20) {
+            <div class="alert alert-danger">
+                Dein Konto in der Gruppe <a href="@Url.Action("Membership", "UserGroup", new {userGroup = userGroupMembership.UserGroup.BusinessId, userGroupMembership = userGroupMembership.BusinessId})">@(userGroupMembership.UserGroup.DisplayName)</a> steht inzwischen bei @(string.Format("{0:C}", userGroupMembership.Account.Balance)).
+            </div>
+        }
+
+    }
+
+
+    <div class="shortcut-grid-dashboard">
+        <div class="shortcut-dashboard">
+            <a class="link icon-plus link-icon" href="@Url.Action("CreateForm", "Peanut", new {day = DateTime.Today})">Peanut erstellen</a>
+        </div>
+        <div class="shortcut-dashboard">
+            <a class="link icon-inbox link-icon" href="@Url.Action("CreateForm", "Bill")">Rechnung stellen</a>
+        </div>
+        <div class="shortcut-dashboard">
+            <a class="link icon-sign-in link-icon" href="@Url.Action("GotMoneyForm", "Payment")">Geld erhalten</a>
+        </div>
+        <div class="shortcut-dashboard">
+            <a class="link icon-sign-out link-icon" href="@Url.Action("PayMoneyForm", "Payment")">Geld bezahlt</a>
+        </div>
+    </div>
+}
+
+<div class="cards-grid-dashboard">
+    @if (Model.Memberships.Any()) {
+        <a class="card-dashboard" href="@Url.Action("Index", "Peanut")">
+            <span class="card-dashboard__icon icon-calendar"></span>
+            <span class="card-dashboard__text">
+                <span class="h2">
+                    Peanuts
+                </span>
+                @RenderTodaysPeanutsDescription(Model.TodaysPeanuts.ToList())
+            </span>
+        </a>
+        <a class="card-dashboard" href="@Url.Action("AllMemberships", "UserGroup")">
+            <span class="card-dashboard__icon icon-group"></span>
+            <span class="card-dashboard__text">
+                <span class="h2">
+                    Gruppen
+                </span>
+                Mitglied in @Model.Memberships.TotalElements Gruppe(n)
+                
+            </span>
+        </a>
+        <a class="card-dashboard" href="@Url.Action("Index", "Bill")">
+            <span class="card-dashboard__icon icon-inbox"></span>
+            <span class="card-dashboard__text">
+                <span class="h2">
+                    Rechnungen
+                </span>
+                @if (Model.DeclinedBills.TotalElements > 0) {
+                    <span class="text-danger">
+                        @(Model.DeclinedBills.TotalElements + "abgelehnte Rechnungen")
+                    </span>
+                }
+                
+                @Model.PendingBills.Count offene Rechnungen
+                
+            </span>
+        </a>
+        <a class="card-dashboard" href="@Url.Action("Index", "Payment")">
+            <span class="card-dashboard__icon icon-euro"></span>
+            <span class="card-dashboard__text">
+                <span class="h2">
+                    Zahlungen
+                </span>
+                @if (Model.DeclinedPayments.TotalElements > 0) {
+                    <span class="text-danger">
+                        @Model.DeclinedPayments.TotalElements abgelehnte Zahlung
+                    </span>
+                }
+                
+                @Model.PendingPayments.TotalElements unbestätigte Zahlung
+                
+            </span>
+        </a>
+    } else {
+        <a class="card-dashboard" href="@Url.Action("AllMemberships", "UserGroup")">
+            <span class="card-dashboard__icon icon-group"></span>
+            <span class="card-dashboard__text">
+                <span class="h2">
+                    Erster Schritt
+                </span>
+                
+                Mitglied in einer Gruppe werden
+            </span>
+        </a>
+    }
+</div>
+
+@if (User.IsInRole("Administrator")) {
+    <div class="admin-link-start">
+        <a class="link icon-gears link-icon" href="@Url.Action("Index", "HomeAdministration", new { area = "Admin" })">Administration</a>
+    </div>
+}

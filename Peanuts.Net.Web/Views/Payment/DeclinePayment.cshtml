@@ -1,0 +1,56 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Payment.DeclinePaymentViewModel
+    
+
+@{
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+    string title;
+    if (Model.Payment.Sender.Membership.User.Equals(Model.Payment.RequestRecipient)) {
+        /*Jemand hat von mir Geld erhalten (ich bin der Absender), hat ein Ticket erstellt und ich will/kann das NICHT bestätigen*/
+        title = string.Format("Bezahlung von {0:C} durch {1} ablehnen", Model.Payment.Amount, Model.Payment.Sender.Membership.User.DisplayName);
+    } else if (Model.Payment.Recipient.Membership.User.Equals(Model.Payment.RequestRecipient)) {
+        /*Jemand hat mir Geld gegeben (ich bin der Empfänger), hat ein Ticket erstellt und ich will/kann das NICHT bestätigen*/
+        title = string.Format("Zahlung von {0:C} an {1} ablehnen", Model.Payment.Amount, Model.Payment.Recipient.Membership.User.DisplayName);
+    } else {
+        /*Irgendjemand hat von Irgendjemand anderem Geld erhalten und ich darf das ablehnen (zB weil ich Admin bin)*/
+        title = string.Format("Zahlung von {0:C} durch {1} an {2} ablehnen", Model.Payment.Amount, Model.Payment.Sender.Membership.User.DisplayName, Model.Payment.Recipient.Membership.User.DisplayName);
+    }
+
+    ViewBag.Title = title;
+}
+
+@section toolbar{
+    <a href="@Url.Action("PendingPayments", "Payment")" class="btn btn-default">
+        <span class="icon-arrow-left"></span>
+        @Resources_Web.btn_Cancel
+    </a>
+}
+
+@using (Html.BeginForm("DeclinePayment", "Payment", new { payment = Model.Payment.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+    <p>
+        @if (Model.Payment.Sender.Membership.User.Equals(Model.Payment.RequestRecipient)) {
+            /*Jemand hat von mir Geld erhalten (ich bin der Absender), hat ein Ticket erstellt und ich muss das bestätigen*/
+            @(string.Format("Ich lehne die Bezahlung von {0:C} durch {1} an mich ab!", Model.Payment.Amount, Model.Payment.Sender.Membership.User.DisplayName))
+        } else if (Model.Payment.Recipient.Membership.User.Equals(Model.Payment.RequestRecipient)) {
+            /*Jemand hat mir Geld gegeben (ich bin der Empfänger), hat ein Ticket erstellt und ich muss das bestätigen*/
+            @(string.Format("Ich lehne die Zahlung von {0:C} an {1} ab!", Model.Payment.Amount, Model.Payment.Recipient.Membership.User.DisplayName))
+        } else {
+            /*Irgendjemand hat von Irgendjemand anderem Geld erhalten und ich darf das bestätigen (zB weil ich Admin bin)*/
+            @(string.Format("Ich lehne die Zahlung von {0:C} durch {1} an {2} ab!", Model.Payment.Amount, Model.Payment.Sender.Membership.User.DisplayName, Model.Payment.Recipient.Membership.User.DisplayName))
+        }
+    </p>
+    
+    @Html.Form().TextArea(m => m.DeclinePaymentCommand.DeclineReason)
+
+    <p>
+        <button type="submit" class="btn btn-danger">
+            <span class="icon-thumbs-down"></span>
+            Ablehnen
+        </button>
+    </p>
+}

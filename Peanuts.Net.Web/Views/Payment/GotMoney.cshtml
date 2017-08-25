@@ -1,0 +1,35 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Transactions
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.GotMoneyViewModel
+
+@{
+    ViewBag.Title = "Geld erhalten";
+}
+
+@section toolbar{
+    <a class="btn btn-default" href="@Url.Action("Index", "Payment")">
+        <span class="icon-arrow-left"></span>
+        Zurück
+    </a>
+    
+    <button type="submit" form="@(Html.GenerateId<Payment>(IdForElement.Form, IdForAction.Create))" class="btn btn-primary pull-right">
+        Annehmen
+    </button>
+}
+
+
+@using (Html.BeginForm("GotMoney", "Payment", FormMethod.Post, new { id = Html.GenerateId<Payment>(IdForElement.Form, IdForAction.Create), @class = "form form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+
+    @Html.Form().Select(m => m.GotMoneyCommand.Sender, Objects.GetPropertyName<UserGroupMembership>(m => m.BusinessId), Objects.GetPropertyName<UserGroupMembership>(m => m.DisplayName), (IList)Model.GroupMembers, "Nutzer wählen ...", "Von")
+    @Html.Form().Number(m => m.GotMoneyCommand.PaymentDto.Amount)
+    @Html.Form().TextBox(m => m.GotMoneyCommand.PaymentDto.Text)
+
+    @Html.Form().Select(m => m.GotMoneyCommand.PaymentDto.PaymentType, null)
+}
+

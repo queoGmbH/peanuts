@@ -1,0 +1,35 @@
+div.progress > .js-pw-strength-progress {
+    margin-bottom: 18px;
+    height: 3px;
+    border-radius: 3px;
+    background-color: transparent;
+
+    .password-verdict {
+        font-size: @font-size-small;
+        white-space: nowrap;
+    }
+
+    &.progress-bar-success {
+        background-color: @brand-success;
+
+        .password-verdict {
+            color: @brand-success;
+        }
+    }
+
+    &.progress-bar-warning {
+        background-color: @brand-warning;
+
+        .password-verdict {
+            color: @brand-warning;
+        }
+    }
+
+    &.progress-bar-danger {
+        background-color: @brand-danger;
+
+        .password-verdict {
+            color: @brand-danger;
+        }
+    }
+}

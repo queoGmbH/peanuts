@@ -1,0 +1,26 @@
+{
+  "src": "src",
+  "dev": "dist",
+  "dest": "dist",
+  "dist": "dist",
+  "pug": {
+    "src": "pug",
+    "dest": "./"
+  },
+  "javascripts": {
+    "src": "javascripts",
+    "dest": "javascripts"
+  },
+  "stylesheets": {
+    "src": "stylesheets",
+    "dest": "stylesheets"
+  },
+  "images": {
+    "src": "images",
+    "dest": "images"
+  },
+  "fonts": {
+    "src": "fonts",
+    "dest": "fonts"
+  }
+}

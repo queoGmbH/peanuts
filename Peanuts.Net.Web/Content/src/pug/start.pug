@@ -1,0 +1,18 @@
+extends app/atomic/template/start
+
+include app/atomic/molecule/headline-start
+include app/atomic/organism/cards-grid-dashboard
+include app/atomic/molecule/card-dashboard
+include app/atomic/atom/link-icon
+include app/atomic/atom/admin-link-start
+
+block content
+    +headline-start(startHeadline.title, startHeadline.text)
+
+    +cards-grid-dashboard()
+        +card-dashboard(navigation.dashboard[0])
+        +card-dashboard(navigation.dashboard[1])
+        +card-dashboard(navigation.dashboard[2])
+
+    +admin-link-start()
+        +link-icon('/admin/dashboard.html','gears','Administration')

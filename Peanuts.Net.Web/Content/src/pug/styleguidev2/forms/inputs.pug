@@ -1,0 +1,74 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Input
+                =" Fields"
+
+        ol
+            li
+                +link('#f1') Static Field
+            li
+                +link('#f2') Input Field
+            li
+                +link('#f3') Password Strength Indicator
+            li
+                +link('#f4') Validation
+
+        h2#f1 Static Field
+        +form('horizontal')
+            +form-group('Static')
+                +input-static('Max Mustermann')
+        +highlight()
+            +form('horizontal')
+                +form-group('Static')
+                    +input-static('Max Mustermann')
+
+        h2#f2 Input Field
+        +form('horizontal')
+            +form-group('Input', 'input')
+                +input-text('input','Placeholder','text')
+        +highlight()
+            +form('horizontal')
+                +form-group('Input', 'input')
+                    +input-text('input','Placeholder','text')
+
+        p ID in demonstration input is only for attaching options as data-attribute (data-options) for styleguide. Use code example below demonstration.
+
+        h2#f3 Password Strength Indicator
+        +form('horizontal')
+            +form-group('Passwort', 'password')
+                +input-text('password', null, 'password')(id='sg-js-pw-strength' data-val="true" data-val-required=errormsg.required).js-pw-strength
+        +highlight()
+            +form('horizontal')
+                +form-group('Passwort', 'password')
+                    +input-text('password', null, 'password')(data-val="true" data-val-required=errormsg.required).js-pw-strength
+
+        h2#f4 Validation
+        +form('horizontal')
+            +form-group('Required', 'required')
+                +input-text('required','Required Field','text')(data-val-required=errormsg.required data-val="true")
+            +form-group('E-Mail', 'email')
+                +input-text('email','E-Mail Field','email')(data-val-email=errormsg.email data-val="true")
+            +form-group('Number', 'tel')
+                +input-text('tel','Number Field','tel')(data-val-number=errormsg.number data-val="true")
+            +form-group('Number', 'number')
+                    +input-text('number','Number Field','number')(data-val-number=errormsg.number data-val="true")
+            +form-group('Length', 'text')
+                +input-text('text','Length Field between 4-5','text')(data-val-length=errormsg.length data-val-length-min="4" data-val-length-max="5" data-val="true")
+            button.btn.btn-primary(type=submit) Validierung
+        +highlight()
+            +form('horizontal')
+                +form-group('Required', 'required')
+                    +input-text('required','Required Field','text')(data-val-required=errormsg.required data-val="true")
+                +form-group('E-Mail', 'email')
+                    +input-text('email','E-Mail Field','email')(data-val-email=errormsg.email data-val="true")
+                +form-group('Telefon', 'tel')
+                    +input-text('tel','Number Field','tel')(data-val-number=errormsg.number data-val="true")
+                +form-group('Number', 'number')
+                    +input-text('number','Number Field','tel')(data-val-number=errormsg.number data-val="true")
+                +form-group('Length', 'text')
+                    +input-text('text','Length Field between 4-5','text')(data-val-length=errormsg.length data-val-length-min="4" data-val-length-max="5" data-val="true")
+                button.btn.btn-primary(type=submit) Validierung

@@ -1,0 +1,13 @@
+extends app/atomic/template/default
+
+block content-toolbar
+    +content-toolbar
+
+block content
+    .container-content
+        .container-content__header
+            +headline(1) Objektsuche
+
+        +link('/unitsdetail.html').btn.btn-lg.btn-primary
+            span.icon-home
+            | Objektdetail anzeigen

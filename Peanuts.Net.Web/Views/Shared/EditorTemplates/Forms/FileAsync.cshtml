@@ -1,0 +1,57 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Documents
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms.FileAsyncUploadModel
+
+@{
+    string fieldPrefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+
+<div class="grid-fileupload" data-required-field="@(Model.IsRequired)" data-valmsg-for="@Model.Id" data-valmsg-replace="false">
+    <div class="js-fileuploader" data-is-multiple-upload="@Model.IsMultipleUpload.ToString()"
+         data-url-upload="@Model.UploadUrl">
+        <template class="new-file-template">
+            <div class="file-uploaded js-fileuploader-uploaded-file">
+                @if (Model.IsMultipleUpload) {
+                    @Html.Hidden(Model.PropertyPath + ".index", "___FILEUPLOADER_INDEX_PLACEHOLDER___")
+                }
+                <div class="js-fileuploader-uploaded-file-content">
+                    @Html.Raw(Html.Encode(Html.Partial("EditorTemplates/Forms/FileAsyncTemplate", new UploadedFile())))
+                </div>
+            </div>
+        </template>
+        <input class="grid-fileupload__input js-fileuploader-input" @Model.GetMultipleAttribute() type="file" id="@Model.Id" name="@(Model.Name)" placeholder="@Model.Placeholder">
+
+        <div class="grid-fileupload__container js-fileuploader-uploaded-files-container">
+            <div class="file-upload-container upload-files-container">
+                <span class="icon icon-file-image-o"></span><span>Dateien hierher ziehen oder</span><a class="link link--text js-fileuploader-browse" href="#">Dateien durchsuchen</a>
+            </div>
+            @if (Model.IsMultipleUpload && Model.Value != null) {
+                for (int i = 0; i < ((IList)Model.Value).Count; i++) {
+                    string index = Guid.NewGuid().ToString();
+                    <div class="file-uploaded js-fileuploader-uploaded-file">
+                        @{
+                            ViewData.TemplateInfo.HtmlFieldPrefix = Model.PropertyPath;
+                            @Html.Hidden("index", index)
+                            ViewData.TemplateInfo.HtmlFieldPrefix = string.Format("{0}[{1}]", Model.PropertyPath, index);
+                        }
+                        <div class="js-fileuploader-uploaded-file-content">
+                            @Html.Partial("EditorTemplates/AsyncUploadedFile", ((IList)Model.Value)[i])
+                        </div>
+                    </div>
+                }
+                ViewData.TemplateInfo.HtmlFieldPrefix = fieldPrefix;
+            } else if (Model.Value != null) {
+                <div class="file-uploaded js-fileuploader-uploaded-file">
+                    <div class="js-fileuploader-uploaded-file-content">
+                        @Html.Partial("EditorTemplates/AsyncUploadedFile", Model.Value)
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+@{
+    ViewData.TemplateInfo.HtmlFieldPrefix = fieldPrefix;
+}

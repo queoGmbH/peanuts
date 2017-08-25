@@ -1,0 +1,32 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Selects
+
+        ol
+            li
+                +link('#f1') Single Select
+            li
+                +link('#f2') Multi Select
+
+        h2#f1 Single Select
+        +form('horizontal')
+            +form-group('Single Select', 'single-select')
+                +select-single('single-select', ['Herr', 'Frau'])
+        +highlight()
+            +form('horizontal')
+                +form-group('Single Select', 'single-select')
+                    +select-single('single-select', ['Herr', 'Frau'])
+
+        h2#f2 Multi Select
+        +form('horizontal')
+            +form-group('Multi Select', 'multi-select')
+                +select-multiple('multi-select', ['Herr', 'Frau'])
+        +highlight()
+            +form('horizontal')
+                +form-group('Multi Select', 'multi-select')
+                    +select-multiple('multi-select', ['Herr', 'Frau'])
+

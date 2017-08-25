@@ -1,0 +1,48 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Typography
+                =" Styles"
+
+        ol
+            li
+                +link('#l1') Headlines
+            li
+                +link('#l2') Paragraphs
+            li
+                +link('#l3') Unordered Lists
+
+        h2#l1 Headlines
+
+        +headline(1) Headline Level 1
+        +highlight()
+            +headline(1) Headline Level 1
+
+        p Classes (Modification):  h1--lg
+
+        +headline(2) Headline Level 2
+        +highlight()
+            +headline(2) Headline Level 2
+
+        +headline(3) Headline Level 3
+        +highlight()
+            +headline(3) Headline Level 3
+
+        h2#l2 Paragraphs
+
+        p= lipsum(10,'words')
+        p= lipsum(5,'sentences')
+        +highlight()
+            p= lipsum(10, 'words')
+            p= lipsum(5, 'sentences')
+
+        h2#l3 Unordered Lists
+
+        ul List
+            li List-Item 1
+        +highlight()
+            ul List
+                li List-Item 1

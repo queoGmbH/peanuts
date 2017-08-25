@@ -1,0 +1,9 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Users.User
+
+<a class="link icon-search" href="@Url.Action("Show", "UserAdministration", new { user = Model.BusinessId })" title="@Resources_Web.common_btn_Show"></a>
+
+<a class="link icon-pencil" href="@Url.Action("UpdateForm", "UserAdministration", new { user = Model.BusinessId })" title="@Resources_Web.common_btn_Edit"></a>
+
+<a class="link icon-trash" href="@Url.Action("DeleteForm", "UserAdministration", new { user = Model.BusinessId })" title="@Resources_Web.common_btn_Delete"></a>

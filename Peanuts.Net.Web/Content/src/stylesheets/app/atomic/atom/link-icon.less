@@ -1,0 +1,18 @@
+.link-icon {
+    .icon-circle(default,1px solid @brand-secondary);
+
+    font-weight: @font-weight-bold !important;
+
+    &:before {
+        display: inline-block;
+        margin-right: 10px;
+        font-weight: @font-weight-normal;
+        color: @brand-secondary;
+        font-size: 16px;
+    }
+
+    &:hover:before {
+        color: @brand-primary;
+    }
+}
+

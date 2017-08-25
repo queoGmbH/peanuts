@@ -1,0 +1,14 @@
+﻿Subject: Einladung zu Peanut "{peanut.Name}" am {peanut.Day:D}
+
+<p>Hallo {recipient.FirstName},</p>
+
+<p>
+{user.DisplayName} plant für {peanut.Day:D} den Peanut <a href="{peanutUrl}">{peanut.Name}</a> und möchte dich dazu einladen.
+</p>
+<p>
+Wenn du möchtest, kannst du <a href="{attendPeanutUrl}">hier die Einladung annehmen</a>!
+</p>
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>

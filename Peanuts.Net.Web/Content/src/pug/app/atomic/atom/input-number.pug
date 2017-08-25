@@ -1,0 +1,7 @@
+mixin input-number(name, placeholder, addon, step)
+    if addon
+        .input-group
+            input.form-control(type='number' id=name name=name placeholder=placeholder step=step)&attributes(attributes)
+            span.input-group-addon!= addon
+    else
+        input.form-control(type='number' id=name name=name placeholder=placeholder step=step)&attributes(attributes)

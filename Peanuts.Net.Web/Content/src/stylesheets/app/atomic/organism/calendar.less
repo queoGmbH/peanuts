@@ -1,0 +1,15 @@
+.calendar {
+    margin: 0 auto @module-margin-bottom*2;
+
+    @media (min-width: @screen-sm) {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: (-@grid-gutter-width/2);
+        margin-right: (-@grid-gutter-width/2);
+    }
+
+    &__pager{
+        margin-bottom: 20px;
+    }
+}

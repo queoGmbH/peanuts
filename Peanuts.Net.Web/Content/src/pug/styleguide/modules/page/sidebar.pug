@@ -1,0 +1,12 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/organism/sidebar
+
+block headline
+    | P02 - Page-Navigation
+
+block modules
+    .container
+        +sidebar(navigation.menu)
+        +highlight
+          +sidebar(navigation.menu)
+

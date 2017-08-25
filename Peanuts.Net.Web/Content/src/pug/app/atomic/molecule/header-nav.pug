@@ -1,0 +1,14 @@
+mixin header-nav(menu)
+    ul.nav.navbar-nav.navbar-right.header-nav
+        li.header-nav__item
+            button.header-nav__toggle( role='button' aria-haspopup='true' aria-expanded='false' title= menu.text)
+                span.icon-before(class="icon-" + menu.icon)
+                span.caption= menu.text
+                span.icon-after.icon-angle-down
+            ul.header-nav__menu.dropdown-menu
+                each menuItem in menu.items
+                    li
+                        if menuItem.class
+                            +link(menuItem.url)(class="icon-" + menuItem.icon + " " + menuItem.class)= menuItem.text
+                        else
+                            +link(menuItem.url)(class="icon-" + menuItem.icon)= menuItem.text

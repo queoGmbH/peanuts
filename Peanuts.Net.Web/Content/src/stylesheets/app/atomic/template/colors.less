@@ -1,0 +1,46 @@
+.text {
+    &-red {
+        color: @red;
+    }
+
+    &-orange {
+        color: @orange;
+    }
+
+    &-green {
+        color: @green;
+    }
+
+    &-white {
+        color: @white;
+    }
+
+    &-black {
+        color: @black;
+    }
+
+    &-blue {
+        color: @blue;
+    }
+}
+
+[class*="text-"] a {
+    &:focus,
+    &:hover {
+        color: inherit;
+    }
+}
+
+.bg {
+    &-gray-light {
+        background-color: @gray-light;
+    }
+
+    &-gray-lighter {
+        background-color: @gray-lighter;
+    }
+
+    &-gray-lightest {
+        background-color: @gray-lightest;
+    }
+}

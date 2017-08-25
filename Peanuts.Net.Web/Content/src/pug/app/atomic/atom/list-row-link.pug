@@ -1,0 +1,8 @@
+mixin list-row-link(data, icon, link)
+    tr
+        td.list-data--link
+            +link(link?link:'#')
+                if icon
+                    span(class="icon-" + icon)
+                = data[0]
+        td= data[1]

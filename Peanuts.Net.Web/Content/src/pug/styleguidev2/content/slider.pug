@@ -1,0 +1,37 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/organism/slider
+include ../../app/atomic/molecule/slider-item
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Slider
+                =" Images"
+
+        ol
+            li
+                +link('#1') Slider Images
+
+        p This module´s margin is "-40px" and can be placed as a direct successor of container with class "container-content__header".
+
+        h2#1 Slider Images
+        br
+        br
+        br
+
+        .container-content--full
+            +slider()
+                +slider-item('Titelbild', lipsum(4, 'words'), '/images/img_2.png')
+                +slider-item('Titelbild', lipsum(4, 'words'), '/images/img_5.jpg')
+                +slider-item('Titelbild', lipsum(4, 'words'), '/images/img_2.png')
+                +slider-item('Titelbild', lipsum(4, 'words'), '/images/img_5.jpg')
+        +highlight()
+            .container-content__header
+                h1 Title
+            .container-content--full
+                +slider()
+                    +slider-item('Titelbild', lipsum(4, 'words'), '/images/img_2.png')
+                    +slider-item('Titelbild', lipsum(4, 'words'), '/images/img_5.jpg')
+                    +slider-item('Titelbild', lipsum(4, 'words'), '/images/img_2.png')
+                    +slider-item('Titelbild', lipsum(4, 'words'), '/images/img_5.jpg')

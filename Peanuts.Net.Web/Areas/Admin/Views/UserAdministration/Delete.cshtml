@@ -1,0 +1,34 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.User.UserDeleteViewModel
+@{
+    ViewBag.Title = string.Format(Resources_Web.common_title_DeleteCommand, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User, Model.UserToDelete.UserName);
+}
+
+@using (Html.BeginForm("Delete", "UserAdministration", FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {
+    @class = "form-validation-summary"
+}, "p")
+
+    <div class="row">
+        <p class="col-xs-12">
+            @(string.Format(Resources_Web.txt_Confirm_Delete_User, Model.UserToDelete.UserName))
+        </p>
+    </div>
+
+    <hr/>
+     
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary">
+                <span>@Resources_Web.common_btn_Delete</span>
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-default">
+                <span>@Resources_Web.btn_Cancel</span>
+            </a>
+        </div>
+    </div>
+}

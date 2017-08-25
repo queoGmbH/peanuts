@@ -1,0 +1,17 @@
+﻿Subject: Rechnung "{bill.Subject}" von {creditor.DisplayName} über {amount:C} erhalten
+
+<p>Hallo {debitor.Name},</p>
+
+<p>
+du hast in Peanuts eine "Gast"-Rechnung von {creditor.DisplayName} über {amount:C} mit dem Betreff "{bill.Subject}" erhalten.
+</p>
+<p>
+Da du (bisher) nicht in der Gruppe "{bill.UserGroup.DisplayName}" bist, <br/>
+konnte die Abrechnung nicht direkt über Peanuts abgewickelt werden. <br/>
+Wir bitten dich, zeitnah deine Schulden zu begleichen.
+</p>
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>
+

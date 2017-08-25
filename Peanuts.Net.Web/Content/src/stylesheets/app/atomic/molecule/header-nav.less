@@ -1,0 +1,122 @@
+.header-nav {
+    float: right;
+    margin: 0 !important;
+
+    &__item {
+        height: @navbar-height;
+        position: relative;
+    }
+
+    &__toggle {
+        outline: 0;
+        border: 0;
+        border-radius: 0;
+        outline-offset: 0 !important;
+        color: @brand-primary;
+        font-weight: @font-weight-light;
+        background-color: transparent !important;
+        display: inline-block;
+        padding: 24px 0;
+
+        &,
+        &:hover,
+        &:focus {
+            color: @brand-primary;
+        }
+
+        &:active {
+            box-shadow: none;
+        }
+
+        &:active,
+        &:active:focus,
+        &:focus {
+            outline: 0;
+        }
+
+        > * {
+            vertical-align: middle;
+            line-height: 22px;
+            display: inline-block;
+        }
+
+        .icon-before {
+            padding-right: 20px;
+            font-size: 20px;
+        }
+
+        .icon-after {
+            font-size: 16px;
+        }
+
+        .caption {
+            display: none;
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    &__menu {
+        display: none;
+        position: absolute;
+        right: ((-@grid-gutter-width / 2) + 5px);
+        left: auto;
+        min-width: 100%;
+        padding: 14px 0;
+        background-color: @white !important;
+        border: none !important;
+        border-top: solid 1px @gray-lightest !important;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .35) !important;
+
+        .link {
+            font-weight: @font-weight-bold;
+            line-height: 30px !important;
+            padding: 2px 20px !important;
+        }
+
+        .link:before {
+            width: 32px;
+            padding-right: 16px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 20px;
+            font-weight: @font-weight-normal;
+        }
+
+        .logout {
+            &,
+            &:focus,
+            &:hover {
+                color: @red;
+            }
+        }
+    }
+
+    &:hover,
+    &:focus {
+        .header-nav__menu {
+            display: block;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        &__toggle {
+            .caption {
+                display: inline-block;
+            }
+
+            .icon-after {
+                padding-left: 40px;
+            }
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        &__toggle .caption {
+            max-width: 200px;
+        }
+    }
+}

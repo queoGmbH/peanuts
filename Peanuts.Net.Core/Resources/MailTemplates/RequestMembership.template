@@ -1,0 +1,12 @@
+﻿Subject: Mitgliedschaftsanfrage
+<p>
+Hallo {user.FirstName},
+</p>
+<p>
+Ein Nutzer möchte Mitglied in einer Gruppe werden. <a href="{groupLink}">Hier</a> kannst du ihn in deiner Gruppe aufnehmen.
+</p>
+
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>

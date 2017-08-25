@@ -1,0 +1,40 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Checkboxes
+
+        ol
+            li
+                +link('#f1') Checkbox-default
+            li
+                +link('#f2') Checkbox-inline
+
+        h2#f1 Checkbox-default
+        +form('horizontal')
+            +form-group('Auswahl')
+                +checkbox('check1', lipsum(rnd(2, 15), "words"))
+                +checkbox('check2', lipsum(rnd(2, 15), "words"))
+                +checkbox('check3', lipsum(rnd(2, 15), "words"))
+        +highlight()
+            +form('horizontal')
+                +form-group('Auswahl')
+                    +checkbox('check1', lipsum(rnd(2, 15), "words"))
+                    +checkbox('check2', lipsum(rnd(2, 15), "words"))
+                    +checkbox('check3', lipsum(rnd(2, 15), "words"))
+
+        h2#f2 Checkbox-inline
+        +form('horizontal')
+            +form-group('Auswahl')
+                +checkbox-inline('check-inline1', lipsum(rnd(2, 10), "words"))
+                +checkbox-inline('check-inline2', lipsum(rnd(2, 10), "words"))
+                +checkbox-inline('check-inline3', lipsum(rnd(2, 10), "words"))
+        +highlight()
+            +form('horizontal')
+                +form-group('Auswahl')
+                    +checkbox-inline('check-inline1', lipsum(rnd(2, 10), "words"))
+                    +checkbox-inline('check-inline2', lipsum(rnd(2, 10), "words"))
+                    +checkbox-inline('check-inline3', lipsum(rnd(2, 10), "words"))
+

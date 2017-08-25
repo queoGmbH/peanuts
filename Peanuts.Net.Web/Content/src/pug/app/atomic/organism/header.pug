@@ -1,0 +1,10 @@
+include ../molecule/header-nav
+
+mixin header(menu)
+    header.header
+        nav.navbar.navbar-fixed-top
+            .container-fluid.container-lg
+                a.navbar-brand(href="/" title="Home")
+                    img(src="/images/logo.png" alt="ImmoTwist Logo")
+                if menu
+                    +header-nav(menu)

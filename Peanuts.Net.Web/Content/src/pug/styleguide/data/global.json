@@ -1,0 +1,97 @@
+{
+  "styleguide": {
+    "base": {
+      "caption": "Basis-Stile",
+      "children": {
+        "favicon": {
+          "caption": "B03 - Favicon",
+          "url": "/modules/base/favicon.html"
+        },
+        "button": {
+          "caption": "B07 - Basis Buttons",
+          "url": "/modules/base/button.html"
+        },
+        "link": {
+          "caption": "B07 - Basis Link",
+          "url": "/modules/base/link.html"
+        }
+      }
+    },
+    "page": {
+      "caption": "Page",
+      "children": {
+        "header": {
+          "caption": "P01 - Page-Header / header",
+          "url": "/modules/page/header.html"
+        },
+        "sidebar": {
+          "caption": "P02 - Page-Navigation / sidebar",
+          "url": "/modules/page/sidebar.html"
+        },
+        "content-toolbar": {
+          "caption": "P04 - Content Toolbar / content-toolbar",
+          "url": "/modules/page/content-toolbar.html"
+        }
+      }
+    },
+    "content": {
+      "caption": "Content",
+      "children": {
+        "headline-start": {
+          "caption": "Headline-start",
+          "url": "/modules/content/headline-start.html"
+        },
+        "cards-grid-dashboard": {
+          "caption": "C06 - Dashboard-Cards",
+          "url": "/modules/content/cards-grid-dashboard.html"
+        },
+        "section": {
+          "caption": "Section",
+          "url": "/modules/content/section.html"
+        },
+        "list": {
+          "caption": "List",
+          "url": "/modules/content/list.html"
+        },
+        "cards-grid": {
+          "caption": "Cards-grid",
+          "url": "/modules/content/cards-grid.html"
+        },
+        "grid-files": {
+          "caption": "Grid-files",
+          "url": "/modules/content/grid-files.html"
+        },
+        "table": {
+          "caption": "Table",
+          "url": "/modules/content/table.html"
+        }
+      }
+    },
+    "form": {
+      "caption": "Formulare",
+      "children": {
+        "form-group": {
+          "caption": "F03 - Inputs",
+          "url": "/modules/form/form-group.html"
+        },
+        "form-horizontal": {
+          "caption": "F07 - Form-horizontal",
+          "url": "/modules/form/form-horizontal.html"
+        },
+        "form-inline": {
+          "caption": "F07 - Form-inline",
+          "url": "/modules/form/form-inline.html"
+        }
+      }
+    },
+    "navigation": {
+      "caption": "Navigation",
+      "children": {
+        "nav-tabs": {
+          "caption": "Nav-tabs",
+          "url": "/modules/navigation/nav-tabs.html"
+        }
+      }
+    }
+  }
+}

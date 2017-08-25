@@ -1,0 +1,11 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/organism/form
+
+block headline
+    | F07 - Formular - inline
+
+block modules
+    .container
+        +form('inline')(action="/action.html" method="get")
+        +highlight
+            +form('inline')(action="/action.html" method="get")

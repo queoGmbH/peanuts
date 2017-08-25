@@ -1,0 +1,53 @@
+﻿@model Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate.IPage<Com.QueoFlow.Peanuts.Net.Core.Domain.Users.UserGroup>
+
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+
+@{
+    ViewBag.Title = "Mitgliedschaft beantragen";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+
+@section toolbar {
+
+    <a class="btn btn-primary pull-right" href="@Url.Action("CreateForm", "UserGroup")">
+        <span class="icon-plus"></span>
+        Neue Gruppe
+    </a>
+
+}
+
+<h1>Gruppe auswählen</h1>
+@if (Model.Any()) {
+    <div class="container-content--full">
+        <div class="cards-grid">
+        
+            @foreach (UserGroup userGroup in Model) {
+            <div class="card card-admin">
+                <span class="card__icon icon-group">
+                </span>
+                <span class="card__text">
+                    <span class="link card-text__title">
+                        @userGroup.Name
+                    </span>
+                    <span>Erstellt am: @userGroup.CreatedAt.ToShortDateString()</span>
+                    <span>@userGroup.AdditionalInformations</span>
+
+                </span>
+                <div class="card__overlay">
+                    @using (Html.BeginForm("RequestMembership", "UserGroup", new {
+                        userGroup = userGroup.BusinessId
+                    }, FormMethod.Post)) {
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-link link icon icon-user-plus" title="Mitgliedschaft beantragen"></button>
+                    }
+                </div>
+            </div>
+            }
+        
+        </div>
+    </div>
+} else {
+    <p>
+        Es stehen keine Gruppen zur Verfügung, in denen die Mitgliedschaft beantragt werden kann.
+    </p>
+}

@@ -1,0 +1,21 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model IList<Com.QueoFlow.Peanuts.Net.Core.Domain.Documents.Document>
+
+@if (Model != null && Model.Any()) {
+    <table class="list">
+        <tbody>
+        @foreach (var doc in Model) {
+            <tr>
+                <td class="list-data--link">
+                    <a class="link" href="#"><span class="icon-file-pdf-o"></span>@doc.OriginalFileName</a>
+                </td>
+                <td>@Html.Display().Filesize(doc.ContentLength)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+} else {
+    <p>
+        Bisher wurden keine Dokumente hinterlegt.
+    </p>
+}

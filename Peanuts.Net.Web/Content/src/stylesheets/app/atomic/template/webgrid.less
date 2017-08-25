@@ -1,0 +1,321 @@
+﻿.webGrid {
+    width: 100%;
+    margin-bottom: @module-margin-bottom;
+
+    td,
+    th {
+        height: @table-row-height;
+        border-bottom: 1px solid @table-border-color;
+        padding: @table-cell-padding;
+
+        &:first-of-type {
+            padding-left: @grid-gutter-width / 2;
+        }
+
+        &:last-of-type {
+            padding-right: @grid-gutter-width / 2;
+
+            .webgrid-sort-by-column-link {
+                .webgrid-sort-by-column-icon:before,
+                .webgrid-sort-by-column-icon:after {
+                    right: @grid-gutter-width / 3;
+                }
+            }
+        }
+
+        [webgrid-column-name="Options"] {
+            width: 1px;
+            white-space: nowrap;
+
+            .btn {
+                min-width: 75px;
+                margin: 1px !important;
+            }
+        }
+    }
+
+    thead {
+        th {
+            background-color: @gray-light;
+            position: relative;
+
+
+
+            &[data-sort=asc]{
+                .icon();
+                color: @brand-primary;                
+                &:after{
+                    content: @icon-sort-up;
+                    padding-left: 5px;
+                }
+            }
+
+            &[data-sort=desc]{
+                .icon();
+                color: @brand-primary;
+                &:after{
+                    content: @icon-sort-down;
+                    padding-left: 5px;
+                }
+                
+            }
+            &[data-sort=none]{
+                .icon();
+            
+                &:after{
+                    content: @icon-sort;
+                    padding-left: 5px;
+                }
+            }
+
+
+        }
+    }
+
+    tbody {
+        tr {
+            &:hover td {
+                background-color: @gray-lightest;
+            }
+        }
+    }
+
+    .webGridRow {
+        &--link {
+            cursor: pointer;
+
+            td {
+                &:nth-last-of-type(2) {
+                    padding-right: @grid-gutter-width;
+                }
+
+                &:last-of-type {
+                    &:before {
+                        content: "\00a0";
+                        display: block;
+                        height: @table-row-height;
+                        margin-left: -10px;
+                    }
+
+                    padding-left: 0;
+                    padding-right: 0;
+                    position: relative;
+
+                    a {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        right: @grid-gutter-width / 4;
+                        padding: @grid-gutter-width / 4;
+                        opacity: 0;
+                        transition: right ease .25s;
+
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+
+            &:hover td:last-of-type a {
+                opacity: 1;
+                right: 0;
+            }
+        }
+    }
+
+    .column-selector-toggle {
+        span {
+            width: 20px;
+            height: 20px;
+
+            &.canfilter {
+                color: lightgray;
+            }
+
+            &.isfilter {
+                //
+            }
+        }
+    }
+
+    .filter-by-column {
+        display: none;
+        position: absolute;
+        background-color: #fafafa;
+        z-index: 9999;
+        border: solid 1px @gray-lighter;
+        border-radius: 5px;
+        box-shadow: 0 0 8px @gray-darker;
+        padding: 5px 15px;
+        max-height: 300px;
+        overflow: auto;
+        width: 250px;
+
+        label {
+            font-weight: normal;
+            display: block;
+
+            input {
+                margin-right: 5px;
+            }
+
+            &.column-header-group {
+            }
+
+            &.column-header-group-item {
+                font-size: smaller;
+                padding-left: 15px;
+                display: none;
+                margin-bottom: 0;
+
+                &.visible {
+                    display: block;
+                }
+            }
+        }
+
+        button {
+            &.toggle-column-group {
+                width: 25px;
+                height: 25px;
+                background-color: transparent;
+                padding: 0;
+
+                span {
+                    .icon();
+
+                    padding: 0;
+                    margin: 0;
+                    content: @icon-angle-down;
+                }
+            }
+        }
+    }
+
+    .webGridCell {
+        &--icon {
+            //TODO: refactor this block when &--actions are integrated
+            text-align: center;
+            white-space: nowrap;
+
+            .link {
+                padding: 15px;
+
+                &:before {
+                    margin: 0;
+                }
+            }
+
+            .icon-trash {
+                color: @red;
+            }
+        }
+
+        &--number {
+            text-align: right;
+            white-space: nowrap;
+            width: 1px;
+        }
+
+        &--image {
+            padding-right: 4px;
+
+            div {
+                background-position: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                border: 2px solid @brand-secondary;
+                background-size: cover;
+            }
+        }
+
+        &--action {
+            text-align: right;
+            white-space: nowrap;
+
+            .link {
+                padding: 15px;
+
+                &:before {
+                    margin: 0;
+                }
+            }
+
+            .link:last-child {
+                padding-right: 0;
+            }
+
+            .icon-trash {
+                color: @red;
+            }
+        }
+
+        &--description{
+
+        }
+    }
+
+    .webgrid-sort-by-column-link {
+
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+
+        /*&:hover,
+        &:active,
+        &:focus {
+            text-decoration: none;
+        }
+
+        .webgrid-sort-by-column-icon {
+            
+        }
+
+        .webgrid-sort-by-column-icon:before,
+        .webgrid-sort-by-column-icon:after {
+            position: absolute;
+            top: 18px;
+            right: 3px;
+        }
+
+        &[data-sort='asc'] {
+            .webgrid-sort-by-column-icon {
+                &:before {
+                    content: @icon-sort-asc;
+                    color: @gray-dark;
+                }
+
+                &:after {
+                    content: @icon-sort-desc;
+                    color: @brand-primary;
+                }
+            }
+        }
+
+        &[data-sort='desc'] {
+            .webgrid-sort-by-column-icon {
+                &:before {
+                    content: @icon-sort-asc;
+                    color: @brand-primary;
+                }
+
+                &:after {
+                    content: @icon-sort-desc;
+                    color: @gray-dark;
+                }
+            }
+        }*/
+    }
+
+    &.fixed {
+        position: fixed;
+        width: auto;
+        top: @default-nav-width + @navbar-height;
+        display: none;
+        z-index: 100;
+    }
+}

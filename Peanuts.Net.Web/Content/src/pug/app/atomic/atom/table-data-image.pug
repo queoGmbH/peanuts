@@ -1,0 +1,3 @@
+mixin table-data-image(tableName,columnIndex,item)
+    td.webGridCell.webGridCell--image(webgrid-column-name=tableName + '_column_' + columnIndex webgrid-row-index=item.rowIndex)
+        div(style="background-image: url(" + item.content + ");")

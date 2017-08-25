@@ -1,0 +1,15 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Header
+
+        ol
+            li
+                +link('#a1') Header
+
+        h2#a1 Header
+        +highlight()
+            +header(navigation.header)

@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peanuts.Net.Web", "Peanuts.Net.Web\Peanuts.Net.Web.csproj", "{99E9B6AF-719F-4C72-8314-26145B8B5666}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peanuts.Net.Core", "Peanuts.Net.Core\Peanuts.Net.Core.csproj", "{8AC65B8E-EBE2-4E5E-97BE-2BC70A35B09C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peanuts.Net.Web.Test", "Peanuts.Net.Web.Test\Peanuts.Net.Web.Test.csproj", "{B3513E90-D093-4643-8D92-3C2979C075D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peanuts.Net.Core.Test", "Peanuts.Net.Core.Test\Peanuts.Net.Core.Test.csproj", "{81E05AF3-A0BA-445D-9B9D-CC2ABAF1A7BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbSchemaCreator", "DbSchemaCreator\DbSchemaCreator.csproj", "{D56737D1-211F-4D3C-8342-8F0762298BB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EAE71AED-323B-49D5-A8B6-E275F0419803}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{656F6DB6-94BE-45E7-AC57-6523B55E7D43}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTest.testsettings = LocalTest.testsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99E9B6AF-719F-4C72-8314-26145B8B5666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E9B6AF-719F-4C72-8314-26145B8B5666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E9B6AF-719F-4C72-8314-26145B8B5666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E9B6AF-719F-4C72-8314-26145B8B5666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC65B8E-EBE2-4E5E-97BE-2BC70A35B09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC65B8E-EBE2-4E5E-97BE-2BC70A35B09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC65B8E-EBE2-4E5E-97BE-2BC70A35B09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC65B8E-EBE2-4E5E-97BE-2BC70A35B09C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3513E90-D093-4643-8D92-3C2979C075D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3513E90-D093-4643-8D92-3C2979C075D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3513E90-D093-4643-8D92-3C2979C075D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3513E90-D093-4643-8D92-3C2979C075D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81E05AF3-A0BA-445D-9B9D-CC2ABAF1A7BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81E05AF3-A0BA-445D-9B9D-CC2ABAF1A7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81E05AF3-A0BA-445D-9B9D-CC2ABAF1A7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81E05AF3-A0BA-445D-9B9D-CC2ABAF1A7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56737D1-211F-4D3C-8342-8F0762298BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56737D1-211F-4D3C-8342-8F0762298BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56737D1-211F-4D3C-8342-8F0762298BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56737D1-211F-4D3C-8342-8F0762298BB0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

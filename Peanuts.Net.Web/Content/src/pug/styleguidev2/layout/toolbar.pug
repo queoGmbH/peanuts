@@ -1,0 +1,16 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Toolbar
+
+        ol
+            li
+                +link('#a1') Toolbar
+
+        h2#a1 Toolbar
+        +highlight()
+            +content-toolbar()
+

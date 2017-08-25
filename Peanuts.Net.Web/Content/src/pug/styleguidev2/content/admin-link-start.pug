@@ -1,0 +1,21 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/atom/link-icon
+include ../../app/atomic/atom/admin-link-start
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Link
+                =" Admin Start"
+
+        ol
+            li
+                +link('#l1') Admin Link Start
+
+        h2#l1 Admin Link Start
+        +admin-link-start()
+            +link-icon('/admin/dashboard.html','gears','Administration')
+        +highlight()
+            +admin-link-start()
+                +link-icon('/admin/dashboard.html','gears','Administration')

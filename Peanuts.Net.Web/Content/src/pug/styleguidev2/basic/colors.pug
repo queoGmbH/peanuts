@@ -1,0 +1,126 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Colors
+                =" Styles"
+
+        ol
+            li
+                +link('#clr1') Standard colors and less variables
+            li
+                +link('#clr2') Text color classes
+            li
+                +link('#clr3') Background color classes
+
+        h2#clr1 Standard colors and less variables
+
+        div(style='background-color: #0f377f') @brand-primary
+        +highlight()
+            div(style='background-color: #0f377f')
+
+        div(style='background-color: #bbad90') @brand-secondary
+        +highlight()
+            div(style='background-color: #bbad90')
+
+        div(style='background-color: #000') @gray-base
+        +highlight()
+            div(style='background-color: #000')
+
+        div(style='background-color: #202020') @gray-darker
+        +highlight()
+            div(style='background-color: #202020')
+
+        div(style='background-color: #666') @gray-dark
+        +highlight()
+            div(style='background-color: #666')
+
+        div(style='background-color: #808080') @gray
+        +highlight()
+            div(style='background-color: #808080')
+
+        div(style='background-color: #d9d9d9') @gray-light
+        +highlight()
+            div(style='background-color: #d9d9d9')
+
+        div(style='background-color: #e5e5e5') @gray-lighter
+        +highlight()
+            div(style='background-color: #e5e5e5')
+
+        div(style='background-color: #f2f2f2') @gray-lightest
+        +highlight()
+            div(style='background-color: #f2f2f2')
+
+        div(style='background-color: #4d9900') @brand-success, @green
+        +highlight()
+            div(style='background-color: #4d9900')
+
+        div(style='background-color: #93ad75') @green-light
+        +highlight()
+            div(style='background-color: #93ad75')
+
+        div(style='background-color: #d0021b') @brand-danger, @red
+        +highlight()
+            div(style='background-color: #d0021b')
+
+        div(style='background-color: #f5a623') @brand-warning, @orange
+        +highlight()
+            div(style='background-color: #f5a623')
+
+        div(style='background-color: #fad291') @orange-lighter
+        +highlight()
+            div(style='background-color: #fad291')
+
+        div(style='background-color: #ede3ce') @orange-lightest
+        +highlight()
+            div(style='background-color: #ede3ce')
+
+        div(style='background-color: #5bc0de') @brand-info
+        +highlight()
+            div(style='background-color: #5bc0de')
+
+        div(style='background-color: #0275d8') @blue
+        +highlight()
+            div(style='background-color: #0275d8')
+
+        h2#clr2 Text color classes
+
+        .text-red .text-red
+        +highlight()
+            .text-red .text-red
+
+        .text-orange .text-orange
+        +highlight()
+            .text-red .text-orange
+
+        .text-green .text-green
+        +highlight()
+            .text-green .text-green
+
+        .text-white .text-white
+        +highlight()
+            .text-white .text-white
+
+        .text-black .text-black
+        +highlight()
+            .text-black .text-black
+
+        .text-blue .text-blue
+        +highlight()
+            .text-blue .text-blue
+
+        h2#clr3 Background color classes
+
+        .bg-gray-light .bg-gray-light
+        +highlight()
+            .bg-gray-light
+
+        .bg-gray-lighter .bg-gray-lighter
+        +highlight()
+            .bg-gray-lighter
+
+        .bg-gray-lightest .bg-gray-lightest
+        +highlight()
+            .bg-gray-lightest

@@ -1,0 +1,24 @@
+.header {
+    .navbar {
+        background-color: @white;
+        border-bottom: 1px solid @gray-lightest;
+
+        &-brand {
+            padding: @navbar-padding-vertical 0;
+            height: @navbar-height;
+            margin: 0 !important;
+
+            img {
+                height: 100%;
+            }
+        }
+    }
+
+    @media (min-width: @screen-lg) {
+        .navbar {
+            &-brand {
+                padding-left: 0;
+            }
+        }
+    }
+}

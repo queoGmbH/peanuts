@@ -1,0 +1,11 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/organism/header
+
+block headline
+    | P01 - Page-Header
+
+block modules
+    .container
+        +header(navigation.header)
+        +highlight
+          +header(navigation.header)

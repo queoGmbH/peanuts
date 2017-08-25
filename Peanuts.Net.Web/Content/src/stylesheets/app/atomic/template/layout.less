@@ -1,0 +1,111 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    padding: @navbar-height 0 0 @default-nav-width;
+
+    &.no-sidebar {
+        padding: @navbar-height 0 0;
+        background-color: @gray-lightest;
+
+        > .container-fluid,
+        > .container-lg {
+            height: 100%;
+        }
+    }
+
+    > .container-fluid,
+    > .container-lg {
+        padding: 0;
+    }
+
+    .container-content {
+        .container-fixed;
+
+        padding: 0 (@grid-gutter-width / 2);
+
+        &__header {
+            margin: 0 (-@grid-gutter-width / 2) (@grid-gutter-width / 2);
+
+            h1 {
+                height: @default-nav-width;
+                line-height: @default-nav-width;
+                margin: 0;
+                padding: 0 (@grid-gutter-width / 2);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        &--full {
+            margin-left: -@grid-gutter-width / 2;
+            margin-right: -@grid-gutter-width / 2;
+        }
+
+        &__row {
+            .make-row();
+        }
+
+        &__col {
+            .make-xs-column(12);
+            .make-sm-column(6);
+        }
+    }
+
+    .content-fullscreen {
+        .container-fixed;
+
+        min-height: ~"calc(100% - @{navbar-height})";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: (@grid-gutter-width / 2);
+
+        &__wrap {
+            max-height: 100%;
+            min-width: 300px;
+        }
+    }
+
+    main {
+        position: relative;
+        padding-top: @default-nav-width;
+
+        &.no-toolbar {
+            padding-top: 0;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        .container-content {
+            padding: 0 @grid-gutter-width @grid-gutter-width;
+
+            &__header {
+                margin: 0 -@grid-gutter-width @grid-gutter-width;
+            }
+
+            &--full {
+                margin-left: -@grid-gutter-width;
+                margin-right: -@grid-gutter-width;
+            }
+        }
+    }
+
+    @media (min-width: @screen-lg-min) {
+        padding: @navbar-height 0 0;
+
+        main {
+            padding-left: @default-nav-width;
+        }
+
+        .container-lg {
+            .container-fixed;
+
+            position: relative;
+            width: @container-lg;
+        }
+    }
+}

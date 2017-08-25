@@ -1,0 +1,98 @@
+.icon () {
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    color: inherit;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* use !important to prevent issues with browser extensions that change fonts */
+    &:before,
+    &:after {
+        font-family: 'icomoon' !important;
+    }
+}
+
+.icon-circle (@scale: default; @border: 2px solid @brand-secondary; @background-color: white) {
+    &:before {
+        padding: 0;
+        border: @border;
+        border-radius: 100%;
+        background-color: @background-color;
+        justify-content: center;
+        vertical-align: middle;
+        display: block;
+        transition:
+            .15s background-color,
+            .15s border-color,
+            .15s color;
+    }
+
+    & when(@scale = default) {
+        &:before {
+            width: 30px;
+            height: 30px;
+            line-height: 28px;
+            font-size: @font-size-base;
+        }
+    }
+
+    & when(@scale = xs) {
+        &:before {
+            width: 16px;
+            height: 16px;
+            line-height: 12px;
+            font-size: 8px;
+        }
+    }
+
+    & when(@scale = sm) {
+        &:before {
+            width: 28px;
+            height: 28px;
+            line-height: 26px;
+            font-size: 16px;
+        }
+    }
+
+    & when(@scale = sm-md) {
+        &:before {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 24px;
+        }
+    }
+
+    & when(@scale = md) {
+        &:before {
+            width: 96px;
+            height: 96px;
+            line-height: 92px;
+            font-size: 32px;
+        }
+    }
+
+    & when(@scale = lg) {
+        &:before {
+            width: 140px;
+            height: 140px;
+            line-height: 136px;
+            font-size: 72px;
+        }
+    }
+
+    & when(@scale = xl) {
+        &:before {
+            width: 174px;
+            height: 174px;
+            line-height: 170px;
+            font-size: 72px;
+        }
+    }
+}

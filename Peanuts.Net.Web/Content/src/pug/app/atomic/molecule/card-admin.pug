@@ -1,0 +1,23 @@
+include ../atom/circle
+
+mixin card-admin(imageUrl, title, disabled)
+    .card.card-admin(class=disabled?"disabled":null)
+        .card__image.card__image--small(title=title style="background-image: url("+imageUrl+")")
+        span.card__text
+            +link('/admin/objects/detail.html').card-text__title= title
+            block
+
+        if disabled
+            +circle('sold', 100).card__status
+        else
+            +circle('available', 20).card__status
+            +circle('reserved', 60, 20).card__status
+            +circle('sold', 10, 80).card__status
+
+        .card__overlay
+            if disabled
+                .card__statusmsg= "archiviert"
+            else
+                +link('/admin/objects/edit.html').icon-pencil
+                +link('#duplicate').icon-copy
+                +link('#remove').icon-trash

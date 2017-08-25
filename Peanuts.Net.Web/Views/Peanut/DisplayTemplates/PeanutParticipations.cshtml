@@ -1,0 +1,18 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts.Peanut
+    
+@{
+    IList<PeanutParticipation> confirmedParticipations = Model.Participations.Where(part => part.ParticipationState == PeanutParticipationState.Confirmed).ToList();
+    IList<PeanutParticipation> pendingParticipations = Model.Participations.Where(part => part.ParticipationState == PeanutParticipationState.Pending).ToList();
+}
+
+    
+<span title="@(string.Join(", ", confirmedParticipations.Select(part => part.UserGroupMembership.User.DisplayName)))">
+    @confirmedParticipations.Count(part => part.ParticipationState == PeanutParticipationState.Confirmed)
+    @if (pendingParticipations.Any()) {
+        <span>
+            (+@(pendingParticipations.Count))
+        </span>
+    }
+    
+</span>

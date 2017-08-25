@@ -1,0 +1,122 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.User.UserCreateViewModel
+@{
+    if (Model.ProposedUser == null) {
+        ViewBag.Title = string.Format(Resources_Web.common_title_CreateCommand, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User);
+    } else {
+        ViewBag.Title = "Beantragten Nutzer bestätigen: ";
+        ViewBag.Subtitle = Model.ProposedUser.DisplayName;
+    }
+
+    IList countries = Enum.GetValues(typeof(Country)).Cast<Country>().Select(country => new { Key = country, Text = country.ToLocalizedString() }).OrderBy(c => c.Text).ToList();
+
+    object routeValues;
+    string submitButtonText;
+
+    if (Model.ProposedUser == null) {
+        submitButtonText = Resources_Web.btn_Save_Create;
+        routeValues = null;
+    } else {
+        submitButtonText = "Bestätigen";
+        routeValues = new {
+            proposedUser = Model.ProposedUser.BusinessId
+        };
+
+    }
+
+    IList selectableStates = new[] { new { key = true, value = Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_IsEnabled_True }, new { key = false, value = Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_IsEnabled_False } };
+    IList selectableRoles = new[] { new { key = "Administrator", value = Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_Roles_Administrator }, new { key = "Member", value = Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_Roles_Member } };
+}
+
+
+@section tabs {
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="presentation">
+            <a href="#core" aria-controls="core" role="tab" data-toggle="tab">Stammdaten</a>
+        </li>
+        <li role="presentation">
+            <a href="#admin" aria-controls="description" role="tab" data-toggle="tab">Administration</a>
+        </li>
+    </ul>
+}
+
+@using (Html.BeginForm("Create", "UserAdministration", routeValues, FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<User>(IdForElement.Form, IdForAction.Create) })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {@class = "form-validation-summary"}, "p")
+    
+
+    <div class="nav-tabs-content tab-content">
+        <div class="nav-tabs-panel tab-pane active" role="tabpanel" id="core">
+            <fieldset>
+                <legend class="form__legend">Stammdaten</legend>
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserDataDto.FirstName)
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserDataDto.LastName)
+                        @Html.Form().Date(m => m.UserCreateCommand.UserDataDto.Birthday)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Email(m => m.UserCreateCommand.UserContactDto.Email)
+                    </div>
+                </div>
+
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserContactDto.Company)
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserContactDto.Street)
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserContactDto.StreetNumber)
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserContactDto.PostalCode)
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserContactDto.City)
+                        @Html.Form().Select(m => m.UserCreateCommand.UserContactDto.Country, "Key", "Text", countries, null)
+                    </div>
+                    <div class="form__col">
+                        
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserContactDto.Phone)
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserContactDto.PhonePrivate)
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserContactDto.Mobile)
+                        @Html.Form().Url(m => m.UserCreateCommand.UserContactDto.Url)
+                    </div>
+                </div>
+                
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserPaymentDto.PayPalBusinessName)
+                        @Html.Form().Checkbox(m => m.UserCreateCommand.UserPaymentDto.AutoAcceptPayPalPayments)
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="nav-tabs-panel tab-pane" role="tabpanel" id="admin">
+            <fieldset>
+                <legend class="form__legend">Administration</legend>
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().TextBox(m => m.UserCreateCommand.UserDataDto.UserName)
+                        @Html.Form().Password(m => m.UserCreateCommand.Password)
+                        @Html.Form().Password(m => m.UserCreateCommand.PasswordConfirmation)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Select(m => m.UserCreateCommand.UserPermissionDto.Roles, "key", "value", selectableRoles, null)
+                        @Html.Form().Select(m => m.UserCreateCommand.UserPermissionDto.IsEnabled, "key", "value", selectableStates, null)
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+}
+
+@section toolbar {
+    <button type="submit" form="@(Html.GenerateId<User>(IdForElement.Form, IdForAction.Create))" class="btn btn-primary">
+        <span>@submitButtonText</span>
+    </button>
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <span>@Resources_Web.btn_Cancel_Create</span>
+    </a>
+
+}

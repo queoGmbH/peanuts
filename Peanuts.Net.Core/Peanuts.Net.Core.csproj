@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8AC65B8E-EBE2-4E5E-97BE-2BC70A35B09C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Com.QueoFlow.Peanuts.Net.Core</RootNamespace>
+    <AssemblyName>Peanuts.Net.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>default</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate.Logging.CommonLogging, Version=4.0.3.4000, Culture=neutral, PublicKeyToken=63d83fd55b02701d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.Logging.4.0.3\lib\net45\NHibernate.Logging.CommonLogging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.2.5.0\lib\net40\Quartz.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spring.Aop, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spring.Aop.2.0.1\lib\net45\Spring.Aop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spring.Core, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spring.Core.2.0.1\lib\net45\Spring.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spring.Data, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spring.Data.2.0.1\lib\net45\Spring.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spring.Data.NHibernate4, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spring.Data.NHibernate4.2.0.1\lib\net45\Spring.Data.NHibernate4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spring.Scheduling.Quartz2, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spring.Scheduling.Quartz2.2.0.1\lib\net45\Spring.Scheduling.Quartz2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\MailTemplates\NamespaceDoc.cs" />
+    <Compile Include="Resources\Resources.Domain.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.Domain.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Resources_Countries.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources_Countries.resx</DependentUpon>
+    </Compile>
+    <Compile Include="src\CronJobs\SettleAcceptedBills.cs" />
+    <Compile Include="src\Domain\Accounting\Bill.cs" />
+    <Compile Include="src\Domain\Accounting\BillAcceptState.cs" />
+    <Compile Include="src\Domain\Accounting\BillDto.cs" />
+    <Compile Include="src\Domain\Accounting\BillGuestDebitor.cs" />
+    <Compile Include="src\Domain\Accounting\BillGuestDebitorDto.cs" />
+    <Compile Include="src\Domain\Accounting\BillUserGroupDebitor.cs" />
+    <Compile Include="src\Domain\Accounting\BillUserGroupDebitorDto.cs" />
+    <Compile Include="src\Domain\Accounting\Booking.cs" />
+    <Compile Include="src\Domain\Accounting\IBillCreditor.cs" />
+    <Compile Include="src\Domain\Accounting\PaymentDto.cs" />
+    <Compile Include="src\Domain\Accounting\PaymentStatus.cs" />
+    <Compile Include="src\Domain\Accounting\PaymentType.cs" />
+    <Compile Include="src\Domain\Documents\Document.cs" />
+    <Compile Include="src\Domain\Documents\UploadedFile.cs" />
+    <Compile Include="src\Domain\Documents\UploadedFileList.cs" />
+    <Compile Include="src\Domain\Dto\EntityChangedDto.cs" />
+    <Compile Include="src\Domain\Dto\EntityCreatedDto.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutComment.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutDto.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutInvitationNotificationOptions.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutParticipationState.cs" />
+    <Compile Include="src\Domain\Peanuts\Peanut.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutParticipation.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutParticipationDto.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutParticipationType.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutPriceDevelopmentItem.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutRequirement.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutState.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutsUserGroupMembershipStatistics.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutUpdateNotificationOptions.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutUpdateRequirementsNotificationOptions.cs" />
+    <Compile Include="src\Domain\Peanuts\RequirementDto.cs" />
+    <Compile Include="src\Domain\ProposedUsers\Dto\ProposedUserContactDto.cs" />
+    <Compile Include="src\Domain\ProposedUsers\Dto\ProposedUserDataDto.cs" />
+    <Compile Include="src\Domain\ProposedUsers\ProposedUser.cs" />
+    <Compile Include="src\Domain\Salutation.cs" />
+    <Compile Include="src\Domain\Accounting\Account.cs" />
+    <Compile Include="src\Domain\Accounting\BookingEntry.cs" />
+    <Compile Include="src\Domain\Accounting\BookingEntryType.cs" />
+    <Compile Include="src\Domain\Accounting\IBillable.cs" />
+    <Compile Include="src\Domain\Accounting\RecipientBookingEntry.cs" />
+    <Compile Include="src\Domain\Accounting\SenderBookingEntry.cs" />
+    <Compile Include="src\Domain\Accounting\Payment.cs" />
+    <Compile Include="src\Domain\Accounting\Transaction.cs" />
+    <Compile Include="src\Domain\Users\Country.cs" />
+    <Compile Include="src\Domain\Users\Dto\UserGroupDto.cs" />
+    <Compile Include="src\Domain\Users\Dto\UserPaymentDto.cs" />
+    <Compile Include="src\Domain\Users\Dto\UserPermissionDto.cs" />
+    <Compile Include="src\Domain\Users\UserNotificationOptionsDto.cs" />
+    <Compile Include="src\Domain\Users\UserGroup.cs" />
+    <Compile Include="src\Domain\Users\Permission.cs" />
+    <Compile Include="src\Domain\Users\Dto\UserDataDto.cs" />
+    <Compile Include="src\Domain\Users\Dto\UserContactDto.cs" />
+    <Compile Include="src\Domain\Users\Roles.cs" />
+    <Compile Include="src\Domain\Users\User.cs" />
+    <Compile Include="src\Domain\Users\UserGroupMembership.cs" />
+    <Compile Include="src\Domain\Users\UserGroupMembershipType.cs" />
+    <Compile Include="src\Extensions\DateTimeExtension.cs" />
+    <Compile Include="src\Infrastructure\Checks\Require.cs" />
+    <Compile Include="src\Infrastructure\DtoForAttribute.cs" />
+    <Compile Include="src\Infrastructure\Persistence\FluentSessionFactory.cs" />
+    <Compile Include="src\Infrastructure\ResourceManagement\FileMessageProvider.cs" />
+    <Compile Include="src\Infrastructure\ResourceManagement\IMessageProvider.cs" />
+    <Compile Include="src\Infrastructure\ResourceManagement\ModelMap.cs" />
+    <Compile Include="src\Infrastructure\ResourceManagement\Templater.cs" />
+    <Compile Include="src\Infrastructure\Security\AttributeExpressionParser.cs" />
+    <Compile Include="src\Infrastructure\Security\AuthorizationManager.cs" />
+    <Compile Include="src\Infrastructure\Security\IGrantedAuthority.cs" />
+    <Compile Include="src\Infrastructure\Security\ISecurityContext.cs" />
+    <Compile Include="src\Infrastructure\Security\ISecurityExpressionRoot.cs" />
+    <Compile Include="src\Infrastructure\Security\ISecurityExpressionRootFactory.cs" />
+    <Compile Include="src\Infrastructure\Security\ISecurityService.cs" />
+    <Compile Include="src\Infrastructure\Security\SecurityContext.cs" />
+    <Compile Include="src\Infrastructure\Security\SecurityExpressionRoot.cs" />
+    <Compile Include="src\Infrastructure\Security\SecurityService.cs" />
+    <Compile Include="src\Infrastructure\Security\SimpleGrantedAuthority.cs" />
+    <Compile Include="src\Infrastructure\Utils\EnumHelper.cs" />
+    <Compile Include="src\Infrastructure\Utils\LabelHelper.cs" />
+    <Compile Include="src\Infrastructure\Utils\ListHelper.cs" />
+    <Compile Include="src\Infrastructure\Utils\Objects.cs" />
+    <Compile Include="src\Infrastructure\Utils\ResourcesHelper.cs" />
+    <Compile Include="src\Infrastructure\Utils\TypeHelper.cs" />
+    <Compile Include="src\Persistence\AccountEntryDao.cs" />
+    <Compile Include="src\Persistence\BillDao.cs" />
+    <Compile Include="src\Persistence\BookingDao.cs" />
+    <Compile Include="src\Persistence\DocumentDao.cs" />
+    <Compile Include="src\Persistence\IBillDao.cs" />
+    <Compile Include="src\Persistence\IBookingDao.cs" />
+    <Compile Include="src\Persistence\IPaymentDao.cs" />
+    <Compile Include="src\Persistence\IPeanutDao.cs" />
+    <Compile Include="src\Persistence\IPeanutParticipationDao.cs" />
+    <Compile Include="src\Persistence\IUserGroupMembershipDao.cs" />
+    <Compile Include="src\Persistence\Mappings\BillGuestDebitorMap.cs" />
+    <Compile Include="src\Persistence\Mappings\BillMap.cs" />
+    <Compile Include="src\Persistence\Mappings\BillUserGroupDebitorMap.cs" />
+    <Compile Include="src\Persistence\Mappings\BookingEntryMap.cs" />
+    <Compile Include="src\Persistence\Mappings\AccountMap.cs" />
+    <Compile Include="src\Persistence\Mappings\BookingMap.cs" />
+    <Compile Include="src\Persistence\Mappings\PaymentMap.cs" />
+    <Compile Include="src\Persistence\Mappings\PeanutMap.cs" />
+    <Compile Include="src\Persistence\Mappings\PeanutParticipationMap.cs" />
+    <Compile Include="src\Persistence\Mappings\PeanutParticipationTypeMap.cs" />
+    <Compile Include="src\Persistence\Mappings\RecipientBookingEntryMap.cs" />
+    <Compile Include="src\Persistence\Mappings\SenderBookingEntryMap.cs" />
+    <Compile Include="src\Persistence\Mappings\UserGroupMembershipMap.cs" />
+    <Compile Include="src\Persistence\PaymentDao.cs" />
+    <Compile Include="src\Persistence\PeanutDao.cs" />
+    <Compile Include="src\Persistence\PeanutParticipationDao.cs" />
+    <Compile Include="src\Persistence\PeanutParticipationTypeDao.cs" />
+    <Compile Include="src\Persistence\UserGroupDao.cs" />
+    <Compile Include="src\Persistence\IDocumentDao.cs" />
+    <Compile Include="src\Persistence\IUserGroupDao.cs" />
+    <Compile Include="src\Persistence\IProposedUserDao.cs" />
+    <Compile Include="src\Persistence\IUserDao.cs" />
+    <Compile Include="src\Persistence\Mappings\DocumentMap.cs" />
+    <Compile Include="src\Persistence\Mappings\EntityMap.cs" />
+    <Compile Include="src\Persistence\Mappings\UserGroupMap.cs" />
+    <Compile Include="src\Persistence\Mappings\ProposedUserMap.cs" />
+    <Compile Include="src\Persistence\Mappings\UserMap.cs" />
+    <Compile Include="src\Persistence\NHibernate\Direction.cs" />
+    <Compile Include="src\Persistence\NHibernate\Entity.cs" />
+    <Compile Include="src\Persistence\NHibernate\GenericDao.cs" />
+    <Compile Include="src\Persistence\NHibernate\IGenericDao.cs" />
+    <Compile Include="src\Persistence\NHibernate\IPage.cs" />
+    <Compile Include="src\Persistence\NHibernate\IPageable.cs" />
+    <Compile Include="src\Persistence\NHibernate\OrderDescriptor.cs" />
+    <Compile Include="src\Persistence\NHibernate\Page.cs" />
+    <Compile Include="src\Persistence\NHibernate\PageRequest.cs" />
+    <Compile Include="src\Persistence\NHibernate\Sort.cs" />
+    <Compile Include="src\Persistence\ProposedUserDao.cs" />
+    <Compile Include="src\Persistence\UserDao.cs" />
+    <Compile Include="src\Persistence\UserGroupMembershipDao.cs" />
+    <Compile Include="src\Service\BillService.cs" />
+    <Compile Include="src\Service\BookingService.cs" />
+    <Compile Include="src\Service\DocumentRepository.cs" />
+    <Compile Include="src\Service\EmailService.cs" />
+    <Compile Include="src\Service\IBillService.cs" />
+    <Compile Include="src\Service\IBookingService.cs" />
+    <Compile Include="src\Service\INotificationService.cs" />
+    <Compile Include="src\Service\IPaymentService.cs" />
+    <Compile Include="src\Service\IPeanutParticipationTypeService.cs" />
+    <Compile Include="src\Service\IPeanutService.cs" />
+    <Compile Include="src\Service\NotificationService.cs" />
+    <Compile Include="src\Service\PaymentService.cs" />
+    <Compile Include="src\Service\PeanutParticipationTypeService.cs" />
+    <Compile Include="src\Service\PeanutService.cs" />
+    <Compile Include="src\Service\UserGroupService.cs" />
+    <Compile Include="src\Service\IDocumentRepository.cs" />
+    <Compile Include="src\Service\IEmailService.cs" />
+    <Compile Include="src\Service\IUserGroupService.cs" />
+    <Compile Include="src\Service\IProposedUserService.cs" />
+    <Compile Include="src\Service\IUserService.cs" />
+    <Compile Include="src\Service\ProposedUserService.cs" />
+    <Compile Include="src\Service\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Spring.Database.xml" />
+    <EmbeddedResource Include="Config\Spring.Persistence.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Spring.Service.xml" />
+    <EmbeddedResource Include="Resources\Resources.Domain.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Domain.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resources_Countries.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Countries.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\flyway\jars\" />
+    <Folder Include="Database\flyway\jre\lib\applet\" />
+    <Folder Include="src\Infrastructure\Attributes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Database\flyway\conf\flyway.conf" />
+    <None Include="Database\flyway\flyway.cmd" />
+    <None Include="Database\flyway\jre\COPYRIGHT" />
+    <None Include="Database\flyway\jre\lib\accessibility.properties" />
+    <None Include="Database\flyway\jre\lib\amd64\jvm.cfg" />
+    <None Include="Database\flyway\jre\lib\calendars.properties" />
+    <None Include="Database\flyway\jre\lib\classlist" />
+    <None Include="Database\flyway\jre\lib\cmm\CIEXYZ.pf" />
+    <None Include="Database\flyway\jre\lib\cmm\GRAY.pf" />
+    <None Include="Database\flyway\jre\lib\cmm\LINEAR_RGB.pf" />
+    <None Include="Database\flyway\jre\lib\cmm\PYCC.pf" />
+    <None Include="Database\flyway\jre\lib\cmm\sRGB.pf" />
+    <None Include="Database\flyway\jre\lib\content-types.properties" />
+    <None Include="Database\flyway\jre\lib\currency.data" />
+    <None Include="Database\flyway\jre\lib\ext\meta-index" />
+    <None Include="Database\flyway\jre\lib\flavormap.properties" />
+    <None Include="Database\flyway\jre\lib\fontconfig.bfc" />
+    <None Include="Database\flyway\jre\lib\fontconfig.properties.src" />
+    <None Include="Database\flyway\jre\lib\fonts\LucidaBrightDemiBold.ttf" />
+    <None Include="Database\flyway\jre\lib\fonts\LucidaBrightDemiItalic.ttf" />
+    <None Include="Database\flyway\jre\lib\fonts\LucidaBrightItalic.ttf" />
+    <None Include="Database\flyway\jre\lib\fonts\LucidaBrightRegular.ttf" />
+    <None Include="Database\flyway\jre\lib\fonts\LucidaSansDemiBold.ttf" />
+    <None Include="Database\flyway\jre\lib\fonts\LucidaSansRegular.ttf" />
+    <None Include="Database\flyway\jre\lib\fonts\LucidaTypewriterBold.ttf" />
+    <None Include="Database\flyway\jre\lib\fonts\LucidaTypewriterRegular.ttf" />
+    <None Include="Database\flyway\jre\lib\hijrah-config-umalqura.properties" />
+    <None Include="Database\flyway\jre\lib\images\cursors\cursors.properties" />
+    <None Include="Database\flyway\jre\lib\jfr\default.jfc" />
+    <None Include="Database\flyway\jre\lib\jfr\profile.jfc" />
+    <None Include="Database\flyway\jre\lib\logging.properties" />
+    <None Include="Database\flyway\jre\lib\management\jmxremote.access" />
+    <None Include="Database\flyway\jre\lib\management\jmxremote.password.template" />
+    <None Include="Database\flyway\jre\lib\management\management.properties" />
+    <None Include="Database\flyway\jre\lib\management\snmp.acl.template" />
+    <None Include="Database\flyway\jre\lib\meta-index" />
+    <None Include="Database\flyway\jre\lib\net.properties" />
+    <None Include="Database\flyway\jre\lib\psfont.properties.ja" />
+    <None Include="Database\flyway\jre\lib\psfontj2d.properties" />
+    <None Include="Database\flyway\jre\lib\security\blacklist" />
+    <None Include="Database\flyway\jre\lib\security\blacklisted.certs" />
+    <None Include="Database\flyway\jre\lib\security\cacerts" />
+    <None Include="Database\flyway\jre\lib\security\java.policy" />
+    <None Include="Database\flyway\jre\lib\security\java.security" />
+    <None Include="Database\flyway\jre\lib\security\trusted.libraries" />
+    <None Include="Database\flyway\jre\lib\sound.properties" />
+    <None Include="Database\flyway\jre\lib\tzdb.dat" />
+    <None Include="Database\flyway\jre\lib\tzmappings" />
+    <None Include="Database\flyway\jre\LICENSE" />
+    <None Include="Database\Migrate_Template.bat" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="Config\Spring.Scheduling.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Database\DBScripts\V0.1.0.0.8__AcceptedBalance.sql" />
+    <Content Include="Database\DBScripts\V0.1.0.0.7__PeanutState.sql" />
+    <Content Include="Resources\MailTemplates\BillAccepted.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\MailTemplates\BillDeclined.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\PaymentReceived.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Resources\MailTemplates\BillReceivedGuest.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\MailTemplates\PeanutComment.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\PeanutInvitation.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\PeanutCanceled.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\PeanutRequirementsUpdated.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\PeanutPurchasingDone.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\PeanutStart.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\PeanutUpdated.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\NotificationAboutUserActivation.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\BillReceived.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\RegisterUser.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\InviteMembership.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\ConfirmMembership.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\RequestMembership.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\RequestPasswordReset.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\DBScripts\V0.1.0.0.1__Baseline.sql" />
+    <Content Include="Database\DBScripts\V0.1.0.0.6__UserNotificationSettings.sql" />
+    <Content Include="Database\DBScripts\V0.1.0.0.5__PeanutRequirementsAndCommentRefactoring.sql" />
+    <Content Include="Database\DBScripts\V0.1.0.0.4__PeanutComments.sql" />
+    <Content Include="Database\DBScripts\V0.1.0.0.3__PeanutRequirements.sql" />
+    <Content Include="Database\DBScripts\V0.1.0.0.2__ParticipationTypes.sql" />
+    <Content Include="Database\db_ddl.sql" />
+    <Content Include="Database\flyway\drivers\put-your-jdbc-drivers-here.txt" />
+    <Content Include="Database\flyway\drivers\sqljdbc4.jar" />
+    <Content Include="Database\flyway\jre\bin\attach.dll" />
+    <Content Include="Database\flyway\jre\bin\awt.dll" />
+    <Content Include="Database\flyway\jre\bin\dcpr.dll" />
+    <Content Include="Database\flyway\jre\bin\dt_shmem.dll" />
+    <Content Include="Database\flyway\jre\bin\dt_socket.dll" />
+    <Content Include="Database\flyway\jre\bin\fontmanager.dll" />
+    <Content Include="Database\flyway\jre\bin\hprof.dll" />
+    <Content Include="Database\flyway\jre\bin\instrument.dll" />
+    <Content Include="Database\flyway\jre\bin\j2pcsc.dll" />
+    <Content Include="Database\flyway\jre\bin\j2pkcs11.dll" />
+    <Content Include="Database\flyway\jre\bin\jaas_nt.dll" />
+    <Content Include="Database\flyway\jre\bin\jabswitch.exe" />
+    <Content Include="Database\flyway\jre\bin\java-rmi.exe" />
+    <Content Include="Database\flyway\jre\bin\java.dll" />
+    <Content Include="Database\flyway\jre\bin\java.exe" />
+    <Content Include="Database\flyway\jre\bin\javaw.exe" />
+    <Content Include="Database\flyway\jre\bin\java_crw_demo.dll" />
+    <Content Include="Database\flyway\jre\bin\jawt.dll" />
+    <Content Include="Database\flyway\jre\bin\jdwp.dll" />
+    <Content Include="Database\flyway\jre\bin\jfr.dll" />
+    <Content Include="Database\flyway\jre\bin\jjs.exe" />
+    <Content Include="Database\flyway\jre\bin\jli.dll" />
+    <Content Include="Database\flyway\jre\bin\jpeg.dll" />
+    <Content Include="Database\flyway\jre\bin\jsdt.dll" />
+    <Content Include="Database\flyway\jre\bin\jsound.dll" />
+    <Content Include="Database\flyway\jre\bin\jsoundds.dll" />
+    <Content Include="Database\flyway\jre\bin\kcms.dll" />
+    <Content Include="Database\flyway\jre\bin\keytool.exe" />
+    <Content Include="Database\flyway\jre\bin\kinit.exe" />
+    <Content Include="Database\flyway\jre\bin\klist.exe" />
+    <Content Include="Database\flyway\jre\bin\ktab.exe" />
+    <Content Include="Database\flyway\jre\bin\lcms.dll" />
+    <Content Include="Database\flyway\jre\bin\management.dll" />
+    <Content Include="Database\flyway\jre\bin\mlib_image.dll" />
+    <Content Include="Database\flyway\jre\bin\msvcr100.dll" />
+    <Content Include="Database\flyway\jre\bin\net.dll" />
+    <Content Include="Database\flyway\jre\bin\nio.dll" />
+    <Content Include="Database\flyway\jre\bin\npt.dll" />
+    <Content Include="Database\flyway\jre\bin\orbd.exe" />
+    <Content Include="Database\flyway\jre\bin\pack200.exe" />
+    <Content Include="Database\flyway\jre\bin\policytool.exe" />
+    <Content Include="Database\flyway\jre\bin\rmid.exe" />
+    <Content Include="Database\flyway\jre\bin\rmiregistry.exe" />
+    <Content Include="Database\flyway\jre\bin\sawindbg.dll" />
+    <Content Include="Database\flyway\jre\bin\servertool.exe" />
+    <Content Include="Database\flyway\jre\bin\server\jvm.dll" />
+    <Content Include="Database\flyway\jre\bin\server\Xusage.txt" />
+    <Content Include="Database\flyway\jre\bin\splashscreen.dll" />
+    <Content Include="Database\flyway\jre\bin\sunec.dll" />
+    <Content Include="Database\flyway\jre\bin\sunmscapi.dll" />
+    <Content Include="Database\flyway\jre\bin\t2k.dll" />
+    <Content Include="Database\flyway\jre\bin\tnameserv.exe" />
+    <Content Include="Database\flyway\jre\bin\unpack.dll" />
+    <Content Include="Database\flyway\jre\bin\unpack200.exe" />
+    <Content Include="Database\flyway\jre\bin\verify.dll" />
+    <Content Include="Database\flyway\jre\bin\w2k_lsa_auth.dll" />
+    <Content Include="Database\flyway\jre\bin\zip.dll" />
+    <Content Include="Database\flyway\jre\lib\charsets.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\cldrdata.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\dnsns.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\localedata.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\nashorn.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\sunec.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\sunjce_provider.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\sunmscapi.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\sunpkcs11.jar" />
+    <Content Include="Database\flyway\jre\lib\ext\zipfs.jar" />
+    <Content Include="Database\flyway\jre\lib\images\cursors\invalid32x32.gif" />
+    <Content Include="Database\flyway\jre\lib\images\cursors\win32_CopyDrop32x32.gif" />
+    <Content Include="Database\flyway\jre\lib\images\cursors\win32_CopyNoDrop32x32.gif" />
+    <Content Include="Database\flyway\jre\lib\images\cursors\win32_LinkDrop32x32.gif" />
+    <Content Include="Database\flyway\jre\lib\images\cursors\win32_LinkNoDrop32x32.gif" />
+    <Content Include="Database\flyway\jre\lib\images\cursors\win32_MoveDrop32x32.gif" />
+    <Content Include="Database\flyway\jre\lib\images\cursors\win32_MoveNoDrop32x32.gif" />
+    <Content Include="Database\flyway\jre\lib\jce.jar" />
+    <Content Include="Database\flyway\jre\lib\jfr.jar" />
+    <Content Include="Database\flyway\jre\lib\jsse.jar" />
+    <Content Include="Database\flyway\jre\lib\jvm.hprof.txt" />
+    <Content Include="Database\flyway\jre\lib\management-agent.jar" />
+    <Content Include="Database\flyway\jre\lib\resources.jar" />
+    <Content Include="Database\flyway\jre\lib\rt.jar" />
+    <Content Include="Database\flyway\jre\lib\security\local_policy.jar" />
+    <Content Include="Database\flyway\jre\lib\security\US_export_policy.jar" />
+    <Content Include="Database\flyway\jre\README.txt" />
+    <Content Include="Database\flyway\jre\THIRDPARTYLICENSEREADME.txt" />
+    <Content Include="Database\flyway\jre\Welcome.html" />
+    <Content Include="Database\flyway\lib\flyway-commandline-3.2.1.jar" />
+    <Content Include="Database\flyway\lib\flyway-core-3.2.1.jar" />
+    <Content Include="Database\flyway\LICENSE.txt" />
+    <Content Include="Database\flyway\LICENSES-THIRD-PARTY.txt" />
+    <Content Include="Database\Testdata.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Aktivieren Sie die Wiederherstellung von NuGet-Paketen, um die fehlende Datei herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.Extension.Pack.1.9.0\build\net40\MSBuild.Extension.Pack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.Extension.Pack.1.9.0\build\net40\MSBuild.Extension.Pack.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSBuild.Extension.Pack.1.9.0\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('..\packages\MSBuild.Extension.Pack.1.9.0\build\net40\MSBuild.Extension.Pack.targets')" />
+  <Target Name="CreateDatabase">
+    <ItemGroup>
+      <InputFile Include="Database\db_ddl.sql" />
+    </ItemGroup>
+    <Message Text="Datenbank aktualisieren ..." Importance="high" />
+    <Message Text="DB Connection: $(DbConnectionString)" Importance="high" />
+    <Message Text="DB Script Files: @(InputFile)" />
+    <MSBuild.ExtensionPack.SqlServer.SqlExecute TaskAction="Execute" ConnectionString="$(DbConnectionString)" Files="@(InputFile)" />
+  </Target>
+  <Target Name="CreateTestdata">
+    <ItemGroup>
+      <InputFile Include="Database\Testdata.sql" />
+    </ItemGroup>
+    <Message Text="Testdaten einspielen ..." Importance="high" />
+    <Message Text="DB Connection: $(DbConnectionString)" Importance="high" />
+    <Message Text="DB Script Files: @(InputFile)" />
+    <MSBuild.ExtensionPack.SqlServer.SqlExecute TaskAction="Execute" ConnectionString="$(DbConnectionString)" Files="@(InputFile)" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

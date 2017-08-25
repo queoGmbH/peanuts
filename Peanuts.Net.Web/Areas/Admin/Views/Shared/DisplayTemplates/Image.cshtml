@@ -1,0 +1,18 @@
+﻿@model Com.QueoFlow.Peanuts.Net.Core.Domain.Documents.Document
+
+@if (Model != null) {
+    <div class="grid-fileupload__container ">
+        <div class="file-uploaded ">
+            <div class="fileuploader-uploaded-file-content">
+                <div class="file-uploaded__image" style="background-image: url(@Url.Action("Preview", "Document", new { area = "", document = Model.BusinessId }));">
+                </div>
+                <span class="file-uploaded__name">@Model.OriginalFileName</span>
+            </div>
+        </div>
+
+    </div>
+} else {
+    <p>
+        Bisher wurde kein Bild hinterlegt.
+    </p>
+}

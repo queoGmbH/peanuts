@@ -1,0 +1,8 @@
+mixin file-uploaded(imageUrl)
+    .file-uploaded.js-fileuploader-uploaded-file
+        .file-uploaded__image.js-fileupload-uploaded-file-preview(style='background-image: url(' + imageUrl + ')')
+            .file-uploaded__overlay
+                +link(deleteUrl).icon-trash.js-fileupload-delete
+        span= lipsum(rnd(1, 6), 'words')
+        .progress
+            .js-fileuploader-progress-bar

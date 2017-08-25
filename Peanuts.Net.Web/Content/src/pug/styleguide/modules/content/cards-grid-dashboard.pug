@@ -1,0 +1,18 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/organism/cards-grid-dashboard
+include ../../../app/atomic/molecule/card-dashboard
+
+block headline
+    | C06 - Dashboard-Cards
+
+block modules
+    .container
+        +cards-grid-dashboard()
+            +card-dashboard(navigation.menu[0])
+            +card-dashboard(navigation.menu[1])
+            +card-dashboard(navigation.menu[2])
+        +highlight
+          +cards-grid-dashboard()
+              +card-dashboard(navigation.menu[0])
+              +card-dashboard(navigation.menu[1])
+              +card-dashboard(navigation.menu[2])

@@ -1,0 +1,143 @@
+extends app/atomic/template/default
+include app/atomic/molecule/section
+include app/atomic/molecule/list
+include app/atomic/molecule/list-head
+include app/atomic/molecule/list-body
+include app/atomic/atom/list-row
+include app/atomic/atom/list-row-link
+include app/atomic/organism/slider
+include app/atomic/molecule/slider-item
+include app/atomic/organism/map
+
+block content-toolbar
+    +content-toolbar
+        +button('info', 'angle-left') Zurück
+        +link('#process')(data-focus="churchTax").btn.btn-warning.pull-right.js-scroll-to Vorgang erstellen
+
+block content
+    .container-content
+        .container-content__header
+            +headline(1)
+                strong Wohnung 01:
+                =" 2-Raum-Eigentumswohnung, Dresden, Rennplatzstraße 2"
+
+        .container-content--full
+            +slider()
+                +slider-item('Titelbild', lipsum(4,'words'), '/images/img_1.png')
+                +slider-item('Außenansicht', lipsum(12,'words'), '/images/img_2.png')
+                +slider-item('Außenansicht', lipsum(8,'words'), '/images/img_3.png')
+                +slider-item('Innenansicht', lipsum(20,'words'), '/images/img_4.jpg')
+                +slider-item('Innenansicht', lipsum(4,'words'), '/images/img_5.jpg')
+                +slider-item('Karten und Lagepläne', lipsum(4,'words'), '/images/img_6.jpg')
+
+        .container-content__row
+            .container-content__col
+                +section()
+                    +list()
+                        +list-body()
+                            +list-row(['Gebäudeart', 'Neubau Erstbezug'], 'text')
+                            +list-row(['Baujahr', '2016'], 'text')
+                            +list-row(['Sanierungsjahr', '---'], 'text')
+            .container-content__col
+                +section()
+                    +list()
+                        +list-body()
+                            +list-row(['Gebietslage', 'Wohngebiet'], 'text')
+                            +list-row(['Flur', 'Wohngebiet'], 'text')
+                            +list-row(['Flurstück', '---'], 'text')
+                            +list-row(['Bemarkung', 'Dresden-Seidnitz'], 'text')
+                            +list-row(['Grundstücksfläche', '2831,00 m²'], 'text')
+
+        .container-content__row
+            .container-content__col
+                +section()
+                    +headline(2) Headline h2
+                    p.text-justify= lipsum(50, 'sentences')
+            .container-content__col
+                +section()
+                    +headline(2) Headline h2
+                    p.text-justify= lipsum(30, 'sentences')
+
+                    ul
+                        li hohe Wertsteigerung
+                        li stabile Rendite
+                            ul
+                                li= lipsum(5, 'words')
+                                li= lipsum(5, 'words')
+                                li= lipsum(5, 'words')
+                        li= lipsum(5, 'sentences')
+                        li gesteigerte Nachfrage
+
+        .container-content__row
+            .container-content__col
+                +section()
+                    +list()
+                        +list-head(['Kauf',''])
+                        +list-body()
+                            +list-row(['Kaufpreis','9.998.100,00 €'])
+                            +list-row(['Kaufpreis in € / m²','1.965,65 €'])
+
+                    +list()
+                        +list-head(['Miete','Ist','Soll'])
+                        +list-body()
+                            +list-row(['Kaltmiete', '20,56 €', '20,56 €'])
+                            +list-row(['Kaufpreis in €/m²', '20,56 €', '20,5 €'])
+                            +list-row(['Warmmiete in €', '320,56 €', '320,56 €'], 'bold')
+                            +list-row(['Kaution', '612,19 €',''])
+
+                    +list()
+                        +list-head(['Anlageinformationen', 'Ist', 'Soll'])
+                        +list-body()
+                            +list-row(['x-fache', '20,56 €', '20,56 €'])
+                            +list-row(['Bruttorendite', '3,56 %', '3,56 %'])
+                            +list-row(['Stand Instandhaltungsrücklage', '3,56 €', '3,56 €'])
+            .container-content__col
+                +section()
+                    +list()
+                        +list-head(['Verwaltungskosten',''])
+                        +list-body()
+                            +list-row(['Hausverwaltungskosten WEG', '25,00 €'])
+                            +list-row(['Hausverwaltungskosten SEV', '0,00 €'])
+                            +list-row(['Zuführung Instandhaltungsrücklage', '167,01 €'])
+                            +list-row(['Nebenkostenvorauszahlung nicht umlagefähig', '0,00 €'])
+                            +list-row(['Nebenkostenvorauszahlung umlagefähig', '178,22 €'])
+                            +list-row(['Hausgeldvorauszahlung gesamt', '1.178,22 €'], 'bold')
+
+        +headline(2) Karte
+        .container-content--full
+            +map()(data-api-key='AIzaSyAPBu4Ta-FqFZ3i2HC5Y6uH9LAZdHpH_84')
+                .map-location(data-street='Tharandter Straße' data-streetnumber='11' data-city='Dresden')
+                .map-location(data-street='Leipziger Straße' data-streetnumber='11' data-city='Dresden')
+
+        .container-content__row
+            .container-content__col
+                +section()
+                    h2 Downloads
+                    +list()
+                        +list-body()
+                            +list-row-link(['Kostenaufstellung', '25,6 MB'], 'file-pdf-o', '#')
+                            +list-row-link(['Expose', '1855,4 KB'], 'file-pdf-o', '#')
+
+            .container-content__col
+                +section()
+                    h2 Links
+                    p Es wurden noch keine Links für diese Einheit hinterlegt.
+
+        +section()
+            +headline(2) Vorgang anlegen
+            +form('horizontal')(id='process' action="/workflow/create.html")
+                button.hidden(id=formName + '-submit' type='submit')
+                fieldset
+                    .form__row
+                        .form__col
+                            +form-group('Makler')
+                                +input-static('Mustermann, Max')
+                            +form-group('Kunde', 'customer')
+                                +select-single('customer', ["", "Meier, Martin", "Müller, Ralf", "Schulze, Martina"])(data-val-required=errormsg.required data-val="true")
+                            .form-group
+                                .control-value.col-md-offset-3
+                                    +button('warning') Vorgang für diesen Kunden anlegen
+                                    +checkbox(
+                                        'checkbox2',
+                                        'Ich habe die <a href="#" target="_blank" class="link--text icon-file-pdf-o">Chancen und Risiken</a> gelesen und verstanden.'
+                                    )(data-val-required=errormsg.required data-val="true")

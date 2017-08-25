@@ -1,0 +1,105 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.User.UserShowViewModel
+@{
+    ViewBag.Title = Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User + ": " + Model.User.UserName;
+}
+
+
+@section tabs {
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active" role="presentation">
+            <a href="#core" aria-controls="core" role="tab" data-toggle="tab">Stammdaten</a>
+        </li>
+        <li role="presentation">
+            <a href="#admin" aria-controls="description" role="tab" data-toggle="tab">Administration</a>
+        </li>
+        <li role="presentation">
+            <a href="#documents" aria-controls="document" role="tab" data-toggle="tab">@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Documents</a>
+        </li>
+    </ul>
+}
+
+<div class="form form-horizontal">
+    <div class="nav-tabs-content tab-content">
+        <div class="nav-tabs-panel tab-pane active" role="tabpanel" id="core">
+            <fieldset>
+                <legend class="form__legend">Stammdaten</legend>
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.User.CreatedAt)
+                        @Html.Form().Static(m => m.User.CreatedBy.DisplayName, label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_CreatedBy)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.User.ChangedAt)
+                        @Html.Form().Static(m => m.User.ChangedBy.DisplayName, label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_ChangedBy)
+                    </div>
+                </div>
+
+
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.User.FirstName)
+                        @Html.Form().Static(m => m.User.LastName)
+                        @Html.Form().Static(m => m.User.Birthday, formatString: "{0:dd.MM.yyyy}")
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.User.Email)
+                    </div>
+                </div>
+
+
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.User.Company)
+                        @Html.Form().Static(m => m.User.Street)
+                        @Html.Form().Static(m => m.User.StreetNumber)
+                        @Html.Form().Static(m => m.User.PostalCode)
+                        @Html.Form().Static(m => m.User.City)
+                        @Html.Form().Static(m => m.User.Country)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.User.Phone)
+                        @Html.Form().Static(m => m.User.PhonePrivate)
+                        @Html.Form().Static(m => m.User.Mobile)
+                        @Html.Form().Static(m => m.User.Url)
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="nav-tabs-panel tab-pane" role="tabpanel" id="admin">
+            <fieldset>
+                <legend class="form__legend">Administration</legend>
+                <div class="form__row">
+                    <div class="form__col">
+                        @Html.Form().Static(m => m.User.UserName)
+                    </div>
+                    <div class="form__col">
+                        @Html.Form().Static(Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Roles,String.Join(", ",Model.User.Roles))
+                        @Html.Form().Static(m => m.User.IsEnabled)
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="nav-tabs-panel tab-pane" role="tabpanel" id="documents">
+            <fieldset>
+                <legend class="form__legend">@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Documents</legend>
+                @Html.DisplayFor(m => m.User.Documents, "Documents")
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+
+@section toolbar {
+    <a href="@Url.Action("UpdateForm", "UserAdministration", new { area = "Admin", user = Model.User.BusinessId })" class="btn btn-primary">
+        <span>@Resources_Web.common_btn_Edit</span>
+    </a>
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <span>@Resources_Web.btn_Cancel</span>
+    </a>
+    <a href="@Url.Action("DeleteForm", "UserAdministration", new { area = "Admin", user = Model.User.BusinessId })" class="btn btn-danger">
+        @Resources_Web.common_btn_Delete
+    </a>
+}

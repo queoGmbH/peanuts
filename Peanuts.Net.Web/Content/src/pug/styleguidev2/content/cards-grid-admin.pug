@@ -1,0 +1,86 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/organism/cards-grid
+include ../../app/atomic/molecule/card-admin
+
+block content
+    .container-content
+        .container-content__header
+            h1 Objekt-Liste für Admin
+
+        .container-content__full
+            +cards-grid()
+                +card-admin('/images/img_1.png','ID: 00234', false)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-admin('/images/img_1.png','ID: 00234', true)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-admin('/images/img_1.png','ID: 00234', true)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-admin('/images/img_1.png','ID: 00234', false)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span
+                +card-admin('/images/img_1.png','ID: 00234', true)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-admin('/images/img_1.png','ID: 00234', false)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-admin('/images/img_1.png','ID: 00234', true)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-admin('/images/img_1.png','ID: 00234', true)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-admin('/images/img_1.png','ID: 00234', false)
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+        +highlight()
+            .container-content__full
+                +cards-grid()
+                    +card-admin('/images/img_1.png','ID: 00234', false)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span Seidnitz
+                    +card-admin('/images/img_1.png','ID: 00234', true)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span Seidnitz
+                    +card-admin('/images/img_1.png','ID: 00234', true)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span Seidnitz
+                    +card-admin('/images/img_1.png','ID: 00234', false)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span
+                    +card-admin('/images/img_1.png','ID: 00234', true)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span Seidnitz
+                    +card-admin('/images/img_1.png','ID: 00234', false)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span Seidnitz
+                    +card-admin('/images/img_1.png','ID: 00234', true)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span Seidnitz
+                    +card-admin('/images/img_1.png','ID: 00234', true)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span Seidnitz
+                    +card-admin('/images/img_1.png','ID: 00234', false)
+                        span Rennplatzstraße 78
+                        span 01237 Dresden
+                        span Seidnitz

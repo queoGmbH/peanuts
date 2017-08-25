@@ -1,0 +1,12 @@
+﻿Subject: Registrierung eines neuen Nutzers
+
+<p>Ein neuer Nutzer hat sich registriert und seine Email erfolgreich bestätigt.</p>
+
+<p>
+Nutzer: {user.Email} <br/>
+Link: <a href="{editLink}">Nutzer anzeigen</a>
+</p>
+
+<p>
+Dein Queo-Team
+</p>

@@ -1,0 +1,54 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/molecule/section
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Text
+                =" Sections"
+
+        ol
+            li
+                +link('#c1').js-scroll-to Text Sections
+
+        h2#c1 Text Sections
+        .container-content__row
+            .container-content__col
+                +section()
+                    +headline(2) Headline h2
+                    p.text-justify= lipsum(5, 'sentences')
+            .container-content__col
+                +section()
+                    +headline(2) Headline h2
+                    p.text-justify= lipsum(3, 'sentences')
+
+                    ul
+                        li hohe Wertsteigerung
+                        li stabile Rendite
+                            ul
+                                li= lipsum(5, 'words')
+                                li= lipsum(5, 'words')
+                                li= lipsum(5, 'words')
+                        li= lipsum(5, 'sentences')
+                        li gesteigerte Nachfrage
+        +highlight()
+            .container-content__row
+                .container-content__col
+                    +section()
+                        +headline(2) Headline h2
+                        p.text-justify= lipsum(5, 'sentences')
+                .container-content__col
+                    +section()
+                        +headline(2) Headline h2
+                        p.text-justify= lipsum(3, 'sentences')
+
+                        ul
+                            li hohe Wertsteigerung
+                            li stabile Rendite
+                                ul
+                                    li= lipsum(5, 'words')
+                                    li= lipsum(5, 'words')
+                                    li= lipsum(5, 'words')
+                            li= lipsum(5, 'sentences')
+                            li gesteigerte Nachfrage

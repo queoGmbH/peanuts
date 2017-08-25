@@ -1,0 +1,14 @@
+extends ../app/atomic/template/default
+
+block content-toolbar
+    +content-toolbar
+        a(href="../clients-new.html").btn.btn-primary neuer Nutzer
+        +form('inline')(id='search' name='search').pull-right
+            +form-group(null, 'uSearch')
+                +input-text('cSearch', 'Nutzer suchen')
+            +button('primary')(type='submit') Suchen
+
+block content
+    .container-content
+        .container-content__header
+            +headline(1) alle Makler

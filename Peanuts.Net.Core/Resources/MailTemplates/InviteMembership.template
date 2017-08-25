@@ -1,0 +1,12 @@
+﻿Subject: Mitgliedschaftseinladung
+<p>
+Hallo {user.FirstName},
+</p>
+<p>
+Du wurdest zu einer Mitgliedschaft in einer Gruppe eingeladen. <a href="{groupLink}">Hier</a> kannst du die Einladung akzeptieren oder ablehnen.
+</p>
+
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>

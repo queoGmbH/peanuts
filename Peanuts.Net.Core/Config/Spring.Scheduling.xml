@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.net 
+             http://www.springframework.net/xsd/spring-objects.xsd"
+         xmlns:db="http://www.springframework.net/database"
+         xmlns:tx="http://www.springframework.net/tx">
+
+  <object id="SettleAcceptedBillsTriggerTest"
+        type="Spring.Scheduling.Quartz.SimpleTriggerObject, Spring.Scheduling.Quartz2">
+    <property name="JobDetail"
+              ref="SettleAcceptedBills">
+    </property>
+    <property name="StartDelay"
+              value="10s">
+    </property>
+    <property name="RepeatInterval"
+              value="100m">
+    </property>
+  </object>
+
+  <object id="SettleAcceptedBillsTrigger"
+          type="Spring.Scheduling.Quartz.CronTriggerObject, Spring.Scheduling.Quartz2">
+    <property name="JobDetail"
+              ref="SettleAcceptedBills" />
+    <property name="CronExpressionString"
+              value="${SettleAcceptedBillsTriggerPattern}" />
+  </object>
+
+  <object name="SettleAcceptedBills"
+          type="Spring.Scheduling.Quartz.JobDetailObject, Spring.Scheduling.Quartz2">
+    <property name="JobType"
+              value="Com.QueoFlow.Peanuts.Net.Core.CronJobs.SettleAcceptedBills" />
+    <property name="JobDataAsMap">
+      <dictionary>
+        <entry key="BillService"
+               value-ref="billService" />
+        <entry key="SessionFactory"
+               value-ref="applicationSessionFactory" />
+        <entry key="IsAutomaticBillSettlingActive"
+               value="${IsAutomaticBillSettlingActive}" />
+
+      </dictionary>
+    </property>
+  </object>
+  
+
+  <object id="quartzSchedulerFactory"
+          type="Spring.Scheduling.Quartz.SchedulerFactoryObject, Spring.Scheduling.Quartz2">
+    <property name="triggers">
+      <list>
+        <ref object="SettleAcceptedBillsTriggerTest" />
+      </list>
+    </property>
+  </object>
+
+</objects>

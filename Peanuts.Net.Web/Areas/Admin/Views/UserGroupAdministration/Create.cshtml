@@ -1,0 +1,32 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.UserGroup.UserGroupCreateViewModel
+
+@{
+    ViewBag.Title = "Maklerpool anlegen";
+}
+
+
+
+@using (Html.BeginForm("Create", "UserGroupAdministration", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<UserGroup>(IdForElement.Form, IdForAction.Create) })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {@class = "form-validation-summary"}, "p")
+
+    @Html.Form().TextBox(m => m.UserGroupCreateCommand.UserGroupDto.Name)
+    @Html.Form().TextArea(m => m.UserGroupCreateCommand.UserGroupDto.AdditionalInformations)
+    @Html.Form().TextBox(m => m.UserGroupCreateCommand.UserGroupDto.BalanceOverdraftLimit)
+}
+
+@section toolbar {
+    <button type="submit" class="btn btn-primary" form="@(Html.GenerateId<UserGroup>(IdForElement.Form, IdForAction.Create))">
+        <i></i>
+        <span>@Resources_Web.btn_Save_Create</span>
+    </button>
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <i></i>
+        <span>@Resources_Web.btn_Cancel_Create</span>
+    </a>
+
+}

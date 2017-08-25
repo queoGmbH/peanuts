@@ -1,0 +1,3 @@
+mixin table(name, sortColumn, sortDirection)
+    table.js-table-header-fix.init.webGrid(id=name sort-column=(name + '_column_' + sortColumn) sort-direction=sortDirection pagination-currentpage='1')
+        block

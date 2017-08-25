@@ -1,0 +1,21 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/organism/grid-fileupload
+include ../../app/atomic/molecule/file-uploaded
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Grid
+                =" Fileupload"
+
+        ol
+            li
+                +link('#c1') Grid Fileupload
+
+        h2#c1 Grid Fileupload
+        +grid-fileupload('Titelbild')
+            +file-uploaded('/images/img_1.png','#edit','#delete')
+        +highlight()
+            +grid-fileupload('Titelbild')
+                +file-uploaded('/images/img_1.png','#edit','#delete')

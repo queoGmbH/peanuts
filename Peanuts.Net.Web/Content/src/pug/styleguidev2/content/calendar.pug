@@ -1,0 +1,77 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/molecule/calendar-week
+include ../../app/atomic/molecule/calendar-day
+include ../../app/atomic/organism/calendar
+
+block content
+	.container-content
+		.container-content__header
+			h1
+				strong Calendar
+				=" Calendar"
+
+		ol
+			li
+				+link('#c1') Calendar
+
+		h2#c1 Calendar
+		+calendar()       
+			.calendar-head
+				.calendar-week__number
+					| KW
+				.calendar-day
+					.calendar-day__dayname Montag
+				.calendar-day
+					.calendar-day__dayname Dienstag
+				.calendar-day
+					.calendar-day__dayname Mittwoch
+				.calendar-day
+					.calendar-day__dayname Donnerstag
+				.calendar-day
+					.calendar-day__dayname Freitag
+				.calendar-day
+					.calendar-day__dayname Samstag
+				.calendar-day
+					.calendar-day__dayname Sonntag
+			+calendar-week(15)
+				+calendar-day(1, false)
+				+calendar-day(2, true, 'Kartoffelbrei mit Fischstäbchen').calendar-day__peanut-refused
+				+calendar-day(3, true, 'Auflauf').calendar-day__peanut-confirmed
+				+calendar-day(4, true, 'Salatbaukasten').calendar-day__peanut-confirmed
+				+calendar-day(5, true, '2 Peanuts').calendar-day__peanut-pending
+				+calendar-day(6).calendar-day__weekend
+				+calendar-day(7).calendar-day__weekend
+			+calendar-week(16)
+				+calendar-day(8, true, 'Nudeln mit roter Soße').calendar-day__peanut-confirmed
+				+calendar-day(9, true, 'Reis mit Würstchengulasch').calendar-day__peanut-confirmed
+				+calendar-day(10, true, 'Auflauf').calendar-day__peanut-confirmed
+				+calendar-day(11, true, 'Wraps').calendar-day__peanut-pending.calendar-day__today
+				+calendar-day(12, true, 'Nudeln mit Spinat').calendar-day__peanut-refused
+				+calendar-day(13, true, 'Grillen').calendar-day__weekend
+				+calendar-day(14, true, 'Grillen').calendar-day__weekend
+			+calendar-week(17)
+				+calendar-day(15, false)
+				+calendar-day(16, false)
+				+calendar-day(17, false)
+				+calendar-day(18, false)
+				+calendar-day(19, false)
+				+calendar-day(20, false).calendar-day__weekend
+				+calendar-day(21, false).calendar-day__weekend
+			+calendar-week(18)
+				+calendar-day(22, false)
+				+calendar-day(23, false)
+				+calendar-day(24, false)
+				+calendar-day(25, false)
+				+calendar-day(26, false)
+				+calendar-day(27, false).calendar-day__weekend
+				+calendar-day(28, false).calendar-day__weekend
+			+calendar-week(19)
+				+calendar-day(29, false)
+				+calendar-day(30, false)
+				+calendar-day(31, false)
+				+calendar-day(1, true).calendar-day__other-month.calendar-day__peanut-pending
+				+calendar-day(2, false).calendar-day__other-month
+				+calendar-day(3, false).calendar-day__other-month
+				+calendar-day(4, false).calendar-day__other-month
+			
+		
