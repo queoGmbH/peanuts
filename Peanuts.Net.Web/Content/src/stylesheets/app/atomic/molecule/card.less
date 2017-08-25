@@ -1,0 +1,217 @@
+.card {
+    width: 100%;
+    color: @gray;
+    display: flex;
+    text-align: center;
+    padding: @image-vertical-padding @image-horizontal-padding;
+    margin: 0;
+    border-bottom: 1px solid @gray-light;
+
+    &__icon {
+        .icon-circle(md);
+
+        align-self: center;
+        display: block;
+        margin: 0 15px 0 0;
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        justify-content: flex-start;
+        margin-bottom: 0;
+        flex-grow: 1;
+
+        .h2 {
+            color: inherit;
+        }
+
+        .card-text__title {
+            font-weight: @font-weight-bold;
+            margin-bottom: @padding-base-horizontal;
+        }
+    }
+
+    &__image {
+        align-self: center;
+        display: block;
+        height: @status-dimension-sm;
+        width: @status-dimension-sm;
+        border-radius: 100%;
+        margin: 0 15px 0 0;
+        background-size: cover;
+
+        &--small {
+            height: @status-dimension-sm - 2 * @status-padding - 2 * @status-border-width-sm;
+            width: @status-dimension-sm - 2 * @status-padding - 2 * @status-border-width-sm;
+        }
+    }
+
+    &:hover {
+        background-color: @gray-lightest;
+    }
+
+    &__overlay {
+        position: absolute;
+        z-index: 20;
+        height: @status-dimension-sm - (@status-border-width-sm*2) - (@status-padding*2);
+        width: @status-dimension-sm - (@status-border-width-sm*2) - (@status-padding*2);
+        top: (@image-vertical-padding);
+        left: (@image-horizontal-padding-admin-sm);
+        border-radius: 100%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, .8);
+
+        .link {
+            .icon-circle(@border: 1px solid @brand-secondary);
+            padding: 0 !important;
+
+            &:hover:before {
+                border-color: @brand-primary;
+            }
+
+            + .link {
+                margin-left: 5px;
+            }
+        }
+
+        .icon-trash {
+            color: @brand-danger;
+        }
+    }
+
+    &:hover {
+        .card__overlay {
+            display: flex;
+        }
+    }
+
+    @media (min-width: @screen-sm) {
+        width: 33.333333%;
+        min-height: 334px;
+        flex-direction: column;
+        border-bottom: 0;
+        border-right: 1px solid @gray-light;
+
+        &__icon {
+            .icon-circle(lg);
+
+            margin: 0 0 30px;
+        }
+
+        &__image {
+            margin: 0 0 30px;
+            height: @status-dimension-lg;
+            width: @status-dimension-lg;
+
+            &--small {
+                height: @status-dimension-lg - 2 * @status-padding - 2 * @status-border-width;
+                width: @status-dimension-lg - 2 * @status-padding - 2 * @status-border-width;
+            }
+        }
+
+        &__text {
+            text-align: center;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        &:nth-child(3n+0) {
+            border-right: 0;
+        }
+    }
+
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        &:nth-child(5n+0) {
+            border-right: 0;
+        }
+    }
+
+    @media (min-width: @screen-md-min) {
+        width: 20%;
+    }
+}
+
+.card-admin {
+    position: relative;
+    overflow: hidden;
+    padding-left: @image-horizontal-padding-admin-sm;
+    flex-wrap: wrap;
+
+    &:hover {
+        background-color: @orange-lightest;
+    }
+
+    .card__image {
+        position: relative;
+        z-index: 10;
+        margin: 0 23px 0 0;
+        align-items: center;
+        border: @status-padding solid @gray-lightest;
+    }
+
+    .card__status {
+        position: absolute;
+        top: (@image-vertical-padding - (.06 * @status-dimension-sm));
+        left: (@image-horizontal-padding-admin-sm - (.06 * @status-dimension-sm));
+    }
+
+    
+
+    a.card-text__title {
+        /*margin: -999px;
+        padding: 999px;*/
+        margin-bottom: @padding-base-horizontal;
+        position: relative;
+        z-index: 15;
+
+    }
+
+    &.disabled {
+        .card__overlay {
+            display: flex;
+            z-index: 11;
+            background-color: rgba(255, 255, 255, .8);
+        }
+    }
+
+    .card__statusmsg {
+        font-weight: @font-weight-bold;
+    }
+
+    @media (max-width: 374px) {
+        .card__text {
+            width: 100%;
+            margin-top: 20px;
+        }
+    }
+
+    @media (min-width: @screen-sm) {
+        padding-left: @image-horizontal-padding;
+
+        .card__image {
+            margin: 0 0 30px;
+            align-items: initial;
+        }
+
+        .card__overlay {
+            left: 50%;
+            transform: translateX(-50%);
+            height: @status-dimension-lg - (@status-padding * 2) - (@status-border-width * 2);
+            width: @status-dimension-lg - (@status-padding * 2) - (@status-border-width * 2);
+
+            .link{
+                padding: 0 !important;
+            }
+        }
+
+        .card__status {
+            top: (@image-vertical-padding - (.06 * @status-dimension-lg));
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

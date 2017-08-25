@@ -1,0 +1,107 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Bill
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Bill.BillCreateViewModel
+
+
+@{
+    ViewBag.Title = "Rechnung stellen";
+
+    string userGroupPlaceholder = null;
+    if (Model.BillCreateCommand.UserGroup == null) {
+        userGroupPlaceholder = "Gruppe wählen ...";
+    }
+    string userGroupSelectId = Html.ViewData.TemplateInfo.GetFullHtmlFieldId(ExpressionHelper.GetExpressionText(Objects.GetPropertyPath<BillCreateViewModel>(vm => vm.BillCreateCommand.UserGroup)));
+
+    Dictionary<UserGroupMembership, UserGroup> dependingValues = Model.UserGroupMembershipsInMyGroups.ToDictionary(mem => mem, mem => mem.UserGroup);
+}
+
+@using (Html.BeginForm("Create", "Bill", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create) })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+
+    <fieldset>
+        <legend>Kopfdaten</legend>
+        @Html.Form().Select(m => m.BillCreateCommand.UserGroup, Objects.GetPropertyName<UserGroup>(userGroup => userGroup.BusinessId), Objects.GetPropertyPath<UserGroup>(userGroup => userGroup.Name), Model.MyUserGroupMemberships.Select(mem => mem.UserGroup).ToList(), userGroupPlaceholder, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup)
+        @Html.Form().TextBox(m => m.BillCreateCommand.BillDto.Subject)
+        @Html.Form().Number(m => m.BillCreateCommand.BillDto.Amount)
+        @Html.Form().Hidden(m => m.BillCreateCommand.CreatedFromPeanut, Objects.GetPropertyName<Peanut>(b => b.BusinessId))
+    </fieldset>
+    <fieldset>
+        <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_UserGroupDebitors</legend>
+        @using (MvcDynamicList<BillUserGroupDebitorDto> dynList = Html.Form().BeginDynamicList(m => m.BillCreateCommand.UserGroupDebitors, new RouteValueDictionary { { "class", "debitor-list" } })) {
+            DependingDropDownOptions<BillUserGroupDebitorDto, UserGroupMembership, UserGroup> dependingDropDownOptions =
+                    new DependingDropDownOptions<BillUserGroupDebitorDto, UserGroupMembership, UserGroup>(userGroupSelectId, Objects.GetPropertyPath<UserGroup>(m => m.BusinessId), dependingValues);
+
+            foreach (KeyValuePair<string, BillUserGroupDebitorDto> userGroupDebitor in dynList.ListItems) {
+                using (MvcDynamicListItem<BillUserGroupDebitorDto> item = dynList.BeginListItem(userGroupDebitor)) {
+                    @item.Html.Form().SelectDepending(m => m.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(m => m.BusinessId), Objects.GetPropertyName<UserGroupMembership>(m => m.DisplayName), dependingDropDownOptions, null)
+                    @item.Html.Form().Number(m => m.Portion, "1")
+                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                        <span class="icon icon-trash"></span>
+                    </button>
+                }
+            }
+
+            using (MvcDynamicListItemAdder<BillUserGroupDebitorDto> addItem = dynList.BeginListItemAdder(new BillUserGroupDebitorDto())) {
+                <div class="dynamic-list-item debitor-list-item">
+                    @addItem.Html.Form().SelectDepending(m => m.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(m => m.BusinessId), Objects.GetPropertyName<UserGroupMembership>(m => m.DisplayName), dependingDropDownOptions, null)
+                    @addItem.Html.Form().Number(m => m.Portion, "1")
+                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                        <span class="icon icon-trash"></span>
+                    </button>
+                </div>
+            }
+        }
+    </fieldset>
+    <fieldset>
+        <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_GuestDebitors</legend>
+        @using (MvcDynamicList<BillGuestDebitorDto> dynList = Html.Form().BeginDynamicList(m => m.BillCreateCommand.GuestDebitors, new RouteValueDictionary { { "class", "debitor-list" } })) {
+            foreach (KeyValuePair<string, BillGuestDebitorDto> userGroupDebitor in dynList.ListItems) {
+                using (MvcDynamicListItem<BillGuestDebitorDto> item = dynList.BeginListItem(userGroupDebitor)) {
+                    @item.Html.Form().TextBox(m => m.Name)
+                    @item.Html.Form().Email(m => m.Email)
+                    @item.Html.Form().Number(m => m.Portion, "1")
+
+                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                        <span class="icon icon-trash"></span>
+                    </button>
+                }
+            }
+
+            using (MvcDynamicListItemAdder<BillGuestDebitorDto> addItem = dynList.BeginListItemAdder(new BillGuestDebitorDto())) {
+                <div class="dynamic-list-item debitor-list-item">
+                    @addItem.Html.Form().TextBox(m => m.Name)
+                    @addItem.Html.Form().Email(m => m.Email)
+                    @addItem.Html.Form().Number(m => m.Portion, "1")
+
+                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                        <span class="icon icon-trash"></span>
+                    </button>
+                </div>
+            }
+        }
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary" form="@(Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create))">
+        <i></i>
+        <span>Rechnung stellen</span>
+    </button>
+}
+
+@section toolbar {
+    <button type="submit" class="btn btn-primary" form="@(Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create))">
+        <i></i>
+        <span>@Resources_Web.bill_btn_create</span>
+    </button>
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <i></i>
+        <span>@Resources_Web.btn_Cancel_Create</span>
+    </a>
+}

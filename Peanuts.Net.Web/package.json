@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "install-update": "cd Content && npm install",
+    "watch-develop": "cd Content && npm run-script development",
+    "build-debug": "cd Content && npm run-script build-debug",
+    "build-release": "cd Content && npm run-script build-release",
+    "install-and-build-debug": "cd Content && npm install && npm run-script build-debug",
+    "install-and-build-release": "cd Content && npm install && npm run-script build-release",
+    "db-build-test": "cd ../Peanuts.Net.Core/Database && Build_Test.bat",
+    "db-migrate-dev": "cd ../Peanuts.Net.Core/Database && Migrate_Dev.bat"
+  },
+  "name": "Peanuts.Net",
+  "version": "1.0.0"
+}

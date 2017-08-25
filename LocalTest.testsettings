@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"
+      encoding="UTF-8" ?>
+
+<TestSettings name="LocalTest"
+              id="be9dec95-4470-44cd-acff-c15c5c2ac959"
+              xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description>Dies sind die standardmäßigen Testeinstellungen für einen lokalen Testlauf.</Description>
+  <Deployment enabled="false" />
+  <Execution parallelTestCount="1"/>
+  <Properties />
+</TestSettings>

@@ -1,0 +1,11 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/atom/favicon
+
+block headline
+    | B03 - Favicon
+
+block modules
+    .container
+        +favicon("/images/favicons/")
+        +highlight
+          +favicon("/path/to/favicons/")

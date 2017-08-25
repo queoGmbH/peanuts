@@ -1,0 +1,25 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/molecule/card-dashboard
+include ../../app/atomic/organism/cards-grid-dashboard
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Cards
+                =" Grid"
+
+        ol
+            li
+                +link('#c1') Cards Grid
+
+        h2#c1 Cards Grid
+        +cards-grid-dashboard()
+            +card-dashboard(navigation.menu[0])
+            +card-dashboard(navigation.menu[1])
+            +card-dashboard(navigation.menu[2])
+        +highlight()
+            +cards-grid-dashboard()
+                +card-dashboard(navigation.menu[0])
+                +card-dashboard(navigation.menu[1])
+                +card-dashboard(navigation.menu[2])

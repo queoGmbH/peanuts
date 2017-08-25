@@ -1,0 +1,23 @@
+﻿Subject: Anforderungen für Peanut geändert
+
+<p>Hallo {recipient.FirstName},</p>
+
+<p>
+{editor.DisplayName} hat die erforderlichen Dinge für den am {peanut.Day:D} geplanten Peanut <a href="{peanutUrl}" title="Peanut anzeigen">"{peanut.Name}"</a> geändert.
+</p>
+<p>
+Es werden jetzt folgende Sachen benötigt:
+<ul>
+{requirements}
+</ul>
+</p>
+
+<p>
+Änderungskommentar:<br/>
+{updateComment}
+</p>
+
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>

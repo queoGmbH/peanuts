@@ -1,0 +1,57 @@
+﻿.form {
+    .form-control {
+        &,
+        &:focus {
+            box-shadow: none;
+        }
+
+        &--static {
+            height: auto;
+            border: 0;
+            padding: @padding-base-vertical + 1 13px;
+            box-shadow: none;
+        }
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .input-group input[type=number] {
+        text-align: right;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+
+    .control-label {
+        font-weight: @font-weight-bold;
+        color: @gray-darker;
+        text-align: left !important;
+        line-height: 1.2;
+    }
+
+    .input-group-btn {
+        button {
+            height: 33px;
+            min-width: 50px;
+            border-radius: @border-radius-small;
+
+            span:before {
+                padding: 0;
+            }
+        }
+    }
+
+    .input-group-addon {
+        min-width: 50px;
+    }
+}

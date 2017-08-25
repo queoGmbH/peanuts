@@ -1,0 +1,22 @@
+﻿@model Com.QueoFlow.Peanuts.Net.Web.Models.Menu.DropDownMenuItemViewModel
+
+@{
+    string isActive = "";
+    if (Model.IsActive) {
+        isActive = "active";
+    }
+}
+
+@if (Model.IsEnabled) {
+
+    @*<li id="@Model.ID" class="dropdown @isActive">*@
+    <li id="menu_item_@Model.Id" class="dropdown @isActive dropdown_@Model.Id">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            @Model.Text
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            @Html.DisplayFor(m => m.DropDownItems)
+        </ul>
+    </li>
+}

@@ -1,0 +1,16 @@
+﻿Subject: Rechnung "{bill.Subject}" von {creditor.DisplayName} über {amount:C} erhalten
+
+<p>Hallo {debitor.FirstName},</p>
+
+<p>
+du hast eine Rechnung von {creditor.DisplayName} über {amount:C} mit dem Betreff "{bill.Subject}" erhalten.
+</p>
+<p>
+Damit die Rechnung abgerechnet werden kann, müssen alle Schuldner der Rechnung zustimmen.<br/>
+Das kannst du <a href="{billUrl}" title="Rechnung anzeigen und bestätigen">hier tun</a>.
+</p>
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>
+

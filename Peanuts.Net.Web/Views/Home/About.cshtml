@@ -1,0 +1,14 @@
+﻿@using System.Reflection
+@using Com.QueoFlow.Peanuts.Net.Web.Controllers
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@{
+    ViewBag.Title = "Über";
+}
+
+
+<div class="form form-horizontal">
+    <div class="col-xs-12">
+        @Html.Form().Static("Version", Assembly.GetAssembly(typeof(HomeController)).GetName().Version.ToString())
+        @Html.Form().Static("Zeit", File.GetLastWriteTime(Assembly.GetAssembly(typeof(HomeController)).Location))
+    </div>
+</div>

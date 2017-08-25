@@ -1,0 +1,28 @@
+.slider-item {
+    margin: 0 1px;
+
+    &__image {
+        height: @slick-slide-height-sm;
+        background-size: cover;
+        margin-bottom: @slick-track-padding-vertical;
+    }
+
+    &__title {
+        margin-bottom: @slick-track-padding-vertical;
+        padding-left: @grid-gutter-width;
+        padding-right: @grid-gutter-width;
+        text-align: center;
+        opacity: 0;
+
+        strong:after {
+            content: ': ';
+        }
+    }
+
+    @media (min-width: @screen-sm) {
+        &__image {
+            height: @slick-slide-height-lg;
+        }
+    }
+}
+

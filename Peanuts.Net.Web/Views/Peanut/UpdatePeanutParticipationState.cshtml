@@ -1,0 +1,16 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutParticipationUpdateViewModel
+
+
+
+@using (Html.BeginForm("UpdateParticipation", "Peanut", new { peanut = Model.PeanutParticipation.Peanut.BusinessId, peanutParticipation = Model.PeanutParticipation.BusinessId }, FormMethod.Post, new { @class = "form form-inline", role = "form" })) {
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.AntiForgeryToken()
+    @Html.Form().Select(m => m.PeanutParticipationUpdateCommand.PeanutParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), (IList)Model.ParticipationTypes, null)        
+    <button type="submit" class="btn btn-primary btn-xs" title="Ändern">
+        <span class="icon icon-arrow-right"></span>
+    </button>
+}

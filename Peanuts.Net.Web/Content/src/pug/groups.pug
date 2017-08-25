@@ -1,0 +1,28 @@
+extends app/atomic/template/default
+include app/atomic/organism/cards-grid
+include app/atomic/molecule/card-image
+include app/atomic/molecule/card-icon
+
+block content
+    .container-content
+        h1 Angefragte Mitgliedschaften
+        .container-content--full
+            +cards-grid()
+                +card-image('#', '/images/img_3.png','Gruppe mit Bild')
+                    span Angefragt am: 11.04.2017
+                +card-icon('#', 'group','ID: 00234')
+                    span Angefragt am: 13.04.2017
+                +card-icon('#', 'plus','Mitgliedschaft beantragen') 
+        h1 Meine Mitgliedschaften
+        .container-content--full
+            +cards-grid()
+                +card-image('#', '/images/img_2.png','C# and Friends')
+                    span Mitglied seit: 04.10.2010
+                    span Kontostand: +126,04€                    
+                +card-icon('#', 'group','Noch eine Testgruppe')
+                    span Mitglied seit: 01.01.2017
+                    span Kontostand:  -2,40€
+                +card-image('#', '/images/img_3.png','Gruppe des 26. April')
+                    span Mitglied seit: 01.01.2017
+                    span Kontostand: +8,15€ 
+                +card-icon('#', 'plus','Neue Gruppe erstellen')                                       

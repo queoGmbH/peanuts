@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="common_btn_Add" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="btn_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="common_btn_Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="common_btn_Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="common_btn_Login" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="common_btn_Logout" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="common_btn_PagerFirstPage" xml:space="preserve">
+    <value>Erste Seite</value>
+  </data>
+  <data name="common_btn_PagerLastPage" xml:space="preserve">
+    <value>Letzte Seite</value>
+  </data>
+  <data name="common_btn_PagerNewer" xml:space="preserve">
+    <value>Neuer</value>
+  </data>
+  <data name="common_btn_PagerNext" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
+  <data name="common_btn_PagerOlder" xml:space="preserve">
+    <value>Älter</value>
+  </data>
+  <data name="common_btn_PagerPrevious" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="common_btn_PasswordLost" xml:space="preserve">
+    <value>Passwort vergessen</value>
+  </data>
+  <data name="common_btn_Reset" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="common_btn_Show" xml:space="preserve">
+    <value>Anzeigen</value>
+  </data>
+  <data name="common_format_Date" xml:space="preserve">
+    <value>{0:d}</value>
+  </data>
+  <data name="common_format_DateRange" xml:space="preserve">
+    <value>{0:d} - {1:d} Uhr</value>
+  </data>
+  <data name="common_format_DateTime" xml:space="preserve">
+    <value>{0:g} Uhr</value>
+  </data>
+  <data name="common_format_DateTimeRange" xml:space="preserve">
+    <value>{0:g} - {1:g} Uhr</value>
+  </data>
+  <data name="common_format_DateWithTimeRange" xml:space="preserve">
+    <value>{0:d} {0:t} - {1:t} Uhr</value>
+  </data>
+  <data name="common_label_Options" xml:space="preserve">
+    <value>Optionen</value>
+  </data>
+  <data name="common_label_Page" xml:space="preserve">
+    <value>Seite</value>
+  </data>
+  <data name="common_label_PageNumber" xml:space="preserve">
+    <value>Seite {0}</value>
+  </data>
+  <data name="common_label_Register" xml:space="preserve">
+    <value>Registrieren</value>
+  </data>
+  <data name="common_label_Rights" xml:space="preserve">
+    <value>Berechtigungen</value>
+  </data>
+  <data name="common_label_SearchUsers" xml:space="preserve">
+    <value>Nutzer suchen ...</value>
+  </data>
+  <data name="common_label_SubmitDelete" xml:space="preserve">
+    <value>Löschen Bestätigen</value>
+  </data>
+  <data name="common_title_CreateCommand" xml:space="preserve">
+    <value>{0} erstellen</value>
+  </data>
+  <data name="common_title_DeleteCommand" xml:space="preserve">
+    <value>{0} löschen: {1}</value>
+  </data>
+  <data name="common_title_UpdateCommand" xml:space="preserve">
+    <value>{0} bearbeiten: {1}</value>
+  </data>
+  <data name="common_title_IndexView" xml:space="preserve">
+    <value>{0}übersicht</value>
+  </data>
+  <data name="common_txt_Date" xml:space="preserve">
+    <value>am {0:d} Uhr</value>
+  </data>
+  <data name="common_txt_DateRange" xml:space="preserve">
+    <value>vom {0:d} bis zum {1:d}</value>
+  </data>
+  <data name="common_txt_DateRangeEnd" xml:space="preserve">
+    <value>bis {0:d}</value>
+  </data>
+  <data name="common_txt_DateRangeNone" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="common_txt_DateRangeStart" xml:space="preserve">
+    <value>ab {0:d}</value>
+  </data>
+  <data name="common_txt_DateTime" xml:space="preserve">
+    <value>am {0:d} um {0:t} Uhr</value>
+  </data>
+  <data name="common_txt_DateTimeRange" xml:space="preserve">
+    <value>vom {0:g} Uhr bis zum {1:g} Uhr</value>
+  </data>
+  <data name="common_txt_DateTimeRangeEnd" xml:space="preserve">
+    <value>bis {0:d} {0:t} Uhr</value>
+  </data>
+  <data name="common_txt_DateTimeRangeStart" xml:space="preserve">
+    <value>ab {0:d} {0:t} Uhr</value>
+  </data>
+  <data name="common_txt_DateWithTimeRange" xml:space="preserve">
+    <value>am {0:d} von {0:t} bis {1:t} Uhr</value>
+  </data>
+  <data name="_common_element_key" xml:space="preserve">
+    <value />
+  </data>
+  <data name="_viewname_module_element_key" xml:space="preserve">
+    <value />
+  </data>
+  <data name="common_btn_Add_Entity" xml:space="preserve">
+    <value>{0} hinzufügen</value>
+  </data>
+  <data name="common_placeholder_DropDown_Select" xml:space="preserve">
+    <value>Bitte auswählen</value>
+  </data>
+  <data name="common_btn_ChangePassword" xml:space="preserve">
+    <value>Passwort ändern</value>
+  </data>
+  <data name="common_title_ManageView" xml:space="preserve">
+    <value>Mein Profil</value>
+  </data>
+  <data name="common_error_Message" xml:space="preserve">
+    <value>Es ist ein Fehler aufgetreten.</value>
+  </data>
+  <data name="common_error_Title" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="error_NotFound_Message" xml:space="preserve">
+    <value>Die aufgerufene Seite existiert nicht!</value>
+  </data>
+  <data name="error_NotFound_Title" xml:space="preserve">
+    <value>Nicht gefunden</value>
+  </data>
+  <data name="error_Forbidden_Message" xml:space="preserve">
+    <value>Zum Aufrufen der Seite fehlen die notwendigen Berechtigung.</value>
+  </data>
+  <data name="error_Forbidden_Title" xml:space="preserve">
+    <value>Keine Berechtigung</value>
+  </data>
+  <data name="error_Unauthorized_Message" xml:space="preserve">
+    <value>Die Seite ist nur für angemeldete Nutzer aufrufbar.</value>
+  </data>
+  <data name="error_Unauthorized_Title" xml:space="preserve">
+    <value>Nicht angemeldet</value>
+  </data>
+  <data name="label_Page_Current_Of_Total" xml:space="preserve">
+    <value>Seite {0} von {1}</value>
+  </data>
+  <data name="txt_Confirm_Delete_User" xml:space="preserve">
+    <value>Soll der Nutzer {0} wirklich gelöscht werden?</value>
+  </data>
+  <data name="common_label_NewPassword" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="common_label_NewPasswordConfirmation" xml:space="preserve">
+    <value>Passwort wiederholen</value>
+  </data>
+  <data name="common_txt_confirm_delete_feminin" xml:space="preserve">
+    <value>Soll die {0} {1} wirklich gelöscht werden?</value>
+    <comment>z.B. Soll die {0:Immobilie} {1:Teststrasse 13} wirklich gelöscht werden?</comment>
+  </data>
+  <data name="common_txt_confirm_delete_maskulin" xml:space="preserve">
+    <value>Soll der {0} {1} wirklich gelöscht werden?</value>
+    <comment>z.B. Soll der {0:Kunde} {1:Max Mustermann} wirklich gelöscht werden?</comment>
+  </data>
+  <data name="hint_PasswordStrength_ErrorList" xml:space="preserve">
+    <value>Fehler:</value>
+  </data>
+  <data name="hint_PasswordStrength_Medium" xml:space="preserve">
+    <value>mittel</value>
+  </data>
+  <data name="hint_PasswordStrength_Normal" xml:space="preserve">
+    <value>normal</value>
+  </data>
+  <data name="hint_PasswordStrength_Strong" xml:space="preserve">
+    <value>stark</value>
+  </data>
+  <data name="hint_PasswordStrength_VeryStrong" xml:space="preserve">
+    <value>sehr stark</value>
+  </data>
+  <data name="hint_PasswordStrength_VeryWeak" xml:space="preserve">
+    <value>sehr schwach</value>
+  </data>
+  <data name="hint_PasswordStrength_Weak" xml:space="preserve">
+    <value>schwach</value>
+  </data>
+  <data name="hint_PasswordStrength_WordLength" xml:space="preserve">
+    <value>Das Passwort ist zu kurz</value>
+  </data>
+  <data name="hint_PasswordStrength_WordNotEmail" xml:space="preserve">
+    <value>Das Passwort darf die E-Mail Adresse nicht enthalten</value>
+  </data>
+  <data name="hint_PasswordStrength_WordRepetitions" xml:space="preserve">
+    <value>Zu viele Wiederholungen</value>
+  </data>
+  <data name="hint_PasswordStrength_WordSequences" xml:space="preserve">
+    <value>Das Passwort enthält Buchstabensequenzen</value>
+  </data>
+  <data name="hint_PasswordStrength_WordSimilarToUsername" xml:space="preserve">
+    <value>Das Passwort darf den Benutzernamen nicht enthalten</value>
+  </data>
+  <data name="hint_PasswordStrength_WordTwoCharacterClasses" xml:space="preserve">
+    <value>Es sollten Buchstaben und Ziffern verwendet werden</value>
+  </data>
+  <data name="common_btn_Search" xml:space="preserve">
+    <value>Suchen</value>
+  </data>
+  <data name="txt_Confirm_Delete_ProposedUser" xml:space="preserve">
+    <value>Soll der beantragte Nutzer {0} wirklich gelöscht werden?</value>
+  </data>
+  <data name="common_btn_Accept" xml:space="preserve">
+    <value>Akzeptieren</value>
+  </data>
+  <data name="btn_Cancel_Create" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="btn_Cancel_Update" xml:space="preserve">
+    <value>Änderungen verwerfen</value>
+  </data>
+  <data name="btn_Save_Create" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="btn_Save_Update" xml:space="preserve">
+    <value>Speichern &amp; zurück</value>
+  </data>
+  <data name="label_No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="label_Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="label_False" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="label_True" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="common_title_ProposeCommand" xml:space="preserve">
+    <value>{0} beantragen</value>
+  </data>
+  <data name="bill_btn_create" xml:space="preserve">
+    <value>Rechnung erstellen</value>
+  </data>
+  <data name="payment_btn_create" xml:space="preserve">
+    <value>Zahlung erstellen</value>
+  </data>
+  <data name="peanut_btn_create" xml:space="preserve">
+    <value>Peanut erstellen</value>
+  </data>
+  <data name="peanut_requirement_name_placeholder" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="peanut_requirement_quantity_placeholder" xml:space="preserve">
+    <value>Menge</value>
+  </data>
+  <data name="peanut_requirement_unit_placeholder" xml:space="preserve">
+    <value>Einheit</value>
+  </data>
+  <data name="peanut_requirement_url_placeholder" xml:space="preserve">
+    <value>URL</value>
+  </data>
+</root>

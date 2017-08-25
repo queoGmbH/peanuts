@@ -1,0 +1,15 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Sidebar
+
+        ol
+            li
+                +link('#a1') Sidebar
+
+        h2#a1 Sidebar
+        +highlight()
+            +sidebar(navigation.menu)

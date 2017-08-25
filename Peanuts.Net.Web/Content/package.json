@@ -1,0 +1,62 @@
+{
+  "name": "peanuts.net",
+  "version": "0.1.0",
+  "description": "Prototyp &amp; Styleguide für peanuts.net zum Bereitstellen der CSS- und Javascript-Assets",
+  "license": "UNLICENSED",
+  "private": true,
+  "author": {
+    "name": "Ricardo Schmidt",
+    "email": "r.schmidt@queo-group.com"
+  },
+  "contributors": [
+    {
+      "name": "Tobias Jäkel",
+      "email": "t.jaekel@queo-group.com"
+    },
+    {
+      "name": "Uwe Oemichen",
+      "email": "u.oemichen@queo-group.com"
+    },
+    {
+      "name": "Daniel Wuttig",
+      "email": "d.wuttig@queo-group.com"
+    },
+    {
+      "name": "Matthias Schmidt",
+      "email": "m.schmidt@queo-group.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://code.dev.queo-group.com/git/queo-csharp-peanuts"
+  },
+  "scripts": {
+    "development": "blendid -- default",
+    "build-debug": "blendid -- dist-update",
+    "build-release": "blendid -- build"
+  },
+  "devDependencies": {
+    "npm-sass-require": "^0.1.0",
+    "queo-blendid": "^4.1.14",
+    "queo-styleguide": "^1.1.0",
+    "stylelint-config-standard": "^15.0.1"
+  },
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "chart.js": "^2.6.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "highlightjs": "8.7.0",
+    "jquery": "3.1.1",
+    "jquery-validation": "1.16.0",
+    "jquery-validation-unobtrusive": "3.2.6",
+    "jquery.cookie": "1.4.1",
+    "pwstrength-bootstrap": "^2.0.6",
+    "respond": "0.9.0",
+    "select2": "^4.0.3",
+    "slick-carousel": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=4",
+    "npm": ">=3"
+  }
+}

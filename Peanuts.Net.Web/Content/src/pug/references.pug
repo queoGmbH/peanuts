@@ -1,0 +1,50 @@
+extends app/atomic/template/default
+include app/atomic/organism/cards-grid
+include app/atomic/molecule/card-image
+
+block content-toolbar
+    +content-toolbar
+        +form('inline')(id='search' name='search')
+            +form-group('Objektsuche', 'oSearch')
+                +input-text('oSearch', 'Objekt')
+
+block content
+    .container-content
+        .container-content--full
+            +cards-grid()
+                +card-image('#', '/images/img_1.png','ID: 00233')
+                    span Rennplatzstraße 52
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-image('#', '/images/img_2.png','ID: 00234')
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-image('#', '/images/img_3.png','ID: 00234')
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-image('#', '/images/img_1.png','ID: 00233')
+                    span Rennplatzstraße 52
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-image('#', '/images/img_2.png','ID: 00234')
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-image('#', '/images/img_3.png','ID: 00234')
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-image('#', '/images/img_1.png','ID: 00233')
+                    span Rennplatzstraße 52
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-image('#', '/images/img_2.png','ID: 00234')
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz
+                +card-image('#', '/images/img_3.png','ID: 00234')
+                    span Rennplatzstraße 78
+                    span 01237 Dresden
+                    span Seidnitz

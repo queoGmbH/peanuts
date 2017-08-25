@@ -1,0 +1,126 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.UserGroupIndexViewModel
+
+@{
+    ViewBag.Title = "Gruppenübersicht";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+
+@section toolbar {
+
+    <a class="btn btn-primary pull-right" href="@Url.Action("CreateForm", "UserGroup")">
+        <span class="icon-plus"></span>
+        Neue Gruppe
+    </a>
+
+}
+
+
+@if (Model.MyRequestedMemberships.Any()) {
+    <h1>Meine angefragten Mitgliedschaften</h1>
+    <div class="container-content--full">
+        <div class="cards-grid">
+            @foreach (UserGroupMembership requestedMembership in Model.MyRequestedMemberships) {
+                <a href="@Url.Action("Membership", "UserGroup", new { userGroup = requestedMembership.UserGroup.BusinessId, userGroupMembership = requestedMembership.BusinessId })" class="link card" title="@requestedMembership.UserGroup.AdditionalInformations">
+                    <span class="card__icon icon-hourglass">
+                    </span>
+                    <span class="card__text">
+                        <span class="card-text__title">@requestedMembership.UserGroup.Name</span>
+                        <span>Beantragt: @requestedMembership.CreatedAt.ToShortDateString()</span>
+                    </span>
+                </a>
+            }
+        </div>
+    </div>
+
+    <hr/>
+}
+
+@if (Model.Invitations.Any()) {
+    <h1>Einladungen</h1>
+    <div class="container-content--full">
+        <div class="cards-grid">
+            @foreach (UserGroupMembership invitation in Model.Invitations) {
+                <a href="@Url.Action("Membership", "UserGroup", new { userGroup = invitation.UserGroup.BusinessId, userGroupMembership = invitation.BusinessId })" class="link card" title="@invitation.UserGroup.AdditionalInformations">
+                    <span class="card__icon icon-question">
+                    </span>
+                    <span class="card__text">
+                        <span class="card-text__title">@invitation.UserGroup.Name</span>
+                        <span>Beantragt: @invitation.CreatedAt.ToShortDateString()</span>
+                    </span>
+                </a>
+            }
+        </div>
+    </div>
+
+    <hr/>
+}
+
+@if (Model.RequestedMembershipsInMyGroups.Any()) {
+    <h1>Anfragen für meine Gruppen</h1>
+    <div class="container-content--full">
+        <div class="cards-grid">
+            @foreach (UserGroupMembership request in Model.RequestedMembershipsInMyGroups) {
+                <div class="card card-admin" title="@request.UserGroup.AdditionalInformations">
+                    <span class="card__icon icon-group">
+                    </span>
+                    <span class="card__text">
+                        <a href="@Url.Action("Membership", "UserGroup", new { userGroup = request.UserGroup.BusinessId, userGroupMembership = request.BusinessId })" class="link card-text__title">
+                            @request.UserGroup.Name (@(string.Format("{0:C}", request.Account.Balance)))
+                        </a>
+                        <span>Nutzer: @request.User.DisplayName</span>
+                        <span>Beantragt: @request.CreatedAt.ToShortDateString()</span>
+                    </span>
+                    <div class="card__overlay">
+                        @using (Html.BeginForm("AcceptMembershipRequest", "UserGroup", new { userGroup = request.UserGroup.BusinessId, userGroupMembership = request.BusinessId }, FormMethod.Post, new { @class = "form form-inline" })) {
+                            @Html.AntiForgeryToken()
+                            @Html.HttpMethodOverride(HttpVerbs.Patch)
+                            <button class="btn-link link icon icon-thumbs-up" type="submit" title="Anfrage akzeptieren"></button>
+                        }
+                        <a class="link icon icon-thumbs-down" href="@Url.Action("QuitMembershipForm", "UserGroup", new { userGroup = request.UserGroup.BusinessId, userGroupMembership = request.BusinessId })" title="Anfrage ablehnen"></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <hr/>
+}
+
+<h1>Aktuelle Mitgliedschaften</h1>
+<div class="container-content--full">
+    <div class="cards-grid">
+        @if (Model.CurrentMemberships.Any()) {
+            foreach (UserGroupMembership membership in Model.CurrentMemberships) {
+                <div class="card card-admin" title="@membership.UserGroup.AdditionalInformations">
+                    <a class="card__icon icon-group" href="@Url.Action("Membership", "UserGroup", new { userGroup = membership.UserGroup.BusinessId, userGroupMembership = membership.BusinessId })" class="link card-text__title">
+
+                    </a>
+                    <span class="card__text">
+                        <a href="@Url.Action("Membership", "UserGroup", new { userGroup = membership.UserGroup.BusinessId, userGroupMembership = membership.BusinessId })" class="link card-text__title">
+                            @membership.UserGroup.Name (@(string.Format("{0:C}", membership.Account.Balance)))
+                        </a>
+                        <span>Mitglied seit: @membership.CreatedAt.ToShortDateString()</span>
+                    </span>
+                    <div class="card__overlay">
+                        <a class="link icon icon-sign-in" href="@Url.Action("GotMoneyForm", "Payment", new { userGroup = membership.UserGroup.BusinessId, userGroupMembership = membership.BusinessId })" title="Geld erhalten"></a>
+                        <a class="link icon icon-sign-out" href="@Url.Action("PayMoneyForm", "Payment", new { userGroup = membership.UserGroup.BusinessId, userGroupMembership = membership.BusinessId })" title="Geld bezahlen"></a>
+                        <a class="link icon icon-exchange" href="@Url.Action("Account", "UserGroup", new { userGroup = membership.UserGroup.BusinessId, userGroupMembership = membership.BusinessId })" title="Kontoauszug"></a>
+                        @if (membership.MembershipType == UserGroupMembershipType.Administrator) {
+                            <a class="link icon icon-pencil" href="@Url.Action("UpdateForm", "UserGroup", new { userGroup = membership.UserGroup.BusinessId})" title="Bearbeiten"></a>
+                        }
+                    </div>
+                </div>
+            }
+        }
+
+
+        <a href="@Url.Action("RequestMembershipForm", "UserGroup")" class="link card">
+            <span class="card__icon icon-plus">
+            </span>
+            <span class="card__text">
+                <span class="card-text__title">Mitglied werden</span>
+            </span>
+        </a>
+    </div>
+</div>

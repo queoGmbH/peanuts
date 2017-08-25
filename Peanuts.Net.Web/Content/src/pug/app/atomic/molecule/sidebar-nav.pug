@@ -1,0 +1,14 @@
+mixin sidebar-nav(menu)
+    ul.nav.sidebar-nav
+        each menuItem in menu
+            li.sidebar-nav-item
+                -
+                    linkClass = [
+                        (menuItem.active?'active':null),
+                        (menuItem.linkClass?"link--" + menuItem.linkClass:null)
+                    ]
+                +link(menuItem.url)(class=linkClass)
+                    span(class="icon-" + menuItem.icon)
+                    .sidebar-nav-item__info= menuItem.title
+                    if menuItem.badge
+                        +badge(menuItem.badge)

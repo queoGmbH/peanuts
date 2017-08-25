@@ -1,0 +1,21 @@
+extends app/atomic/template/default
+
+block content-toolbar
+    +content-toolbar
+        +button('primary', 'angle-right')(type="submit" form="workflow002") Speichern & zurück
+        +button('info', 'angle-right') Abbrechen
+
+block content
+    .container-content
+        .container-content__header
+            +headline(1)
+                strong Workflow:
+                = " Vorgang 0002"
+
+        +form('horizontal')(id="workflow002")
+            fieldset
+                legend.form__legend Reservierung
+                +form-group('Reservierungspreis', 'price')
+                    +input-number('price', null, '&euro;', 0.01)
+                +form-group('Bemerkung', 'textarea1')
+                    +textarea('textarea1')(rows=15 data-val-length=errormsg.length data-val-length-max="5" data-val="true")

@@ -1,0 +1,7 @@
+mixin label(name)
+    if name
+        label.control-label(for=name)&attributes(attributes)
+            block
+    else
+        .control-label
+            block

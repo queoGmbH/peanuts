@@ -1,0 +1,27 @@
+-
+    function rnd(min, max) { return Math.floor(Math.random() * (max - min + 1) + min); };
+
+-
+    function rndDateInPast() {
+    var date = new Date();
+
+    date.setDate(date.getDate() - rnd(0, 100))
+
+    return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear()
+    }
+
+
+-
+    function rndId() {
+    var tmp = lipsum(rnd(2, 3), 'words').trim();
+    tmp = tmp.replace(/ä/g,"ae");
+    tmp = tmp.replace(/ö/g,"oe");
+    tmp = tmp.replace(/ü/g,"ue");
+    tmp = tmp.replace(/Ä/g,"Ae");
+    tmp = tmp.replace(/Ö/g,"Oe");
+    tmp = tmp.replace(/Ü/g,"Ue");
+    tmp = tmp.replace(/ß/g,"ss");
+    tmp = tmp.replace(/\s/g, '-');
+    tmp = tmp.replace(/[^0-9a-zA-Z\-]/g, '');
+    return tmp.toLowerCase();
+    }

@@ -1,0 +1,52 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Manage.ShowMeViewModel
+@{
+    ViewBag.Title = Resources_Web.common_title_ManageView;
+}
+
+<div class="form form-horizontal">
+    <div class="form__row">
+        <div class="form__col">
+            @Html.Form().Static(m => m.User.FirstName)
+            @Html.Form().Static(m => m.User.LastName)
+            @Html.Form().Static(m => m.User.Email)
+            @Html.Form().Static(m => m.User.Birthday)
+        </div>
+        <div class="form__col">
+            @Html.Form().Static(m => m.User.UserName)
+
+        </div>
+    </div>
+
+    <div class="form__row">
+        <div class="form__col">
+            @Html.Form().Static(m => m.User.Company)
+            @Html.Form().Static(m => m.User.Street)
+            @Html.Form().Static(m => m.User.StreetNumber)
+            @Html.Form().Static(m => m.User.PostalCode)
+            @Html.Form().Static(m => m.User.City)
+            @Html.Form().Static(Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Country, Model.User.Country.ToLocalizedString())
+        </div>
+        <div class="form__col">
+            @Html.Form().Static(m => m.User.Phone)
+            @Html.Form().Static(m => m.User.PhonePrivate)
+            @Html.Form().Static(m => m.User.Mobile)
+            @Html.Form().Static(m => m.User.Url)
+        </div>
+    </div>
+</div>
+
+@section toolbar {
+    <a href="@Url.Action("UpdateForm")" class="btn btn-primary">
+        <span>@Resources_Web.common_btn_Edit</span>
+    </a>
+    <a href="@Url.Action("ChangePassword")" class="btn btn-primary">
+        <span>@Resources_Web.common_btn_ChangePassword</span>
+    </a>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-default">
+        <span>@Resources_Web.btn_Cancel</span>
+    </a>
+}

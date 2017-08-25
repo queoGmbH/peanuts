@@ -1,0 +1,58 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="@typeof(MvcApplication).Assembly.GetName().Version.ToString()" />
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Title)) {
+        <title>peanuts.net | @ViewBag.Title</title>
+    } else {
+        <title>peanuts.net</title>
+    }
+    <meta name="description" content="peanuts.net">
+    <link rel="apple-touch-icon" sizes="180x180" href="@Url.Content("~/Content/dist/images/favicons/apple-touch-icon.png")">
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/dist/images/favicons/favicon-32x32.png")" sizes="32x32">
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/dist/images/favicons/favicon-16x16.png")" sizes="16x16">
+    <link rel="manifest" href="@Url.Content("~/Content/dist/images/favicons/manifest.json")">
+    <link rel="mask-icon" href="@Url.Content("~/Content/dist/images/favicons/safari-pinned-tab.svg")" color="#5bbad5">
+    <link rel="shortcut icon" href="@Url.Content("~/Content/dist/images/favicons/favicon.ico")">
+    <meta name="msapplication-config" content="@Url.Content("~/Content/dist/images/favicons/browserconfig.xml")">
+    <meta name="theme-color" content="#ffffff">
+    <link href="@Url.Content("~/Content/dist/stylesheets/app.min.css")" rel="stylesheet">
+    <script src="@Url.Content("~/Content/dist/javascripts/app.min.js")" defer></script>
+    @Html.Partial("JiraCollector")
+</head>
+<body id="@Html.GetPageId(this)" class="no-sidebar bg-gray-lightest">
+    <header class="header">
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid container-lg">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home", new {area = ""})" title="Home">
+                    <img src="@Url.Content("~/Content/dist/images/logo.png")" alt="queo Logo">
+                </a>
+                @if (Html.Security().IsAuthenticated()) {
+                    @Html.Partial("_LoginPartial")
+                }
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid bg-gray-lightest">
+        <div class="content-fullscreen container-lg">
+            <div class="content-fullscreen__wrap">
+                @if (!string.IsNullOrWhiteSpace(ViewBag.Title)) {
+                    <h1>@ViewBag.Title</h1>
+                }
+                @if (!string.IsNullOrWhiteSpace(ViewBag.Subtitle)) {
+                    <h2>@ViewBag.Subtitle</h2>
+                }
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+    
+</body>
+</html>

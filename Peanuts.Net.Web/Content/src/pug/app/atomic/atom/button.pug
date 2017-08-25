@@ -1,0 +1,5 @@
+mixin button(color, icon)
+    button.btn(class=(color?"btn-" + color:null))&attributes(attributes)
+        if icon
+            span(class="icon-" + icon)
+        block

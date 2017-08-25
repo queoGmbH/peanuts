@@ -1,0 +1,32 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Documents
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms.DeleteDocumentsModel
+
+@{
+    string fieldPrefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+
+<div class="grid-documents">
+    <div class="grid-documents__container">
+        @foreach (Document doc in Model.Documents) {
+            <div class="grid-document">
+                @{
+                    @*ViewData.TemplateInfo.HtmlFieldPrefix = Model.PropertyPath;
+                    @Html.Hidden("index", doc.BusinessId)*@
+                    ViewData.TemplateInfo.HtmlFieldPrefix = Model.PropertyPath;
+                    string checkboxId = "delete_" + doc.BusinessId.ToString().Replace("-", "_");
+                }
+                <input class="grid-document__select" type="checkbox" value="@doc.BusinessId" name="@(Model.PropertyPath)" id="@checkboxId"/>
+                <div class="grid-document__image js-fileupload-uploaded-file-preview" style="background-image: url(@Url.Action("Preview", "Document", new { area = "", document = doc.BusinessId }));">
+                    <div class="grid-document__overlay">
+                        <label class="link icon-trash" for="@checkboxId"></label>
+                    </div>
+                </div>
+                <span class="grid-document__name">@doc.OriginalFileName</span>
+            </div>
+        }
+    </div>
+</div>
+
+@{
+    ViewData.TemplateInfo.HtmlFieldPrefix = fieldPrefix;
+}

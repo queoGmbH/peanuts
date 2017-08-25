@@ -1,0 +1,24 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Textarea
+                =" Fields"
+
+        p
+            +link('https://jira.queo-group.com/browse/ITWISTMP-260').icon-angle-right Jira-Ticket
+
+        ol
+            li
+                +link('#f1') Textarea
+
+        h2#f1 Textarea
+        +form('horizontal')
+            +form-group('Bemerkung', 'textarea1')
+                +textarea('textarea1')(rows=5 data-val-length=errormsg.length data-val-length-max="500" data-val="true")
+        +highlight()
+            +form('horizontal')
+                +form-group('Bemerkung', 'textarea1')
+                    +textarea('textarea1')(rows=5 data-val-length=errormsg.length data-val-length-max="500" data-val="true")

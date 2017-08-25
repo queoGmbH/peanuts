@@ -1,0 +1,32 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+
+@model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.UserGroupMembershipInvitationViewModel
+
+@{
+    ViewBag.Title = "Nutzer in Gruppe einladen";
+    ViewBag.Subtitle = Model.UserGroup.DisplayName;
+}
+
+@using (Html.BeginForm("Invite", "UserGroup", new {userGroup = Model.UserGroup.BusinessId}, FormMethod.Post, new {  @class = "form form-horizontal", role = "form", id = Html.GenerateId<UserGroupMembership>(IdForElement.Form, IdForAction.Create) })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {  @class = "form-validation-summary" }, "p")
+
+    @Html.Form().Select(m => m.User, Objects.GetPropertyName<User>(u => u.BusinessId), Objects.GetPropertyName<User>(u => u.DisplayName), (IList)Model.InvitableUsers, "Nutzer wählen ...", label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User)    
+}
+
+@section toolbar {
+    <button type="submit" class="btn btn-primary pull-right" form="@(Html.GenerateId<UserGroupMembership>(IdForElement.Form, IdForAction.Create))">
+        <span class="icon icon-user-plus"></span>
+        <span>@Resources_Web.btn_Save_Create</span>
+    </button>
+    <a href="@Url.Action("AllMemberships")" class="btn btn-default">
+        <span class="icon icon-arrow-left"></span>
+        @Resources_Web.btn_Cancel_Create
+    </a>
+
+}

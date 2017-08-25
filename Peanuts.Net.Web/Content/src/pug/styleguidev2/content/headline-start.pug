@@ -1,0 +1,18 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/molecule/headline-start
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Headline Start
+                =" Styles"
+
+        ol
+            li
+                +link('#a1') Headline Start
+
+        h2#a1 Headline Start
+        +headline-start(startHeadline.title, startHeadline.text)
+        +highlight()
+            +headline-start(startHeadline.title, startHeadline.text)

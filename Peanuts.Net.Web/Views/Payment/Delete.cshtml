@@ -1,0 +1,31 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting.Payment
+
+
+@{
+    ViewBag.Title = "Zahlung löschen";
+    ViewBag.Subtitle = Model.DisplayName;
+}
+
+@section toolbar{
+    <a href="@Url.Action("Index", "Payment")" class="btn btn-default">
+        <span class="icon icon-arrow-left">@Resources_Web.btn_Cancel</span>
+    </a>
+}
+
+@using (Html.BeginForm("Delete", "Payment", new { payment = Model.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {  @class = "form-validation-summary" }, "p")
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+    <p>
+        Soll die Zahlung "@(Model.DisplayName)" gelöscht werden?
+    </p>
+
+    <p>
+        <button type="submit" class="btn btn-danger">
+            <span class="icon-trash"></span>
+            @Resources_Web.common_btn_Delete
+        </button>
+    </p>
+}

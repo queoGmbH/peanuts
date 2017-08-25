@@ -1,0 +1,292 @@
+@color-day: @gray;
+@border-color: @gray-light;
+
+.calendar-day {
+    display: flex;
+    flex-grow: 0;
+    -webkit-flex-grow: 0;
+    flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    vertical-align: top;
+    flex: 1;
+    height: auto;
+    color: @color-day;
+    text-align: center;
+
+    &__daynumber {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
+        margin-right: auto;
+        vertical-align: middle;
+        text-align: center;
+        min-width: 40px;
+    }
+}
+
+@media(min-width: @screen-sm-min) {
+    .calendar-day {
+        max-width: 130px;
+        margin: 5px;
+
+        &__description {
+            display: none;
+        }
+    }
+
+    .calendar-week {
+        padding: 5px 0;
+
+        &:not(:last-child) {
+            border-bottom: thin solid @border-color;
+        }
+
+        &__number {
+            min-width: 40px;
+            max-width: 40px;
+        }
+
+        .calendar-day {
+            border-radius: 50%;
+            border-width: 1px;
+            border-style: solid;
+            position: relative;
+            font-weight: lighter;
+            font-size: 26px;
+
+            &:before {
+                display: table;
+                content: '';
+                float: left;
+                padding-top: 100%;
+            }
+
+            &--weekend {
+                border-style: dashed;
+            }
+
+            &--today {
+                font-weight: bold;
+            }
+
+            &--other-month {
+                opacity: 0.4; // color: lighten(@color-day, 30%);
+            }
+
+            &[class*="calendar-day__peanut"] {
+                border-width: 2px;
+            }
+
+            &--danger {
+                border-color: @brand-danger;
+
+                .calendar-day__overlay {
+                    background-color: fade(@brand-danger, 30);
+                }
+            }
+
+            &--warning {
+                border-color: @brand-warning;
+
+                .calendar-day__overlay {
+                    background-color: fade(@brand-warning, 30);
+                }
+            }
+
+            &--info {
+                border-color: @brand-info;
+
+                .calendar-day__overlay {
+                    background-color: fade(@brand-info, 30);
+                }
+            }
+
+            &--success {
+                border-color: @brand-success;
+
+                .calendar-day__overlay {
+                    background-color: fade(@brand-success, 30);
+                }
+            }
+
+            &__overlay {
+                position: absolute;
+                z-index: 20;
+                border-radius: 50%;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                background-color: fade(@gray-lightest, 30);
+                width: 100%;
+                height: 100%;
+                left: 0;
+                -webkit-transition: display 1000ms linear;
+                -moz-transition: display 1000ms linear;
+                -o-transition: display 1000ms linear;
+                -ms-transition: display 1000ms linear;
+                transition: display 1000ms linear;
+
+                .link {
+                    font-size: 24px;
+                    margin: 3px;
+                    color: @color-day;
+
+                    &:hover {
+                        color: @brand-primary;
+                    }
+                }
+            }
+
+            &:hover {
+                .calendar-day__overlay {
+                    display: flex;
+                }
+
+                .calendar-day__daynumber {
+                    color: fade(@color-day, 20);
+                }
+            }
+
+            &__daynumber {
+                .icon {
+                    font-size: 20px;
+                }
+            }
+        }
+
+        &--show-description {
+            padding-bottom: 40px;
+
+            .calendar-day {
+                &__description:not(:empty) {
+                    display: block;
+                    font-size: 14px;
+                    position: absolute;
+                    bottom: -35px;
+                    height: 20px;
+                    width: 100%;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+    .calendar-head {
+        .calendar-day {
+            &__weekday {
+                text-align: center;
+            }
+
+            &__dayname {
+                width: 100%;
+                text-align: center;
+                /*text-overflow: ellipsis;
+                overflow: hidden;
+                text-wrap: none;*/
+            }
+        }
+    }
+}
+
+@media(max-width: @screen-xs-max) {
+    .calendar-week {
+        align-items: stretch;
+
+        .calendar-day {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-around;
+            min-height: 35px;
+            border-bottom: thin solid @border-color;
+            padding-right: 10px;
+
+            &__daynumber {
+                flex: 1;
+                text-align: center;
+                min-width: 40px;
+                max-width: 40px;
+                width: 40px;
+                height: 100%;
+                font-size: 24px;
+                font-weight: lighter;
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+
+            &__description {
+                flex: 2;
+                text-align: left;
+                height: 100%;
+                max-height: 100%;
+                font-size: 24px;
+                font-weight: lighter;
+                margin-top: auto;
+                margin-bottom: auto;
+                overflow: hidden;
+                text-wrap: none;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 12px;
+                padding-left: 5px;
+            }
+
+            &__overlay {
+                flex: 1;
+                text-align: right;
+                margin-top: auto;
+                margin-bottom: auto;
+
+                .link {
+                    font-size: 24px;
+                    margin-left: 5px;
+                }
+            }
+
+            &--today {
+                .calendar-day__daynumber {
+                    font-weight: 900;
+                }
+            }
+
+            &--weekend {
+            }
+
+            &--other-month {
+                .calendar-day__daynumber {
+                    color: fade(@color-day, 60);
+                }
+            }
+
+            &--danger {
+                .calendar-day__daynumber {
+                    background-color: fade(@brand-danger, 30);
+                }
+            }
+
+            &--warning {
+                .calendar-day__daynumber {
+                    background-color: fade(@brand-warning, 30);
+                }
+            }
+
+            &--info {
+                .calendar-day__daynumber {
+                    background-color: fade(@brand-info, 30);
+                }
+            }
+
+            &--success {
+                .calendar-day__daynumber {
+                    background-color: fade(@brand-success, 30);
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 15px;
+                border-bottom: none;
+            }
+        }
+    }
+}

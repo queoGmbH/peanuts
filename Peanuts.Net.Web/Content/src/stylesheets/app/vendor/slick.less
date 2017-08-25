@@ -1,0 +1,81 @@
+// main slick definitions
+@import (less) "../../../../node_modules/slick-carousel/slick/slick.less";
+// slick default theme
+@import (less) "../../../../node_modules/slick-carousel/slick/slick-theme.less";
+
+/*
+custom definitions for slick carousel
+ */
+
+.slick {
+    margin-top: -@grid-gutter-width / 2;
+
+    &-loading .slick-list {
+        background: #fff url('@{slick-loader-path}ajax-loader.svg') center center no-repeat;
+    }
+
+    &-slide {
+        width: @slick-slide-width-sm;
+        outline: none !important;
+        opacity: .2;
+        background-color: @white;
+        transition:
+            opacity .5s ease,
+            background-color .5s ease;
+    }
+
+    &-center {
+        background-color: initial;
+        opacity: 1;
+
+        .slider-item__title {
+            opacity: 1;
+        }
+    }
+
+    &-arrow {
+        .icon-circle(sm-md,0,@white);
+
+        top: @slick-slide-height-sm / 2;
+        width: @slick-arrow-height;
+        z-index: 10;
+    }
+
+    &-prev {
+        left: 50px;
+    }
+
+    &-next {
+        right: 50px;
+    }
+
+    @media (min-width: @screen-sm) {
+        margin-top: -@grid-gutter-width;
+
+        &-slide {
+            width: @slick-slide-width-lg;
+        }
+
+        &-arrow {
+            top: @slick-slide-height-lg / 2;
+        }
+
+        &-prev {
+            left: 10%;
+        }
+
+        &-next {
+            right: 10%;
+        }
+    }
+
+    @media (min-width: @screen-md) {
+        &-prev {
+            left: 15%;
+        }
+
+        &-next {
+            right: 15%;
+        }
+    }
+}

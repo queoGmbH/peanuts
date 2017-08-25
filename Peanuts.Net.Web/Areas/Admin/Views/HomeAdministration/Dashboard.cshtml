@@ -1,0 +1,23 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.Home.HomeAdministrationViewModel
+
+<div class="container-content--full">
+    <div class="cards-grid">
+
+        <a class="link card" href="@Url.Action("Index", "UserGroupAdministration", new { area = "Admin" })">
+            <span class="card__icon icon-group"></span><span class="card__text">
+                <span class="h2">@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroups</span><span>Es gibt<strong> @Model.UserGroupCount Nutzergruppen</strong> auf der Plattform.</span>
+            </span>
+        </a>
+        <a class="link card" href="@Url.Action("Index", "UserAdministration", new { area = "Admin" })">
+            <span class="card__icon icon-user"></span><span class="card__text">
+                <span class="h2">alle @Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Customer_Owner</span><span>Es sind<strong> @Model.UserCount Nutzer</strong> auf aktiv.</span>
+            </span>
+        </a>
+        @*<a class="link card" href="#">
+            <span class="card__icon icon-tasks"></span><span class="card__text">
+                <span class="h2">alle Vorgänge</span><span>Es sind<strong> keine Vorgänge</strong> vorhanden.</span>
+            </span>
+        </a>*@
+    </div>
+</div>

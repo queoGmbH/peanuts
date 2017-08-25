@@ -1,0 +1,47 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Account
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Account.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutFullscreen.cshtml";
+}
+
+
+<div class="headline-login">
+    <h1>
+        Peanuts-Login
+    </h1>
+</div>
+
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form form-horizontal form-login", role = "form" })) {
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+
+    @Html.Form().TextBox(m => m.Email, placeholder: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_UserName)
+    @Html.Form().Password(m => m.Password, placeholder: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Password)
+
+    <div class="form-group" data-valmsg-replace="false">
+        <div class="control-value">
+            <div class="checkbox checkbox-inline">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                <label for="@Html.ViewData.TemplateInfo.GetFullHtmlFieldId(Objects.GetPropertyName<LoginViewModel>(lvm => lvm.RememberMe))">auf diesem Gerät angemeldet bleiben</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group btn-group">
+        <div class="control-value">
+            <button type="submit" class="btn btn-primary">Login</button>
+            @Html.ActionLink("Passwort vergessen", "ForgotPassword", null, new { @class = "link" })
+        </div>
+    </div>
+}
+
+<hr/>
+
+<p class="text-center">
+    Noch kein Mitglied? @Html.ActionLink("Registrieren!", "Register", "Account", null, new { @class = "link text-primary" })
+</p>

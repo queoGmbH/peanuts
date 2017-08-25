@@ -1,0 +1,14 @@
+include ../atom/circle
+
+mixin calendar-day(dayNumber, hasPeanuts, description)
+	.calendar-day(class!=attributes.class,title=description)
+		.calendar-day__daynumber=dayNumber
+		.calendar-day__description=description
+		.calendar-day__overlay
+			if hasPeanuts
+				+link('').icon-pencil
+				+link('').icon-plus
+			else
+				+link('').icon-plus
+
+	

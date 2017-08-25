@@ -1,0 +1,5 @@
+﻿@model DateTime?
+
+@if (Model.HasValue) {
+    @Html.Raw(string.Format("{0:G}", Model.Value))
+}

@@ -1,0 +1,16 @@
+﻿Subject: Kommentar zu Peanut "{peanut.Name}" hinterlassen
+
+<p>Hallo {recipient.DisplayName},</p>
+<p>
+{user.DisplayName} hat einen Kommentar für den am {peanut.Day:D} geplanten Peanut "{peanut.Name}" hinterlassen:
+</p>
+<p>
+{comment}
+</p>
+<p>
+<a href="{peanutUrl}">Peanut anzeigen</a>
+</p>
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>

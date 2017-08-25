@@ -1,0 +1,23 @@
+mixin headline(level)
+    if level == 1
+        h1&attributes(attributes)
+            block
+
+    else if level == 2
+        h2&attributes(attributes)
+            block
+
+    else if level == 3
+        h3&attributes(attributes)
+            block
+
+    else if level == 4
+        h4&attributes(attributes)
+            block
+
+    else if level == 5
+        h5&attributes(attributes)
+            block
+    else if level == 6
+        h6&attributes(attributes)
+            block

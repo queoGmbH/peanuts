@@ -1,0 +1,38 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Links
+                =" Styles"
+
+        ol
+            li
+                +link('#1') Default-Link
+            li
+                +link('#2') Text-Link
+            li
+                +link('#3') Text-Link with Icon
+            li
+                +link('#4') Button-Link
+
+        h2#1 Default-Link
+        +link("#") Default-Link
+        +highlight()
+            +link("#") Default-Link
+
+        h2#2 Text-Link
+        a(href="#").link.link--text Text-Link
+        +highlight()
+            a(href="#").link.link--text Text-Link
+
+        h2#3 Text-Link with Icon
+        +link("#").link--text.icon-file-pdf-o Text-Link with Icon
+        +highlight()
+            +link("#").link--text.icon-file-pdf-o Text-Link with Icon
+
+        h2#4 Button-Link
+        +link-button("#",'primary') Button-Link
+        +highlight()
+            +link-button("#",'primary') Button-Link

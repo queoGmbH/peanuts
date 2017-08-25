@@ -1,0 +1,10 @@
+﻿@model Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms.ChoiceInputModel
+
+<div class="form-group entity-property" data-required-field="@(Model.IsRequired)">
+    <div class="@Model.InputType">
+        <label for="@Model.Id">
+            <input type="@Model.InputType" id="@Model.Id" name="@Model.Name" @Model.GetChecked() value="true" @Model.GetValidationAttributes() /> @Model.Label
+            <input type="hidden" name="@Model.Name" value="false" />
+        </label>
+    </div>
+</div>

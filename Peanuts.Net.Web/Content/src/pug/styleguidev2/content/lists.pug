@@ -1,0 +1,109 @@
+extends ../../app/atomic/template/styleguidev2
+include ../../app/atomic/molecule/section
+include ../../app/atomic/atom/list-row
+include ../../app/atomic/atom/list-row-link
+include ../../app/atomic/molecule/list-body
+include ../../app/atomic/molecule/list-head
+include ../../app/atomic/molecule/list
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Lists
+                =" Styles"
+
+        ol
+            li
+                +link('#li1') Text Lists
+            li
+                +link('#li2') Number Lists
+            li
+                +link('#li3') Download Lists
+
+        h2#li1 Text Lists
+        .container-content__row
+            .container-content__col
+                +section()
+                    +list()
+                        +list-body()
+                            +list-row(['Baujahr', '2016'], 'text')
+                            +list-row(['Gebäudeart', 'Neubau Erstbezug'], 'text')
+            .container-content__col
+                +section()
+                    +list()
+                        +list-body()
+                            +list-row(['Baujahr', '2016'], 'text')
+                            +list-row(['Gebäudeart', 'Neubau Erstbezug'], 'text')
+        +highlight()
+            .container-content__row
+                .container-content__col
+                    +section()
+                        +list()
+                            +list-body()
+                                +list-row(['Baujahr', '2016'], 'text')
+                .container-content__col
+                    +section()
+                        +list()
+                            +list-body()
+                                +list-row(['Gebäudeart', 'Neubau Erstbezug'], 'text')
+
+        h2#li2 Number Lists
+        .container-content__row
+            .container-content__col
+                +section()
+                    +list()
+                        +list-head(['Kauf', ''])
+                        +list-body()
+                            +list-row(['Kaufpreis', '9.998.100,00 €'])
+                            +list-row(['Kaufpreis in € / m²', '1.965,65 €'])
+            .container-content__col
+                +section()
+                    +list()
+                        +list-head(['Miete', 'Ist', 'Soll'])
+                        +list-body()
+                            +list-row(['Kaltmiete', '20,56 €', '20,56 €'])
+                            +list-row(['Kaufpreis in €/m²', '20,56 €', '20,5 €'])
+        +highlight()
+            .container-content__row
+                .container-content__col
+                    +section()
+                        +list()
+                            +list-head(['Kauf', ''])
+                            +list-body()
+                                +list-row(['Kaufpreis', '9.998.100,00 €'])
+                                +list-row(['Kaufpreis in € / m²', '1.965,65 €'])
+                .container-content__col
+                    +section()
+                        +list()
+                            +list-head(['Miete', 'Ist', 'Soll'])
+                            +list-body()
+                                +list-row(['Kaltmiete', '20,56 €', '20,56 €'])
+                                +list-row(['Kaufpreis in €/m²', '20,56 €', '20,5 €'])
+
+        h2#li3 Download Lists
+        .container-content__row
+            .container-content__col
+                +section()
+                    h2 Downloads
+                    +list()
+                        +list-body()
+                            +list-row-link(['Kostenaufstellung', '25,6 MB'], 'file-pdf-o', '#')
+                            +list-row-link(['Expose', '1855,4 KB'], 'file-pdf-o', '#')
+            .container-content__col
+                +section()
+                    h2 Links
+                    p Es wurden noch keine Links für diese Einheit hinterlegt.
+        +highlight()
+            .container-content__row
+                .container-content__col
+                    +section()
+                        h2 Downloads
+                        +list()
+                            +list-body()
+                                +list-row-link(['Kostenaufstellung', '25,6 MB'], 'file-pdf-o', '#')
+                                +list-row-link(['Expose', '1855,4 KB'], 'file-pdf-o', '#')
+                .container-content__col
+                    +section()
+                        h2 Links
+                        p Es wurden noch keine Links für diese Einheit hinterlegt.

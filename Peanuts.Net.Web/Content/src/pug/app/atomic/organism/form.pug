@@ -1,0 +1,5 @@
+include ../molecule/form-validation-summary
+
+mixin form(orientation)
+    form.form(class="form-"+orientation action="" method="get")&attributes(attributes)
+        block

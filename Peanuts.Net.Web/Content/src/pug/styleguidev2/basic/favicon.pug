@@ -1,0 +1,17 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong FavIcon
+                =" Include"
+
+        ol
+            li
+                +link('#i1') FavIcon
+
+        h2#i1 FavIcon
+        +favicon("/images/favicons/")
+        +highlight()
+            +favicon("/images/favicons/")

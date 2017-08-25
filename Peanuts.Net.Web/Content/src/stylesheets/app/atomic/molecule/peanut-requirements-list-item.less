@@ -1,0 +1,39 @@
+.peanut-requirements-list-item{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3px;
+
+    .form-group{
+        margin-bottom: 3px;
+
+        .control-value{
+            width: 100% !important;
+        }
+    }
+    
+    label{
+        display: none;
+    }
+
+    input[name$=".Quantity"]{
+        width: 75px;
+        text-align: right;
+    }
+    input[name$=".Unit"]{
+        width: 50px;
+        margin-right: 5px;
+    }
+
+    input[name$=".Name"]{
+        width: 100%;
+    }
+
+    input[name$=".Url"]{
+        width: 100%;
+    }
+
+    .remove-list-item{
+        height: 32px;
+        padding: 0 6px;
+    }
+}

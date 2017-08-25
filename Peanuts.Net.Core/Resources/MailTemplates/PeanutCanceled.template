@@ -1,0 +1,11 @@
+﻿Subject: Peanut "{peanut.Name}" abgesagt
+<p>
+Hallo {recipient.FirstName},
+</p>
+<p>
+{editor.DisplayName} hat den für {peanut.Day:D} geplanten Peanut <a href="{peanutUrl}" title="Peanut anzeigen">"{peanut.Name}"</a> abgesagt.
+</p>
+<p>
+Wir wünschen dir trotzdem einen schönen Tag,<br/>
+Dein Peanuts-Team
+</p>

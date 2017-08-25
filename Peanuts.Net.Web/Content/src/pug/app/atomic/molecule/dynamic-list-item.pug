@@ -1,0 +1,20 @@
+mixin dynamic-list-item()
+    .dynamic-list-item
+        .input-group
+            input#ParkingPositionCreateCommand_BulkParkingPositionNumbers.form-control(name='ParkingPositionCreateCommand.BulkParkingPositionNumbers', type='text', value='')
+            span.input-group-btn
+                button.remove-list-item.btn.btn-warning
+                    span.icon-trash
+    .dynamic-item-adder.dynamic-list-item(data-empty-item-template='\
+        <div class="dynamic-list-item">\
+            <div class="input-group">\
+                <input class="form-control" id="ParkingPositionCreateCommand_BulkParkingPositionNumbers" name="ParkingPositionCreateCommand.BulkParkingPositionNumbers" type="text" value="" />\
+                <span class="input-group-btn">\
+                    <button class="remove-list-item btn btn-warning ">\
+                        <span class="icon-trash"></span>\
+                    </button>\
+                </span>\
+            </div>\
+        </div>')
+        button.btn.btn-secondary.add-list-item
+

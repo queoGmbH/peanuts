@@ -1,0 +1,11 @@
+﻿Subject: Es kann losgehen: "{peanut.Name}"
+<p>
+Hallo {recipient.FirstName},
+</p>
+<p>
+{editor.DisplayName} hat den Peanut <a href="{peanutUrl}" title="Peanut anzeigen">"{peanut.Name}"</a> als gestartet markiert.
+</p>
+<p>
+Viel Spaß wünscht,<br/>
+Dein Peanuts-Team
+</p>

@@ -1,0 +1,288 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Peanut
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutShowViewModel
+
+@{
+    ViewBag.Title = "Peanut";
+    ViewBag.Subtitle = Model.Peanut.Name;
+}
+
+@functions {
+
+    string GetPeanutStateModifierClass(PeanutState peanutState) {
+        switch (peanutState) {
+            case PeanutState.PurchasingStarted:
+            case PeanutState.PurchasingDone:
+                return "warning";
+            case PeanutState.Assembling:
+                return "warning";
+            case PeanutState.Started:
+            case PeanutState.Realized:
+                return "success";
+            case PeanutState.Canceled:
+                return "danger";
+            case PeanutState.Scheduling:
+            case PeanutState.SchedulingDone:
+            default:
+                return "default";
+        }
+    }
+
+    string GetPeanutParticipationStateModifierClass(PeanutParticipationState participationState) {
+        switch (participationState) {
+            case PeanutParticipationState.Confirmed: {
+                return "success";
+            }
+            case PeanutParticipationState.Requested: {
+                return "warning";
+            }
+            case PeanutParticipationState.Refused: {
+                return "danger";
+            }
+            case PeanutParticipationState.Pending:
+            default: {
+                return "default";
+            }
+        }
+    }
+
+}
+
+<div class="form form-horizontal">
+    <fieldset>
+        <legend class="form__legend pull-left">
+            Allgemein
+        </legend>
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().Static(m => m.Peanut.Name)
+                @Html.Form().Static(m => m.Peanut.UserGroup.DisplayName)
+                @Html.Form().Static(m => m.Peanut.Day, formatString: "{0:d}")
+            </div>
+            <div class="form__col">
+                @Html.Form().Static(m => m.Peanut.Description)
+            </div>
+        </div>
+    </fieldset>
+    <div class="form__row">
+        <div class="form__col">
+            <fieldset>
+                <legend class="form__legend pull-left">
+                    <span>Teilnehmer (@Model.Peanut.Participations.Count(s=>s.ParticipationState==PeanutParticipationState.Confirmed)/@Model.Peanut.Participations.Count)</span>
+                    @if (Model.PeanutEditOptions.CanAddParticipation) {
+                        <a href="@Url.Action("AttendForm", new { peanut = Model.Peanut.BusinessId })" class="btn btn-warning pull-right">
+                            <span class="icon icon-thumbs-up">Teilnehmen</span>
+                        </a>
+                    }
+                    @if (Model.PeanutEditOptions.CanCancelParticipation) {
+                        using (Html.BeginForm("DeclineParticipation", "Peanut", new {
+                            peanut = Model.Peanut.BusinessId, peanutParticipation = Model.UsersPeanutParticipation.BusinessId
+                        }, FormMethod.Post, new {
+                            @class = "form form-inline pull-right", role = "form"
+                        })) {
+                            @Html.AntiForgeryToken()
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button type="submit" class="btn btn-danger">
+                                <span class="icon icon-thumbs-down">Nicht teilnehmen</span>
+                            </button>
+                        }
+                    }
+                </legend>
+
+                <table class="list peanut-participations-list">
+                    @foreach (PeanutParticipation participation in Model.Peanut.Participations) {
+                        <tr class="peanut-participations-list-item">
+                            <td class="peanut-participations-list-item__name">
+                                @participation.UserGroupMembership.User.DisplayName
+                            </td>
+                            <td class="peanut-participations-list-item__participation_state">
+                                <div class="label label-@(GetPeanutParticipationStateModifierClass(participation.ParticipationState))">
+                                    @(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutParticipationState), participation.ParticipationState.ToString()))
+                                </div>
+                            </td>
+                            <td class="peanut-participations-list-item__participation_type">
+                                @if (Model.PeanutEditOptions.CanUpdatePeanut) {
+                                    @Html.Partial("UpdatePeanutParticipationState", new PeanutParticipationUpdateViewModel(participation, Model.ParticipationTypes, new PeanutParticipationUpdateCommand(participation)))
+                                } else {
+                                    @participation.ParticipationType.Name
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+                @if (Model.InviteableUsers.Any() && !Model.Peanut.IsFixed) {
+                    <hr/>
+                    using (Html.BeginForm("InviteUser", "Peanut", FormMethod.Post, new { peanut = Model.Peanut.BusinessId })) {
+                        @Html.AntiForgeryToken()
+                        
+                        @Html.Form().Select(m => m.PeanutInvitationCreateCommand.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(membership => membership.BusinessId), Objects.GetPropertyName<UserGroupMembership>(membership => membership.DisplayName), (IList)Model.InviteableUsers, $"Alle Nutzer der Gruppe {Model.Peanut.UserGroup.DisplayName} einladen...", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_UserGroupMembership)
+                        @Html.Form().Select(m => m.PeanutInvitationCreateCommand.PeanutParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), (IList)Model.ParticipationTypes, "Einladen als ...", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType)
+
+                        <button type="submit" class="btn btn-secondary">
+                            <span class="icon icon-plus"></span>
+                            Nutzer einladen
+                        </button>
+                    }
+                }
+
+            </fieldset>
+        </div>
+
+        @if (Model.Peanut.Requirements.Any()) {
+            <div class="form__col">
+                <fieldset>
+                    <legend class="form__legend pull-left">
+                        <span>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Requirements (@Model.Peanut.Requirements.Count)</span>
+                    </legend>
+
+                    <table class="list">
+                        @foreach (PeanutRequirement req in Model.Peanut.Requirements) {
+                            <tr>
+                                <td>
+                                    @req.QuantityAndUnit
+                                    @req.Name
+                                </td>
+                                <td class="list-data--link">
+                                    @if (!string.IsNullOrEmpty(req.Url)) {
+                                        <a href="@req.Url" target="_blank" class="icon icon-external-link"></a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+
+                </fieldset>
+            </div>
+        }
+    </div>
+    @if (Model.Peanut.Bills.Any()) {
+        <fieldset>
+            <legend class="form__legend pull-left">
+                <span>Rechnungen (@Model.Peanut.Bills.Count)</span>
+            </legend>
+
+            <div class="container-content--full">
+                @(Html.DisplayFor().GridFor(m => m.Peanut.Bills, true)
+                          .ColumnFor(bill => bill.Creditor.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_Creditor)
+                          .ColumnFor(bill => bill.Amount).DisplayFormat("{0:C}")
+                          .ColumnFor(bill => bill.CreatedAt)
+                          .ColumnFor(bill => bill.SettlementDate).DisplayFormat("{0:d}")
+                          .UrlColumn(bill => Url.Action("Show", "Bill", new {
+                              bill = bill.BusinessId
+                          })).UrlAttribute("class", "icon icon-search").UrlAttribute("title", "Anzeigen")
+                          )
+            </div>
+        </fieldset>
+    }
+
+    <fieldset>
+        <legend class="form__legend pull-left">
+            <span>Kommentare (@Model.Peanut.Comments.Count)</span>
+        </legend>
+        @if (Model.Peanut.Comments.Any()) {
+            <table class="list">
+                @foreach (PeanutComment comment in Model.Peanut.Comments) {
+                    <tr>
+                        <td class="list-data--text">
+                            @(comment.CreatedBy.DisplayName) am @(comment.CreatedAt.ToString("d")) um @(comment.CreatedAt.ToString("t")) Uhr:
+                        </td>
+                        <td class="list-data--text">
+                            @comment.Comment
+                        </td>
+                    </tr>
+                }
+            </table>
+        } else {
+            <p>Bisher keine Kommentare.</p>
+        }
+
+        <hr/>
+
+        @using (Html.BeginForm("AddComment", "Peanut", FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+
+            <div class="form__row">
+                <div class="form__col">
+                    @Html.Form().TextArea(m => m.PeanutCommentCreateCommand.Comment, label: "Kommentar hinzufügen")
+                    <button type="submit" class="btn btn-secondary">
+                        <span class="icon icon-plus"></span>
+                        Kommentar hinzufügen
+                    </button>
+                </div>
+                <div class="form__col">
+                    @Html.Form().Checkbox(m => m.PeanutCommentCreateCommand.SendUpdateNotification, "Teilnehmer benachrichtigen ...")
+                </div>
+            </div>
+        }
+    </fieldset>
+
+
+</div>
+
+@section toolbar {
+    <a href="@Url.Action("Index", "Peanut")" class="btn btn-default">
+        <span class="icon-arrow-left"></span>
+        <span class="">@Resources_Web.btn_Cancel</span>
+    </a>
+
+
+    @if (Model.PeanutEditOptions.CanBillPeanut) {
+        <a href="@Url.Action("CreateFromPeanut", "Bill", new { peanut = Model.Peanut.BusinessId })" class="btn btn-warning pull-right">
+            <span class="icon icon-euro">Abrechnen</span>
+        </a>
+    }
+
+    @if (Model.PeanutEditOptions.CanUpdatePeanut) {
+        <a href="@Url.Action("UpdateForm", "Peanut", new { peanut = Model.Peanut.BusinessId })" class="btn btn-primary pull-right">
+            <span class="icon icon-pencil">Bearbeiten</span>
+        </a>
+    }
+
+    <div class="btn-group pull-right">
+        <button class="btn btn-@GetPeanutStateModifierClass(Model.Peanut.PeanutState)" data-toggle="dropdown">
+            @(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutState), Model.Peanut.PeanutState.ToString()))
+        </button>
+
+        @if (Model.PeanutEditOptions.CanUpdatePeanutState) {
+            <button type="button" class="dropdown-toggle btn btn-@GetPeanutStateModifierClass(Model.Peanut.PeanutState)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li class="disabled">
+                    <a href="#">Neuer Status:</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                @foreach (PeanutState peanutState in new[] { PeanutState.Scheduling, PeanutState.SchedulingDone, PeanutState.PurchasingStarted, PeanutState.PurchasingDone, PeanutState.Assembling, PeanutState.Started, PeanutState.Realized, PeanutState.Canceled }) {
+                    if (Model.PeanutEditOptions.CanUpdateStateTo(peanutState)) {
+                        string peanutStateModifier = GetPeanutStateModifierClass(peanutState);
+                        <li>
+                            @using (Html.BeginForm("UpdateState", "Peanut", new {
+                                peanut = Model.Peanut.BusinessId, peanutState = peanutState
+                            }, FormMethod.Post, new {
+                                @class = "form form-horizontal", role = "form"
+                            })) {
+                                @Html.AntiForgeryToken()
+                                @Html.HttpMethodOverride(HttpVerbs.Patch)
+                                <button type="submit" class="btn btn-link">
+                                    <span class="text-@peanutStateModifier">
+                                        @(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutState), peanutState.ToString()))
+                                    </span>
+                                </button>
+                            }
+                        </li>
+                    }
+                }
+            </ul>
+        }
+    </div>
+
+
+}

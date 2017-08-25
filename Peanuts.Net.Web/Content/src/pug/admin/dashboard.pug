@@ -1,0 +1,43 @@
+extends ../app/atomic/template/default
+
+include ../app/atomic/organism/cards-grid
+include ../app/atomic/molecule/card-icon
+
+block templateControls
+    -
+        mainClass = "no-toolbar"
+
+block content
+    .container-content
+        .container-content--full
+            +cards-grid()
+                +card-icon('/admin/objects.html', 'home','Objekte & Einheiten')
+                    span Es sind
+                        strong  2 Objekte
+                        |  mit
+                        strong  12 Einheiten
+                        |  verfügbar.
+                +card-icon('/admin/core-data.html', 'gear','Stammdaten')
+                    span Orte, Ortsteile, Maklerpools, Bauträger, Stellplatzarten
+                +card-icon('/admin/users.html', 'user','alle Makler')
+                    span Es sind
+                        strong  124 Makler
+                        |  im System angelegt.
+                +card-icon('/admin/clients.html', 'address-card-o','alle Kunden')
+                    span Es sind
+                        strong  297 Kunden
+                        |  im System angelegt.
+                +card-icon('/admin/workflows.html', 'tasks','alle Vorgänge')
+                    span Es sind
+                        strong  23 laufende
+                        |  und
+                        strong  76 abgeschlossene Vorgänge
+                        |  verfügbar.
+                +card-icon('/admin/documents.html', 'copy','Dokumente')
+                    span= lipsum(5, 'words')
+                +card-icon('/admin/parameter.html', 'calculator','Berechnungsparameter')
+                    span= lipsum(2, 'sentences')
+                +card-icon('/admin/sso.html', 'group','Makler SSO')
+                    span= lipsum(7, 'words')
+                +card-icon('/admin/chances-risks.html', 'file-text','Text Chancen & Risiken')
+                    span= lipsum(1, 'sentences')

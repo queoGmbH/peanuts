@@ -1,0 +1,32 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts.PeanutState
+
+
+@functions {
+
+    string GetPeanutStateModifierClass(PeanutState peanutState) {
+        switch (peanutState) {
+            case PeanutState.PurchasingStarted:
+            case PeanutState.PurchasingDone:
+                return "warning";
+            case PeanutState.Assembling:
+                return "warning";
+            case PeanutState.Started:
+            case PeanutState.Realized:
+                return "success";
+            case PeanutState.Canceled:
+                return "danger";
+            case PeanutState.Scheduling:
+            case PeanutState.SchedulingDone:
+            default:
+                return "default";
+        }
+    }
+
+}
+
+<div class="label label-@(GetPeanutStateModifierClass(Model))">
+    @(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutState), Model.ToString()))
+</div>

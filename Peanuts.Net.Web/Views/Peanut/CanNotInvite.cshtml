@@ -1,0 +1,21 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutParticipationRejectedViewModel
+
+@{
+    ViewBag.Title = "Einladen nicht möglich";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        Du kannst niemanden einladen, da @Model.Peanut.Name gescchlossen oder durchgeführt ist.
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <a href="@Url.Action("Index")" class="btn btn-default">
+            <span>@Resources_Web.btn_Cancel</span>
+        </a>
+    </div>
+</div>

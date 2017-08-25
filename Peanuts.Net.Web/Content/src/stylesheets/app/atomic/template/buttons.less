@@ -1,0 +1,34 @@
+﻿.btn {
+    border: none;
+    padding: @padding-base-vertical 20px;
+    outline: 0 !important;
+    font-weight: @btn-font-weight;
+
+    &-secondary {
+        .button-variant(@white; @brand-secondary; transparent);
+    }
+
+    [class^="icon-"],
+    [class*=" icon-"] {
+        .pull-left;
+
+        &:before {
+            padding-right: 10px;
+            line-height: @line-height-base;
+        }
+    }
+
+    [class^="icon-after-"],
+    [class*=" icon-after-"] {
+        .pull-right;
+
+        &:after {
+            padding-left: 10px;
+            line-height: @line-height-base;
+        }
+    }
+}
+
+td .btn-group{
+    display: flex;
+}

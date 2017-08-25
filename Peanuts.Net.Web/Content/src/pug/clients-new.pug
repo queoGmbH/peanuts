@@ -1,0 +1,68 @@
+extends app/atomic/template/default
+
+block content-toolbar
+    -
+        var formName = 'userdata'
+
+    +content-toolbar
+        +link('objects.html').btn.btn-info
+            span.icon-angle-left
+            | Abbrechen
+        +button-submit(formName, 'Speichern', 'angle-right')
+
+block content
+    .container-content
+        .container-content__header
+            +headline(1)
+                strong K00851:
+                =" Gerda Grün, Rosengasse 4, 01237 Dresden"
+
+        +form('horizontal')(id=formName)
+            +form-validation-summary
+
+            button.hidden(id=formName + '-submit' type='submit')
+            fieldset
+                legend.form__legend Stammdaten
+                .form__row
+                    .form__col
+                        +form-group('Ein zwei zeiliges Text-Label', 'salutation','lg')
+                            +select-single('salutation', ['Herr', 'Frau'])
+                        +form-group('Test', 'salutation')
+                            +select-multiple('salutation', ['Wahl1', 'Wahl2', 'Wahl3', 'Wahl4', 'Wahl5', 'Wahl6'])
+                        +form-group('Vorname', 'firstName')
+                            +input-text('firstName')(data-val-required=errormsg.required data-val="true")
+                        +form-group('Nachname', 'lastName')
+                            +input-text('lastName')(data-val-required=errormsg.required data-val="true")
+                    .form__col
+                        +form-group('Straße', 'street')
+                            +input-text('street')
+                        +form-group('PLZ', 'zip')
+                            +input-text('zip')(data-val-number=errormsg.number data-val-length=errormsg.length data-val-length-min="5" data-val-length-max="5" data-val="true")
+                        +form-group('Ort', 'city')
+                            +input-text('city')
+                        +form-group('Geburtstag', 'birthday')
+                            +input-date('birthday')(data-val-date=errormsg.date data-val-required=errormsg.required data-val="true")
+
+                .form__row
+                    .form__col
+                        +form-group('ZVE', 'zve')
+                            +input-number('zve', null, '&euro;', 0.01)(data-val-required=errormsg.required data-val='true')
+                        +form-group('Kirchensteuer', 'churchTax')
+                            +input-text('churchTax')
+                        +form-group('Makler')
+                            +input-static('Rudi')
+                        +form-group('Auswahl')
+                            +checkbox('check1', lipsum(rnd(2, 15), "words"))
+                            +checkbox('check2', lipsum(rnd(2, 15), "words"))
+                            +checkbox('check3', lipsum(rnd(2, 15), "words"))
+                    .form__col
+                        +form-group('E-Mail', 'email')
+                            +input-text('email', 'email@domain.tld', 'email')(data-val-required=errormsg.required data-val-email=errormsg.email data-val='true')
+                        +form-group('Telefon', 'phone')
+                            +input-text('phone', '+49 351 1234567', 'tel')
+                        +form-group('Fax', 'fax')
+                            +input-text('fax', '+49 351 2345678')
+                        +form-group('Bemerkung', 'textarea1')
+                            +textarea('textarea1')(rows=5 data-val-length=errormsg.length data-val-length-max="500" data-val="true")
+                        +form-group('Notartermin')
+                            +input-datetime()

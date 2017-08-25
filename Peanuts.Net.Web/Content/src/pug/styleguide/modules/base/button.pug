@@ -1,0 +1,43 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/atom/button
+
+block headline
+    | B07 - Basic Buttons
+
+block modules
+    .container
+        h2 Button default
+
+        +button('default')
+        +highlight
+          +button('default')
+
+        h2 Button primary
+
+        +button('primary')
+        +highlight
+            +button('primary')
+
+        h2 Button secondary
+
+        +button('secondary')
+        +highlight
+            +button('secondary')
+
+        h2 Button icon left
+
+        +button('icon', 'icon-arrow-left')
+        +highlight
+            +button('icon', 'icon-arrow-left')
+
+        h2 Button icon right
+
+        +button('icon', 'icon-after-arrow-right')
+        +highlight
+            +button('icon', 'icon-after-arrow-right')
+
+        h2 Button Link
+
+        +button('link')
+        +highlight
+            +button('link')

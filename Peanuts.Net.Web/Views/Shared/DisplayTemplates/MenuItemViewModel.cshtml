@@ -1,0 +1,24 @@
+﻿@model Com.QueoFlow.Peanuts.Net.Web.Models.Menu.SimpleMenuItemViewModel
+
+@{
+    string isActive = "";
+    if (Model.IsActive) {
+        isActive = "active";
+    }
+
+    string isAdminLink = "";
+    if (Model.Link.Area == "Admin") {
+        isAdminLink = "link--admin";
+    }
+}
+
+@if (Model.IsEnabled) {
+    <li class="sidebar-nav-item" id="@Model.Id">
+        <a class="link @isActive @isAdminLink" href="@Url.Action(Model.Link.Action, Model.Link.Controller, Model.Link.RouteParameters, null)">
+            <span class="@Model.IconClass "></span>
+            <div class="sidebar-nav-item__info">@Model.Text</div>
+        </a>
+    </li>
+}
+
+

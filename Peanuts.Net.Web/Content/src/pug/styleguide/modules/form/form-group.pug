@@ -1,0 +1,34 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/molecule/form-group
+
+block headline
+    | F03 - Inputs
+
+block modules
+
+    h2 Input - text (E-Mail)
+
+    .container
+        +form-group('E-Mail', 'email')
+            +input-text('email', 'E-Mail Adresse eingeben', 'email')
+        +highlight
+            +form-group('E-Mail', 'email')
+                +input-text('email', 'E-Mail Adresse eingeben', 'email')
+
+    h2 Input - number
+
+    .container
+        +form-group('Amount', 'amount')
+            +input-number('amount', '0', 1)
+        +highlight
+            +form-group('Amount', 'amount')
+                +input-number('amount', '0', 1)
+
+    h2 Input - static
+
+    .container
+        +form-group('Editor')
+            +input-static('Stefan')
+        +highlight
+            +form-group('Editor')
+                +input-static('Stefan')

@@ -1,0 +1,125 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Forms
+                =" Fields"
+
+        p Styles will be applied, if form has ".form" CS-Class.
+
+        ol
+            li
+                +link('#f1') Form-inline
+            li
+                +link('#f2') Form-horizontal
+            li
+                +link('#f3') Form (Fieldset, Legend, Column-Grid)
+            li
+                +link('#f4') Fehlermeldungen
+            li
+                +link('#f5') Login Form
+
+        h2#f1 Form-inline
+        +link('/clients-new.html').btn.btn-primary Nutzer hinzufügen
+        +form('inline')(id='' name='search').pull-right
+            +form-group('', 'usearch')
+                +input-text('usearch', 'Nutzer suchen')
+            +button('primary')(type='submit') Suchen
+        +highlight()
+            +link('/clients-new.html').btn.btn-primary Nutzer hinzufügen
+            +form('inline')(id='1' name='search').pull-right
+                +form-group('', 'usearch')
+                    +input-text('usearch', 'Nutzer suchen')
+                +button('primary')(type='submit') Suchen
+
+        h2#f2 Form-horizontal
+        +form('horizontal')
+            +form-group('Vorname', 'firstName')
+                +input-text('firstName')(data-val-required=errormsg.required data-val="true")
+        +highlight()
+            +form('horizontal')
+                +form-group('Vorname', 'firstName')
+                    +input-text('firstName')(data-val-required=errormsg.required data-val="true")
+
+        h2#f3 Form (Fieldset, Legend, Column-Grid)
+        +form('horizontal')
+            fieldset
+                legend.form__legend Legend
+                    +link-button('#','primary').pull-right Add
+                .form__row
+                    .form__col
+                        +form-group('Input', 'input')
+                            +input-text('input','Placeholder','text')
+                        +form-group('Ein zwei zeiliges Text-Label', 'salutation','lg')
+                            +select-single('salutation', ['Herr', 'Frau'])
+                    .form__col
+                        +form-group('Postalcode', 'zip')
+                            +input-text('ZIP','Postalcode')
+                +form-group('Textarea', 'textarea')
+                        +textarea('textarea','Placeholder')
+        +highlight()
+            +form('horizontal')
+                fieldset
+                    legend.form__legend Legend
+                    .form__row
+                        .form__col
+                            +form-group('Ein zwei zeiliges Text-Label', 'salutation','lg')
+                                +select-single('salutation', ['Herr', 'Frau'])
+                            +form-group('Input', 'input')
+                                +input-text('input','Placeholder','text')
+                        .form__col
+                            +form-group('Postalcode', 'zip')
+                                +input-text('ZIP','Postalcode')
+                    +form-group('Input', 'input')
+                        +input-text('input','Placeholder','text')    
+
+        h2#f4 Fehlermeldungen
+        +form('horizontal')
+            button.hidden(id=formName + '-submit' type='submit')
+            +form-validation-summary
+
+            fieldset
+                legend.form__legend Legend
+                .form__row
+                    .form__col
+                        +form-group('Input', 'input')
+                            +input-text('input','Placeholder')(data-val="true" data-val-required=errormsg.required)
+                    .form__col
+                        +form-group('Postalcode', 'zip')
+                            +input-text('zip','Postalcode')(data-val="true" data-val-required=errormsg.required)
+        +highlight()
+            +form('horizontal')
+                +form-validation-summary
+
+                fieldset
+                    legend.form__legend Legend
+                    .form__row
+                        .form__col
+                            +form-group('Input', 'input')
+                                +input-text('input','Placeholder','text')(data-val="true" data-val-required=errormsg.required)
+                        .form__col
+                            +form-group('Postalcode', 'zip')
+                                +input-text('ZIP','Postalcode')(data-val="true" data-val-required=errormsg.required)
+
+        h2#f5 Login Form
+        +form('horizontal').form-login(action='/start.html')
+            +form-group('Benutzername', 'username')
+                +input-text('username')
+            +form-group('Passwort', 'password')
+                +input-text('password', null, 'password')
+            .form-group
+                .control-value.col-sm-offset-4
+                    +button('primary')(type='submit') Login
+                    +link('start.html') Passwort vergessen
+        +highlight()
+            +form('horizontal').form-login(action='/start.html')
+                +form-group('Benutzername', 'username')
+                    +input-text('username')
+                +form-group('Passwort', 'password')
+                    +input-text('password', null, 'password')
+                .form-group
+                    .control-value.col-sm-offset-4
+                        +button('primary')(type='submit') Login
+                        +link('start.html') Passwort vergessen

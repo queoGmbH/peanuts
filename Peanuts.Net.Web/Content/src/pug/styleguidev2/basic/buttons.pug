@@ -1,0 +1,74 @@
+extends ../../app/atomic/template/styleguidev2
+
+block content
+    .container-content
+        .container-content__header
+            h1
+                strong Buttons
+                =" Styles"
+
+        ol
+            li
+                +link('#btn1') Default-Button
+            li
+                +link('#btn2') Primary-Button
+            li
+                +link('#btn3') Secondary-Button
+            li
+                +link('#btn4') Info-Button
+            li
+                +link('#btn5') Success-Button
+            li
+                +link('#btn6') Warning-Button
+            li
+                +link('#btn7') Danger-Button
+            li
+                +link('#btn8') Icon-Button
+
+        h2#btn1 Default-Button
+        +button('default') Default
+        +highlight()
+            +button('default') Default
+
+        h2#btn2 Primary-Button
+        +button('primary') Primary
+        +highlight()
+            +button('primary') Primary
+
+        h2#btn3 Secondary-Button
+        +button('secondary') Secondary
+        +highlight()
+            +button('secondary') Secondary
+
+        h2#btn4 Info-Button
+        +button('info') Info
+        +highlight()
+            +button('info') Info
+
+        h2#btn5 Success-Button
+        +button('success') Success
+        +highlight()
+            +button('success') Success
+
+        h2#btn6 Warning-Button
+        +button('warning') Warning
+        +highlight()
+            +button('warning') Warning
+
+        h2#btn7 Danger-Button
+        +button('danger') Danger
+        +highlight()
+            +button('danger') Danger
+
+        h2#btn8 Icon-Button
+        +button('default', 'home') Icon 1
+        +highlight()
+            +button('default', 'home') Icon 1
+
+        +button('primary', 'after-angle-right') Icon 2
+        +highlight()
+            +button('primary', 'after-angle-right') Icon 2
+
+
+
+

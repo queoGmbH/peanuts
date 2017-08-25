@@ -1,0 +1,10 @@
+mixin table-head(data)
+    thead
+        tr.webGridHeader
+            each item, index in data.head
+                th(webgrid-column-can-filter='False' webgrid-column-can-sort=item.sortable webgrid-column-name=data.tName + '_column_' + index webgrid-column-save-filter='True' webgrid-column-save-filter-key='Filter#' + data.tName + '#' + data.tName + '_column_' + index)
+                    if item.sortable=='True'
+                        a.webgrid-sort-by-column-link(href='#' data-sort=item.initialSort?item.initialSort:'none')= item.label
+                            span.webgrid-sort-by-column-icon
+                    else
+                        =item.label

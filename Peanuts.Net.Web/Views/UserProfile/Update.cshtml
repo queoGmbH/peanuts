@@ -1,0 +1,89 @@
+﻿@using System.Collections
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Manage.UpdateMeViewModel
+@{
+    ViewBag.Title = Resources_Web.common_title_ManageView;
+    IList countries = Enum.GetValues(typeof(Country)).Cast<Country>().Select(country => new { Key = country, Text = country.ToLocalizedString() }).OrderBy(c => c.Text).ToList();
+}
+
+
+@using (Html.BeginForm("Update", "UserProfile", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<User>(IdForElement.Form, IdForAction.Update) })) {
+    @Html.AntiForgeryToken()
+    @Html.HttpMethodOverride(HttpVerbs.Patch)
+    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+
+    <fieldset>
+        <legend class="form__legend">Allgemein</legend>
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserDataDto.FirstName)
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserDataDto.LastName)
+                @Html.Form().Date(m => m.UpdateMeCommand.UserDataDto.Birthday)
+            </div>
+            <div class="form__col">
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserDataDto.UserName)
+                @Html.Form().Email(m => m.UpdateMeCommand.UserContactDto.Email)
+            </div>
+        </div>
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserContactDto.Company)
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserContactDto.Street)
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserContactDto.StreetNumber)
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserContactDto.PostalCode)
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserContactDto.City)
+                @Html.Form().Select(m => m.UpdateMeCommand.UserContactDto.Country, "Key", "Text", countries, null)
+            </div>
+
+            <div class="form__col">
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserContactDto.Phone)
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserContactDto.Mobile)
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserContactDto.PhonePrivate)
+                @Html.Form().Url(m => m.UpdateMeCommand.UserContactDto.Url)
+            </div>
+        </div>
+    </fieldset>
+    
+
+    <fieldset >
+        <legend class="form__legend">Zahlungseinstellungen</legend>
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().TextBox(m => m.UpdateMeCommand.UserPaymentDto.PayPalBusinessName)
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserPaymentDto.AutoAcceptPayPalPayments)
+            </div>
+        </div>
+    </fieldset>
+    
+
+    <fieldset>
+        <legend class="form__legend">Benachrichtigungseinstellungen</legend>
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.NotifyMeOnPeanutInvitation)
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.NotifyMeAsCreditorOnPeanutDeleted)
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.NotifyMeAsCreditorOnPeanutRequirementsChanged)
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.NotifyMeAsParticipatorOnPeanutChanged)
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.SendMeWeeklySummaryAndForecast)
+            </div>
+            <div class="form__col">
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.NotifyMeAsDebitorOnIncomingBills)
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.NotifyMeAsCreditorOnDeclinedBills)
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.NotifyMeAsCreditorOnSettleableBills)
+                @Html.Form().Checkbox(m => m.UpdateMeCommand.UserNotificationOptionsDto.NotifyMeOnIncomingPayment)
+            </div>
+        </div>
+    </fieldset>
+    
+}
+
+@section toolbar {
+    <button type="submit" class="btn btn-primary" form="@(Html.GenerateId<User>(IdForElement.Form, IdForAction.Update))">
+        <span>@Resources_Web.btn_Save_Update</span>
+    </button>
+    <a href="@Url.Action("Index")" class="btn btn-default">
+        <span>@Resources_Web.btn_Cancel_Update</span>
+    </a>
+}

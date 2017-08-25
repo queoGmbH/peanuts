@@ -1,0 +1,9 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "indentation": 4,
+    "declaration-colon-space-before": "never",
+    "number-leading-zero": "never",
+    "selector-pseudo-element-colon-notation": "single"
+  }
+}

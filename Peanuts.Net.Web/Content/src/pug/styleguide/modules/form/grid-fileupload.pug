@@ -1,0 +1,14 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/organism/grid-fileupload
+include ../../../app/atomic/molecule/file-uploaded
+
+block headline
+    | Grid - Files / Bildupload
+
+block modules
+    .container
+        +grid-fileupload('Title', 'control_name')
+            +file-uploaded('/images/img_1.png','#edit','#delete')
+        +highlight
+            +grid-fileupload('Title', 'control_name')
+                +file-uploaded('/images/img_1.png','#edit','#delete')

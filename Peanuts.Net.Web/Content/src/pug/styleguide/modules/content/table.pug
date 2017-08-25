@@ -1,0 +1,143 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+
+include ../../../app/atomic/organism/table
+include ../../../app/atomic/molecule/table-head
+include ../../../app/atomic/molecule/table-body
+include ../../../app/atomic/atom/table-row-link
+
+block headline
+    | L01 - Listen
+
+block modules
+    .container
+        -
+            var tData = {
+                tName: 'o',
+                head: [{
+                    label: '',
+                    sortable: 'False'
+                },{
+                    label: 'Status',
+                    sortable: 'True',
+                    initialSort: 'asc'
+                },{
+                    label: 'PLZ Ort Stadtteil',
+                    sortable: 'True'
+                },{
+                    label: 'Straße',
+                    sortable: 'True'
+                },{
+                    label: 'Einheit',
+                    sortable: 'True'
+                },{
+                    label: 'Lage',
+                    sortable: 'False'
+                },{
+                    label: 'Objektbezeichnung',
+                    sortable: 'True'
+                },{
+                    label: 'Fläche',
+                    sortable: 'True'
+                },{
+                    label: 'Zimmer',
+                    sortable: 'True'
+                },{
+                    label: 'Preis',
+                    sortable: 'True'
+            }],
+            data: [[{
+                    type: 'image',
+                    content: '/images/placeholder_image.png',
+                    rowIndex: 1
+                },{
+                    type: 'text',
+                    content: 'Frei',
+                    rowIndex: 1
+                },{
+                    type: 'text',
+                    content: '01159 Dresden Sebnitz',
+                    rowIndex: 1
+                },{
+                    type: 'text',
+                    content: 'Rennplatzstraße 52',
+                    rowIndex: 1
+                },{
+                    type: 'number',
+                    content: '01',
+                    rowIndex: 1
+                },{
+                    type: 'number',
+                    content: 'EG',
+                    rowIndex: 0
+                },{
+                    type: 'text',
+                    content: '2-Raum-Eigentumswohnung',
+                    rowIndex: 1
+                },{
+                    type: 'number',
+                    content: '49,90 m²',
+                    rowIndex: 0
+                },{
+                    type: 'number',
+                    content: '2',
+                    rowIndex: 1
+                },{
+                    type: 'number',
+                    content: '98100,00 €',
+                    rowIndex: 1
+                }],[{
+                    type: 'image',
+                    content: '/images/placeholder_image.png',
+                    rowIndex: 1
+                },{
+                    type: 'text',
+                    content: 'Frei',
+                    rowIndex: 1
+                },{
+                    type: 'text',
+                    content: '01159 Dresden Sebnitz',
+                    rowIndex: 1
+                },{
+                    type: 'text',
+                    content: 'Rennplatzstraße 52',
+                    rowIndex: 1
+                },{
+                    type: 'number',
+                    content: '00',
+                    rowIndex: 0
+                },{
+                    type: 'number',
+                    content: '1.OG',
+                    rowIndex: 1
+                },{
+                    type: 'text',
+                    content: '2-Raum-Eigentumswohnung',
+                    rowIndex: 1
+                },{
+                    type: 'number',
+                    content: '50,90 m²',
+                    rowIndex: 1
+                },{
+                    type: 'number',
+                    content: '1',
+                    rowIndex: 0
+                },{
+                    type: 'number',
+                    content: '18100,00 €',
+                    rowIndex: 0
+                }]
+                ]
+            }
+
+        +table(tData.tName,'1','asc')
+            +table-head(tData)
+            +table-body()
+                +table-row-link(tData.tName,'0',tData.data[0],'#')
+                +table-row-link(tData.tName,'1',tData.data[1],'#')
+
+        +highlight
+            +table(tData.tName,'1','asc')
+                +table-head(tData)
+                +table-body()
+                    +table-row-link(tData.tName,'0',tData.data[0],'#')
+                    +table-row-link(tData.tName,'1',tData.data[1],'#')

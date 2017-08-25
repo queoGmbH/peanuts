@@ -1,0 +1,11 @@
+extends ../../../../../node_modules/queo-styleguide/src/pug/atomic/template/modules
+include ../../../app/atomic/organism/content-toolbar
+
+block headline
+    | P04 - Content Toolbar
+
+block modules
+    .container
+        +content-toolbar()
+        +highlight
+          +content-toolbar()
