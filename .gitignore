@@ -2,12 +2,14 @@
 *.user
 packages/
 
+
 /Peanuts.Net.Core.Test/Spring.Properties.config
 /DbSchemaCreator/bin
 /DbSchemaCreator/obj
 Peanuts.Net.Web/Config/Spring.Properties.config
 Peanuts.Net.Web/node_modules/
 .vs/
+.vscode/
 Peanuts.Net.Core/Database/Build_Test.bat
 Peanuts.Net.Core/Database/Migrate_Dev.bat
 Peanuts.Net.Core.Test/obj/
