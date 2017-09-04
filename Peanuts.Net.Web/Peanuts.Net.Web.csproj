@@ -522,7 +522,9 @@
     <Content Include="Config\Spring.Properties.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Config\Spring.Properties.Template.config" />
+    <None Include="Config\Spring.Properties.Template.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Areas\Admin\Views\UserAdministration\Create.cshtml" />
     <Content Include="Areas\Admin\Views\UserAdministration\Index.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />

@@ -109,7 +109,7 @@
                 <legend class="form__legend">Administration</legend>
                 <div class="form__row">
                     <div class="form__col">
-                        @Html.Form().TextBox(m => m.UserUpdateCommand.Username, label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_UserName)
+                        @Html.Form().TextBox(m => m.UserUpdateCommand.UserDataDto.UserName, label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_UserName)
                         @Html.Form().Password(m => m.UserUpdateCommand.NewPassword)
                         @Html.Form().Password(m => m.UserUpdateCommand.NewPasswordConfirmation)
                     </div>
