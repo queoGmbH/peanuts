@@ -6,7 +6,7 @@ create database from database backup Peanuts.Net.Core\Database\peanuts.bak
 
 Copy Spring.Properties.Template.config and rename it to Spring.Properties.config
 
-Change the dbConnectionString to your settings
+Change the dbConnectionString in that file to your database server settings
 
 Make sure you have npm Task Runner Extension installed
 
