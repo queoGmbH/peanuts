@@ -350,6 +350,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        ChangedAt DATETIME null,
        CreatedBy_Id INT null,
        ChangedBy_Id INT null,
+       UserGroup_Id INT not null,
        primary key (Id)
     )
 
