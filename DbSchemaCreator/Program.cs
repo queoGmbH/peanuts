@@ -15,9 +15,19 @@ namespace DbSchemaCreator {
     class Program {
         private const string FILENAME = "..\\..\\..\\Peanuts.Net.Core\\Database\\db_ddl.sql";
 
-        private static void BuildSchema(Configuration obj) {
+        private static void BuildSchema(Configuration obj)
+        {
+
             TextWriter textWriter = new StringWriter();
-            new SchemaExport(obj).SetOutputFile(FILENAME).Execute(x => Console.WriteLine(textWriter.ToString()), false, false, textWriter);
+            
+                new SchemaExport(obj).Execute(Console.WriteLine, false, false, textWriter);
+                using (var file = new FileStream(FILENAME, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (var sw = new StreamWriter(file))
+                {
+                    sw.Write(textWriter.ToString());
+                } 
+                
+            
         }
 
         private static void Main(string[] args) {

@@ -30,18 +30,18 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
             Map(user => user.Mobile).Nullable().Length(30);
 
             Map(user => user.PayPalBusinessName).Nullable().Length(255);
-            Map(user => user.AutoAcceptPayPalPayments).Not.Nullable();
+            Map(user => user.AutoAcceptPayPalPayments).Not.Nullable().Default("0");
 
             /*Benachrichtigungs-Einstellungen*/
-            Map(user => user.NotifyMeAsCreditorOnPeanutDeleted).Not.Nullable();
-            Map(user => user.NotifyMeAsCreditorOnPeanutRequirementsChanged).Not.Nullable();
-            Map(user => user.NotifyMeAsParticipatorOnPeanutChanged).Not.Nullable();
-            Map(user => user.NotifyMeAsCreditorOnDeclinedBills).Not.Nullable();
-            Map(user => user.NotifyMeAsDebitorOnIncomingBills).Not.Nullable();
-            Map(user => user.NotifyMeOnIncomingPayment).Not.Nullable();
-            Map(user => user.NotifyMeAsCreditorOnSettleableBills).Not.Nullable();
-            Map(user => user.NotifyMeOnPeanutInvitation).Not.Nullable();
-            Map(user => user.SendMeWeeklySummaryAndForecast).Not.Nullable();
+            Map(user => user.NotifyMeAsCreditorOnPeanutDeleted).Not.Nullable().Default("1");
+            Map(user => user.NotifyMeAsCreditorOnPeanutRequirementsChanged).Not.Nullable().Default("1");
+            Map(user => user.NotifyMeAsParticipatorOnPeanutChanged).Not.Nullable().Default("1");
+            Map(user => user.NotifyMeAsCreditorOnDeclinedBills).Not.Nullable().Default("1");
+            Map(user => user.NotifyMeAsDebitorOnIncomingBills).Not.Nullable().Default("1");
+            Map(user => user.NotifyMeOnIncomingPayment).Not.Nullable().Default("1");
+            Map(user => user.NotifyMeAsCreditorOnSettleableBills).Not.Nullable().Default("1");
+            Map(user => user.NotifyMeOnPeanutInvitation).Not.Nullable().Default("1");
+            Map(user => user.SendMeWeeklySummaryAndForecast).Not.Nullable().Default("1");
 
 
             /*Administrative Informationen*/
