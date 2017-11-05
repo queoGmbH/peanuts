@@ -70,7 +70,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             }
 
             if (!ModelState.IsValid) {
-                IPage<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All);
+                IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
                 return View("CreateParticipation",
                     new PeanutParticipationCreateFormViewModel(peanut, peanutParticipationTypes.ToList(), peanutParticipationCreateCommand));
             }
@@ -94,7 +94,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(currentUser, "currentUser");
             Require.IsFalse(() => peanut.IsFixed, "peanut");
 
-            IPage<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All);
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
             return View("CreateParticipation", new PeanutParticipationCreateFormViewModel(peanut, peanutParticipationTypes.ToList()));
         }
 
@@ -269,7 +269,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(peanut, "peanut");
             Require.NotNull(currentUser, "currentUser");
 
-            IList<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
             List<UserGroupMembership> userGroupMemberships =
                     UserGroupService.FindMembershipsByGroups(PageRequest.All,
                         new List<UserGroup> { peanut.UserGroup },
@@ -284,7 +284,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 new PeanutShowViewModel(peanut,
                     peanut.Participations.SingleOrDefault(part => part.UserGroupMembership.User.Equals(currentUser)),
                     invitableUsers,
-                    participationTypes,
+                    peanutParticipationTypes,
                     new PeanutEditOptions(peanut, currentUser)));
         }
 
@@ -293,8 +293,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Update(Peanut peanut, PeanutUpdateCommand peanutUpdateCommand, User currentUser) {
             if (!ModelState.IsValid) {
-                List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-                return View("Update", new PeanutUpdateViewModel(peanut, peanutUpdateCommand, participationTypes));
+                IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+                return View("Update", new PeanutUpdateViewModel(peanut, peanutUpdateCommand, peanutParticipationTypes));
             }
 
             PeanutService.Update(peanut,
@@ -310,8 +310,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
         [Route("{peanut:guid}/UpdateForm")]
         public ActionResult UpdateForm(Peanut peanut, User currentUser) {
-            List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-            return View("Update", new PeanutUpdateViewModel(peanut, participationTypes));
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+            return View("Update", new PeanutUpdateViewModel(peanut, peanutParticipationTypes));
         }
 
         [ValidateAntiForgeryToken]

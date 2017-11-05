@@ -36,3 +36,9 @@ INSERT INTO tblUserGroupMembership
 SET IDENTITY_INSERT tblUserGroupMembership OFF;
 
 
+SET IDENTITY_INSERT tblPeanutParticipationType ON;
+INSERT INTO [dbo].[tblPeanutParticipationType]
+([Id]	,[BusinessId]										,[Name]           ,[IsCreditor]           ,[IsProducer]           ,[MaxParticipatorsOfType]           ,[CreatedAt]           ,[ChangedAt]           ,[CreatedBy_Id]           ,[ChangedBy_Id]           ,[UserGroup_Id])     VALUES
+(1		,'{72065393-9F65-412D-9971-B8BE6A857E2E}'		        ,'Teilnehmer'     ,1					  ,0					  ,0								  ,'2017-04-04 08:00:00' ,'2017-04-04 08:00:00' ,1						  ,1						,1)
+
+SET IDENTITY_INSERT tblPeanutParticipationType OFF;
