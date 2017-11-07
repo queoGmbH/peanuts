@@ -4,6 +4,7 @@
 @using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
 @using Com.QueoFlow.Peanuts.Net.Core.Resources
 @using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Peanut
 @using Com.QueoFlow.Peanuts.Net.Web.Resources
 @model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutCreateViewModel
 
@@ -29,11 +30,6 @@
         @Html.Form().TextBox(m => m.PeanutCreateCommand.PeanutDto.Name)
         @Html.Form().TextArea(m => m.PeanutCreateCommand.PeanutDto.Description)
         @Html.Form().Date(m => m.PeanutCreateCommand.PeanutDto.Day)
-    </fieldset>
-
-    <fieldset>
-        <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Participations</legend>
-        @Html.Form().Select(m => m.PeanutCreateCommand.MyParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), (IList)Model.ParticipationTypes, "Ich werde nicht teilnehmen", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType)
     </fieldset>
     <fieldset>
         <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Requirements</legend>

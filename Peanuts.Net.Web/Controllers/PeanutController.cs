@@ -116,11 +116,11 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                         UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, _activeUsergroupMembershipTypes).ToList();
                 List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
                 List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-                return View("Create", new PeanutCreateViewModel(userGroups, participationTypes));
+                return View("Create", new PeanutCreateViewModel(userGroups));
             }
 
             /*Initiale Teilnehmer ermitteln.*/
-            IDictionary<UserGroupMembership, PeanutParticipationDto> initialParticators = GetInitialParticipators(peanutCreateCommand, currentUser);
+            IDictionary<UserGroupMembership, PeanutParticipationDto> initialParticators = new Dictionary<UserGroupMembership, PeanutParticipationDto>();
             Peanut peanut = PeanutService.Create(peanutCreateCommand.UserGroup,
                 peanutCreateCommand.PeanutDto,
                 peanutCreateCommand.Requirements.Values.ToList(),
@@ -142,9 +142,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             List<UserGroupMembership> userGroupMemberships =
                     UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, _activeUsergroupMembershipTypes).ToList();
             List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
-            List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-            PeanutCreateViewModel peanutCreateViewModel = new PeanutCreateViewModel(userGroups, participationTypes);
-
+            PeanutCreateViewModel peanutCreateViewModel = new PeanutCreateViewModel(userGroups);
             if (day.HasValue) {
                 peanutCreateViewModel.PeanutCreateCommand.PeanutDto.Day = day.Value;
             }
@@ -225,6 +223,16 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                     .ToDictionary(g => g.Key, g => (IList<Peanut>)g.ToList());
 
             return View("Index", new PeanutsIndexViewModel(year, month, peanutParticipationsByDate, attendablePeanutsByDate));
+        }
+
+        [Route("GetParticipationTypes/{userGroup:guid}")]
+        public ActionResult GetParticipationTypes(UserGroup userGroup)
+        {
+            
+            var peanutParticipationTypes = PeanutParticipationTypeService.Find(userGroup);
+            PeanutParticipationTypeSelectionModel participationTypeSelectionModel = new PeanutParticipationTypeSelectionModel();
+            participationTypeSelectionModel.SelectableParticipationTypes = peanutParticipationTypes;
+            return PartialView("EditorTemplates/ParticipationType",participationTypeSelectionModel);
         }
 
         [HttpPost]
@@ -355,21 +363,6 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             PeanutService.UpdateState(peanut, peanutState, peanutUpdateNotificationOptions, currentUser);
 
             return RedirectToAction("Show", new { peanut = peanut.BusinessId });
-        }
-
-        private Dictionary<UserGroupMembership, PeanutParticipationDto> GetInitialParticipators(PeanutCreateCommand peanutCreateCommand, User creator) {
-            IPage<UserGroupMembership> groupMemberships = UserGroupService.FindMembershipsByGroups(PageRequest.All,
-                new List<UserGroup> { peanutCreateCommand.UserGroup },
-                new List<UserGroupMembershipType> { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member });
-            UserGroupMembership creatorsMembership = groupMemberships.SingleOrDefault(membership => membership.User.Equals(creator));
-
-            /*Initiator als Member hinzufügen*/
-            Dictionary<UserGroupMembership, PeanutParticipationDto> initialParticators = new Dictionary<UserGroupMembership, PeanutParticipationDto>();
-            if (peanutCreateCommand.MyParticipationType != null && creatorsMembership != null) {
-                initialParticators.Add(creatorsMembership,
-                    new PeanutParticipationDto(peanutCreateCommand.MyParticipationType, PeanutParticipationState.Confirmed));
-            }
-            return initialParticators;
         }
     }
 }

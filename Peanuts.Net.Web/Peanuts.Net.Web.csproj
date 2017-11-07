@@ -29,6 +29,7 @@
     </NuGetPackageImportStamp>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -393,6 +394,7 @@
     <Compile Include="Models\Peanut\PeanutInvitationsCreateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationCreateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationRejectedViewModel.cs" />
+    <Compile Include="Models\Peanut\PeanutParticipationTypeSelectionModel.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationUpdateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationUpdateViewModel.cs" />
     <Compile Include="Models\Peanut\PeanutShowViewModel.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users.Dto;
@@ -144,7 +145,5 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="currentUser"></param>
         /// <param name="allMembershipsUrl"></param>
         void Invite(UserGroup userGroup, User user, User currentUser, string allMembershipsUrl);
-
-        
     }
 }
