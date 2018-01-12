@@ -17,7 +17,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
     [Authorization]
     [RoutePrefix("Peanut")]
     public class PeanutController : Controller {
-        private static readonly List<UserGroupMembershipType> _activeUsergroupMembershipTypes = new List<UserGroupMembershipType> {
+        private static readonly List<UserGroupMembershipType> ActiveUsergroupMembershipTypes = new List<UserGroupMembershipType> {
             UserGroupMembershipType.Administrator, UserGroupMembershipType.Member
         };
 
@@ -113,7 +113,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
             if (!ModelState.IsValid) {
                 List<UserGroupMembership> userGroupMemberships =
-                        UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, _activeUsergroupMembershipTypes).ToList();
+                        UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, ActiveUsergroupMembershipTypes).ToList();
                 List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
                 List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
                 return View("Create", new PeanutCreateViewModel(userGroups));
@@ -140,7 +140,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [Route("CreateForm")]
         public ActionResult CreateForm(User currentUser, DateTime? day) {
             List<UserGroupMembership> userGroupMemberships =
-                    UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, _activeUsergroupMembershipTypes).ToList();
+                    UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, ActiveUsergroupMembershipTypes).ToList();
             List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
             PeanutCreateViewModel peanutCreateViewModel = new PeanutCreateViewModel(userGroups);
             if (day.HasValue) {
@@ -228,11 +228,10 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [Route("GetParticipationTypes/{userGroup:guid}")]
         public ActionResult GetParticipationTypes(UserGroup userGroup)
         {
-            
             var peanutParticipationTypes = PeanutParticipationTypeService.Find(userGroup);
             PeanutParticipationTypeSelectionModel participationTypeSelectionModel = new PeanutParticipationTypeSelectionModel();
             participationTypeSelectionModel.SelectableParticipationTypes = peanutParticipationTypes;
-            return PartialView("EditorTemplates/ParticipationType",participationTypeSelectionModel);
+            return PartialView("EditorTemplates/ParticipationType", participationTypeSelectionModel);
         }
 
         [HttpPost]

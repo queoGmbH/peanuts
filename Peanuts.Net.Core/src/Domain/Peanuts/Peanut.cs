@@ -114,7 +114,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         /// <summary>
         /// Ruft die maximale Anzahl von Teilnehmern am Peanut ab oder NULL, wenn es keine Einschränkung gibt.
         /// </summary>
-        public int? MaximumParticipations {
+        public virtual int? MaximumParticipations {
             get { return _maximumParticipations; }
         }
 

@@ -26,3 +26,4 @@ Peanuts.Net.Core/Database/Migrate_peanuts_tobi.bat
 Peanuts.Net.Core/Database/Migrate_peanuts_dev.bat
 Peanuts.Net.Core/Database/Migrate_peanuts_daniel.bat
 Peanuts.Net.Core/Database/Build_peanuts_tobi.bat
+Peanuts.Net.Core.Test/Config/Spring.Properties.config
