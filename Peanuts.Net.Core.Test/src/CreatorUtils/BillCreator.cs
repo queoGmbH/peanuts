@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting;
-using Com.QueoFlow.Peanuts.Net.Core.Domain.Dto;
-using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
-using Com.QueoFlow.Peanuts.Net.Core.Persistence;
-
 namespace Com.QueoFlow.Peanuts.Net.Core.CreatorUtils {
 
     public class BillCreator : EntityCreator {

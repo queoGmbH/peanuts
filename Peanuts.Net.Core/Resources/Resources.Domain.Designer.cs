@@ -968,6 +968,15 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Maximale Anzahl Teilnehmer ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_MaximumParticipations {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_MaximumParticipations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Name ähnelt.
         /// </summary>
         public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Name {

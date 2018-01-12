@@ -289,6 +289,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        Name NVARCHAR(255) not null,
        Description NVARCHAR(4000) null,
        Day date not null,
+       MaximumParticipations INT null,
        PeanutState NVARCHAR(255) not null,
        CreatedAt DATETIME not null,
        ChangedAt DATETIME null,
@@ -387,6 +388,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        ChangedAt DATETIME null,
        CreatedAt DATETIME not null,
        Name NVARCHAR(255) not null,
+       BalanceOverdraftLimit FLOAT(53) null,
        ChangedBy_Id INT null,
        CreatedBy_Id INT not null,
        primary key (Id)

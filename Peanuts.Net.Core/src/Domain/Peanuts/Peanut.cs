@@ -33,6 +33,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         private readonly User _createdBy;
 
         private readonly IList<PeanutParticipation> _participations = new List<PeanutParticipation>();
+        private int? _maximumParticipations;
 
         private readonly IList<PeanutRequirement> _requirements = new List<PeanutRequirement>();
         private readonly UserGroup _userGroup;
@@ -108,6 +109,13 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         /// </summary>
         public virtual User CreatedBy {
             get { return _createdBy; }
+        }
+
+        /// <summary>
+        /// Ruft die maximale Anzahl von Teilnehmern am Peanut ab oder NULL, wenn es keine Einschränkung gibt.
+        /// </summary>
+        public int? MaximumParticipations {
+            get { return _maximumParticipations; }
         }
 
         /// <summary>
@@ -291,7 +299,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         }
 
         public virtual PeanutDto GetDto() {
-            return new PeanutDto(_name, _description, _day);
+            return new PeanutDto(_name, _description, _day, _maximumParticipations);
         }
 
         /// <summary>
@@ -346,6 +354,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
             _name = peanutDto.Name;
             _day = peanutDto.Day;
             _description = peanutDto.Description;
+            _maximumParticipations = peanutDto.MaximumParticipations;
         }
 
         private void Update(EntityChangedDto entityChanged) {
