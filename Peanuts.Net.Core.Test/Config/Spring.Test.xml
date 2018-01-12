@@ -34,6 +34,11 @@
         autowire="autodetect">
   </object>
   
+  <object id="peanutParticipationTypeCreator"
+        type="Com.QueoFlow.Peanuts.Net.Core.CreatorUtils.PeanutParticipationTypeCreator, Peanuts.Net.Core.Test"
+        autowire="autodetect">
+  </object>
+  
   <object id="proposedUserCreator"
         type="Com.QueoFlow.Peanuts.Net.Core.CreatorUtils.ProposedUserCreator, Peanuts.Net.Core.Test"
         autowire="autodetect">

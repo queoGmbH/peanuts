@@ -70,7 +70,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             }
 
             if (!ModelState.IsValid) {
-                IPage<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All);
+                IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
                 return View("CreateParticipation",
                     new PeanutParticipationCreateFormViewModel(peanut, peanutParticipationTypes.ToList(), peanutParticipationCreateCommand));
             }
@@ -94,7 +94,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(currentUser, "currentUser");
             Require.IsFalse(() => peanut.IsFixed, "peanut");
 
-            IPage<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All);
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
             return View("CreateParticipation", new PeanutParticipationCreateFormViewModel(peanut, peanutParticipationTypes.ToList()));
         }
 
@@ -116,11 +116,11 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                         UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, _activeUsergroupMembershipTypes).ToList();
                 List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
                 List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-                return View("Create", new PeanutCreateViewModel(userGroups, participationTypes));
+                return View("Create", new PeanutCreateViewModel(userGroups));
             }
 
             /*Initiale Teilnehmer ermitteln.*/
-            IDictionary<UserGroupMembership, PeanutParticipationDto> initialParticators = GetInitialParticipators(peanutCreateCommand, currentUser);
+            IDictionary<UserGroupMembership, PeanutParticipationDto> initialParticators = new Dictionary<UserGroupMembership, PeanutParticipationDto>();
             Peanut peanut = PeanutService.Create(peanutCreateCommand.UserGroup,
                 peanutCreateCommand.PeanutDto,
                 peanutCreateCommand.Requirements.Values.ToList(),
@@ -142,9 +142,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             List<UserGroupMembership> userGroupMemberships =
                     UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, _activeUsergroupMembershipTypes).ToList();
             List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
-            List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-            PeanutCreateViewModel peanutCreateViewModel = new PeanutCreateViewModel(userGroups, participationTypes);
-
+            PeanutCreateViewModel peanutCreateViewModel = new PeanutCreateViewModel(userGroups);
             if (day.HasValue) {
                 peanutCreateViewModel.PeanutCreateCommand.PeanutDto.Day = day.Value;
             }
@@ -227,6 +225,16 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             return View("Index", new PeanutsIndexViewModel(year, month, peanutParticipationsByDate, attendablePeanutsByDate));
         }
 
+        [Route("GetParticipationTypes/{userGroup:guid}")]
+        public ActionResult GetParticipationTypes(UserGroup userGroup)
+        {
+            
+            var peanutParticipationTypes = PeanutParticipationTypeService.Find(userGroup);
+            PeanutParticipationTypeSelectionModel participationTypeSelectionModel = new PeanutParticipationTypeSelectionModel();
+            participationTypeSelectionModel.SelectableParticipationTypes = peanutParticipationTypes;
+            return PartialView("EditorTemplates/ParticipationType",participationTypeSelectionModel);
+        }
+
         [HttpPost]
         [Route("{peanut:guid}/Invitation")]
         [ValidateAntiForgeryToken]
@@ -269,7 +277,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(peanut, "peanut");
             Require.NotNull(currentUser, "currentUser");
 
-            IList<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
             List<UserGroupMembership> userGroupMemberships =
                     UserGroupService.FindMembershipsByGroups(PageRequest.All,
                         new List<UserGroup> { peanut.UserGroup },
@@ -284,7 +292,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 new PeanutShowViewModel(peanut,
                     peanut.Participations.SingleOrDefault(part => part.UserGroupMembership.User.Equals(currentUser)),
                     invitableUsers,
-                    participationTypes,
+                    peanutParticipationTypes,
                     new PeanutEditOptions(peanut, currentUser)));
         }
 
@@ -293,8 +301,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Update(Peanut peanut, PeanutUpdateCommand peanutUpdateCommand, User currentUser) {
             if (!ModelState.IsValid) {
-                List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-                return View("Update", new PeanutUpdateViewModel(peanut, peanutUpdateCommand, participationTypes));
+                IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+                return View("Update", new PeanutUpdateViewModel(peanut, peanutUpdateCommand, peanutParticipationTypes));
             }
 
             PeanutService.Update(peanut,
@@ -310,8 +318,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
         [Route("{peanut:guid}/UpdateForm")]
         public ActionResult UpdateForm(Peanut peanut, User currentUser) {
-            List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-            return View("Update", new PeanutUpdateViewModel(peanut, participationTypes));
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+            return View("Update", new PeanutUpdateViewModel(peanut, peanutParticipationTypes));
         }
 
         [ValidateAntiForgeryToken]
@@ -355,21 +363,6 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             PeanutService.UpdateState(peanut, peanutState, peanutUpdateNotificationOptions, currentUser);
 
             return RedirectToAction("Show", new { peanut = peanut.BusinessId });
-        }
-
-        private Dictionary<UserGroupMembership, PeanutParticipationDto> GetInitialParticipators(PeanutCreateCommand peanutCreateCommand, User creator) {
-            IPage<UserGroupMembership> groupMemberships = UserGroupService.FindMembershipsByGroups(PageRequest.All,
-                new List<UserGroup> { peanutCreateCommand.UserGroup },
-                new List<UserGroupMembershipType> { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member });
-            UserGroupMembership creatorsMembership = groupMemberships.SingleOrDefault(membership => membership.User.Equals(creator));
-
-            /*Initiator als Member hinzufügen*/
-            Dictionary<UserGroupMembership, PeanutParticipationDto> initialParticators = new Dictionary<UserGroupMembership, PeanutParticipationDto>();
-            if (peanutCreateCommand.MyParticipationType != null && creatorsMembership != null) {
-                initialParticators.Add(creatorsMembership,
-                    new PeanutParticipationDto(peanutCreateCommand.MyParticipationType, PeanutParticipationState.Confirmed));
-            }
-            return initialParticators;
         }
     }
 }

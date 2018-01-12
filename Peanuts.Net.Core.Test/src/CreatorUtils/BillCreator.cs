@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Com.QueoFlow.Peanuts.Net.Core.CreatorUtils {
-
     public class BillCreator : EntityCreator {
         const double DEFAULT_BILL_AMOUNT = 5.00;
         const string DEFAULT_BILL_SUBJECT = "Betreff";

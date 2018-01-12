@@ -156,6 +156,7 @@
     <Compile Include="src\Domain\Peanuts\PeanutParticipation.cs" />
     <Compile Include="src\Domain\Peanuts\PeanutParticipationDto.cs" />
     <Compile Include="src\Domain\Peanuts\PeanutParticipationType.cs" />
+    <Compile Include="src\Domain\Peanuts\PeanutParticipationTypeDto.cs" />
     <Compile Include="src\Domain\Peanuts\PeanutPriceDevelopmentItem.cs" />
     <Compile Include="src\Domain\Peanuts\PeanutRequirement.cs" />
     <Compile Include="src\Domain\Peanuts\PeanutState.cs" />

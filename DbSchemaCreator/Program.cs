@@ -7,30 +7,37 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FluentNHibernate.Conventions.Helpers;
 using FluentNHibernate.Conventions.Inspections;
-using NHibernate.Tool.hbm2ddl;
-using Configuration = NHibernate.Cfg.Configuration;
 
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 
 namespace DbSchemaCreator {
     class Program {
         private const string FILENAME = "..\\..\\..\\Peanuts.Net.Core\\Database\\db_ddl.sql";
 
-        private static void BuildSchema(Configuration obj) {
+        private static void BuildSchema(Configuration obj)
+        {
+
             TextWriter textWriter = new StringWriter();
-            new SchemaExport(obj).SetOutputFile(FILENAME).Execute(x => {
-                Console.WriteLine(textWriter.ToString());
-            }, false, false, textWriter);
+            
+                new SchemaExport(obj).Execute(Console.WriteLine, false, false, textWriter);
+                using (var file = new FileStream(FILENAME, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (var sw = new StreamWriter(file))
+                {
+                    sw.Write(textWriter.ToString());
+                } 
+                
+            
         }
 
         private static void Main(string[] args) {
             Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012)
-                .Mappings(m => m.HbmMappings.AddFromAssemblyOf<User>())
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<User>()
-                    .Conventions.Add(Table.Is(x => "tbl" + x.EntityType.Name))
-                    .Conventions.Add(DefaultAccess.CamelCaseField(CamelCasePrefix.Underscore))
-                    .Conventions.Add(ForeignKey.EndsWith("_Id")))
-                .ExposeConfiguration(BuildSchema).BuildConfiguration();
+                    .Database(MsSqlConfiguration.MsSql2012)
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<User>()
+                            .Conventions.Add(Table.Is(x => "tbl" + x.EntityType.Name))
+                            .Conventions.Add(DefaultAccess.CamelCaseField(CamelCasePrefix.Underscore))
+                            .Conventions.Add(ForeignKey.EndsWith("_Id")))
+                    .ExposeConfiguration(BuildSchema).BuildConfiguration();
 
             Console.WriteLine("enter for exit");
             Console.ReadLine();
