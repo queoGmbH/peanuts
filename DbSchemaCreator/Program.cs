@@ -12,6 +12,14 @@ using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 
 namespace DbSchemaCreator {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// If this console-application only writes to the control but does not write to the FILENAME-file, than NHibernate-Version of this projects has been updated. 
+    /// It has to be 4.0.0.4000 or earlier!!! 
+    /// The SchemaExport does not work with later NHibernate-Versions!!!
+    /// </remarks>
     class Program {
         private const string FILENAME = "..\\..\\..\\Peanuts.Net.Core\\Database\\db_ddl.sql";
 

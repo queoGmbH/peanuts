@@ -8,6 +8,7 @@ using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Extensions;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
+using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 using Com.QueoFlow.Peanuts.Net.Core.Service;
 using Com.QueoFlow.Peanuts.Net.Web.Infrastructure.Security;
@@ -299,6 +300,14 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [Route("{peanut:guid}")]
         [ValidateAntiForgeryToken]
         public ActionResult Update(Peanut peanut, PeanutUpdateCommand peanutUpdateCommand, User currentUser) {
+            Require.NotNull(peanut, "peanut");
+            Require.NotNull(peanutUpdateCommand, "peanutUpdateCommand");
+            Require.NotNull(currentUser, "currentUser");
+
+            if (MaximumParticipationsIsLowerThanConfirmedParticipations(peanutUpdateCommand.PeanutDto.MaximumParticipations, peanut.Participations)) {
+                ModelState.AddModelError(Objects.GetPropertyPath<PeanutUpdateViewModel>(vm => vm.PeanutUpdateCommand.PeanutDto.MaximumParticipations), "Es gibt bereits mehr Zusagen als maximale Teilnehmer!");
+            }
+
             if (!ModelState.IsValid) {
                 IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
                 return View("Update", new PeanutUpdateViewModel(peanut, peanutUpdateCommand, peanutParticipationTypes));
@@ -313,6 +322,14 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 currentUser);
 
             return RedirectToAction("Show", new { peanut = peanut.BusinessId });
+        }
+
+        private bool MaximumParticipationsIsLowerThanConfirmedParticipations(int? maximumParticipations, IList<PeanutParticipation> peanutParticipations) {
+            if (maximumParticipations < peanutParticipations.Count(part => part.ParticipationState == PeanutParticipationState.Confirmed)) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         [Route("{peanut:guid}/UpdateForm")]

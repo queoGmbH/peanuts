@@ -161,6 +161,26 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         }
 
         /// <summary>
+        /// Ruft ab, ob die maximale Anzahl an Teilnehmern erreicht ist.
+        /// </summary>
+        public virtual bool IsMaximumParticipationCountReached {
+            get {
+                if (MaximumParticipations.HasValue) {
+                    return ConfirmedParticipationsCount >= MaximumParticipations;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Ruft die Anzahl der bestätigten Teilnahmen ab.
+        /// </summary>
+        public virtual int ConfirmedParticipationsCount {
+            get { return ConfirmedParticipations.Count; }
+        }
+
+        /// <summary>
         ///     Ruft ab, ob der Peanut den Status <see cref="Peanuts.PeanutState.Canceled"/>.
         /// </summary>
         public virtual bool IsCanceled {
