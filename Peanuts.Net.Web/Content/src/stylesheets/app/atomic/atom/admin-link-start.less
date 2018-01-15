@@ -2,4 +2,32 @@
     text-align: center;
     margin: 0 auto @module-margin-bottom;
     color: @brand-secondary-dark;
+
+    .card-dashboard;
+
+    &__text{
+        font-size: 20px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media (min-width: @screen-sm) {
+
+        margin-left: 50%;
+        transform: translateX(-50%);
+
+        &__icon {
+            .icon-circle(md);
+            
+            display: inline-block;
+            margin: 0;
+        }
+        &__text {
+            text-align: center;
+            flex-direction: column;
+            margin-top: 10px;
+            font-size: 20px;
+        }
+    }
 }

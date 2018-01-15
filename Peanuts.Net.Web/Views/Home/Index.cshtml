@@ -62,18 +62,38 @@
 
 
     <div class="shortcut-grid-dashboard">
-        <div class="shortcut-dashboard">
-            <a class="link icon-plus link-icon" href="@Url.Action("CreateForm", "Peanut", new {day = DateTime.Today})">Peanut erstellen</a>
-        </div>
-        <div class="shortcut-dashboard">
-            <a class="link icon-inbox link-icon" href="@Url.Action("CreateForm", "Bill")">Rechnung stellen</a>
-        </div>
-        <div class="shortcut-dashboard">
-            <a class="link icon-sign-in link-icon" href="@Url.Action("GotMoneyForm", "Payment")">Geld erhalten</a>
-        </div>
-        <div class="shortcut-dashboard">
-            <a class="link icon-sign-out link-icon" href="@Url.Action("PayMoneyForm", "Payment")">Geld bezahlt</a>
-        </div>
+
+        <a class="shortcut-dashboard link" href="@Url.Action("CreateForm", "Peanut", new { day = DateTime.Today })">
+            <span class="shortcut-dashboard__icon icon-plus">
+            </span>
+            <span class="shortcut-dashboard__text">
+                Peanut erstellen
+            </span>
+        </a>
+
+        <a class="shortcut-dashboard" href="@Url.Action("CreateForm", "Bill")">
+            <span class="shortcut-dashboard__icon icon-inbox">
+            </span>
+            <span class="shortcut-dashboard__text">
+                Rechnung stellen
+            </span>
+        </a>
+
+        <a class="shortcut-dashboard" href="@Url.Action("GotMoneyForm", "Payment")">
+            <span class="shortcut-dashboard__icon icon-sign-in">
+            </span>
+            <span class="shortcut-dashboard__text">
+                Geld erhalten
+            </span>
+        </a>
+
+        <a class="shortcut-dashboard" href="@Url.Action("PayMoneyForm", "Payment")">
+            <span class="shortcut-dashboard__icon icon-sign-out">
+            </span>
+            <span class="shortcut-dashboard__text">
+                Geld bezahlt
+            </span>
+        </a>
     </div>
 }
 
@@ -95,7 +115,7 @@
                     Gruppen
                 </span>
                 Mitglied in @Model.Memberships.TotalElements Gruppe(n)
-                
+
             </span>
         </a>
         <a class="card-dashboard" href="@Url.Action("Index", "Bill")">
@@ -109,9 +129,9 @@
                         @(Model.DeclinedBills.TotalElements + "abgelehnte Rechnungen")
                     </span>
                 }
-                
+
                 @Model.PendingBills.Count offene Rechnungen
-                
+
             </span>
         </a>
         <a class="card-dashboard" href="@Url.Action("Index", "Payment")">
@@ -125,9 +145,9 @@
                         @Model.DeclinedPayments.TotalElements abgelehnte Zahlung
                     </span>
                 }
-                
+
                 @Model.PendingPayments.TotalElements unbestätigte Zahlung
-                
+
             </span>
         </a>
     } else {
@@ -137,7 +157,7 @@
                 <span class="h2">
                     Erster Schritt
                 </span>
-                
+
                 Mitglied in einer Gruppe werden
             </span>
         </a>
@@ -145,7 +165,10 @@
 </div>
 
 @if (User.IsInRole("Administrator")) {
-    <div class="admin-link-start">
-        <a class="link icon-gears link-icon" href="@Url.Action("Index", "HomeAdministration", new { area = "Admin" })">Administration</a>
-    </div>
+    <a class="admin-link-start" href="@Url.Action("Index", "HomeAdministration", new { area = "Admin" })">
+        <span class="admin-link-start__icon icon-gears"></span>
+        <span class="admin-link-start__text">
+            Administration
+        </span>
+    </a>
 }
