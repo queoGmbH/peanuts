@@ -369,6 +369,7 @@
     <EmbeddedResource Include="Config\Spring.Scheduling.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="Database\DBScripts\V0.1.0.0.10__ParticipationTypeByUserGroup.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.9__MaximumParticipations.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.8__AcceptedBalance.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.7__PeanutState.sql" />

@@ -4,7 +4,7 @@
 
 @{
     string title = "Hallo, " + Model.UserName;
-    string subtitle = string.Format("Es ist {0:dddd', der' dd. MMMM yyyy}. Womit möchten Sie beginnen?", DateTime.Now);
+    string subtitle = string.Format("Heute ist {0:dddd', der' dd. MMMM yyyy}.", DateTime.Now);
     Layout = "~/Views/Shared/_LayoutFullscreen.cshtml";
 }
 

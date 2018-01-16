@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
@@ -32,6 +33,7 @@ namespace DbSchemaCreator {
                 using (var file = new FileStream(FILENAME, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 using (var sw = new StreamWriter(file))
                 {
+                    Debug.Write(textWriter.ToString());
                     sw.Write(textWriter.ToString());
                 } 
                 

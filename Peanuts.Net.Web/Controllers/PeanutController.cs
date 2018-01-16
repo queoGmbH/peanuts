@@ -71,7 +71,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             }
 
             if (!ModelState.IsValid) {
-                IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+                IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.FindForGroup(peanut.UserGroup);
                 return View("CreateParticipation",
                     new PeanutParticipationCreateFormViewModel(peanut, peanutParticipationTypes.ToList(), peanutParticipationCreateCommand));
             }
@@ -95,7 +95,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(currentUser, "currentUser");
             Require.IsFalse(() => peanut.IsFixed, "peanut");
 
-            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.FindForGroup(peanut.UserGroup);
             return View("CreateParticipation", new PeanutParticipationCreateFormViewModel(peanut, peanutParticipationTypes.ToList()));
         }
 
@@ -226,14 +226,14 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             return View("Index", new PeanutsIndexViewModel(year, month, peanutParticipationsByDate, attendablePeanutsByDate));
         }
 
-        [Route("GetParticipationTypes/{userGroup:guid}")]
-        public ActionResult GetParticipationTypes(UserGroup userGroup)
-        {
-            var peanutParticipationTypes = PeanutParticipationTypeService.Find(userGroup);
-            PeanutParticipationTypeSelectionModel participationTypeSelectionModel = new PeanutParticipationTypeSelectionModel();
-            participationTypeSelectionModel.SelectableParticipationTypes = peanutParticipationTypes;
-            return PartialView("EditorTemplates/ParticipationType", participationTypeSelectionModel);
-        }
+        //[Route("GetParticipationTypes/{userGroup:guid}")]
+        //public ActionResult GetParticipationTypes(UserGroup userGroup)
+        //{
+        //    var peanutParticipationTypes = PeanutParticipationTypeService.Find(userGroup);
+        //    PeanutParticipationTypeSelectionModel participationTypeSelectionModel = new PeanutParticipationTypeSelectionModel();
+        //    participationTypeSelectionModel.SelectableParticipationTypes = peanutParticipationTypes;
+        //    return PartialView("EditorTemplates/ParticipationType", participationTypeSelectionModel);
+        //}
 
         [HttpPost]
         [Route("{peanut:guid}/Invitation")]
@@ -277,7 +277,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(peanut, "peanut");
             Require.NotNull(currentUser, "currentUser");
 
-            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.FindForGroup(peanut.UserGroup);
             List<UserGroupMembership> userGroupMemberships =
                     UserGroupService.FindMembershipsByGroups(PageRequest.All,
                         new List<UserGroup> { peanut.UserGroup },
@@ -309,7 +309,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             }
 
             if (!ModelState.IsValid) {
-                IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+                IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.FindForGroup(peanut.UserGroup);
                 return View("Update", new PeanutUpdateViewModel(peanut, peanutUpdateCommand, peanutParticipationTypes));
             }
 
@@ -334,7 +334,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
         [Route("{peanut:guid}/UpdateForm")]
         public ActionResult UpdateForm(Peanut peanut, User currentUser) {
-            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.Find(peanut.UserGroup);
+            IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.FindForGroup(peanut.UserGroup);
             return View("Update", new PeanutUpdateViewModel(peanut, peanutParticipationTypes));
         }
 

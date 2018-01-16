@@ -289,7 +289,6 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        Name NVARCHAR(255) not null,
        Description NVARCHAR(4000) null,
        Day date not null,
-       MaximumParticipations INT null,
        PeanutState NVARCHAR(255) not null,
        CreatedAt DATETIME not null,
        ChangedAt DATETIME null,
@@ -628,6 +627,25 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
     alter table tblUserGroupMembership 
         add constraint FK_MEMBERSHIP_ACCOUNT 
         foreign key (Account_Id) 
+        references tblAccount
+
+    alter table tblUserRoles 
+        add constraint FK_ROLE_TO_USER 
+        foreign key (User_Id) 
+        references tblUser
+
+    alter table tblUserDocument 
+        add constraint FK_USER_DOCUMENT 
+        foreign key (Document_Id) 
+        references tblDocument
+
+    alter table tblUserDocument 
+        add constraint FK_USER_WITH_DOCUMENTS 
+        foreign key (User_Id) 
+        references tblUser
+User_Id) 
+        references tblUser
+
         references tblAccount
 
     alter table tblUserRoles 

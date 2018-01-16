@@ -18,8 +18,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         public IPage<PeanutParticipationType> GetAll(IPageable pageRequest) {
             return PeanutParticipationTypeDao.GetAll(pageRequest);
         }
-        public IList<PeanutParticipationType> Find( UserGroup userGroup) {
-            return PeanutParticipationTypeDao.Find(userGroup);
+        public IList<PeanutParticipationType> FindForGroup(UserGroup userGroup) {
+            return PeanutParticipationTypeDao.FindForGroup(userGroup);
         }
 
         public PeanutParticipationType Create(PeanutParticipationTypeDto participationTypeDto, UserGroup userGroup, User createdBy)

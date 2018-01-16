@@ -8,9 +8,26 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
     ///     Beschreibt eine Art, wie ein Nutzer an einem Peanut teilnehmen kann.
     /// </summary>
     public class PeanutParticipationType : Entity {
+        private readonly DateTime _createdAt;
+        private readonly User _createdBy;
+        private readonly UserGroup _userGroup;
 
-        protected PeanutParticipationType()
-        {
+        private DateTime? _changedAt;
+        private User _changedBy;
+        private bool _isCreditor;
+        private bool _isProducer;
+        private int _maxParticipatorsOfType;
+
+        private string _name;
+
+        protected PeanutParticipationType() {
+        }
+
+        public PeanutParticipationType(PeanutParticipationTypeDto participationTypeDto, UserGroup usergroup, EntityCreatedDto entityCreatedDto) {
+            Update(participationTypeDto);
+            _createdAt = entityCreatedDto.CreatedAt;
+            _createdBy = entityCreatedDto.CreatedBy;
+            _userGroup = usergroup;
         }
 
         /// <summary>
@@ -74,40 +91,15 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
             get { return _name; }
         }
 
-        public virtual UserGroup UserGroup
-        {
+        public virtual UserGroup UserGroup {
             get { return _userGroup; }
         }
-#pragma warning disable 649
-        private readonly DateTime _createdAt;
-        private readonly User _createdBy;
 
-        private DateTime? _changedAt;
-        private User _changedBy;
-        private bool _isCreditor;
-        private bool _isProducer;
-        private int _maxParticipatorsOfType;
-
-        private string _name;
-        private readonly UserGroup _userGroup;
- 
-
-        public PeanutParticipationType(PeanutParticipationTypeDto participationTypeDto, UserGroup usergroup, EntityCreatedDto entityCreatedDto)
-        {
-            Update(participationTypeDto);
-            _createdAt = entityCreatedDto.CreatedAt;
-            _createdBy = entityCreatedDto.CreatedBy;
-            _userGroup = usergroup;
-        }
-
-        private void Update(PeanutParticipationTypeDto participationTypeDto)
-        {
+        private void Update(PeanutParticipationTypeDto participationTypeDto) {
             _name = participationTypeDto.Name;
             _isCreditor = participationTypeDto.IsCreditor;
             _isProducer = participationTypeDto.IsProducer;
             _maxParticipatorsOfType = participationTypeDto.MaxParticipatorsOfType;
         }
-
-#pragma warning restore 649
     }
 }

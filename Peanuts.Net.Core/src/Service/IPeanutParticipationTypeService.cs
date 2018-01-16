@@ -18,6 +18,6 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         IPage<PeanutParticipationType> GetAll(IPageable pageRequest);
 
         PeanutParticipationType Create(PeanutParticipationTypeDto participationTypeDto, UserGroup userGroup, User createdBy);
-        IList<PeanutParticipationType> Find( UserGroup userGroup);
+        IList<PeanutParticipationType> FindForGroup( UserGroup userGroup);
     }
 }
