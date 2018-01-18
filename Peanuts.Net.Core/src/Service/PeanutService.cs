@@ -122,11 +122,14 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <summary>
         ///     Liefert alle Peanuts der Gruppe
         /// </summary>
+        /// <param name="pageRequest"></param>
         /// <param name="userGroup"></param>
         /// <returns></returns>
-        public IPage<Peanut> FindAllPeanutsInGroup(UserGroup userGroup) {
+        public IPage<Peanut> FindAllPeanutsInGroup(IPageable pageRequest, UserGroup userGroup) {
             Require.NotNull(userGroup, "userGroup");
-            return PeanutDao.FindPeanutsInGroups(PageRequest.All, new List<UserGroup> { userGroup });
+            Require.NotNull(pageRequest, "pageRequest");
+
+            return PeanutDao.FindPeanutsInGroups(pageRequest, new List<UserGroup> { userGroup });
         }
 
         /// <summary>

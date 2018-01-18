@@ -365,6 +365,13 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         }
 
         /// <summary>
+        /// Ruft ab, ob es sich um einen aktiven Nutzer handelt. Also einen Nutzer der nicht archiviert ist und nicht disabled ist.
+        /// </summary>
+        public virtual bool IsActiveUser {
+            get { return !IsDeleted && IsEnabled; } 
+        }
+
+        /// <summary>
         ///     Löscht (bzw. archiviert) den Nutzer. Dieser kann sich dann nicht mehr am System anmelden und wird auch in Listen
         ///     nicht mit angezeigt.
         /// </summary>

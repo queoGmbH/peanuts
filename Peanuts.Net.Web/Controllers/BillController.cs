@@ -70,7 +70,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 return View("Create", new BillCreateViewModel(userGroupMemberships, members, billCreateCommand));
             }
 
-            UserGroupMembership creditor = UserGroupService.FindMembershipsByUserAndGroup(currentUser, billCreateCommand.UserGroup);
+            UserGroupMembership creditor = UserGroupService.FindMembershipByUserAndGroup(currentUser, billCreateCommand.UserGroup);
 
             Bill bill = BillService.Create(billCreateCommand.UserGroup,
                 billCreateCommand.BillDto,
@@ -125,7 +125,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(currentUser, "currentUser");
             Require.NotNull(peanut, "peanut");
 
-            UserGroupMembership currentUsersMembershipsInPeanutGroup = UserGroupService.FindMembershipsByUserAndGroup(currentUser, peanut.UserGroup);
+            UserGroupMembership currentUsersMembershipsInPeanutGroup = UserGroupService.FindMembershipByUserAndGroup(currentUser, peanut.UserGroup);
             IList<UserGroupMembership> availableUserGroupMemberships =
                     UserGroupService.FindMembershipsByGroups(PageRequest.All,
                         new List<UserGroup> { peanut.UserGroup },

@@ -119,7 +119,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="user"></param>
         /// <param name="userGroup"></param>
         /// <returns></returns>
-        UserGroupMembership FindMembershipsByUserAndGroup(User user, UserGroup userGroup);
+        UserGroupMembership FindMembershipByUserAndGroup(User user, UserGroup userGroup);
 
         /// <summary>
         /// Ruft die Gruppen ab, in denen der Nutzer kein Mitglied ist.

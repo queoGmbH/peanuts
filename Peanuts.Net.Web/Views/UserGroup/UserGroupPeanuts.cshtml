@@ -1,0 +1,65 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.UserGroupPeanutsViewModel
+
+@{
+    ViewBag.Title = Model.UserGroup.Name;
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+
+@section toolbar {
+    <a class="btn btn-default" href="@Url.Action("AllMemberships", "UserGroup")">
+        <span class="icon-arrow-left"></span>
+        Zurück
+    </a>
+}
+
+@section tabs {
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation">
+            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="details" role="tab">
+                Mitgliedschaft
+            </a>
+        </li>
+        <li role="presentation" class="active">
+            <a href="@Url.Action("Peanuts", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="peanuts" role="tab">
+                Peanuts
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="@Url.Action("Statistics", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="statistics" role="tab">
+                Statistik
+            </a>
+        </li>
+        @if (Model.UserGroupMembershipOptions.CanAdministrate) {
+            <li role="presentation">
+                <a href="@Url.Action("Administration", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="administration" role="tab">
+                    Administration
+                </a>
+            </li>
+        }
+    </ul>
+}
+
+
+<div class="form form-horizontal">
+
+    <div class="nav-tabs-content tab-content">
+        <div class="nav-tabs-panel tab-pane active" role="tabpanel" id="peanuts">
+            <fieldset>
+                <legend class="form__legend pull-left">
+                    Peanuts der Gruppe
+                </legend>
+                <div class="container-content--full">
+                    @(Html.DisplayFor().GridFor(m => m.Peanuts, true)
+                          .ColumnFor(m => m.Day, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Day).DisplayFormat("{0:d}")
+                          .ColumnFor(m => m.Name, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Name)
+                          .ColumnFor(m => m.PeanutState, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState))
+                </div>
+                @Html.DisplayFor().Pagination(m => m.Peanuts)
+            </fieldset>
+        </div>
+
+
+    </div>
+</div>

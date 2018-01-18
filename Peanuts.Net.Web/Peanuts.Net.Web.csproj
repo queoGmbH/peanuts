@@ -441,6 +441,7 @@
     <Compile Include="Models\UserGroup\GotMoneyViewModel.cs" />
     <Compile Include="Models\UserGroup\PayMoneyCommand.cs" />
     <Compile Include="Models\UserGroup\PayMoneyViewModel.cs" />
+    <Compile Include="Models\UserGroup\UserGroupAdministrationViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupCreateCommand.cs" />
     <Compile Include="Models\UserGroup\UserGroupCreateViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupIndexViewModel.cs" />
@@ -450,6 +451,8 @@
     <Compile Include="Models\UserGroup\UserGroupMembershipOptions.cs" />
     <Compile Include="Models\UserGroup\UserGroupMembershipDetailsViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupMembershipStatisticsViewModel.cs" />
+    <Compile Include="Models\UserGroup\UserGroupMembersViewModel.cs" />
+    <Compile Include="Models\UserGroup\UserGroupPeanutsViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupUpdateCommand.cs" />
     <Compile Include="Models\UserGroup\UserGroupUpdateViewModel.cs" />
     <Compile Include="Resources\Resources_Web.Designer.cs">
@@ -558,7 +561,12 @@
     <Content Include="Views\Peanut\CanNotInvite.cshtml" />
     <Content Include="Views\UserGroup\Update.cshtml" />
     <Content Include="Views\Peanut\DisplayTemplates\PeanutState.cshtml" />
-    <Content Include="Views\UserGroup\UserGroupMembershipStatistics.cshtml" />
+    <Content Include="Views\UserGroup\UserGroupStatistics.cshtml" />
+    <Content Include="Views\UserGroup\UserGroupAdministration.cshtml" />
+    <Content Include="Views\UserGroup\UserGroupPeanuts.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\UserGroupMembershipType.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PeanutState.cshtml" />
+    <Content Include="Views\UserGroup\DisplayTemplates\FormerMemberReason.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

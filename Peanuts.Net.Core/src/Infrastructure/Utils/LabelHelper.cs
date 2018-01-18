@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
+using Com.QueoFlow.Peanuts.Net.Core.Resources;
 
 namespace Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils {
     /// <summary>
@@ -30,6 +31,19 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils {
                 string resourceKey = string.Format("label_{0}_{1}", dtoType.FullName.Replace(".", "_"), propertyName);
                 return ResourcesHelper.GetByResourceKey<TResource>(resourceKey);
             }
+        }
+
+        /// <summary>
+        /// Liefert den Lokalisierten Textwert eines enum-Members.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Damit ein enum-Member lokalisiert werden kann, muss es in der <see cref="Resources_Domain"/> einen Eintrag mit dem folgenden Muster geben: label_[voll-qualifizierter enum-Member-Pfad]
+        /// Bsp.: label_Com_QueoFlow_Immotwist_Maklerportal_Core_Domain_Users_Salutation_Mister
+        /// </remarks>
+        /// <typeparam name="TEnum">Typ der enum</typeparam>
+        public static string EnumToLocalizedString<TEnum>(TEnum enumValue) {
+            return GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(TEnum), enumValue.ToString());
         }
     }
 }

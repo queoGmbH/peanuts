@@ -1,0 +1,12 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Users.UserGroupMembership
+
+@if (Model.User.IsDeleted) {
+    <span>Der Nutzer wurde gelöscht.</span>
+} else if (Model.User.IsEnabled == false) {
+    <span>Der Nutzer ist inaktiv.</span>
+} else if (Model.MembershipType == UserGroupMembershipType.Quit) {
+    <span>Der Nutzer hat die Gruppe verlassen.</span>
+} else {
+    <span>Unbekannt</span>
+}

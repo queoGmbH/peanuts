@@ -1,0 +1,8 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts.PeanutState?
+    
+@if (Model.HasValue) {
+    @(LabelHelper.EnumToLocalizedString(Model.Value))
+} else {
+    @("-")
+}

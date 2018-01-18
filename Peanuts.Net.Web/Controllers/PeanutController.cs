@@ -61,7 +61,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(currentUser, "currentUser");
             Require.IsFalse(() => peanut.IsFixed, "peanut");
             
-            UserGroupMembership userGroupMembership = UserGroupService.FindMembershipsByUserAndGroup(currentUser, peanut.UserGroup);
+            UserGroupMembership userGroupMembership = UserGroupService.FindMembershipByUserAndGroup(currentUser, peanut.UserGroup);
             Require.NotNull(userGroupMembership, "userGroupMembership");
 
 

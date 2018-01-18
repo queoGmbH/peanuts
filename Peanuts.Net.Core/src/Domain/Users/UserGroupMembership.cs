@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-
+using System.Linq;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Dto;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
@@ -52,6 +52,15 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
             get { return new[] { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member }; }
         }
 
+        /// <summary>
+        ///     Ruft alle Mitgliedschafts-Typen ab, von denen ein Mitglied einer Gruppe eines haben muss, damit seine Mitgliedschaft als schwebend gilt.
+        /// </summary>
+        public static UserGroupMembershipType[] PendingTypes {
+            get {
+                return new[] { UserGroupMembershipType.Request, UserGroupMembershipType.Invited };
+            }
+        }
+
         public virtual DateTime? ChangedAt {
             get { return _changedAt; }
         }
@@ -77,9 +86,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         /// </summary>
         public virtual bool IsActiveMembership {
             get {
-                return
-                        _membershipType == UserGroupMembershipType.Administrator ||
-                        _membershipType == UserGroupMembershipType.Member;
+                return UserGroupMembership.ActiveTypes.Contains(_membershipType);
             }
         }
 

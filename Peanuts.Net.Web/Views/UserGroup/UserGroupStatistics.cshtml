@@ -65,16 +65,28 @@
 
 @section tabs {
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation">
-            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })" aria-controls="details" role="tab">
+       <li role="presentation">
+            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })" aria-controls="details" role="tab">
                 Mitgliedschaft
             </a>
         </li>
-        <li class="active" role="presentation">
-            <a href="@Url.Action("MembershipStatistics", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })" aria-controls="statistics" role="tab">
+        <li role="presentation">
+            <a href="@Url.Action("Peanuts", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })" aria-controls="peanuts" role="tab">
+                Peanuts
+            </a>
+        </li>
+        <li role="presentation" class="active">
+            <a href="@Url.Action("Statistics", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })" aria-controls="statistics" role="tab">
                 Statistik
             </a>
         </li>
+        @if (Model.UserGroupMembershipOptions.CanAdministrate) {
+            <li role="presentation">
+                <a href="@Url.Action("Administration", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })" aria-controls="administration" role="tab">
+                    Administration
+                </a>
+            </li>
+        }
     </ul>
 
 }
