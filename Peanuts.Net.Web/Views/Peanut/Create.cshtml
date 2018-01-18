@@ -30,6 +30,7 @@
         @Html.Form().TextBox(m => m.PeanutCreateCommand.PeanutDto.Name)
         @Html.Form().TextArea(m => m.PeanutCreateCommand.PeanutDto.Description)
         @Html.Form().Date(m => m.PeanutCreateCommand.PeanutDto.Day)
+        @Html.Form().Number(m => m.PeanutCreateCommand.PeanutDto.MaximumParticipations, "keine Begrenzung")
     </fieldset>
     <fieldset>
         <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Requirements</legend>

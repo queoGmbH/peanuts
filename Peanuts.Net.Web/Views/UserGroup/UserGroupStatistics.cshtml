@@ -65,7 +65,7 @@
 
 @section tabs {
     <ul class="nav nav-tabs" role="tablist">
-       <li role="presentation">
+        <li role="presentation">
             <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })" aria-controls="details" role="tab">
                 Mitgliedschaft
             </a>
@@ -140,7 +140,7 @@
                             </script>
                         <canvas></canvas>
                     </div>
-                    
+
                 </fieldset>
                 <div class="clearfix"></div>
                 <fieldset>
@@ -167,19 +167,39 @@
                         Preisentwicklung
                     </legend>
 
-                    <div class="form__row">
-                        <div class="form__col">
-                            @if (Model.Statistics.MaxPrice.HasValue) {
-                                @Html.Form().Static("Höchster Preis", string.Format("{0:C} ({1})", Model.Statistics.MaxPrice.Value.Value, Model.Statistics.MaxPrice.Value.Key.Name))
-                            }
-                            @if (Model.Statistics.MinPrice.HasValue) {
-                                @Html.Form().Static("Niedrigster Preis", string.Format("{0:C} ({1})", Model.Statistics.MinPrice.Value.Value, Model.Statistics.MinPrice.Value.Key.Name))
-                            }
-                            @if (Model.Statistics.PriceDevelopment.Any()) {
-                                @Html.Form().Static("Durchschnittlicher Preis", Model.Statistics.PriceDevelopment.Last().Value.AvaragePrice.ToString("C"))
-                            }
-                        </div>
-                    </div>
+                    <h3>Höchster Preis (Top 5)</h3>
+                    <table class="list">
+                        <tbody>
+                        @foreach (PeanutsUserGroupMembershipStatistics.PeanutAvaragePrice peanutAvaragePrice in Model.Statistics.MaxPriceTop5) {
+                            <tr>
+                                <td class="list-data--text">@(string.Format("{0}", peanutAvaragePrice.Peanut.Name))</td>
+                                <td class="list-data--text">@(string.Format("{0:C}", peanutAvaragePrice.AvaragePrice))</td>
+                                <td class="list-data--text">@(string.Format("am {0:d}", peanutAvaragePrice.Peanut.Day))</td>
+                                <td class="list-data--text">@(string.Format("{0} Teilnehmer", peanutAvaragePrice.Peanut.ConfirmedParticipationsCount))</td>
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+
+                    <h3>Niedrigster Preis (Top 5)</h3>
+                    <table class="list">
+                        <tbody>
+                        @foreach (PeanutsUserGroupMembershipStatistics.PeanutAvaragePrice peanutAvaragePrice in Model.Statistics.MinPriceTop5) {
+                            <tr>
+                                <td class="list-data--text">@(string.Format("{0}", peanutAvaragePrice.Peanut.Name))</td>
+                                <td class="list-data--text">@(string.Format("{0:C}", peanutAvaragePrice.AvaragePrice))</td>
+                                <td class="list-data--text">@(string.Format("am {0:d}", peanutAvaragePrice.Peanut.Day))</td>
+                                <td class="list-data--text">@(string.Format("{0} Teilnehmer", peanutAvaragePrice.Peanut.ConfirmedParticipationsCount))</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+
+
+                    @if (Model.Statistics.PriceDevelopment.Any()) {
+                        @Html.Form().Static("Durchschnittlicher Preis", Model.Statistics.PriceDevelopment.Last().Value.AvaragePrice.ToString("C"))
+                    }
 
 
                     <div class="js-chart price-development-chart" id="price_development_chart">
