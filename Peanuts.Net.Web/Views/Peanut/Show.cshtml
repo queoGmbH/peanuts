@@ -123,7 +123,7 @@
                     using (Html.BeginForm("InviteUser", "Peanut", FormMethod.Post, new { peanut = Model.Peanut.BusinessId })) {
                         @Html.AntiForgeryToken()
                         
-                        @Html.Form().Select(m => m.PeanutInvitationCreateCommand.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(membership => membership.BusinessId), Objects.GetPropertyName<UserGroupMembership>(membership => membership.DisplayName), (IList)Model.InviteableUsers, $"Alle Nutzer der Gruppe {Model.Peanut.UserGroup.DisplayName} einladen...", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_UserGroupMembership)
+                        @Html.Form().Select(m => m.PeanutInvitationCreateCommand.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(membership => membership.BusinessId), Objects.GetPropertyName<UserGroupMembership>(membership => membership.DisplayName), (IList)Model.InviteableUsers, $"Alle aktiven Mitglieder der Gruppe {Model.Peanut.UserGroup.DisplayName} einladen...", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_UserGroupMembership)
                         @Html.Form().Select(m => m.PeanutInvitationCreateCommand.PeanutParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), (IList)Model.ParticipationTypes, "Einladen als ...", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType)
 
                         <button type="submit" class="btn btn-secondary">

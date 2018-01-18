@@ -557,7 +557,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Peanut\UpdatePeanutParticipationState.cshtml" />
-    <Content Include="Views\Peanut\CanNotParticipate.cshtml" />
+    <Content Include="Views\Peanut\NotSolvent.cshtml" />
     <Content Include="Views\Peanut\CanNotInvite.cshtml" />
     <Content Include="Views\UserGroup\Update.cshtml" />
     <Content Include="Views\Peanut\DisplayTemplates\PeanutState.cshtml" />
@@ -567,6 +567,7 @@
     <Content Include="Views\Shared\DisplayTemplates\UserGroupMembershipType.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PeanutState.cshtml" />
     <Content Include="Views\UserGroup\DisplayTemplates\FormerMemberReason.cshtml" />
+    <Content Include="Views\Peanut\MaximumParticipationsViolated.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

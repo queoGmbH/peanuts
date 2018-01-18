@@ -64,10 +64,20 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             UserGroupMembership userGroupMembership = UserGroupService.FindMembershipByUserAndGroup(currentUser, peanut.UserGroup);
             Require.NotNull(userGroupMembership, "userGroupMembership");
 
+            Dictionary<UserGroupMembership, PeanutParticipationDto> peanutParticipationDtos = new Dictionary<UserGroupMembership, PeanutParticipationDto> {
+                {
+                    userGroupMembership,
+                    new PeanutParticipationDto(peanutParticipationCreateCommand.PeanutParticipationType, PeanutParticipationState.Confirmed)
+                }
+            };
 
-            if(!UserGroupService.IsUserSolvent(userGroupMembership)) {
-                return View("CanNotParticipate",
+            if (!UserGroupService.IsUserSolvent(userGroupMembership)) {
+                return View("NotSolvent",
                     new PeanutParticipationRejectedViewModel(peanut));
+            }
+
+            if (IsMaximumParticipationsViolated(peanut, peanutParticipationDtos)) {
+                return View("MaximumParticipationsViolated", new PeanutParticipationRejectedViewModel(peanut));
             }
 
             if (!ModelState.IsValid) {
@@ -77,15 +87,24 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             }
 
             PeanutService.AddOrUpdateParticipations(peanut,
-                new Dictionary<UserGroupMembership, PeanutParticipationDto> {
-                    {
-                        userGroupMembership,
-                        new PeanutParticipationDto(peanutParticipationCreateCommand.PeanutParticipationType, PeanutParticipationState.Confirmed)
-                    }
-                },
+                peanutParticipationDtos,
                 currentUser);
 
             return RedirectToAction("Show", new { peanut = peanut.BusinessId });
+        }
+
+        private bool IsMaximumParticipationsViolated(Peanut peanut, IDictionary<UserGroupMembership, PeanutParticipationDto> participations) {
+            if (peanut.MaximumParticipations.HasValue) {
+
+                int newNumberOfConfirmedParticipations = peanut.ConfirmedParticipations.Count(p => !participations.Keys.Contains(p.UserGroupMembership)) +
+                                                         participations.Count(p => p.Value.ParticipationState == PeanutParticipationState.Confirmed);
+
+                if (newNumberOfConfirmedParticipations > peanut.MaximumParticipations) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         [Route("{peanut:guid}/Participation/ParticipationForm")]
@@ -113,11 +132,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(currentUser, "currentUser");
 
             if (!ModelState.IsValid) {
-                List<UserGroupMembership> userGroupMemberships =
-                        UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, ActiveUsergroupMembershipTypes).ToList();
-                List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
-                List<PeanutParticipationType> participationTypes = PeanutParticipationTypeService.GetAll(PageRequest.All).ToList();
-                return View("Create", new PeanutCreateViewModel(userGroups));
+                PeanutCreateViewModel peanutCreateViewModel = GetPeanutCreateViewModel(currentUser);
+                return View("Create", peanutCreateViewModel);
             }
 
             /*Initiale Teilnehmer ermitteln.*/
@@ -131,6 +147,17 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             return RedirectToAction("Show",new {peanut = peanut.BusinessId});
         }
 
+        private PeanutCreateViewModel GetPeanutCreateViewModel(User currentUser) {
+            List<UserGroupMembership> userGroupMemberships =
+                UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, ActiveUsergroupMembershipTypes).ToList();
+            List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
+            IDictionary<UserGroup, IList<PeanutParticipationType>> participationTypesByGroup = userGroups.ToDictionary(
+                ug => ug,
+                ug => PeanutParticipationTypeService.FindForGroup(ug));
+            PeanutCreateViewModel peanutCreateViewModel = new PeanutCreateViewModel(userGroups, participationTypesByGroup);
+            return peanutCreateViewModel;
+        }
+
         /// <summary>
         ///     Liefert das Form zum Erstellen eines Peanuts
         /// </summary>
@@ -140,10 +167,9 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [Route("CreateForm/{day}")]
         [Route("CreateForm")]
         public ActionResult CreateForm(User currentUser, DateTime? day) {
-            List<UserGroupMembership> userGroupMemberships =
-                    UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, ActiveUsergroupMembershipTypes).ToList();
-            List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
-            PeanutCreateViewModel peanutCreateViewModel = new PeanutCreateViewModel(userGroups);
+            Require.NotNull(currentUser, "currentUser");
+
+            PeanutCreateViewModel peanutCreateViewModel = GetPeanutCreateViewModel(currentUser);
             if (day.HasValue) {
                 peanutCreateViewModel.PeanutCreateCommand.PeanutDto.Day = day.Value;
             }
@@ -278,15 +304,9 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(currentUser, "currentUser");
 
             IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.FindForGroup(peanut.UserGroup);
-            List<UserGroupMembership> userGroupMemberships =
-                    UserGroupService.FindMembershipsByGroups(PageRequest.All,
-                        new List<UserGroup> { peanut.UserGroup },
-                        UserGroupMembership.ActiveTypes).ToList();
+            
             /*Es können alle Nutzer eingeladen werden, die in der Gruppe aktives Mitglied sind und noch nicht am Peanut teilnehmen oder ihre Teilnahme abgesagt haben*/
-            List<UserGroupMembership> invitableUsers =
-                    userGroupMemberships.Except(
-                        peanut.Participations.Where(part => part.ParticipationState != PeanutParticipationState.Refused)
-                                .Select(part => part.UserGroupMembership)).ToList();
+            List<UserGroupMembership> invitableUsers = GetInvitableUserForPeanut(peanut);
 
             return View("Show",
                 new PeanutShowViewModel(peanut,
@@ -294,6 +314,14 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                     invitableUsers,
                     peanutParticipationTypes,
                     new PeanutEditOptions(peanut, currentUser)));
+        }
+
+        private List<UserGroupMembership> GetInvitableUserForPeanut(Peanut peanut) {
+
+            List<UserGroupMembership> userGroupMemberships = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { peanut.UserGroup }, UserGroupMembership.ActiveTypes).ToList();
+            IList<UserGroupMembership> onlyActiveMembersAndUsers = userGroupMemberships.Where(mem => mem.IsActiveMembership && mem.User.IsActiveUser).ToList();
+
+            return onlyActiveMembersAndUsers.Except(peanut.Participations.Where(part => part.ParticipationState != PeanutParticipationState.Refused).Select(part => part.UserGroupMembership)).ToList();
         }
 
         [HttpPut]

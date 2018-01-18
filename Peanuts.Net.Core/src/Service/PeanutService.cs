@@ -431,7 +431,11 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         private void AssertMaximumParticipationsAreNotViolated(
             Peanut peanut, IDictionary<UserGroupMembership, PeanutParticipationDto> participations) {
             if (peanut.MaximumParticipations.HasValue) {
-                if (participations.Count(p => p.Value.ParticipationState == PeanutParticipationState.Confirmed) > peanut.MaximumParticipations) {
+
+                int newNumberOfConfirmedParticipations = peanut.ConfirmedParticipations.Count(p => !participations.Keys.Contains(p.UserGroupMembership)) +
+                    participations.Count(p => p.Value.ParticipationState == PeanutParticipationState.Confirmed);
+
+                if (newNumberOfConfirmedParticipations > peanut.MaximumParticipations) {
                     throw new InvalidOperationException("Die maximale Anzahl an Teilnehmer würde überschritten werden.");
                 }
             }

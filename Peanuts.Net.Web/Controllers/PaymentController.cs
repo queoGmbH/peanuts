@@ -199,6 +199,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
         [Route("Out/CreateForm")]
         public ActionResult PayMoneyForm(UserGroup userGroup, User currentUser) {
+            Require.NotNull(currentUser, "currentUser");
+
             IList<UserGroupMembership> otherMembershipsInUsersGroups = FindOtherMembershipsInUsersGroups(currentUser, userGroup);
             return View("PayMoney", new PayMoneyViewModel(otherMembershipsInUsersGroups));
         }
