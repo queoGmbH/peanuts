@@ -15,12 +15,16 @@
             @if (Model.IsNullable) {
                 <option value="">@Model.Placeholder</option>
                 foreach (var dependingPlaceholder in Model.GetDependingPlaceholders()) {
-                    <option value="" @Model.GetDependingAttributeMarkup(dependingPlaceholder.Key)>@dependingPlaceholder.Value</option>
+                    <option value="" @Model.GetDependingAttributeMarkup(new object[] { dependingPlaceholder.Key})>@dependingPlaceholder.Value</option>
                 }
             }
             
             @foreach (var selectableItem in Model.SelectableItems) {
-                <option @Model.GetSelectableItemSelected(selectableItem) @Model.GetDependingAttribute(selectableItem) value="@Model.GetSelectableItemValue(selectableItem)">@Model.GetSelectableItemText(selectableItem)</option>
+                string selectableItemSelected = Model.GetSelectableItemSelected(selectableItem);
+                string dependingAttribute = Model.GetDependingAttribute(selectableItem);
+                string selectableItemValue = Model.GetSelectableItemValue(selectableItem);
+                string selectableItemText = Model.GetSelectableItemText(selectableItem);
+                <option @selectableItemSelected @dependingAttribute value="@selectableItemValue">@selectableItemText</option>
             }
         </select>
     </div>

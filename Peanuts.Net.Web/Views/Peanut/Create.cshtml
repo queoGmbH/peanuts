@@ -15,7 +15,7 @@
     string userGroupPlaceholder = null;
     if (Model.PeanutCreateCommand.UserGroup == null) {
         userGroupPlaceholder = "Gruppe wählen ...";
-    }
+    }    
 }
 
 
@@ -39,7 +39,7 @@
 
         @{
             string dependsOnId = Html.ViewData.TemplateInfo.GetFullHtmlFieldId(Objects.GetPropertyPath<PeanutCreateViewModel>(vm => vm.PeanutCreateCommand.UserGroup));
-            string dependsOnProperty = Objects.GetPropertyName<PeanutCreateViewModel>(vm => vm.PeanutCreateCommand.UserGroup);
+            string dependsOnProperty = Objects.GetPropertyName<UserGroup>(userGroup => userGroup.BusinessId);
             DependingDropDownOptions<PeanutCreateViewModel, PeanutParticipationType, UserGroup> dependingOptions = new DependingDropDownOptions<PeanutCreateViewModel, PeanutParticipationType, UserGroup>(dependsOnId, dependsOnProperty, Model.ParticipationTypesByUserGroup);
         }
         @Html.Form().SelectDepending(m => m.PeanutCreateCommand.MyParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), dependingOptions, "Ich werde nicht teilnehmen", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType)

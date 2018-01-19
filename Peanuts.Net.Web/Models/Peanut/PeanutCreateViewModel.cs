@@ -9,10 +9,10 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Peanut {
     /// </summary>
     public class PeanutCreateViewModel {
 
-        public PeanutCreateViewModel(IList<Core.Domain.Users.UserGroup> userGroups, IDictionary<Core.Domain.Users.UserGroup, IList<PeanutParticipationType>> participationTypesByUserGroup) : this(new PeanutCreateCommand(), userGroups, participationTypesByUserGroup) {
+        public PeanutCreateViewModel(IList<Core.Domain.Users.UserGroup> userGroups, IDictionary<Core.Domain.Users.UserGroup, PeanutParticipationType[]> participationTypesByUserGroup) : this(new PeanutCreateCommand(), userGroups, participationTypesByUserGroup) {
         }
 
-        public PeanutCreateViewModel(PeanutCreateCommand peanutCreateCommand, IList<Core.Domain.Users.UserGroup> userGroups, IDictionary<Core.Domain.Users.UserGroup, IList<PeanutParticipationType>> participationTypesByUserGroup) {
+        public PeanutCreateViewModel(PeanutCreateCommand peanutCreateCommand, IList<Core.Domain.Users.UserGroup> userGroups, IDictionary<Core.Domain.Users.UserGroup, PeanutParticipationType[]> participationTypesByUserGroup) {
             Require.NotNull(peanutCreateCommand, "peanutCreateCommand");
             Require.NotNull(userGroups, "userGroups");
             Require.NotNull(participationTypesByUserGroup, "participationTypesByUserGroup");
@@ -22,7 +22,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Peanut {
             ParticipationTypesByUserGroup = participationTypesByUserGroup;
         }
 
-        public IDictionary<Core.Domain.Users.UserGroup, IList<PeanutParticipationType>> ParticipationTypesByUserGroup { get; set; }
+        public IDictionary<Core.Domain.Users.UserGroup, PeanutParticipationType[]> ParticipationTypesByUserGroup { get; set; }
 
         /// <summary>
         /// Ruft eine Liste der Gruppen ab, in welchen der Nutzer ein Peanut erstellen kann.
