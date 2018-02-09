@@ -78,9 +78,7 @@
                     <span>Teilnehmer (@Model.Peanut.Participations.Count(s=>s.ParticipationState==PeanutParticipationState.Confirmed)/@Model.Peanut.Participations.Count)</span>                    
                 </legend>
                 @if (Model.PeanutEditOptions.CanCancelParticipation) {
-                    using (Html.BeginForm("DeclineParticipation", "Peanut", new {
-                        peanut = Model.Peanut.BusinessId, peanutParticipation = Model.UsersPeanutParticipation.BusinessId
-                    }, FormMethod.Post, new {
+                    using (Html.BeginForm("DeclineParticipation", "Peanut", new { peanut = Model.Peanut.BusinessId, peanutParticipation = Model.UsersPeanutParticipation.BusinessId }, FormMethod.Post, new {
                         @class = "form form-inline pull-right", role = "form"
                     })) {
                         @Html.AntiForgeryToken()

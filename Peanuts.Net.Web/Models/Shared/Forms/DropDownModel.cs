@@ -168,17 +168,11 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms {
             }
         }
 
-        //public string GetDependingAttributeMarkup(object dependsOnValue) {
-        //    if (dependsOnValue != null) {
-        //        return string.Format("js-depends-on-value={0}", dependsOnValue);
-        //    } else {
-        //        return string.Empty;
-        //    }
-        //}
-
         public string GetDependingAttributeMarkup(object[] dependsOnValues) {
             if (dependsOnValues != null && dependsOnValues.Any()) {
-                return string.Join(" ", dependsOnValues.Select(dependsOnValue => string.Format("js-depends-on-value={0}", dependsOnValue)));
+                IEnumerable<string> dependsOnValuesInQuotes = dependsOnValues.Select(v => "\"" + v + "\"");
+                string commaSeparatedDependsOnValuesInQuotes = string.Join(",", dependsOnValuesInQuotes);
+                return string.Format("data-js-depends-on-value='[{0}]'", commaSeparatedDependsOnValuesInQuotes);
             } else {
                 return string.Empty;
             }

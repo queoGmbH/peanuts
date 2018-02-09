@@ -27,52 +27,31 @@ const Select = (function ($) {
 
 const SelectDepending = (function ($) {
     
-    const dependingSelectsSelector = 'select[js-depends-on]';
+    var dependingSelectsSelector = 'select[js-depends-on]';
 
     function initDependingSelect($select) {
 
         function filterOptions(byValue) {
-            /*aktuell ausgew‰hlten Wert merken*/
+            /*aktuell ausgew√§hlten Wert merken*/
             var selectedValue = $select.val();
 
             /*alle Optionen aus dem Select entfernen*/
             $select.find('option').remove().end();
 
             /*Nur die passenden Optionen wieder in das Select eintragen*/
-            $select.append(options.filter(function() {
-                if (byValue) {
-                    /*Es ist ein Wert im Parent-Select ausgew‰hlt*/
-                    if ($(this).attr("js-depends-on-value") == byValue) {
-                        /*Diese Option ist f¸r den im Parent ausgew‰hlten Wert g¸ltig!*/
-                        if (!($(this).val())) {
-                            /*Platzhalter austauschen, wenn die Option keinen Value hat*/
-                            $select.data("placeholder", $(this).text())
-                            $select.attr("placeholder", $(this).text())
-                        }
-
-                        return true;
-                    }
+            var accordingOptions = options.filter(function (index, item) {
+                var $item = $(item);
+                if ($.inArray(byValue, $item.data("js-depends-on-value"))>=0) {
+                    return true;
                 } else {
-                    /*Es ist ein Wert im Parent-Select ausgew‰hlt*/
-                    if (!this.value || $.trim(this.value).length == 0) {
-                        /*Platzhalter bleibt drin*/
-                        return true;
-                    }
-
-                    if (($(this).attr("js-depends-on-value"))) {
-                        /*Der Wert ist abh‰ngig von einer Auswahl im Parent und darf nicht angezeigt werden.*/
-                        return false;
-                    } else {
-                        /*Der Wert ist unabh‰ngig von einer Auswahl.*/
-                        return true;
-                    }
-                        
+                    return false;
                 }
-                    
-                    
-            }));
+            });
+            $select.append(accordingOptions);
 
-            /*alten Wert wieder ausw‰hlen bzw. Platzhalter-Wert ausw‰hlen.*/
+            /*TODO: Placeholder*/
+
+            /*alten Wert wieder ausw√§hlen bzw. Platzhalter-Wert ausw√§hlen.*/
             $select.val(selectedValue);
 
             /*Select2 aktualisieren*/
@@ -87,9 +66,9 @@ const SelectDepending = (function ($) {
             /*initiale Anzeige*/
             filterOptions($dependsOn.val());
 
-            /*auf ƒnderungen reagieren*/
+            /*auf √Ñnderungen reagieren*/
             $dependsOn.on('change', function(){
-                /*Das Select, von welchem dieses Select abh‰ngig ist, wurde ge‰ndert.*/
+                /*Das Select, von welchem dieses Select abh√§ngig ist, wurde ge√§ndert.*/
                 filterOptions($dependsOn.val());
             });
         }
@@ -99,7 +78,7 @@ const SelectDepending = (function ($) {
         var selects = $(dependingSelectsSelector, $parent);
         if( selects.length ) {
             selects.each(function (index, select) {
-                initDependingSelect($(select))
+                initDependingSelect($(select));
             });
         }
     }
@@ -107,7 +86,7 @@ const SelectDepending = (function ($) {
     /* Alle initial vorhandenen Selects initialisieren */
     findAndInitSelects($(document));
 
-    /*Dynamisch hinzugef¸gte Elemente initialisieren*/
+    /*Dynamisch hinzugef√ºgte Elemente initialisieren*/
     $(".dynamic-list").on("dynamic-list:itemAdded", function(e) {
         var $listItem = $(e.item);
         findAndInitSelects($listItem);

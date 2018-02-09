@@ -24,7 +24,7 @@
                 string dependingAttribute = Model.GetDependingAttribute(selectableItem);
                 string selectableItemValue = Model.GetSelectableItemValue(selectableItem);
                 string selectableItemText = Model.GetSelectableItemText(selectableItem);
-                <option @selectableItemSelected @dependingAttribute value="@selectableItemValue">@selectableItemText</option>
+                <option @Html.Raw(selectableItemSelected) @Html.Raw(dependingAttribute) value="@selectableItemValue">@selectableItemText</option>
             }
         </select>
     </div>

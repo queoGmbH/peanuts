@@ -2,15 +2,40 @@
 @using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
 @using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
 @using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Peanut
 @model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutParticipationUpdateViewModel
 
 
 
-@using (Html.BeginForm("UpdateParticipation", "Peanut", new { peanut = Model.PeanutParticipation.Peanut.BusinessId, peanutParticipation = Model.PeanutParticipation.BusinessId }, FormMethod.Post, new { @class = "form form-inline", role = "form" })) {
-    @Html.HttpMethodOverride(HttpVerbs.Put)
-    @Html.AntiForgeryToken()
-    @Html.Form().Select(m => m.PeanutParticipationUpdateCommand.PeanutParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), (IList)Model.ParticipationTypes, null)        
-    <button type="submit" class="btn btn-primary btn-xs" title="Ändern">
-        <span class="icon icon-arrow-right"></span>
-    </button>
+@{
+    string memberShipId = Model.PeanutParticipation.UserGroupMembership.BusinessId.ToString().Replace("-", "-");
+    PeanutParticipationType initialParticipationType = Model.ParticipationTypes.First();
+    if (Model.PeanutParticipation.ParticipationType != null) {
+        initialParticipationType = Model.PeanutParticipation.ParticipationType;
+    }
 }
+
+@using (Html.BeginForm("Attend", "Peanut", new { peanut = Model.PeanutParticipation.Peanut.BusinessId, peanutParticipation = Model.PeanutParticipation.BusinessId }, FormMethod.Post, new { id = "attend_as_invited_form_" + memberShipId })) {
+    @Html.AntiForgeryToken()
+    <input type="hidden" value="@initialParticipationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationUpdateCommand>(cmd => cmd.PeanutParticipationType))"/>
+}
+<div class="btn-group btn-group-sm">
+    <button type="submit" class="btn btn-warning" form="attend_as_invited_form_@memberShipId">
+        <span class="icon icon-pencil">als @initialParticipationType.DisplayName</span>
+    </button>
+    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        @foreach (PeanutParticipationType participationType in Model.ParticipationTypes.Except(new[] { initialParticipationType })) {
+            <li>
+                @using (Html.BeginForm("UpdateParticipation", "Peanut", new { peanut = Model.PeanutParticipation.Peanut.BusinessId, peanutParticipation = Model.PeanutParticipation.BusinessId }, FormMethod.Post)) {
+                    @Html.AntiForgeryToken()
+                    @Html.HttpMethodOverride(HttpVerbs.Put)
+                    <input type="hidden" value="@participationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationCreateCommand>(cmd => cmd.PeanutParticipationType))"/>
+                    <button class="btn btn-link" type="submit">Teilnehmen als @participationType.DisplayName</button>
+                }
+            </li>
+        }
+    </ul>
+</div>
