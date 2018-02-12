@@ -6,8 +6,24 @@ include app/atomic/molecule/card-dashboard
 include app/atomic/atom/link-icon
 include app/atomic/atom/admin-link-start
 
+include app/atomic/organism/news
+include app/atomic/molecule/news-item
+
 block content
     +headline-start(startHeadline.title, startHeadline.text)
+
+    +news()
+        +news-item('success', 'Heute', 'calendar')
+            | Heute liegt ein Peanut an
+        +news-item('info', 'Heute', 'euro')
+            | Du hast eine Zahlung erhalten. Du solltest sie 
+            |
+            a(href='#') bestätigen
+            | !
+        +news-item('warning', 'Heute', 'log-in')
+            | Du hast eine offene Rechnunh.
+        +news-item('danger', 'Heute', 'log-out')
+            | Heute liegt ein Peanut an
 
     +cards-grid-dashboard()
         +card-dashboard(navigation.dashboard[0])
