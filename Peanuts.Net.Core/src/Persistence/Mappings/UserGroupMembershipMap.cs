@@ -11,6 +11,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
             References(membership => membership.User).ForeignKey("FK_USER_IN_GROUP").UniqueKey("UIDX_USER_PER_GROUP");
             References(membership => membership.UserGroup).ForeignKey("FK_GROUP_WITH_USER").UniqueKey("UIDX_USER_PER_GROUP");
 
+            Map(user => user.AutoAcceptBills).Not.Nullable();
+
             References(user => user.CreatedBy).Nullable().NotFound.Ignore();
             Map(user => user.CreatedAt).Not.Nullable();
 

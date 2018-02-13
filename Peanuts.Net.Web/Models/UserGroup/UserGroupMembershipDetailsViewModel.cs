@@ -7,44 +7,34 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
     ///     ViewModel für die Anzeige einer Gruppen-Mitgliedschaft.
     /// </summary>
     public class UserGroupMembershipDetailsViewModel {
-        public UserGroupMembershipDetailsViewModel(
-            UserGroupMembership userGroupMembership, IList<UserGroupMembership> currentMembers,
-            IList<UserGroupMembership> pendingMembers, IList<UserGroupMembership> formerMembers, UserGroupMembershipOptions userGroupMembershipOptions) {
+        public UserGroupMembershipDetailsViewModel(UserGroupMembership userGroupMembership, UserGroupMembership currentUsersMembershipInGroup, UserGroupMembershipOptions userGroupMembershipOptions) {
             Require.NotNull(userGroupMembership, "userGroupMembership");
-            Require.NotNull(currentMembers, "currentMembers");
-            Require.NotNull(formerMembers, "formerMembers");
             Require.NotNull(userGroupMembershipOptions, "userGroupMembershipOptions");
 
             UserGroupMembership = userGroupMembership;
-            CurrentUserGroupMembers = currentMembers;
-            PendingMembers = pendingMembers;
-            FormerUserGroupMembers = formerMembers;
+            CurrentUsersMembershipInGroup = currentUsersMembershipInGroup;
             UserGroupMembershipOptions = userGroupMembershipOptions;
+
+            if (currentUsersMembershipInGroup != null) {
+                UserGroupMembershipUpdateCommand = new UserGroupMembershipUpdateCommand(currentUsersMembershipInGroup);
+            }
         }
-
-        /// <summary>
-        ///     Ruft die Mitgliedschaften der Gruppe ab.
-        /// </summary>
-        public IList<UserGroupMembership> CurrentUserGroupMembers { get; }
-
-        /// <summary>
-        /// Ruft die Liste der schwebenden Mitgliedschaften ab.
-        /// </summary>
-        public IList<UserGroupMembership> PendingMembers { get; }
-
-        /// <summary>
-        ///     Ruft die ehemaligen Mitgliedschaften der Gruppe ab.
-        /// </summary>
-        public IList<UserGroupMembership> FormerUserGroupMembers { get; }
 
         /// <summary>
         ///     Ruft die anzuzeigende Mitgliedschaft ab.
         /// </summary>
         public UserGroupMembership UserGroupMembership { get; }
 
+        public UserGroupMembership CurrentUsersMembershipInGroup { get; }
+
         /// <summary>
         ///     Ruft die Optionen der Seite ab.
         /// </summary>
         public UserGroupMembershipOptions UserGroupMembershipOptions { get; }
+
+        /// <summary>
+        /// Ruft das Command zum Ändern der Einstellungen für die Mitgliedschaft in der Gruppe ab.
+        /// </summary>
+        public UserGroupMembershipUpdateCommand UserGroupMembershipUpdateCommand { get; }
     }
 }

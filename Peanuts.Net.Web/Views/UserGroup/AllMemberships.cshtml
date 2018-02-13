@@ -105,7 +105,7 @@
                     <div class="card__overlay">
                         <a class="link icon icon-sign-in" href="@Url.Action("GotMoneyForm", "Payment", new { userGroup = membership.UserGroup.BusinessId, userGroupMembership = membership.BusinessId })" title="Geld erhalten"></a>
                         <a class="link icon icon-sign-out" href="@Url.Action("PayMoneyForm", "Payment", new { userGroup = membership.UserGroup.BusinessId, userGroupMembership = membership.BusinessId })" title="Geld bezahlen"></a>
-                        <a class="link icon icon-exchange" href="@Url.Action("Account", "UserGroup", new { userGroup = membership.UserGroup.BusinessId, userGroupMembership = membership.BusinessId })" title="Kontoauszug"></a>
+                        <a class="link icon icon-exchange" href="@Url.Action("Account", "UserGroup", new { userGroup = membership.UserGroup.BusinessId })" title="Kontoauszug"></a>
                         @if (membership.MembershipType == UserGroupMembershipType.Administrator) {
                             <a class="link icon icon-pencil" href="@Url.Action("UpdateForm", "UserGroup", new { userGroup = membership.UserGroup.BusinessId})" title="Bearbeiten"></a>
                         }

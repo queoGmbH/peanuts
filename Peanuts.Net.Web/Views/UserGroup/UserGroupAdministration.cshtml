@@ -16,10 +16,22 @@
 @section tabs {
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation">
-            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="details" role="tab">
+            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="membership" role="tab">
                 Mitgliedschaft
             </a>
         </li>
+        <li role="presentation">
+            <a href="@Url.Action("Members", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="members" role="tab">
+                Mitglieder
+            </a>
+        </li>
+        @if (Model.CurrentUsersMembershipInGroup != null) {
+            <li role="presentation">
+                <a href="@Url.Action("Account", new { userGroup = Model.CurrentUsersMembershipInGroup.UserGroup.BusinessId, userGroupMembership = Model.CurrentUsersMembershipInGroup.BusinessId })" aria-controls="account" role="tab">
+                    Konto
+                </a>
+            </li>
+        }
         <li role="presentation">
             <a href="@Url.Action("Peanuts", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="peanuts" role="tab">
                 Peanuts

@@ -2283,6 +2283,16 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rechnungen automatisch akzeptieren ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_AutoAcceptBills {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_AutoAcceptBi" +
+                        "lls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Mitgliedstyp ähnelt.
         /// </summary>
         public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_MembershipType {

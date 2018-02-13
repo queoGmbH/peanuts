@@ -180,6 +180,7 @@
     <Compile Include="src\Domain\Users\Dto\UserGroupDto.cs" />
     <Compile Include="src\Domain\Users\Dto\UserPaymentDto.cs" />
     <Compile Include="src\Domain\Users\Dto\UserPermissionDto.cs" />
+    <Compile Include="src\Domain\Users\UserGroupMembershipDto.cs" />
     <Compile Include="src\Domain\Users\UserNotificationOptionsDto.cs" />
     <Compile Include="src\Domain\Users\UserGroup.cs" />
     <Compile Include="src\Domain\Users\Permission.cs" />
@@ -369,8 +370,9 @@
     <EmbeddedResource Include="Config\Spring.Scheduling.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="Database\DBScripts\V0.1.0.0.10__ParticipationTypeByUserGroup.sql" />
-    <Content Include="Database\DBScripts\V0.1.0.0.9__MaximumParticipations.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.01__ParticipationTypeByUserGroup.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.03__AutoAcceptBills.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.02__MaximumParticipations.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.8__AcceptedBalance.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.7__PeanutState.sql" />
     <Content Include="Resources\MailTemplates\BillAccepted.template">

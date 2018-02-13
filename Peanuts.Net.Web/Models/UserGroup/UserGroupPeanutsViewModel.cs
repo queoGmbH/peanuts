@@ -1,4 +1,5 @@
-﻿using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
+﻿using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
+using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 
 namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
@@ -7,12 +8,13 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
     /// </summary>
     public class UserGroupPeanutsViewModel {
         public UserGroupPeanutsViewModel(
-            Core.Domain.Users.UserGroup userGroup, IPage<Core.Domain.Peanuts.Peanut> peanuts, UserGroupMembershipOptions userGroupMembershipOptions) {
+            Core.Domain.Users.UserGroup userGroup, UserGroupMembership currentUsersMembershipInGroup, IPage<Core.Domain.Peanuts.Peanut> peanuts, UserGroupMembershipOptions userGroupMembershipOptions) {
             Require.NotNull(userGroup, "userGroup");
             Require.NotNull(userGroupMembershipOptions, "userGroupMembershipOptions");
             Require.NotNull(peanuts, "peanuts");
 
             UserGroup = userGroup;
+            CurrentUsersMembershipInGroup = currentUsersMembershipInGroup;
             UserGroupMembershipOptions = userGroupMembershipOptions;
             Peanuts = peanuts;
         }
@@ -26,6 +28,12 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
         ///     Ruft die Nutzergruppe ab, deren Peanuts angezeigt werden..
         /// </summary>
         public Core.Domain.Users.UserGroup UserGroup { get; }
+
+        /// <summary>
+        /// Ruft die Mitgliedschaft des aktuellen Nutzers in der Gruppe ab.
+        /// Ist der aktuelle Nutzer kein Mitglied in der Gruppe wird null geliefert.
+        /// </summary>
+        public UserGroupMembership CurrentUsersMembershipInGroup { get; }
 
         /// <summary>
         ///     Ruft die Optionen der Seite ab.

@@ -17,10 +17,22 @@
 @section tabs {
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation">
-            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="details" role="tab">
+            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="membership" role="tab">
                 Mitgliedschaft
             </a>
         </li>
+        <li role="presentation">
+            <a href="@Url.Action("Members", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="members" role="tab">
+                Mitglieder
+            </a>
+        </li>
+        @if (Model.CurrentUsersMembershipInGroup != null) {
+            <li role="presentation">
+                <a href="@Url.Action("Account", new { userGroup = Model.CurrentUsersMembershipInGroup.UserGroup.BusinessId })" aria-controls="account" role="tab">
+                    Konto
+                </a>
+            </li>
+        }
         <li role="presentation" class="active">
             <a href="@Url.Action("Peanuts", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="peanuts" role="tab">
                 Peanuts
@@ -43,7 +55,6 @@
 
 
 <div class="form form-horizontal">
-
     <div class="nav-tabs-content tab-content">
         <div class="nav-tabs-panel tab-pane active" role="tabpanel" id="peanuts">
             <fieldset>
@@ -56,7 +67,7 @@
                           .ColumnFor(m => m.Name, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Name)
                           .ColumnFor(m => m.PeanutState, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutState))
                 </div>
-                @Html.DisplayFor().Pagination(m => m.Peanuts)
+                @Html.DisplayFor().Pagination(m => m.Peanuts, "")
             </fieldset>
         </div>
 

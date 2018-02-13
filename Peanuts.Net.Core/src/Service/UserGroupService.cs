@@ -53,7 +53,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                     /*Nutzer ist oder war bereits Mitglied der Gruppe*/
                     UserGroupMembership existingMembership = currentMembershipsByUser[userToAdd.Key];
                     if (existingMembership.MembershipType != userToAdd.Value) {
-                        existingMembership.Update(userToAdd.Value, new EntityChangedDto(createdBy, DateTime.Now));
+                        existingMembership.Update(userToAdd.Value, new UserGroupMembershipDto(), new EntityChangedDto(createdBy, DateTime.Now));
                     }
                     memberships.Add(existingMembership);
                 } else {
