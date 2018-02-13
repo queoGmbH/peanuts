@@ -149,7 +149,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="user"></param>
         /// <param name="userGroup"></param>
         /// <returns></returns>
-        public UserGroupMembership FindMembershipsByUserAndGroup(User user, UserGroup userGroup) {
+        public UserGroupMembership FindMembershipByUserAndGroup(User user, UserGroup userGroup) {
             return UserGroupDao.FindMembershipsByUserAndGroup(user, userGroup);
         }
 

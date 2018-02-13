@@ -29,6 +29,7 @@
     </NuGetPackageImportStamp>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -145,8 +146,8 @@
       <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NHibernate.Logging.CommonLogging, Version=4.0.3.4000, Culture=neutral, PublicKeyToken=63d83fd55b02701d, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.Logging.4.0.3\lib\net45\NHibernate.Logging.CommonLogging.dll</HintPath>
+    <Reference Include="NHibernate.Logging.CommonLogging, Version=1.3.3.4000, Culture=neutral, PublicKeyToken=63d83fd55b02701d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.Logging.1.3.3\lib\net35\NHibernate.Logging.CommonLogging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PayPal, Version=1.8.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
@@ -393,6 +394,7 @@
     <Compile Include="Models\Peanut\PeanutInvitationsCreateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationCreateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationRejectedViewModel.cs" />
+    <Compile Include="Models\Peanut\PeanutParticipationTypeSelectionModel.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationUpdateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationUpdateViewModel.cs" />
     <Compile Include="Models\Peanut\PeanutShowViewModel.cs" />
@@ -439,6 +441,7 @@
     <Compile Include="Models\UserGroup\GotMoneyViewModel.cs" />
     <Compile Include="Models\UserGroup\PayMoneyCommand.cs" />
     <Compile Include="Models\UserGroup\PayMoneyViewModel.cs" />
+    <Compile Include="Models\UserGroup\UserGroupAdministrationViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupCreateCommand.cs" />
     <Compile Include="Models\UserGroup\UserGroupCreateViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupIndexViewModel.cs" />
@@ -448,6 +451,8 @@
     <Compile Include="Models\UserGroup\UserGroupMembershipOptions.cs" />
     <Compile Include="Models\UserGroup\UserGroupMembershipDetailsViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupMembershipStatisticsViewModel.cs" />
+    <Compile Include="Models\UserGroup\UserGroupMembersViewModel.cs" />
+    <Compile Include="Models\UserGroup\UserGroupPeanutsViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupUpdateCommand.cs" />
     <Compile Include="Models\UserGroup\UserGroupUpdateViewModel.cs" />
     <Compile Include="Resources\Resources_Web.Designer.cs">
@@ -552,11 +557,17 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Peanut\UpdatePeanutParticipationState.cshtml" />
-    <Content Include="Views\Peanut\CanNotParticipate.cshtml" />
+    <Content Include="Views\Peanut\NotSolvent.cshtml" />
     <Content Include="Views\Peanut\CanNotInvite.cshtml" />
     <Content Include="Views\UserGroup\Update.cshtml" />
     <Content Include="Views\Peanut\DisplayTemplates\PeanutState.cshtml" />
-    <Content Include="Views\UserGroup\UserGroupMembershipStatistics.cshtml" />
+    <Content Include="Views\UserGroup\UserGroupStatistics.cshtml" />
+    <Content Include="Views\UserGroup\UserGroupAdministration.cshtml" />
+    <Content Include="Views\UserGroup\UserGroupPeanuts.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\UserGroupMembershipType.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PeanutState.cshtml" />
+    <Content Include="Views\UserGroup\DisplayTemplates\FormerMemberReason.cshtml" />
+    <Content Include="Views\Peanut\MaximumParticipationsViolated.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

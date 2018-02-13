@@ -1,0 +1,8 @@
+mixin news-item(type, title, icon)
+    .news-item(class="news-item--"+type)
+        .news-item__icon
+            span.icon(class="icon-"+icon)
+        .news-item__title
+            = title
+        .news-item__content
+            block

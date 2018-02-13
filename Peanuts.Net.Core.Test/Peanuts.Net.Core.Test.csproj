@@ -143,6 +143,7 @@
     <Compile Include="src\CreatorUtils\BillCreator.cs" />
     <Compile Include="src\CreatorUtils\DocumentCreator.cs" />
     <Compile Include="src\CreatorUtils\EntityCreator.cs" />
+    <Compile Include="src\CreatorUtils\PeanutParticipationTypeCreator.cs" />
     <Compile Include="src\CreatorUtils\UserGroupCreator.cs" />
     <Compile Include="src\CreatorUtils\ProposedUserCreator.cs" />
     <Compile Include="src\CreatorUtils\UserCreator.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="src\Infrastructure\MissingParameterlessConstructorException.cs" />
     <Compile Include="src\Infrastructure\PersistenceBaseTest.cs" />
     <Compile Include="src\Persistence\BillDaoTest.cs" />
+    <Compile Include="src\Persistence\ParticipationTypeDaoTest.cs" />
     <Compile Include="src\Persistence\UserGroupDaoTest.cs" />
     <Compile Include="src\Persistence\ProposedUserDaoTest.cs" />
     <Compile Include="src\Persistence\UserDaoTest.cs" />
@@ -204,9 +206,9 @@
     <None Include="Resources\MailTemplates\TestWithoutCulture.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Spring.Properties.config">
+    <Content Include="Config\Spring.Properties.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Peanuts.Net.Core\Peanuts.Net.Core.csproj">

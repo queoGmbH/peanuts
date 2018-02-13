@@ -213,7 +213,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Helper {
             DropDownModel dropDownModel = new DropDownModel(Helper,
                 modelMetadata,
                 ExpressionHelper.GetExpressionText(expression),
-                dependingOptions.DependingValues.Keys.ToList(),
+                dependingOptions.DependingValues.SelectMany(dict => dict.Value).Distinct().ToList(),
                 keyProperty,
                 textProperty,
                 label,

@@ -1,0 +1,1 @@
+﻿alter table tblPeanutParticipationType add UserGroup_Id INT null;

@@ -19,7 +19,7 @@
     }
     string userGroupSelectId = Html.ViewData.TemplateInfo.GetFullHtmlFieldId(ExpressionHelper.GetExpressionText(Objects.GetPropertyPath<BillCreateViewModel>(vm => vm.BillCreateCommand.UserGroup)));
 
-    Dictionary<UserGroupMembership, UserGroup> dependingValues = Model.UserGroupMembershipsInMyGroups.ToDictionary(mem => mem, mem => mem.UserGroup);
+    IDictionary<UserGroup, UserGroupMembership[]> dependingValues = Model.UserGroupMembershipsInMyGroups.GroupBy(mem => mem.UserGroup).ToDictionary(g => g.Key, g => g.ToArray());
 }
 
 @using (Html.BeginForm("Create", "Bill", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create) })) {

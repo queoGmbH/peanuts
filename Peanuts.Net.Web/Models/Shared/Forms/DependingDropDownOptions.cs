@@ -22,7 +22,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms {
         /// <param name="dependingValues">Liste der auswählbaren Werte und bei welcher ParentOption können sie ausgewählt werden.</param>
         /// <param name="dependingPlaceholders">Optionale Platzhalter, je nachdem was beim Parent ausgewählt ist.</param>
         public DependingDropDownOptions(string dependsOn, string dependsOnProperty,
-            IDictionary<TDepending, TDependsOn> dependingValues, IDictionary<TDependsOn, string> dependingPlaceholders = null) {
+            IDictionary<TDependsOn, TDepending[]> dependingValues, IDictionary<TDependsOn, string> dependingPlaceholders = null) {
             DependsOn = dependsOn;
             DependingValues = dependingValues;
             DependingPlaceholders = dependingPlaceholders;
@@ -45,7 +45,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms {
         /// <summary>
         /// Ruft eine Liste der auswählbaren Werte und bei welcher ParentOption können sie ausgewählt werden ab.
         /// </summary>
-        public IDictionary<TDepending, TDependsOn> DependingValues {
+        public IDictionary<TDependsOn, TDepending[]> DependingValues {
             get; set;
         }
 
@@ -84,11 +84,11 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms {
         }
 
         /// <summary>
-        /// Ruft den Wert ab, für welchen das übergebenen Element gültig ist.
+        /// Ruft die Werte ab, für welche das übergebenen Element gültig ist.
         /// </summary>
         /// <param name="selectableItem"></param>
         /// <returns></returns>
-        public override object GetDependsOnValue(object selectableItem) {
+        public override object[] GetDependsOnValue(object selectableItem) {
             if (selectableItem == null) {
                 return null;
             }
@@ -98,26 +98,10 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms {
             }
 
             TDepending dependingItem = (TDepending)selectableItem;
-            TDependsOn dependingValue;
-            if (!DependingValues.TryGetValue(dependingItem, out dependingValue)) {
-                return null;
-            }
-
-            return GetDependsOnValue(dependingValue);
+            IEnumerable<TDependsOn> dependsOns = DependingValues.Keys.Where(dependsOn => DependingValues[dependsOn].Contains(dependingItem));
+            return dependsOns.Select(d => GetDependsOnValue(d, DependsOnProperty)).ToArray();
         }
 
-        private object GetDependsOnValue(TDependsOn dependingValue) {
-            if (dependingValue == null) {
-                return null;
-            }
-
-            if (string.IsNullOrWhiteSpace(DependsOnProperty)) {
-                /*Wenn kein Property definiert ist, welches als Wert verwendet werden soll, dann das Objekt zurückgeben.*/
-                return dependingValue;
-            }
-
-            return GetDependsOnValue(dependingValue, DependsOnProperty);
-        }
 
         private static object GetDependsOnValue(object parent, string propertyNameOrPath) {
             if (parent == null) {
@@ -163,8 +147,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms {
         public abstract string GetDependsOnId();
 
         /// <summary>
-        /// Ruft den Wert ab, für welchen das übergebenen Element gültig ist.
+        /// Ruft die Werte ab, für welchen das übergebenen Element gültig ist.
         /// </summary>
-        public abstract object GetDependsOnValue(object selectableItem);
+        public abstract object[] GetDependsOnValue(object selectableItem);
     }
 }

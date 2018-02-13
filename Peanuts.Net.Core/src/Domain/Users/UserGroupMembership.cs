@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-
+using System.Linq;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Dto;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
@@ -38,18 +38,36 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         }
 
         /// <summary>
-        ///     Ruft das Konto des Nutzers in der Gruppe ab.
-        /// </summary>
-        public virtual Account Account {
-            get { return _account; }
-        }
-
-        /// <summary>
         ///     Ruft alle Mitgliedschafts-Typen ab, von denen ein Mitglied einer Gruppe eines haben muss, um ein aktives Mitglied
         ///     der Gruppe zu sein.
         /// </summary>
         public static UserGroupMembershipType[] ActiveTypes {
             get { return new[] { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member }; }
+        }
+
+        /// <summary>
+        ///     Ruft alle Mitgliedschafts-Typen ab, von denen ein Mitglied einer Gruppe eines haben muss, damit seine
+        ///     Mitgliedschaft als schwebend gilt.
+        /// </summary>
+        public static UserGroupMembershipType[] PendingTypes {
+            get { return new[] { UserGroupMembershipType.Request, UserGroupMembershipType.Invited }; }
+        }
+
+        /// <summary>
+        ///     Ruft alle Mitgliedschafts-Typen ab, von denen ein Mitglied einer Gruppe eines haben muss, damit seine
+        ///     Mitgliedschaft als inaktiv gilt.
+        /// </summary>
+        public static UserGroupMembershipType[] InactiveTypes {
+            get {
+                return new[] { UserGroupMembershipType.Inactive, UserGroupMembershipType.Quit, UserGroupMembershipType.Guest };
+            }
+        }
+
+        /// <summary>
+        ///     Ruft das Konto des Nutzers in der Gruppe ab.
+        /// </summary>
+        public virtual Account Account {
+            get { return _account; }
         }
 
         public virtual DateTime? ChangedAt {
@@ -76,11 +94,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         ///     Ruft ab, ob es sich bei der Mitgliedschaft, um eine aktive Mitgliedschaft handelt.
         /// </summary>
         public virtual bool IsActiveMembership {
-            get {
-                return
-                        _membershipType == UserGroupMembershipType.Administrator ||
-                        _membershipType == UserGroupMembershipType.Member;
-            }
+            get { return ActiveTypes.Contains(_membershipType); }
         }
 
         public virtual UserGroupMembershipType MembershipType {

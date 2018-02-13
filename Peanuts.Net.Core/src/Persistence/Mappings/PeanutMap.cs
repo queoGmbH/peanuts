@@ -9,6 +9,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
             Map(user => user.Name).Not.Nullable().Length(255);
             Map(user => user.Description).Nullable().Length(4000);
             Map(user => user.Day).Not.Nullable().CustomSqlType("date");
+            Map(user => user.MaximumParticipations).Nullable();
             References(peanut => peanut.UserGroup).Not.Nullable().ForeignKey("FK_PEANUT_USERGROUP");
 
             Map(user => user.PeanutState).Not.Nullable();
@@ -18,6 +19,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
                     .Table("tblPeanutDocuments")
                     .Access.CamelCaseField(Prefix.Underscore)
                     .ForeignKeyConstraintNames("FK_PEANUT_WITH_DOCUMENTS", "FK_DOCUMENT_OF_PEANUT");
+
             HasMany(peanut => peanut.Participations)
                     .Table("tblPeanutParticipation")
                     .Access.CamelCaseField(Prefix.Underscore)

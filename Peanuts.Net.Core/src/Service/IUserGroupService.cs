@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users.Dto;
@@ -118,7 +119,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="user"></param>
         /// <param name="userGroup"></param>
         /// <returns></returns>
-        UserGroupMembership FindMembershipsByUserAndGroup(User user, UserGroup userGroup);
+        UserGroupMembership FindMembershipByUserAndGroup(User user, UserGroup userGroup);
 
         /// <summary>
         /// Ruft die Gruppen ab, in denen der Nutzer kein Mitglied ist.
@@ -144,7 +145,5 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="currentUser"></param>
         /// <param name="allMembershipsUrl"></param>
         void Invite(UserGroup userGroup, User user, User currentUser, string allMembershipsUrl);
-
-        
     }
 }

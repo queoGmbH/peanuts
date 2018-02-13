@@ -30,8 +30,11 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
             PriceDevelopment = CalculatePriceDevelopment(member, allPeanutsInGroup);
 
             Dictionary<Peanut, double> orderedByPrice = PriceDevelopment.OrderBy(dev => dev.Value.Price).ToDictionary(o => o.Key, o => o.Value.Price);
-            MinPrice = orderedByPrice.FirstOrDefault();
-            MaxPrice = orderedByPrice.LastOrDefault();
+
+            
+
+            MinPriceTop5 = orderedByPrice.Take(5).Select(obp => new PeanutAvaragePrice(obp.Key, obp.Value)).ToList();
+            MaxPriceTop5 = orderedByPrice.Reverse().Take(5).Select(obp => new PeanutAvaragePrice(obp.Key, obp.Value)).ToList();
         }
 
         /// <summary>
@@ -59,12 +62,35 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         /// <summary>
         ///     Ruft den Peanut mit dem höchsten Preis pro Teilnehmer ab.
         /// </summary>
-        public KeyValuePair<Peanut, double>? MaxPrice { get; private set; }
+        public IList<PeanutAvaragePrice> MaxPriceTop5 { get; private set; }
 
         /// <summary>
         ///     Ruft den Peanut mit dem niedrigsten Preis pro Teilnehmer ab.
         /// </summary>
-        public KeyValuePair<Peanut, double>? MinPrice { get; private set; }
+        public IList<PeanutAvaragePrice> MinPriceTop5 { get; private set; }
+
+        public class PeanutAvaragePrice {
+            /// <inheritdoc />
+            public PeanutAvaragePrice(Peanut peanut, double avaragePrice) {
+                Peanut = peanut;
+                AvaragePrice = avaragePrice;
+            }
+
+            /// <summary>
+            /// Ruft den Peanut ab.
+            /// </summary>
+            public Peanut Peanut { get; }
+
+            /// <summary>
+            /// Ruft den durchschnittlichen Preis pro Teilnehmer für den Peanut ab.
+            /// </summary>
+            public double AvaragePrice { get; }
+
+            /// <inheritdoc />
+            public override string ToString() {
+                return string.Format("{0:C} ({1})", AvaragePrice, string.Format("{0} am {1:d}", Peanut.Name, Peanut.Day));
+            }
+        }
 
         /// <summary>
         ///     Ruft die Anzahl der Teilnahmen je nach Teilnahmeart ab.

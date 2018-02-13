@@ -41,6 +41,7 @@
                 @Html.Form().Static(m => m.Peanut.Name)
                 @Html.Form().Static(m => m.Peanut.UserGroup.DisplayName)
                 @Html.Form().Static(m => m.Peanut.Day, formatString: "{0:D}")
+                @Html.Form().Static(m => m.Peanut.MaximumParticipations)
             </div>
             <div class="form__col">
                 @Html.Form().Static(m => m.Peanut.CreatedAt)

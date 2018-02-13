@@ -8,12 +8,13 @@
 
 <div class="row">
     <div class="col-xs-12">
-        Du kannst an @Model.Peanut.Name nicht teilnehmen, da dein Konto nicht ausreichend gedeckt ist.
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12">
+        <p>
+            Du kannst an @Model.Peanut.Name nicht teilnehmen, da dein Konto nicht ausreichend gedeckt ist.
+        </p>
+        <hr/>
+        <a href="@Url.Action("PayMoneyForm", "Payment", new { userGroup = Model.Peanut.UserGroup.BusinessId })" class="btn btn-default">
+            <span>Konto ausgleichen</span>
+        </a>
         <a href="@Url.Action("Index")" class="btn btn-default">
             <span>@Resources_Web.btn_Cancel</span>
         </a>
