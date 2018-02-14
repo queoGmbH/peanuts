@@ -40,7 +40,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.IsTrue(() => userGroupMembership.MembershipType == UserGroupMembershipType.Invited, "userGroupMembership");
             Require.IsTrue(() => currentUser.Equals(userGroupMembership.User), "userGroupMembership");
 
-            UserGroupService.UpdateMembershipTypes(
+            UserGroupService.UpdateUsergroupMembershipTypes(
                 new Dictionary<UserGroupMembership, UserGroupMembershipType> { { userGroupMembership, UserGroupMembershipType.Member } },
                 currentUser);
 
@@ -59,7 +59,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.IsTrue(() => currentUsersMembership != null && currentUsersMembership.MembershipType == UserGroupMembershipType.Administrator,
                 "userGroupMembership");
 
-            UserGroupService.UpdateMembershipTypes(
+            UserGroupService.UpdateUsergroupMembershipTypes(
                 new Dictionary<UserGroupMembership, UserGroupMembershipType> { { userGroupMembership, UserGroupMembershipType.Member } },
                 currentUser);
             string urlToUserGroup = Url.Action("Membership",
@@ -70,16 +70,14 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             return RedirectToAction("AllMemberships");
         }
 
-        [Route("{userGroup}/Membership/{userGroupMembership}/Account")]
-        public ActionResult Account(UserGroup userGroup, UserGroupMembership userGroupMembership, int page = 1, int pageSize = 25) {
+        [Route("{userGroup}/MyMembership/Account")]
+        public ActionResult Account(UserGroup userGroup, User currentUser, int pageNumber = 1, int pageSize = 25) {
             Require.NotNull(userGroup, "userGroup");
-            Require.NotNull(userGroupMembership, "userGroupMembership");
-            Require.IsTrue(() => userGroupMembership.UserGroup.Equals(userGroup), "userGroupMembership");
-            Require.IsFalse(() => userGroupMembership.MembershipType == UserGroupMembershipType.Quit, "userGroupMembership");
+            UserGroupMembership currentUsersMembershipInGroup;
+            AssertCurrentUserIsActiveMemberInGroup(userGroup, currentUser, out currentUsersMembershipInGroup);
 
-            IPage<BookingEntry> bookingEntries = BookingService.FindByAccount(new PageRequest(page, pageSize), userGroupMembership.Account);
-
-            return View("Account", new UserGroupMemberShipAccountViewModel(userGroupMembership, bookingEntries));
+            IPage<BookingEntry> bookingEntries = BookingService.FindByAccount(new PageRequest(pageNumber, pageSize), currentUsersMembershipInGroup.Account);
+            return View("UserGroupMembershipAccount", new UserGroupMemberShipAccountViewModel(currentUsersMembershipInGroup, bookingEntries, UserGroupMembershipOptions.ForCurrentUser(currentUsersMembershipInGroup)));
         }
 
         [Route("All/Membership")]
@@ -149,7 +147,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             string allMembershipsUrl = Url.Action("AllMemberships", "UserGroup", null, Request.Url.Scheme);
             UserGroupService.Invite(userGroup, user, currentUser, allMembershipsUrl);
 
-            return RedirectToAction("AllMemberships");
+            return RedirectToAction("Members", new { userGroup = userGroup.BusinessId });
         }
 
         [HttpGet]
@@ -170,7 +168,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         }
 
         [Route("{userGroup:guid}/Membership/{userGroupMembership:guid}/Details")]
-        [Route("{userGroup:guid}/Membership/")]
+        [Route("{userGroup:guid}/MyMembership/")]
         public ActionResult MembershipDetails(UserGroup userGroup, UserGroupMembership userGroupMembership, User currentUser) {
             Require.NotNull(userGroup, "userGroup");
             UserGroupMembership currentUsersMembershipInGroup;
@@ -183,20 +181,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 userGroupMembership = currentUsersMembershipInGroup;
             }
             
-
-            IList<UserGroupMembership> members = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }, UserGroupMembership.ActiveTypes).ToList();
-
-            IList<UserGroupMembership> formerMembers =
-                members.Where(mem => mem.MembershipType == UserGroupMembershipType.Quit || !mem.User.IsActiveUser).ToList();
-
-            IList<UserGroupMembership> pendingMembers =
-                members.Where(mem => UserGroupMembership.PendingTypes.Contains(mem.MembershipType) && mem.User.IsActiveUser).ToList();
-
-            IList<UserGroupMembership> currentMembers =
-                members.Where(mem => UserGroupMembership.ActiveTypes.Contains(mem.MembershipType) && mem.User.IsActiveUser).ToList();
-
             UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForOtherUser(userGroupMembership, currentUsersMembershipInGroup);
-            UserGroupMembershipDetailsViewModel userGroupMembershipDetailsViewModel = new UserGroupMembershipDetailsViewModel(userGroupMembership, currentMembers, pendingMembers, formerMembers, userGroupMembershipOptions);
+            UserGroupMembershipDetailsViewModel userGroupMembershipDetailsViewModel = new UserGroupMembershipDetailsViewModel(userGroupMembership, currentUsersMembershipInGroup, userGroupMembershipOptions);
             return View("UserGroupMembershipDetails", userGroupMembershipDetailsViewModel);
         }
 
@@ -212,7 +198,9 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             IDictionary<UserGroupMembership, int> userGroupMembersKarma = PeanutService.GetUserGroupMembersKarma(userGroup);
 
             UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForCurrentUser(currentUsersMembershipInGroup);
-            UserGroupMembershipStatisticsViewModel userGroupMembershipStatisticsViewModel = new UserGroupMembershipStatisticsViewModel(currentUsersMembershipInGroup,
+            UserGroupMembershipStatisticsViewModel userGroupMembershipStatisticsViewModel = new UserGroupMembershipStatisticsViewModel(
+                userGroup, 
+                currentUsersMembershipInGroup,
                 members,
                 userGroupMembershipOptions,
                 PeanutService.GetPeanutsUserGroupMembershipStatistics(currentUsersMembershipInGroup), 
@@ -310,7 +298,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
             IPage<Peanut> peanuts = PeanutService.FindAllPeanutsInGroup(new PageRequest(pageNumber, pageSize), userGroup);
             UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForCurrentUser(currentUsersMembershipInGroup);
-            UserGroupPeanutsViewModel userGroupPeanutsViewModel = new UserGroupPeanutsViewModel(userGroup, peanuts, userGroupMembershipOptions);
+            UserGroupPeanutsViewModel userGroupPeanutsViewModel = new UserGroupPeanutsViewModel(userGroup, currentUsersMembershipInGroup, peanuts, userGroupMembershipOptions);
 
             return View("UserGroupPeanuts", userGroupPeanutsViewModel);
         }
@@ -323,8 +311,55 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
             IList<UserGroupMembership> members = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }, UserGroupMembership.ActiveTypes).ToList();
             UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForCurrentUser(currentUsersMembershipInGroup);
-            UserGroupAdministrationViewModel userGroupMembershipDetailsViewModel = new UserGroupAdministrationViewModel(userGroup, members, userGroupMembershipOptions);
+            UserGroupAdministrationViewModel userGroupMembershipDetailsViewModel = new UserGroupAdministrationViewModel(userGroup, currentUsersMembershipInGroup, members, userGroupMembershipOptions);
             return View("UserGroupAdministration", userGroupMembershipDetailsViewModel);
+        }
+
+        [Route("{userGroup}/Members")]
+        public ActionResult Members(UserGroup userGroup, User currentUser) {
+            Require.NotNull(userGroup, "userGroup");
+            UserGroupMembership currentUsersMembershipInGroup;
+            AssertCurrentUserIsActiveMemberInGroup(userGroup, currentUser, out currentUsersMembershipInGroup);
+            
+            IList<UserGroupMembership> members = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }, UserGroupMembership.AllTypes).ToList();
+
+            IList<UserGroupMembership> formerMembers =
+                members.Where(mem => mem.MembershipType == UserGroupMembershipType.Quit || !mem.User.IsActiveUser).ToList();
+
+            IList<UserGroupMembership> invitedMembers =
+                members.Where(mem => mem.MembershipType == UserGroupMembershipType.Invited && mem.User.IsActiveUser).ToList();
+
+            IList<UserGroupMembership> requestingMembers =
+                members.Where(mem => mem.MembershipType == UserGroupMembershipType.Request && mem.User.IsActiveUser).ToList();
+
+            IList<UserGroupMembership> currentMembers =
+                members.Where(mem => UserGroupMembership.ActiveTypes.Contains(mem.MembershipType) && mem.User.IsActiveUser).ToList();
+
+            UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForOtherUser(currentUsersMembershipInGroup, currentUsersMembershipInGroup);
+            UserGroupMembersViewModel userGroupMembershipDetailsViewModel = new UserGroupMembersViewModel(userGroup, currentUsersMembershipInGroup, currentMembers, requestingMembers, invitedMembers, formerMembers, userGroupMembershipOptions);
+            return View("UserGroupMembers", userGroupMembershipDetailsViewModel);
+        }
+
+        [Route("{userGroup:guid}/MyMembership/")]
+        [HttpPut]
+        public ActionResult UpdateMembership(UserGroup userGroup, User currentUser, UserGroupMembershipUpdateCommand userGroupMembershipUpdateCommand) {
+            Require.NotNull(userGroup, "userGroup");
+            Require.NotNull(userGroupMembershipUpdateCommand, "userGroupMembershipUpdateCommand");
+            UserGroupMembership currentUsersMembershipInGroup;
+            AssertCurrentUserIsActiveMemberInGroup(userGroup, currentUser, out currentUsersMembershipInGroup);
+
+            if (!ModelState.IsValid) {
+                UserGroupMembershipDetailsViewModel userGroupMembershipDetailsViewModel = new UserGroupMembershipDetailsViewModel(
+                    currentUsersMembershipInGroup,
+                    currentUsersMembershipInGroup,
+                    UserGroupMembershipOptions.ForCurrentUser(currentUsersMembershipInGroup));
+                return View(
+                    "UserGroupMembershipDetails",
+                    userGroupMembershipDetailsViewModel);
+            }
+
+            UserGroupService.UpdateUserGroupMembership(currentUsersMembershipInGroup, userGroupMembershipUpdateCommand.UserGroupMembershipDto, currentUser);
+            return RedirectToAction("MembershipDetails", new { userGroup = userGroup.BusinessId });
         }
     }
 }

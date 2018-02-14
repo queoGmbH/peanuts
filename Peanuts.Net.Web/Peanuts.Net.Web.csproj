@@ -451,6 +451,7 @@
     <Compile Include="Models\UserGroup\UserGroupMembershipOptions.cs" />
     <Compile Include="Models\UserGroup\UserGroupMembershipDetailsViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupMembershipStatisticsViewModel.cs" />
+    <Compile Include="Models\UserGroup\UserGroupMembershipUpdateCommand.cs" />
     <Compile Include="Models\UserGroup\UserGroupMembersViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupPeanutsViewModel.cs" />
     <Compile Include="Models\UserGroup\UserGroupUpdateCommand.cs" />
@@ -568,6 +569,7 @@
     <Content Include="Views\Shared\DisplayTemplates\PeanutState.cshtml" />
     <Content Include="Views\UserGroup\DisplayTemplates\FormerMemberReason.cshtml" />
     <Content Include="Views\Peanut\MaximumParticipationsViolated.cshtml" />
+    <Content Include="Views\UserGroup\UserGroupMembers.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -667,7 +669,7 @@
     <Content Include="Views\Bill\DisplayTemplates\PayBill.cshtml" />
     <Content Include="Views\Bill\RefuseBill.cshtml" />
     <Content Include="Views\Payment\GotMoney.cshtml" />
-    <Content Include="Views\UserGroup\Account.cshtml" />
+    <Content Include="Views\UserGroup\UserGroupMembershipAccount.cshtml" />
     <Content Include="Views\Bill\Delete.cshtml" />
     <Content Include="Views\Bill\Settle.cshtml" />
     <Content Include="Views\Payment\Delete.cshtml" />

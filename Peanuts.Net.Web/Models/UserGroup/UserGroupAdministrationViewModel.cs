@@ -7,12 +7,13 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
     /// ViewModel für die Anzeige einer Gruppen-Mitgliedschaft.
     /// </summary>
     public class UserGroupAdministrationViewModel {
-        public UserGroupAdministrationViewModel(Core.Domain.Users.UserGroup userGroup, IList<UserGroupMembership> userGroupMembers, UserGroupMembershipOptions userGroupMembershipOptions) {
+        public UserGroupAdministrationViewModel(Core.Domain.Users.UserGroup userGroup, UserGroupMembership currentUsersMembershipInGroup, IList<UserGroupMembership> userGroupMembers, UserGroupMembershipOptions userGroupMembershipOptions) {
             Require.NotNull(userGroup, "userGroup");
             Require.NotNull(userGroupMembers, "userGroupMembers");
             Require.NotNull(userGroupMembershipOptions, "userGroupMembershipOptions");
 
             UserGroup = userGroup;
+            CurrentUsersMembershipInGroup = currentUsersMembershipInGroup;
             UserGroupMembers = userGroupMembers;
             UserGroupMembershipOptions = userGroupMembershipOptions;
             
@@ -24,6 +25,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
         public Core.Domain.Users.UserGroup UserGroup {
             get; private set;
         }
+
+        public UserGroupMembership CurrentUsersMembershipInGroup { get; }
 
         /// <summary>
         /// Ruft die Mitgliedschaften der Gruppe auf.

@@ -17,6 +17,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         private readonly User _createdBy;
         private readonly User _user;
         private readonly UserGroup _userGroup;
+        private bool _autoAcceptBills;
         private DateTime? _changedAt;
         private User _changedBy;
         private UserGroupMembershipType _membershipType;
@@ -46,6 +47,23 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         }
 
         /// <summary>
+        /// Ruft alle Mitgliedschafts-Typen ab. 
+        /// </summary>
+        public static UserGroupMembershipType[] AllTypes {
+            get {
+                return Enum.GetValues(typeof(UserGroupMembershipType)).Cast<UserGroupMembershipType>().ToArray();
+            }
+        }
+
+        /// <summary>
+        ///     Ruft alle Mitgliedschafts-Typen ab, von denen ein Mitglied einer Gruppe eines haben muss, damit seine
+        ///     Mitgliedschaft als inaktiv gilt.
+        /// </summary>
+        public static UserGroupMembershipType[] InactiveTypes {
+            get { return new[] { UserGroupMembershipType.Inactive, UserGroupMembershipType.Quit, UserGroupMembershipType.Guest }; }
+        }
+
+        /// <summary>
         ///     Ruft alle Mitgliedschafts-Typen ab, von denen ein Mitglied einer Gruppe eines haben muss, damit seine
         ///     Mitgliedschaft als schwebend gilt.
         /// </summary>
@@ -54,20 +72,17 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         }
 
         /// <summary>
-        ///     Ruft alle Mitgliedschafts-Typen ab, von denen ein Mitglied einer Gruppe eines haben muss, damit seine
-        ///     Mitgliedschaft als inaktiv gilt.
-        /// </summary>
-        public static UserGroupMembershipType[] InactiveTypes {
-            get {
-                return new[] { UserGroupMembershipType.Inactive, UserGroupMembershipType.Quit, UserGroupMembershipType.Guest };
-            }
-        }
-
-        /// <summary>
         ///     Ruft das Konto des Nutzers in der Gruppe ab.
         /// </summary>
         public virtual Account Account {
             get { return _account; }
+        }
+
+        /// <summary>
+        ///     Ruft ab, ob Rechnungen automatisch akzeptiert werden sollen.
+        /// </summary>
+        public virtual bool AutoAcceptBills {
+            get { return _autoAcceptBills; }
         }
 
         public virtual DateTime? ChangedAt {
@@ -109,10 +124,38 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
             get { return _userGroup; }
         }
 
-        public virtual void Update(UserGroupMembershipType membershipType, EntityChangedDto entityChangedDto) {
-            _membershipType = membershipType;
+        public virtual UserGroupMembershipDto GetDto() {
+            return new UserGroupMembershipDto(_autoAcceptBills);
+        }
 
+        public virtual void Update(
+            UserGroupMembershipType membershipType, UserGroupMembershipDto userGroupMembershipDto, EntityChangedDto entityChangedDto) {
+            Require.NotNull(userGroupMembershipDto, "userGroupMembershipDto");
+            Require.NotNull(entityChangedDto, "entityChangedDto");
+
+            _membershipType = membershipType;
+            Update(userGroupMembershipDto);
             Update(entityChangedDto);
+        }
+
+        public virtual void Update(
+            UserGroupMembershipType membershipType, EntityChangedDto entityChangedDto) {
+            Require.NotNull(entityChangedDto, "entityChangedDto");
+
+            _membershipType = membershipType;
+            Update(entityChangedDto);
+        }
+
+        public virtual void Update(UserGroupMembershipDto userGroupMembershipDto, EntityChangedDto entityChangedDto) {
+            Require.NotNull(userGroupMembershipDto, "userGroupMembershipDto");
+            Require.NotNull(entityChangedDto, "entityChangedDto");
+
+            Update(userGroupMembershipDto);
+            Update(entityChangedDto);
+        }
+
+        private void Update(UserGroupMembershipDto userGroupMembershipDto) {
+            _autoAcceptBills = userGroupMembershipDto.AutoAcceptBills;
         }
 
         private void Update(EntityChangedDto entityChangedDto) {

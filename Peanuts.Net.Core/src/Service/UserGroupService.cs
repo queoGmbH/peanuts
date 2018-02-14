@@ -53,7 +53,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                     /*Nutzer ist oder war bereits Mitglied der Gruppe*/
                     UserGroupMembership existingMembership = currentMembershipsByUser[userToAdd.Key];
                     if (existingMembership.MembershipType != userToAdd.Value) {
-                        existingMembership.Update(userToAdd.Value, new EntityChangedDto(createdBy, DateTime.Now));
+                        existingMembership.Update(userToAdd.Value, new UserGroupMembershipDto(), new EntityChangedDto(createdBy, DateTime.Now));
                     }
                     memberships.Add(existingMembership);
                 } else {
@@ -202,6 +202,16 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             return UserGroupDao.GetCount();
         }
 
+        /// <inheritdoc />
+        [Transaction]
+        public void UpdateUserGroupMembership(UserGroupMembership userGroupMembership, UserGroupMembershipDto userGroupMembershipDto, User changedBy) {
+            Require.NotNull(userGroupMembership, "userGroupMembership");
+            Require.NotNull(userGroupMembershipDto, "userGroupMembershipDto");
+            Require.NotNull(changedBy, "changedBy");
+
+            userGroupMembership.Update(userGroupMembershipDto, new EntityChangedDto(changedBy, DateTime.Now));
+        }
+
         /// <summary>
         ///     Lädt den Nutzer zu einer Mitgliedschaft in einer Gruppe ein.
         /// </summary>
@@ -267,7 +277,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         }
 
         [Transaction]
-        public void UpdateMembershipTypes(IDictionary<UserGroupMembership, UserGroupMembershipType> memberships, User changedBy) {
+        public void UpdateUsergroupMembershipTypes(IDictionary<UserGroupMembership, UserGroupMembershipType> memberships, User changedBy) {
             Require.NotNull(memberships, "memberships");
             Require.NotNull(changedBy, "changedBy");
 

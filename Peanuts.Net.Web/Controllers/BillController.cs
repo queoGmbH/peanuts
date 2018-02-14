@@ -80,7 +80,6 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 billCreateCommand.CreatedFromPeanut,
                 currentUser);
             string billUrl = Url.Action("Show", "Bill", new { bill = bill.BusinessId }, Request.Url.Scheme);
-            ;
             NotificationService.SendBillReceivedNotification(bill, billUrl);
             return RedirectToAction("Show", new { bill = bill.BusinessId });
         }

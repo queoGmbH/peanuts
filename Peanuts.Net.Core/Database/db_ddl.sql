@@ -289,6 +289,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        Name NVARCHAR(255) not null,
        Description NVARCHAR(4000) null,
        Day date not null,
+       MaximumParticipations INT null,
        PeanutState NVARCHAR(255) not null,
        CreatedAt DATETIME not null,
        ChangedAt DATETIME null,
@@ -350,7 +351,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        ChangedAt DATETIME null,
        CreatedBy_Id INT null,
        ChangedBy_Id INT null,
-       UserGroup_Id INT not null,
+       UserGroup_Id INT null,
        primary key (Id)
     )
 
@@ -397,6 +398,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
     create table tblUserGroupMembership (
         Id INT IDENTITY NOT NULL,
        BusinessId UNIQUEIDENTIFIER not null unique,
+       AutoAcceptBills BIT not null,
        CreatedAt DATETIME not null,
        ChangedAt DATETIME null,
        MembershipType NVARCHAR(255) not null,
@@ -631,6 +633,19 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
 
     alter table tblUserRoles 
         add constraint FK_ROLE_TO_USER 
+        foreign key (User_Id) 
+        references tblUser
+
+    alter table tblUserDocument 
+        add constraint FK_USER_DOCUMENT 
+        foreign key (Document_Id) 
+        references tblDocument
+
+    alter table tblUserDocument 
+        add constraint FK_USER_WITH_DOCUMENTS 
+        foreign key (User_Id) 
+        references tblUser
+add constraint FK_ROLE_TO_USER 
         foreign key (User_Id) 
         references tblUser
 

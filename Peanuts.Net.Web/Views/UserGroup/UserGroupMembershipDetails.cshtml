@@ -1,5 +1,6 @@
 ﻿@using Com.QueoFlow.Peanuts.Net.Core.Resources
 @using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
 @model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.UserGroupMembershipDetailsViewModel
 
 @{
@@ -12,63 +13,27 @@
         <span class="icon-arrow-left"></span>
         Zurück
     </a>
-
-    @if (Model.UserGroupMembershipOptions.CanRefuseInvitation) {
-        <a class="btn btn-danger pull-right" href="@Url.Action("QuitMembershipForm", "UserGroup", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })">
-            <span class="icon-thumbs-down"></span>
-            Einladung ablehnen
-        </a>
-    }
-    @if (Model.UserGroupMembershipOptions.CanAcceptInvitation) {
-        using (Html.BeginForm("AcceptMembershipInvitation", "UserGroup", new {
-            userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId
-        }, FormMethod.Post, new {
-            @class = "form-inline  pull-right", role = "form"
-        })) {
-            @Html.AntiForgeryToken()
-            @Html.HttpMethodOverride(HttpVerbs.Patch)
-            <button class="btn btn-success" type="submit">
-                <span class="icon-thumbs-up"></span>
-                Einladung annehmen
-            </button>
-        }
-    }
-    @if (Model.UserGroupMembershipOptions.CanRefuseRequest) {
-        <a class="btn btn-danger pull-right" href="@Url.Action("QuitMembershipForm", "UserGroup", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })">
-            <span class="icon-thumbs-down"></span>
-            Anfrage ablehnen
-        </a>
-    }
-    @if (Model.UserGroupMembershipOptions.CanAcceptRequest) {
-        using (Html.BeginForm("AcceptMembershipRequest", "UserGroup", new {
-            userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId
-        }, FormMethod.Post, new {
-            @class = "form-inline  pull-right", role = "form"
-        })) {
-            @Html.AntiForgeryToken()
-            @Html.HttpMethodOverride(HttpVerbs.Patch)
-            <button class="btn btn-success" type="submit">
-                <span class="icon-thumbs-up"></span>
-                Anfrage annehmen
-            </button>
-        }
-    }
-    @if (Model.UserGroupMembership.IsActiveMembership) {
-        <a class="btn btn-danger pull-right" href="@Url.Action("QuitMembershipForm", "UserGroup", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })">
-            <span class="icon-close"></span>
-            Mitgliedschaft beenden
-        </a>
-    }
-
 }
 
 @section tabs {
     <ul class="nav nav-tabs" role="tablist">
         <li class="active" role="presentation">
-            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })" aria-controls="details" role="tab">
+            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })" aria-controls="membership" role="tab">
                 Mitgliedschaft
             </a>
         </li>
+        <li role="presentation">
+            <a href="@Url.Action("Members", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })" aria-controls="members" role="tab">
+                Mitglieder
+            </a>
+        </li>
+        @if (Model.CurrentUsersMembershipInGroup != null) {
+            <li role="presentation">
+                <a href="@Url.Action("Account", new { userGroup = Model.CurrentUsersMembershipInGroup.UserGroup.BusinessId })" aria-controls="account" role="tab">
+                    Konto
+                </a>
+            </li>
+        }
         <li role="presentation">
             <a href="@Url.Action("Peanuts", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })" aria-controls="peanuts" role="tab">
                 Peanuts
@@ -87,7 +52,6 @@
             </li>
         }
     </ul>
-
 }
 
 
@@ -112,78 +76,83 @@
                 @Html.Form().Static(m => m.UserGroupMembership.User.DisplayName, "Name")
                 @Html.Form().Static(m => m.UserGroupMembership.CreatedAt, "Mitglied seit")
                 @Html.Form().Static(m => m.UserGroupMembership.MembershipType)
+                @Html.Form().Static(m => m.UserGroupMembership.Account.Balance, formatString: "{0:C}")
             </fieldset>
+            
+            <fieldset>
+                <legend class="form__legend pull-left">
+                    Optionen für meine Mitgliedschaft
+                </legend>
+                @if (Model.UserGroupMembershipOptions.CanRefuseInvitation) {
+                    <a class="btn btn-danger" href="@Url.Action("QuitMembershipForm", "UserGroup", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })">
+                        <span class="icon-thumbs-down"></span>
+                        Einladung ablehnen
+                    </a>
+                }
+                @if (Model.UserGroupMembershipOptions.CanAcceptInvitation) {
+                    using (Html.BeginForm("AcceptMembershipInvitation", "UserGroup", new {
+                        userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId
+                    }, FormMethod.Post, new {
+                        @class = "form-inline", role = "form"
+                    })) {
+                        @Html.AntiForgeryToken()
+                        @Html.HttpMethodOverride(HttpVerbs.Patch)
+                        <button class="btn btn-success" type="submit">
+                            <span class="icon-thumbs-up"></span>
+                            Einladung annehmen
+                        </button>
+                    }
+                }
+                @if (Model.UserGroupMembershipOptions.CanRefuseRequest) {
+                    <a class="btn btn-danger" href="@Url.Action("QuitMembershipForm", "UserGroup", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })">
+                        <span class="icon-thumbs-down"></span>
+                        Anfrage ablehnen
+                    </a>
+                }
+                @if (Model.UserGroupMembershipOptions.CanAcceptRequest) {
+                    using (Html.BeginForm("AcceptMembershipRequest", "UserGroup", new {
+                        userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId
+                    }, FormMethod.Post, new {
+                        @class = "form-inline", role = "form"
+                    })) {
+                        @Html.AntiForgeryToken()
+                        @Html.HttpMethodOverride(HttpVerbs.Patch)
+                        <button class="btn btn-success" type="submit">
+                            <span class="icon-thumbs-up"></span>
+                            Anfrage annehmen
+                        </button>
+                    }
+                }
+                @if (Model.UserGroupMembership.IsActiveMembership) {
+                    <a class="btn btn-danger" href="@Url.Action("QuitMembershipForm", "UserGroup", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId, userGroupMembership = Model.UserGroupMembership.BusinessId })">
+                        <span class="icon-close"></span>
+                        Mitgliedschaft beenden
+                    </a>
+                }
+            </fieldset>
+            
+            <fieldset>
+                <legend class="form__legend pull-left">
+                    Einstellungen für meine Mitgliedschaft
+                </legend>
+                @using (Html.BeginForm("UpdateMembership", "UserGroup", new {userGroup = Model.CurrentUsersMembershipInGroup.UserGroup.BusinessId}, FormMethod.Post)) {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    @Html.HttpMethodOverride(HttpVerbs.Put)
 
-            @if (Model.UserGroupMembership.IsActiveMembership) {
-                <fieldset>
-                    <legend class="form__legend pull-left">
-                        Konto
-                        <a class="btn btn-warning pull-right" href="@Url.Action("GotMoneyForm", "Payment", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })">
-                            <span class="icon icon-sign-in"></span>
-                            Geld erhalten
-                        </a>
-                        <a class="btn btn-warning pull-right" href="@Url.Action("PayMoneyForm", "Payment", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })">
-                            <span class="icon icon-sign-out"></span>
-                            Geld bezahlen
-                        </a>
-                        <a class="btn btn-warning pull-right" href="@Url.Action("CreateForUserGroup", "Bill", new { selectedUserGroup = Model.UserGroupMembership.UserGroup.BusinessId })">
-                            <span class="icon icon-inbox"></span>
-                            Rechnung stellen
-                        </a>
-                    </legend>
-                    @Html.Form().Static(m => m.UserGroupMembership.Account.Balance, formatString: "{0:C}")
-                </fieldset>
-                <fieldset>
-                    <legend class="form__legend pull-left">
-                        Aktuelle Mitglieder der Gruppe
-                        <a class="btn btn-default pull-right" href="@Url.Action("InviteForm", new { userGroup = Model.UserGroupMembership.UserGroup.BusinessId })">
-                            <span class="icon icon-user-plus"></span>
-                            Nutzer einladen
-                        </a>
-                    </legend>
-                    <div class="container-content--full">
-                        @(
-                    Html.DisplayFor().GridFor(m => m.CurrentUserGroupMembers, true)
-                        .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
-                        .ColumnFor(m => m.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).DisplayFormat("{0:C}").OrderBy(s => s.Account.Balance)
-                        .ColumnFor(m => m.CreatedAt, "Mitglied seit").OrderBy()
-                        .ColumnFor(m => m.MembershipType, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_MembershipType).OrderBy()
-                        )
+                    <div class="form__col">
+                        @Html.Form().Checkbox(m => m.UserGroupMembershipUpdateCommand.UserGroupMembershipDto.AutoAcceptBills)
                     </div>
-                </fieldset>
-                if (Model.PendingMembers.Any()) {
-                    <fieldset>
-                        <legend class="form__legend pull-left">
-                            Mitgliedschafts-Anfragen
-                        </legend>
-                        <div class="container-content--full">
-                            @(
-                        Html.DisplayFor().GridFor(m => m.PendingMembers, true)
-                            .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
-                            .ColumnFor(m => m.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).DisplayFormat("{0:C}").OrderBy(s => s.Account.Balance)
-                            .ColumnFor(m => m.CreatedAt, "Mitglied seit").OrderBy()
-                            )
-                        </div>
-                    </fieldset>
+                    <div class="clearfix"></div>
+                    <p></p>
+                    <div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="icon icon-check"></span>
+                            @Resources_Web.common_btn_Submit
+                        </button>
+                    </div>
                 }
-
-                if (Model.FormerUserGroupMembers.Any()) {
-                    <fieldset>
-                        <legend class="form__legend pull-left">
-                            Ehemalige Mitglieder
-                        </legend>
-                        <div class="container-content--full">
-                            @(
-                        Html.DisplayFor().GridFor(m => m.FormerUserGroupMembers, true)
-                            .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
-                            .ColumnFor(m => m.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).DisplayFormat("{0:C}").OrderBy(s => s.Account.Balance)
-                            .ColumnFor(m => m.CreatedAt, "Mitglied seit").OrderBy()
-                            .ColumnFor(m => m, "Grund").Display("FormerMemberReason")
-                            )
-                        </div>
-                    </fieldset>
-                }
-            }
+            </fieldset>
         </div>
 
 

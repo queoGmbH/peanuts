@@ -19,9 +19,10 @@
     @Html.AntiForgeryToken()
     <input type="hidden" value="@initialParticipationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationUpdateCommand>(cmd => cmd.PeanutParticipationType))"/>
 }
-<div class="btn-group btn-group-sm">
+<div class="btn-group">
     <button type="submit" class="btn btn-warning" form="attend_as_invited_form_@memberShipId">
-        <span class="icon icon-pencil">als @initialParticipationType.DisplayName</span>
+        <span class="icon icon-pencil"></span>
+        als @initialParticipationType.DisplayName
     </button>
     <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
@@ -32,7 +33,7 @@
                 @using (Html.BeginForm("UpdateParticipation", "Peanut", new { peanut = Model.PeanutParticipation.Peanut.BusinessId, peanutParticipation = Model.PeanutParticipation.BusinessId }, FormMethod.Post)) {
                     @Html.AntiForgeryToken()
                     @Html.HttpMethodOverride(HttpVerbs.Put)
-                    <input type="hidden" value="@participationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationCreateCommand>(cmd => cmd.PeanutParticipationType))"/>
+                    <input type="hidden" value="@participationType.BusinessId" name="PeanutParticipationUpdateCommand.@(Objects.GetPropertyName<PeanutParticipationUpdateCommand>(cmd => cmd.PeanutParticipationType))"/>
                     <button class="btn btn-link" type="submit">Teilnehmen als @participationType.DisplayName</button>
                 }
             </li>
