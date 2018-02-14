@@ -47,6 +47,15 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         }
 
         /// <summary>
+        /// Ruft alle Mitgliedschafts-Typen ab. 
+        /// </summary>
+        public static UserGroupMembershipType[] AllTypes {
+            get {
+                return Enum.GetValues(typeof(UserGroupMembershipType)).Cast<UserGroupMembershipType>().ToArray();
+            }
+        }
+
+        /// <summary>
         ///     Ruft alle Mitgliedschafts-Typen ab, von denen ein Mitglied einer Gruppe eines haben muss, damit seine
         ///     Mitgliedschaft als inaktiv gilt.
         /// </summary>

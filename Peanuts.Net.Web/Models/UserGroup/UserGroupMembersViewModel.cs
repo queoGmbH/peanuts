@@ -7,7 +7,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
     ///     ViewModel für die Anzeige einer Gruppen-Mitgliedschaft.
     /// </summary>
     public class UserGroupMembersViewModel {
-        public UserGroupMembersViewModel(Core.Domain.Users.UserGroup userGroup, UserGroupMembership currentUsersMembershipInGroup, IList<UserGroupMembership> currentMembers, IList<UserGroupMembership> pendingMembers, IList<UserGroupMembership> formerMembers, UserGroupMembershipOptions userGroupMembershipOptions) {
+        public UserGroupMembersViewModel(Core.Domain.Users.UserGroup userGroup, UserGroupMembership currentUsersMembershipInGroup, IList<UserGroupMembership> currentMembers, IList<UserGroupMembership> requestingMembers, IList<UserGroupMembership> invitedMembers, IList<UserGroupMembership> formerMembers, UserGroupMembershipOptions userGroupMembershipOptions) {
             Require.NotNull(userGroup, "userGroup");
             Require.NotNull(currentMembers, "currentMembers");
             Require.NotNull(formerMembers, "formerMembers");
@@ -16,7 +16,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
             UserGroup = userGroup;
             CurrentUsersMembershipInGroup = currentUsersMembershipInGroup;
             CurrentUserGroupMembers = currentMembers;
-            PendingMembers = pendingMembers;
+            RequestingMembers = requestingMembers;
+            InvitedMembers = invitedMembers;
             FormerUserGroupMembers = formerMembers;
             UserGroupMembershipOptions = userGroupMembershipOptions;
         }
@@ -38,9 +39,16 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
         }
 
         /// <summary>
-        /// Ruft die Liste der schwebenden Mitgliedschaften ab.
+        /// Ruft die Liste der Nutzer ab, die eingeladenen wurden.
         /// </summary>
-        public IList<UserGroupMembership> PendingMembers {
+        public IList<UserGroupMembership> InvitedMembers {
+            get;
+        }
+
+        /// <summary>
+        /// Ruft die Liste der Nutzer ab, die eine Mitgliedschaft angefragt haben.
+        /// </summary>
+        public IList<UserGroupMembership> RequestingMembers {
             get;
         }
 

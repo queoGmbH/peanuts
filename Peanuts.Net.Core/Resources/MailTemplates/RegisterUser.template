@@ -2,11 +2,11 @@
 
 <p>Hallo {name},</p>
 
-<p>zur Bestätigung der Registrierung auf peanuts klicke bitte auf den nachfolgenden Link. 
-Sollte das nicht funktionieren, kopiere den gesamten Link und füge diesen in die Adressleiste des Browsers ein.
+<p>
+zur Bestätigung der Registrierung auf peanuts klicke bitte auf den nachfolgenden Link:
 </p>
 <p>
-{confirmationLink}
+<a href="{confirmationLink}">Registrierung bestätigen!</a>
 </p>
 <p>
 Solltest du dich nicht registriert haben, ignoriere diese E-Mail.

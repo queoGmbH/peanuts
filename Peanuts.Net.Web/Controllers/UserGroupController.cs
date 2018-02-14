@@ -147,7 +147,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             string allMembershipsUrl = Url.Action("AllMemberships", "UserGroup", null, Request.Url.Scheme);
             UserGroupService.Invite(userGroup, user, currentUser, allMembershipsUrl);
 
-            return RedirectToAction("AllMemberships");
+            return RedirectToAction("Members", new { userGroup = userGroup.BusinessId });
         }
 
         [HttpGet]
@@ -321,19 +321,22 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             UserGroupMembership currentUsersMembershipInGroup;
             AssertCurrentUserIsActiveMemberInGroup(userGroup, currentUser, out currentUsersMembershipInGroup);
             
-            IList<UserGroupMembership> members = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }, UserGroupMembership.ActiveTypes).ToList();
+            IList<UserGroupMembership> members = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }, UserGroupMembership.AllTypes).ToList();
 
             IList<UserGroupMembership> formerMembers =
                 members.Where(mem => mem.MembershipType == UserGroupMembershipType.Quit || !mem.User.IsActiveUser).ToList();
 
-            IList<UserGroupMembership> pendingMembers =
-                members.Where(mem => UserGroupMembership.PendingTypes.Contains(mem.MembershipType) && mem.User.IsActiveUser).ToList();
+            IList<UserGroupMembership> invitedMembers =
+                members.Where(mem => mem.MembershipType == UserGroupMembershipType.Invited && mem.User.IsActiveUser).ToList();
+
+            IList<UserGroupMembership> requestingMembers =
+                members.Where(mem => mem.MembershipType == UserGroupMembershipType.Request && mem.User.IsActiveUser).ToList();
 
             IList<UserGroupMembership> currentMembers =
                 members.Where(mem => UserGroupMembership.ActiveTypes.Contains(mem.MembershipType) && mem.User.IsActiveUser).ToList();
 
             UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForOtherUser(currentUsersMembershipInGroup, currentUsersMembershipInGroup);
-            UserGroupMembersViewModel userGroupMembershipDetailsViewModel = new UserGroupMembersViewModel(userGroup, currentUsersMembershipInGroup, currentMembers, pendingMembers, formerMembers, userGroupMembershipOptions);
+            UserGroupMembersViewModel userGroupMembershipDetailsViewModel = new UserGroupMembersViewModel(userGroup, currentUsersMembershipInGroup, currentMembers, requestingMembers, invitedMembers, formerMembers, userGroupMembershipOptions);
             return View("UserGroupMembers", userGroupMembershipDetailsViewModel);
         }
 

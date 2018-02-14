@@ -77,17 +77,31 @@
                           )
                 </div>
             </fieldset>
-            @if (Model.PendingMembers.Any()) {
+            @if (Model.InvitedMembers.Any()) {
+                <fieldset>
+                    <legend class="form__legend pull-left">
+                        Mitgliedschafts-Einladungen
+                    </legend>
+                    <div class="container-content--full">
+                        @(
+                    Html.DisplayFor().GridFor(m => m.InvitedMembers, true)
+                        .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
+                        .ColumnFor(m => m.CreatedAt, "Eingeladen am").OrderBy()
+                              )
+                    </div>
+                </fieldset>
+            }
+
+            @if (Model.RequestingMembers.Any()) {
                 <fieldset>
                     <legend class="form__legend pull-left">
                         Mitgliedschafts-Anfragen
                     </legend>
                     <div class="container-content--full">
                         @(
-                    Html.DisplayFor().GridFor(m => m.PendingMembers, true)
+                    Html.DisplayFor().GridFor(m => m.RequestingMembers, true)
                         .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
-                        .ColumnFor(m => m.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).DisplayFormat("{0:C}").OrderBy(s => s.Account.Balance)
-                        .ColumnFor(m => m.CreatedAt, "Mitglied seit").OrderBy()
+                        .ColumnFor(m => m.CreatedAt, "Angefragt am").OrderBy()
                               )
                     </div>
                 </fieldset>
