@@ -40,7 +40,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.IsTrue(() => userGroupMembership.MembershipType == UserGroupMembershipType.Invited, "userGroupMembership");
             Require.IsTrue(() => currentUser.Equals(userGroupMembership.User), "userGroupMembership");
 
-            UserGroupService.UpdateMembershipTypes(
+            UserGroupService.UpdateUsergroupMembershipTypes(
                 new Dictionary<UserGroupMembership, UserGroupMembershipType> { { userGroupMembership, UserGroupMembershipType.Member } },
                 currentUser);
 
@@ -59,7 +59,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.IsTrue(() => currentUsersMembership != null && currentUsersMembership.MembershipType == UserGroupMembershipType.Administrator,
                 "userGroupMembership");
 
-            UserGroupService.UpdateMembershipTypes(
+            UserGroupService.UpdateUsergroupMembershipTypes(
                 new Dictionary<UserGroupMembership, UserGroupMembershipType> { { userGroupMembership, UserGroupMembershipType.Member } },
                 currentUser);
             string urlToUserGroup = Url.Action("Membership",
@@ -70,7 +70,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             return RedirectToAction("AllMemberships");
         }
 
-        [Route("{userGroup}/Membership/Account")]
+        [Route("{userGroup}/MyMembership/Account")]
         public ActionResult Account(UserGroup userGroup, User currentUser, int pageNumber = 1, int pageSize = 25) {
             Require.NotNull(userGroup, "userGroup");
             UserGroupMembership currentUsersMembershipInGroup;
@@ -168,7 +168,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         }
 
         [Route("{userGroup:guid}/Membership/{userGroupMembership:guid}/Details")]
-        [Route("{userGroup:guid}/Membership/")]
+        [Route("{userGroup:guid}/MyMembership/")]
         public ActionResult MembershipDetails(UserGroup userGroup, UserGroupMembership userGroupMembership, User currentUser) {
             Require.NotNull(userGroup, "userGroup");
             UserGroupMembership currentUsersMembershipInGroup;
@@ -335,6 +335,28 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForOtherUser(currentUsersMembershipInGroup, currentUsersMembershipInGroup);
             UserGroupMembersViewModel userGroupMembershipDetailsViewModel = new UserGroupMembersViewModel(userGroup, currentUsersMembershipInGroup, currentMembers, pendingMembers, formerMembers, userGroupMembershipOptions);
             return View("UserGroupMembers", userGroupMembershipDetailsViewModel);
+        }
+
+        [Route("{userGroup:guid}/MyMembership/")]
+        [HttpPut]
+        public ActionResult UpdateMembership(UserGroup userGroup, User currentUser, UserGroupMembershipUpdateCommand userGroupMembershipUpdateCommand) {
+            Require.NotNull(userGroup, "userGroup");
+            Require.NotNull(userGroupMembershipUpdateCommand, "userGroupMembershipUpdateCommand");
+            UserGroupMembership currentUsersMembershipInGroup;
+            AssertCurrentUserIsActiveMemberInGroup(userGroup, currentUser, out currentUsersMembershipInGroup);
+
+            if (!ModelState.IsValid) {
+                UserGroupMembershipDetailsViewModel userGroupMembershipDetailsViewModel = new UserGroupMembershipDetailsViewModel(
+                    currentUsersMembershipInGroup,
+                    currentUsersMembershipInGroup,
+                    UserGroupMembershipOptions.ForCurrentUser(currentUsersMembershipInGroup));
+                return View(
+                    "UserGroupMembershipDetails",
+                    userGroupMembershipDetailsViewModel);
+            }
+
+            UserGroupService.UpdateUserGroupMembership(currentUsersMembershipInGroup, userGroupMembershipUpdateCommand.UserGroupMembershipDto, currentUser);
+            return RedirectToAction("MembershipDetails", new { userGroup = userGroup.BusinessId });
         }
     }
 }

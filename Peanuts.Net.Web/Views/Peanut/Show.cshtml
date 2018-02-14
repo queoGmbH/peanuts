@@ -37,17 +37,34 @@
     string GetPeanutParticipationStateModifierClass(PeanutParticipationState participationState) {
         switch (participationState) {
             case PeanutParticipationState.Confirmed: {
-                return "success";
+                    return "success";
+                }
+            case PeanutParticipationState.Requested: {
+                    return "warning";
+                }
+            case PeanutParticipationState.Refused: {
+                    return "danger";
+                }
+            case PeanutParticipationState.Pending:
+            default: {
+                    return "default";
+                }
+        }
+    }
+    string GetPeanutParticipationStateIconClass(PeanutParticipationState participationState) {
+        switch (participationState) {
+            case PeanutParticipationState.Confirmed: {
+                return "check-circle";
             }
             case PeanutParticipationState.Requested: {
-                return "warning";
+                return "question-circle";
             }
             case PeanutParticipationState.Refused: {
-                return "danger";
+                return "exclamation-circle";
             }
             case PeanutParticipationState.Pending:
             default: {
-                return "default";
+                return "clock-o";
             }
         }
     }
@@ -124,13 +141,13 @@
                 <table class="list peanut-participations-list">
                     @foreach (PeanutParticipation participation in Model.Peanut.Participations) {
                         <tr class="peanut-participations-list-item">
+                            <td class="peanut-participations-list-item__participation_state">
+                                <span class="text-@(GetPeanutParticipationStateModifierClass(participation.ParticipationState))">
+                                    <span class="icon icon-@(GetPeanutParticipationStateIconClass(participation.ParticipationState))" title="@(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutParticipationState), participation.ParticipationState.ToString()))"></span>
+                                </span>
+                            </td>
                             <td class="peanut-participations-list-item__name">
                                 @participation.UserGroupMembership.User.DisplayName
-                            </td>
-                            <td class="peanut-participations-list-item__participation_state">
-                                <div class="label label-@(GetPeanutParticipationStateModifierClass(participation.ParticipationState))">
-                                    @(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutParticipationState), participation.ParticipationState.ToString()))
-                                </div>
                             </td>
                             <td class="peanut-participations-list-item__participation_type">
                                 @if (Model.PeanutEditOptions.CanUpdatePeanut) {

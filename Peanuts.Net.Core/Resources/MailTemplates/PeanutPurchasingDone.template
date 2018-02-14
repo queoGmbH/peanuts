@@ -3,7 +3,7 @@
 Hallo {recipient.FirstName},
 </p>
 <p>
-Du nimmst als {participation.ParticipationType.DispayName} am Peanut <a href="{peanutUrl}" title="Peanut anzeigen">"{peanut.Name}"</a> teil.<br/>
+Du nimmst als {participationType} am Peanut <a href="{peanutUrl}" title="Peanut anzeigen">"{peanut.Name}"</a> teil.<br/>
 {editor.DisplayName} hat die Beschaffung abgeschlossen - du kannst also loslegen!
 </p>
 <p>
