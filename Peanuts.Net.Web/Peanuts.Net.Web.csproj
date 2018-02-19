@@ -392,6 +392,7 @@
     <Compile Include="Models\Peanut\PeanutEditOptions.cs" />
     <Compile Include="Models\Peanut\PeanutInvitationCreateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutInvitationsCreateCommand.cs" />
+    <Compile Include="Models\Peanut\PeanutIsFixedViewModel.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationCreateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationRejectedViewModel.cs" />
     <Compile Include="Models\Peanut\PeanutParticipationTypeSelectionModel.cs" />
@@ -570,6 +571,7 @@
     <Content Include="Views\UserGroup\DisplayTemplates\FormerMemberReason.cshtml" />
     <Content Include="Views\Peanut\MaximumParticipationsViolated.cshtml" />
     <Content Include="Views\UserGroup\UserGroupMembers.cshtml" />
+    <Content Include="Views\Peanut\PeanutIsFixed.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

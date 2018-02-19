@@ -1,19 +1,17 @@
 ﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
-@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutParticipationRejectedViewModel
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutIsFixedViewModel
 
 @{
-    ViewBag.Title = "Einladen nicht möglich";
+    ViewBag.Title = "Planung für Peanut bereits abgeschlossen";
     Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
 }
 
 <div class="row">
     <div class="col-xs-12">
-        Du kannst niemanden einladen, da @Model.Peanut.Name geschlossen oder durchgeführt ist.
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12">
+        <p>
+        Die Planung für den Peanut @Model.Peanut.Name ist bereits abgeschlossen.
+        </p>
+        <hr/>
         <a href="@Url.Action("Index")" class="btn btn-default">
             <span>@Resources_Web.btn_Cancel</span>
         </a>

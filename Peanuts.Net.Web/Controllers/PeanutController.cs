@@ -59,7 +59,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         public ActionResult Attend(Peanut peanut, User currentUser, PeanutParticipationCreateCommand peanutParticipationCreateCommand) {
             Require.NotNull(peanut, "peanut");
             Require.NotNull(currentUser, "currentUser");
-            Require.IsFalse(() => peanut.IsFixed, "peanut");
+            
             
             UserGroupMembership userGroupMembership = UserGroupService.FindMembershipByUserAndGroup(currentUser, peanut.UserGroup);
             Require.NotNull(userGroupMembership, "userGroupMembership");
@@ -74,6 +74,10 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             if (!UserGroupService.IsUserSolvent(userGroupMembership)) {
                 return View("NotSolvent",
                     new PeanutParticipationRejectedViewModel(peanut));
+            }
+
+            if (peanut.IsFixed) {
+                return View("PeanutIsFixed", new PeanutIsFixedViewModel(peanut));
             }
 
             if (IsMaximumParticipationsViolated(peanut, peanutParticipationDtos)) {
@@ -112,7 +116,10 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         public ActionResult AttendForm(Peanut peanut, User currentUser) {
             Require.NotNull(peanut, "peanut");
             Require.NotNull(currentUser, "currentUser");
-            Require.IsFalse(() => peanut.IsFixed, "peanut");
+
+            if (peanut.IsFixed) {
+                return View("PeanutIsFixed", new PeanutIsFixedViewModel(peanut));
+            }
 
             IList<PeanutParticipationType> peanutParticipationTypes = PeanutParticipationTypeService.FindForGroup(peanut.UserGroup);
             return View("CreateParticipation", new PeanutParticipationCreateFormViewModel(peanut, peanutParticipationTypes.ToList()));
@@ -252,15 +259,6 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             return View("Index", new PeanutsIndexViewModel(year, month, peanutParticipationsByDate, attendablePeanutsByDate));
         }
 
-        //[Route("GetParticipationTypes/{userGroup:guid}")]
-        //public ActionResult GetParticipationTypes(UserGroup userGroup)
-        //{
-        //    var peanutParticipationTypes = PeanutParticipationTypeService.Find(userGroup);
-        //    PeanutParticipationTypeSelectionModel participationTypeSelectionModel = new PeanutParticipationTypeSelectionModel();
-        //    participationTypeSelectionModel.SelectableParticipationTypes = peanutParticipationTypes;
-        //    return PartialView("EditorTemplates/ParticipationType", participationTypeSelectionModel);
-        //}
-
         [HttpPost]
         [Route("{peanut:guid}/Invitation")]
         [ValidateAntiForgeryToken]
@@ -270,7 +268,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             Require.NotNull(currentUser, "currentUser");
 
             if (peanut.IsFixed) {
-                return View("CanNotInvite",new PeanutParticipationRejectedViewModel(peanut));
+                return View("CanNotInvite", new PeanutParticipationRejectedViewModel(peanut));
             }
 
             string peanutUrl = Url.Action("Show", "Peanut", new { peanut = peanut.BusinessId }, Request.Url.Scheme);
