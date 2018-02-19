@@ -1,6 +1,6 @@
 This distribution contains third-party software subject to various licenses:
 
-Java Runtime Environment 8.31 (jre/*)
+Java Runtime Environment 8.152 (jre/*)
 -------------------------------------
 Source: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
@@ -77,8 +77,8 @@ Last updated 02 April 2013
 
 
 
-Derby 10.11.1.1 (drivers/derby-10.11.1.1.jar)
-Derby Client 10.11.1.1 (drivers/derbyclient-10.11.1.1.jar)
+Derby 10.12.1.1 (drivers/derby-10.12.1.1.jar)
+Derby Client 10.12.1.1 (drivers/derbyclient-10.12.1.1.jar)
 ----------------------------------------------------------
 Source: http://db.apache.org/derby/
 
@@ -99,7 +99,7 @@ Copyright 2004-2014 The Apache Software Foundation
 
 
 
-H2 1.3.170 (drivers/h2-1.3.170.jar)
+H2 1.4.196 (drivers/h2-1.4.196.jar)
 -----------------------------------
 Source: http://www.h2database.com/
 
@@ -112,7 +112,7 @@ An original copy of the license agreement can be found at: http://www.h2database
 
 
 
-HSQLDB 2.3.2 (drivers/hsqldb-2.3.2.jar)
+HSQLDB 2.4.0 (drivers/hsqldb-2.4.0.jar)
 ---------------------------------------
 Source: http://hsqldb.org/
 
@@ -1167,7 +1167,7 @@ DAMAGES.
 
 
 
-MariaDB Java Client 1.1.7 (drivers/mariadb-java-client-1.1.7.jar)
+MariaDB Java Client 2.2.0 (drivers/mariadb-java-client-2.2.0.jar)
 -----------------------------------------------------------------
 Source: https://mariadb.com/kb/en/mariadb/client-libraries/mariadb-java-client/
 
@@ -1723,7 +1723,8 @@ That's all there is to it!
 
 
 
-PostgreSQL JDBC Driver 9.3-1102-jdbc4 (drivers/postgresql-9.3-1102-jdbc4.jar)
+
+PostgreSQL JDBC Driver 42.1.4.jre6 (drivers/postgresql-42.1.4.jre6.jar)
 -----------------------------------------------------------------------------
 Source: https://github.com/pgjdbc/pgjdbc
 
@@ -1757,7 +1758,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 
 
-SQLite JDBC Driver 3.7.15-M1 (drivers/sqlite-jdbc-3.7.15-M1.jar)
+SQLite JDBC Driver 3.20.1 (drivers/sqlite-jdbc-3.20.1.jar)
 ----------------------------------------------------------------
 Source: https://bitbucket.org/xerial/sqlite-jdbc
 
@@ -1798,3 +1799,24 @@ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
+
+
+
+Microsoft SQL Server JDBC Driver 6.2.2.jre7 (drivers/mssql-jdbc-6.2.2.jre7.jar)
+-----------------------------------------------------------------------------
+Source: https://github.com/Microsoft/mssql-jdbc
+
+Copyright(c) 2017 Microsoft Corporation
+All rights reserved.
+
+MIT License
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the "Software"),
+to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and / or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions :
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
