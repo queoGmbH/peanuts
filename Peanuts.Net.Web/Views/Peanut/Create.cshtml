@@ -32,6 +32,7 @@
         @Html.Form().TextArea(m => m.PeanutCreateCommand.PeanutDto.Description)
         @Html.Form().Date(m => m.PeanutCreateCommand.PeanutDto.Day)
         @Html.Form().Number(m => m.PeanutCreateCommand.PeanutDto.MaximumParticipations, "keine Begrenzung")
+        @Html.Form().TextArea(m => m.PeanutCreateCommand.PeanutDto.ExternalLinks)
     </fieldset>
 
     <fieldset>

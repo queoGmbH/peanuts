@@ -288,6 +288,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        BusinessId UNIQUEIDENTIFIER not null unique,
        Name NVARCHAR(255) not null,
        Description NVARCHAR(4000) null,
+       ExternalLinks NVARCHAR(4000) null,
        Day date not null,
        MaximumParticipations INT null,
        PeanutState NVARCHAR(255) not null,
@@ -632,6 +633,20 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
         references tblAccount
 
     alter table tblUserRoles 
+        add constraint FK_ROLE_TO_USER 
+        foreign key (User_Id) 
+        references tblUser
+
+    alter table tblUserDocument 
+        add constraint FK_USER_DOCUMENT 
+        foreign key (Document_Id) 
+        references tblDocument
+
+    alter table tblUserDocument 
+        add constraint FK_USER_WITH_DOCUMENTS 
+        foreign key (User_Id) 
+        references tblUser
+er table tblUserRoles 
         add constraint FK_ROLE_TO_USER 
         foreign key (User_Id) 
         references tblUser

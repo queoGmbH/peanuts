@@ -959,6 +959,15 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Links ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_ExternalLinks {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_ExternalLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Planung abgeschlossen ähnelt.
         /// </summary>
         public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_IsFixed {

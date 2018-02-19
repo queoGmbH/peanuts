@@ -4,7 +4,12 @@
     <label class="control-label">@Model.Label</label>
     <div class="control-value">
         <div class="form-control form-control--static">
-            @Model.Value
+            @if (!string.IsNullOrWhiteSpace(Model.StaticTemplate)) {
+                @Html.Partial(Model.StaticTemplate, Model.Value)
+            } else {
+                @Model.Value
+            }
+
         </div>
     </div>
 </div>

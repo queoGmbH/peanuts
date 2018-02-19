@@ -43,6 +43,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         private readonly IList<PeanutComment> _comments = new List<PeanutComment>();
         private DateTime _day;
         private string _description;
+        private string _externalLinks;
 
         private IList<Document> _documents = new List<Document>();
         private string _name;
@@ -63,6 +64,14 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
             Update(requirements);
             _createdBy = entityCreatedDto.CreatedBy;
             _createdAt = entityCreatedDto.CreatedAt;
+        }
+
+        /// <summary>
+        /// Ruft durch Leerzeichen oder Zeilenumbruch getrennte Links ab, die evtl. weitere Informationen zum Peanut enthalten. 
+        /// Bsp. können zum Beispiel Links zu Rezepten in Kochportalen, Links zu Veranstaltungen oder ähnlichem sein.
+        /// </summary>
+        public virtual string ExternalLinks {
+            get { return _externalLinks; }
         }
 
         public Peanut(UserGroup userGroup, PeanutDto peanutDto, IList<RequirementDto> requirements,
@@ -319,7 +328,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         }
 
         public virtual PeanutDto GetDto() {
-            return new PeanutDto(_name, _description, _day, _maximumParticipations);
+            return new PeanutDto(_name, _description, _day, _maximumParticipations, _externalLinks);
         }
 
         /// <summary>
@@ -375,6 +384,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
             _day = peanutDto.Day;
             _description = peanutDto.Description;
             _maximumParticipations = peanutDto.MaximumParticipations;
+            _externalLinks = peanutDto.ExternalLinks;
         }
 
         private void Update(EntityChangedDto entityChanged) {

@@ -420,9 +420,10 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Helper {
         /// <param name="placeholder">Der Wert der angezeigt wird, wenn der Wert null ist.</param>
         /// <param name="label"></param>
         /// <param name="formatString">Optionale Angabe zur Formatierung des Inhaltes.</param>
+        /// <param name="staticTemplate">Optionaler Name für das Template zur Darstellung des Werts.</param>
         /// <returns></returns>
         public MvcHtmlString Static<TProperty>(Expression<Func<TModel, TProperty>> expression, string label = null,
-            string placeholder = null, string formatString = null) {
+            string placeholder = null, string formatString = null, string staticTemplate = null) {
             ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expression, Helper.ViewData);
 
             if (modelMetadata.PropertyName != "DisplayName") {
@@ -454,7 +455,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Helper {
                 value = placeholder;
             }
 
-            StaticControlModel model = new StaticControlModel(Helper, label, value);
+            StaticControlModel model = new StaticControlModel(Helper, label, value, staticTemplate);
             return Helper.Partial("EditorTemplates/Forms/Static", model);
         }
 

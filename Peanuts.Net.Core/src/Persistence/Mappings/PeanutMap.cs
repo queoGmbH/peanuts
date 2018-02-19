@@ -8,6 +8,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
             /*Allgemeine Informationen*/
             Map(user => user.Name).Not.Nullable().Length(255);
             Map(user => user.Description).Nullable().Length(4000);
+            Map(user => user.ExternalLinks).Nullable().Length(4000);
             Map(user => user.Day).Not.Nullable().CustomSqlType("date");
             Map(user => user.MaximumParticipations).Nullable();
             References(peanut => peanut.UserGroup).Not.Nullable().ForeignKey("FK_PEANUT_USERGROUP");

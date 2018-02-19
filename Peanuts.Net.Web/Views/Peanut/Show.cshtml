@@ -82,6 +82,9 @@
                 @Html.Form().Static(m => m.Peanut.UserGroup.DisplayName)
                 @Html.Form().Static(m => m.Peanut.Day, formatString: "{0:d}")
                 @Html.Form().Static(m => m.Peanut.MaximumParticipations)
+                @if (!string.IsNullOrWhiteSpace(Model.Peanut.ExternalLinks)) {
+                    @Html.Form().Static(m => m.Peanut.ExternalLinks, staticTemplate: "DisplayTemplates/LinkListFromString")
+                }
             </div>
             <div class="form__col">
                 @Html.Form().Static(m => m.Peanut.Description)

@@ -572,6 +572,7 @@
     <Content Include="Views\Peanut\MaximumParticipationsViolated.cshtml" />
     <Content Include="Views\UserGroup\UserGroupMembers.cshtml" />
     <Content Include="Views\Peanut\PeanutIsFixed.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\LinkListFromString.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
