@@ -549,7 +549,11 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         /// </summary>
         /// <param name="version"></param>
         public virtual void HasReadNewsOfVersion(Version version) {
-            _latestReadVersionNews = version;
+            if (version != null) {
+                _latestReadVersionNews = version;
+            } else {
+                _latestReadVersionNews = null;
+            }
         }
 
         private void Update(UserPaymentDto paymentDto) {

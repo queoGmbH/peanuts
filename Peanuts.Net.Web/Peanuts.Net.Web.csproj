@@ -342,6 +342,7 @@
     <Compile Include="Helper\MvcSecurityExtension.cs" />
     <Compile Include="Helper\TemporaryTextWriter.cs" />
     <Compile Include="Helper\UrlColumn.cs" />
+    <Compile Include="Helper\VersionHelper.cs" />
     <Compile Include="Infrastructure\ErrorHandling\HandleArgumentNullExceptionAttribute.cs" />
     <Compile Include="Infrastructure\ErrorHandling\HttpExceptionFilterAttribute.cs" />
     <Compile Include="Infrastructure\ErrorHandling\ModelStateErrorActionFilter.cs" />

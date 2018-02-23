@@ -238,6 +238,7 @@
     <Compile Include="src\Persistence\Mappings\RecipientBookingEntryMap.cs" />
     <Compile Include="src\Persistence\Mappings\SenderBookingEntryMap.cs" />
     <Compile Include="src\Persistence\Mappings\UserGroupMembershipMap.cs" />
+    <Compile Include="src\Persistence\NHibernate\UserTypes\VersionUserType.cs" />
     <Compile Include="src\Persistence\PaymentDao.cs" />
     <Compile Include="src\Persistence\PeanutDao.cs" />
     <Compile Include="src\Persistence\PeanutParticipationDao.cs" />

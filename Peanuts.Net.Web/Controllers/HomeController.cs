@@ -11,6 +11,7 @@ using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Security;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 using Com.QueoFlow.Peanuts.Net.Core.Resources;
 using Com.QueoFlow.Peanuts.Net.Core.Service;
+using Com.QueoFlow.Peanuts.Net.Web.Helper;
 using Com.QueoFlow.Peanuts.Net.Web.Infrastructure.Security;
 using Com.QueoFlow.Peanuts.Net.Web.Models.Bill;
 using Com.QueoFlow.Peanuts.Net.Web.Models.Home;
@@ -69,7 +70,16 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         }
 
         private static bool GetShowCurrentVersionNews(User currentUser) {
-            return true;
+
+            if (currentUser.LatestReadVersionNews == null) {
+                return true;
+            }
+
+            if (currentUser.LatestReadVersionNews < VersionHelper.GetCurrentApplicationVersion()) {
+                return true;
+            }
+
+            return false;
         }
 
         public ActionResult MenuContentPartial() {

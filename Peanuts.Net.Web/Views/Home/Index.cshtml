@@ -52,6 +52,18 @@
             <div class="news-item__content">
                 @Html.Action("CurrentVersionNews", "VersionNews")
             </div>
+            <div class="news-item__icon--close">
+                <div id="update_version_news_hidden" class="hidden"></div>
+                @{
+                    AjaxOptions closeCurrentVersionNewsAjaxOptions = new AjaxOptions { HttpMethod = "Post", OnSuccess = "alert('Okay');$(this).closest('.news-item').remove();", UpdateTargetId = "update_version_news_hidden", InsertionMode = InsertionMode.Replace };
+                }
+                @using (Ajax.BeginForm("UserHasReadCurrentVersionNews", "VersionNews", closeCurrentVersionNewsAjaxOptions)) {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-link">
+                        <span class="icon icon-close"></span>
+                    </button>
+                }
+            </div>
         </div>
     }
 </div>
