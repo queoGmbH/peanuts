@@ -62,7 +62,14 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                    List<Bill> unsettledBills =
                     BillService.FindCreditorBillsForUser(PageRequest.All, currentUser, false).ToList();
              unsettledBills.AddRange(BillService.FindDebitorBillsForUser(PageRequest.All, currentUser, false).ToList());
-            return View("Index", new IndexViewModel(peanutParticipations, memberships, unsettledBills, declinedBills, pendingPayments, declinedPayments, currentUser.DisplayName));
+
+
+
+            return View("Index", new IndexViewModel(peanutParticipations, memberships, unsettledBills, declinedBills, pendingPayments, declinedPayments, currentUser.DisplayName, GetShowCurrentVersionNews(currentUser)));
+        }
+
+        private static bool GetShowCurrentVersionNews(User currentUser) {
+            return true;
         }
 
         public ActionResult MenuContentPartial() {

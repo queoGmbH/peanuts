@@ -327,6 +327,7 @@
     <Compile Include="Controllers\PayPalPaymentCommand.cs" />
     <Compile Include="Controllers\PeanutController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Controllers\VersionNewsController.cs" />
     <Compile Include="Helper\Grid.cs" />
     <Compile Include="Helper\GridColumn.cs" />
     <Compile Include="Helper\GridExtension.cs" />
@@ -573,6 +574,8 @@
     <Content Include="Views\UserGroup\UserGroupMembers.cshtml" />
     <Content Include="Views\Peanut\PeanutIsFixed.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\LinkListFromString.cshtml" />
+    <Content Include="Views\VersionNews\Index.cshtml" />
+    <Content Include="Views\VersionNews\Version_1_1_0.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

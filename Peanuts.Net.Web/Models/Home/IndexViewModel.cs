@@ -7,7 +7,7 @@ using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 
 namespace Com.QueoFlow.Peanuts.Net.Web.Models.Home {
     public class IndexViewModel {
-        public IndexViewModel(IPage<PeanutParticipation> todaysPeanuts, IPage<UserGroupMembership> memberships, IList<Core.Domain.Accounting.Bill> pendingBills, IPage<Core.Domain.Accounting.Bill> declinedBills, IPage<Core.Domain.Accounting.Payment> pendingPayments, IPage<Core.Domain.Accounting.Payment> declinedPayments, string userName) {
+        public IndexViewModel(IPage<PeanutParticipation> todaysPeanuts, IPage<UserGroupMembership> memberships, IList<Core.Domain.Accounting.Bill> pendingBills, IPage<Core.Domain.Accounting.Bill> declinedBills, IPage<Core.Domain.Accounting.Payment> pendingPayments, IPage<Core.Domain.Accounting.Payment> declinedPayments, string userName, bool showCurrentVersionNews) {
             Require.NotNull(memberships, "memberships");
             Require.NotNull(pendingPayments, "pendingPayments");
             Require.NotNull(todaysPeanuts, "todaysPeanuts");
@@ -22,6 +22,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Home {
             DeclinedPayments = declinedPayments;
             DeclinedBills = declinedBills;
             UserName = userName;
+            ShowCurrentVersionNews = showCurrentVersionNews;
         }
 
         public IPage<Core.Domain.Accounting.Bill> DeclinedBills { get; set; }
@@ -55,5 +56,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Home {
         /// Liefert den Namen des Benutzers
         /// </summary>
         public string UserName { get; private set; }
+
+        public bool ShowCurrentVersionNews { get; private set; }
     }
 }

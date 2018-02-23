@@ -42,11 +42,22 @@
     </p>
 </div>
 
+<div class="news-list">
+    @if (Model.ShowCurrentVersionNews) {
+        <div class="news-item news-item--info">
+            <div class="news-item__icon">
+                <span class="icon icon-info-circle"></span>
+            </div>
+            <div class="news-item__title">Version 1.1.0 mit neuen Features</div>
+            <div class="news-item__content">
+                @Html.Action("CurrentVersionNews", "VersionNews")
+            </div>
+        </div>
+    }
+</div>
+
 @if (Model.Memberships.Any()) {
-
-
     foreach (UserGroupMembership userGroupMembership in Model.Memberships) {
-
         if (userGroupMembership.Account.Balance > 50) {
             <div class="alert alert-info">
                 Dein Konto in der Gruppe <a href="@Url.Action("Membership", "UserGroup", new {userGroup = userGroupMembership.UserGroup.BusinessId, userGroupMembership = userGroupMembership.BusinessId})">@(userGroupMembership.UserGroup.DisplayName)</a> steht inzwischen bei @(string.Format("{0:C}", userGroupMembership.Account.Balance)).
@@ -57,7 +68,6 @@
                 Dein Konto in der Gruppe <a href="@Url.Action("Membership", "UserGroup", new {userGroup = userGroupMembership.UserGroup.BusinessId, userGroupMembership = userGroupMembership.BusinessId})">@(userGroupMembership.UserGroup.DisplayName)</a> steht inzwischen bei @(string.Format("{0:C}", userGroupMembership.Account.Balance)).
             </div>
         }
-
     }
 
 
