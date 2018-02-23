@@ -442,6 +442,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        NotifyMeAsCreditorOnSettleableBills BIT default 1  not null,
        NotifyMeOnPeanutInvitation BIT default 1  not null,
        SendMeWeeklySummaryAndForecast BIT default 1  not null,
+       LatestReadVersionNews nvarchar(30) null,
        IsDeleted BIT default 0  not null,
        IsEnabled BIT not null,
        Birthday date null,
@@ -646,8 +647,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
         add constraint FK_USER_WITH_DOCUMENTS 
         foreign key (User_Id) 
         references tblUser
-er table tblUserRoles 
-        add constraint FK_ROLE_TO_USER 
+K_ROLE_TO_USER 
         foreign key (User_Id) 
         references tblUser
 

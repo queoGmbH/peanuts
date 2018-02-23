@@ -371,6 +371,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Database\DBScripts\V1.1.0.0.01__ParticipationTypeByUserGroup.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.05__User_LatestReadVersionInfo.sql" />
     <Content Include="Database\DBScripts\V1.1.0.0.04__Peanut_ExternalLinks.sql" />
     <Content Include="Database\DBScripts\V1.1.0.0.03__AutoAcceptBills.sql" />
     <Content Include="Database\DBScripts\V1.1.0.0.02__MaximumParticipations.sql" />

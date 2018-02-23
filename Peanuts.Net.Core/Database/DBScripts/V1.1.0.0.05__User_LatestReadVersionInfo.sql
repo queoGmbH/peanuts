@@ -1,0 +1,1 @@
+﻿alter table tblUser add LatestReadVersionNews nvarchar(30) null;

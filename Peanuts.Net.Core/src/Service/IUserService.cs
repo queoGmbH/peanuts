@@ -191,5 +191,14 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// </summary>
         /// <returns></returns>
         IList<User> FindAllAdmins();
+
+        /// <summary>
+        /// Setzt an einem Nutzer die Version, deren Neuigkeiten dieser als gelesen markiert hat.
+        /// 
+        /// Wenn der Nutzer bereits die Neuigkeiten einer aktuelleren Version als gelesen markiert hat, wird die Anfrage ignoriert.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="version"></param>
+        void UpdateUserHasReadNewsOfVersion(User user, Version version);
     }
 }
