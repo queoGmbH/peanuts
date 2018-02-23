@@ -43,6 +43,9 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
             Map(user => user.NotifyMeOnPeanutInvitation).Not.Nullable().Default("1");
             Map(user => user.SendMeWeeklySummaryAndForecast).Not.Nullable().Default("1");
 
+            /*Versionsinformationen*/
+            Map(user => user.LatestReadVersionNews).Nullable().CustomSqlType("nvarchar(30)");
+
 
             /*Administrative Informationen*/
             Map(user => user.IsDeleted).Not.Nullable().Default("0");
