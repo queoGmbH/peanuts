@@ -269,10 +269,10 @@
                     @if (peanutsThisDay.Any(p => p.Peanut.IsFixed && (p.ParticipationType.IsCreditor || p.ParticipationType.IsProducer))) {
                         <div>
                             @if (peanutsThisDay.Any(p => p.Peanut.IsFixed && p.ParticipationType.IsCreditor)) {
-                                <span class="icon icon-shopping-cart" title="Ich muss für einen Peanut Sachen einkaufen."></span>
+                                <span class="icon icon-peanut-creditor" title="Ich muss für einen Peanut Sachen einkaufen."></span>
                             }
                             @if (peanutsThisDay.Any(p => p.Peanut.IsFixed && p.ParticipationType.IsProducer)) {
-                                <span class="icon icon-legal" title="Ich bin für die Herstellung bzw. Vorbereitung eines Peanut verantwortlich."></span>
+                                <span class="icon icon-peanut-producer" title="Ich bin für die Herstellung bzw. Vorbereitung eines Peanut verantwortlich."></span>
                             }
                         </div>
                     }
