@@ -44,7 +44,7 @@
 
 <div class="news-list">
     @if (Model.ShowCurrentVersionNews) {
-        <div class="news-item news-item--info">
+        <div class="news-item news-item--info" id="update_version_news_hidden">
             <div class="news-item__icon">
                 <span class="icon icon-info-circle"></span>
             </div>
@@ -53,13 +53,12 @@
                 @Html.Action("CurrentVersionNews", "VersionNews")
             </div>
             <div class="news-item__icon--close">
-                <div id="update_version_news_hidden" class="hidden"></div>
                 @{
-                    AjaxOptions closeCurrentVersionNewsAjaxOptions = new AjaxOptions { HttpMethod = "Post", OnSuccess = "alert('Okay');$(this).closest('.news-item').remove();", UpdateTargetId = "update_version_news_hidden", InsertionMode = InsertionMode.Replace };
+                    AjaxOptions closeCurrentVersionNewsAjaxOptions = new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "update_version_news_hidden", InsertionMode = InsertionMode.ReplaceWith };
                 }
                 @using (Ajax.BeginForm("UserHasReadCurrentVersionNews", "VersionNews", closeCurrentVersionNewsAjaxOptions)) {
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-link">
+                    <button type="submit" class="btn btn-link js-accept" >
                         <span class="icon icon-close"></span>
                     </button>
                 }
