@@ -38,7 +38,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
             return HibernateTemplate.Execute(finder);
         }
 
-        public IPage<Bill> FindDebitorBillsForUser(IPageable pageRequest, User user, bool? isSettled) {
+        public IPage<Bill> FindBillsWhereUserIsDebitor(IPageable pageRequest, User user, bool? isSettled) {
             HibernateDelegate<IPage<Bill>> finder = delegate(ISession session) {
                 Require.NotNull(pageRequest, "pageRequest");
                 Require.NotNull(user, "user");
@@ -64,7 +64,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
             return HibernateTemplate.Execute(finder);
         }
 
-        public IPage<Bill> FindDeclinedCreditorBillsByUser(PageRequest pageRequest, User user) {
+        public IPage<Bill> FindRefusedBillsWhereUserIsCreditor(PageRequest pageRequest, User user) {
             Require.NotNull(pageRequest, "pageRequest");
             Require.NotNull(user, "user");
 

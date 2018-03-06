@@ -164,9 +164,9 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             IPage<PeanutParticipation> peanutParticipations =
                 PeanutService.FindParticipationsOfUser(PageRequest.All, currentUser, DateTime.Today, DateTime.Today);
 
-            IPage<Bill> declinedBills = BillService.FindDeclinedCreditorBillsByUser(PageRequest.All, currentUser);
+            IPage<Bill> declinedBills = BillService.FindRefusedBillsWhereUserIsCreditor(PageRequest.All, currentUser);
             List<Bill> unsettledBills = BillService.FindCreditorBillsForUser(PageRequest.All, currentUser, false).ToList();
-            unsettledBills.AddRange(BillService.FindDebitorBillsForUser(PageRequest.All, currentUser, false).ToList());
+            unsettledBills.AddRange(BillService.FindBillsWhereUserIsDebitor(PageRequest.All, currentUser, false).ToList());
             DashboardInfos dashboardInfos = new DashboardInfos(
                 peanutParticipations,
                 memberships,

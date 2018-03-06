@@ -85,7 +85,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
                 });
 
             /* When: searching for declinded bills */
-            IPage<Bill> foundBills = BillDao.FindDeclinedCreditorBillsByUser(PageRequest.All, creditor);
+            IPage<Bill> foundBills = BillDao.FindRefusedBillsWhereUserIsCreditor(PageRequest.All, creditor);
 
             /* Then: the bill must not be found */
             foundBills.Should().NotContain(bill);
@@ -114,7 +114,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
             BillDao.Flush();
 
             /* When: searching for declinded bills */
-            IPage<Bill> foundBills = BillDao.FindDeclinedCreditorBillsByUser(PageRequest.All, creditor);
+            IPage<Bill> foundBills = BillDao.FindRefusedBillsWhereUserIsCreditor(PageRequest.All, creditor);
 
             /* Then: the bill must not be found */
             foundBills.Should().NotContain(bill);
@@ -136,7 +136,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
             BillDao.Flush();
 
             /* When: searching for declinded bills */
-            IPage<Bill> foundBills = BillDao.FindDeclinedCreditorBillsByUser(PageRequest.All, creditor);
+            IPage<Bill> foundBills = BillDao.FindRefusedBillsWhereUserIsCreditor(PageRequest.All, creditor);
 
             /* Then: the bill must be found */
             foundBills.Should().Contain(refusedBill);

@@ -173,7 +173,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
         [Route("In")]
         public ActionResult In(User currentUser) {
-            IPage<Bill> debitorBills = BillService.FindDebitorBillsForUser(PageRequest.All, currentUser, true);
+            IPage<Bill> debitorBills = BillService.FindBillsWhereUserIsDebitor(PageRequest.All, currentUser, true);
             IPage<DebitorBillViewModel> debitorBillViewModels =
                     new Page<DebitorBillViewModel>(debitorBills.Select(b => new DebitorBillViewModel(b, currentUser)).ToList(),
                         new PageRequest(debitorBills.PageNumber, debitorBills.Size),
@@ -190,7 +190,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                             .Select(b => new CreditorBillViewModel(b, currentUser))
                             .ToList();
             IList<DebitorBillViewModel> unsettledDebitorBills =
-                    BillService.FindDebitorBillsForUser(PageRequest.All, currentUser, false)
+                    BillService.FindBillsWhereUserIsDebitor(PageRequest.All, currentUser, false)
                             .Select(b => new DebitorBillViewModel(b, currentUser))
                             .ToList();
 
@@ -200,7 +200,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [Route("")]
         public ActionResult Index(User currentUser) {
             IPage<Bill> unsettledCreditorBills = BillService.FindCreditorBillsForUser(PageRequest.All, currentUser, false);
-            IPage<Bill> unsettledDebitorBills = BillService.FindDebitorBillsForUser(PageRequest.All, currentUser, false);
+            IPage<Bill> unsettledDebitorBills = BillService.FindBillsWhereUserIsDebitor(PageRequest.All, currentUser, false);
 
             if (unsettledDebitorBills.TotalElements > 0) {
                 /*Es gibt Rechnungen, die ich noch bezahlen muss => zeigen*/
@@ -217,7 +217,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [Route("Out")]
         public ActionResult Out(User currentUser) {
             /*Rechnungen die ich schon bezahlt habe*/
-            IPage<Bill> debitorBills = BillService.FindDebitorBillsForUser(PageRequest.First, currentUser, true);
+            IPage<Bill> debitorBills = BillService.FindBillsWhereUserIsDebitor(PageRequest.First, currentUser, true);
             IPage<DebitorBillViewModel> debitorBillViewModels =
                     new Page<DebitorBillViewModel>(debitorBills.Select(b => new DebitorBillViewModel(b, currentUser)).ToList(),
                         PageRequest.First,
@@ -236,7 +236,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
             /*Rechnungen die ich noch bezahlen muss*/
             IList<DebitorBillViewModel> unsettledDebitorBills =
-                    BillService.FindDebitorBillsForUser(PageRequest.All, currentUser, false)
+                    BillService.FindBillsWhereUserIsDebitor(PageRequest.All, currentUser, false)
                             .Select(b => new DebitorBillViewModel(b, currentUser))
                             .ToList();
 

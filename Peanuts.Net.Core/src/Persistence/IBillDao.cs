@@ -23,7 +23,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
         ///     null => Ob die Rechnung <see cref="Bill.IsSettled">abgerechnet ist</see> spielt keine Rolle.
         /// </param>
         /// <returns></returns>
-        IPage<Bill> FindDebitorBillsForUser(IPageable pageRequest, User user, bool? isSettled);
+        IPage<Bill> FindBillsWhereUserIsDebitor(IPageable pageRequest, User user, bool? isSettled);
 
         /// <summary>
         /// Ruft die Ausgangsrechnungen eines Nutzers ab.
@@ -54,7 +54,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
         /// <param name="pageRequest"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        IPage<Bill> FindDeclinedCreditorBillsByUser(PageRequest pageRequest, User user);
+        IPage<Bill> FindRefusedBillsWhereUserIsCreditor(PageRequest pageRequest, User user);
 
         /// <summary>
         /// Sucht nach allen offenen Rechnungen

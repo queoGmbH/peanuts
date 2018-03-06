@@ -186,12 +186,12 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         ///     null => Ob die Rechnung <see cref="Bill.IsSettled">abgerechnet ist</see> spielt keine Rolle.
         /// </param>
         /// <returns></returns>
-        public IPage<Bill> FindDebitorBillsForUser(IPageable pageRequest, User user, bool? isSettled) {
-            return BillDao.FindDebitorBillsForUser(pageRequest, user, isSettled);
+        public IPage<Bill> FindBillsWhereUserIsDebitor(IPageable pageRequest, User user, bool? isSettled) {
+            return BillDao.FindBillsWhereUserIsDebitor(pageRequest, user, isSettled);
         }
 
-        public IPage<Bill> FindDeclinedCreditorBillsByUser(PageRequest pageRequest, User user) {
-            return BillDao.FindDeclinedCreditorBillsByUser(pageRequest, user);
+        public IPage<Bill> FindRefusedBillsWhereUserIsCreditor(PageRequest pageRequest, User user) {
+            return BillDao.FindRefusedBillsWhereUserIsCreditor(pageRequest, user);
         }
 
         /// <summary>
