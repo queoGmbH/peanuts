@@ -73,13 +73,10 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
                 QueryOver<UserGroupMembership, UserGroupMembership> userGroupMembershipSubQuery =
                         QueryOver.Of<UserGroupMembership>().Where(mem => mem.User == user).Select(mem => mem.Id);
 
-                QueryOver<BillUserGroupDebitor, BillUserGroupDebitor> debitorSubQuery =
-                        QueryOver.Of<BillUserGroupDebitor>().Where(deb => deb.BillAcceptState == BillAcceptState.Refused).Select(deb => deb.Id);
-                IList<BillUserGroupDebitor> userGroupDebitorAlias = null;
+                BillUserGroupDebitor userGroupDebitorAlias = null;
                 QueryOver<Bill, Bill> debitorBillsSubquery =
                         QueryOver.Of<Bill>()
-                                .JoinAlias(bill => bill.UserGroupDebitors, () => userGroupDebitorAlias)
-                                .WithSubquery.WhereExists(debitorSubQuery)
+                                .JoinAlias(bill => bill.UserGroupDebitors, () => userGroupDebitorAlias).Where(() => userGroupDebitorAlias.BillAcceptState == BillAcceptState.Refused)
                                 .Select(bill => bill.Id);
 
                 IQueryOver<Bill, Bill> queryOver = session.QueryOver<Bill>();
