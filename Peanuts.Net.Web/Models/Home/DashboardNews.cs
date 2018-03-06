@@ -4,16 +4,16 @@ using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts;
 namespace Com.QueoFlow.Peanuts.Net.Web.Models.Home {
     public class DashboardNews {
         /// <inheritdoc />
-        public DashboardNews(IList<PeanutParticipation> upcomingPeanutsAsProducer, IList<PeanutParticipation> upcomingPeanutsAsCreditor, IList<PeanutParticipation> todaysPeanutsAsParticipator, IList<PeanutParticipation> peanutInvitations, IList<Core.Domain.Peanuts.Peanut> upcomingPeanuts) {
+        public DashboardNews(IList<PeanutParticipation> upcomingPeanutsAsProducer, IList<PeanutParticipation> upcomingPeanutsAsCreditor, IList<PeanutParticipation> upcomingPeanutsAsParticipator, IList<PeanutParticipation> peanutInvitations, IList<Core.Domain.Peanuts.Peanut> upcomingPeanuts) {
             UpcomingPeanutsAsProducer = upcomingPeanutsAsProducer;
             UpcomingPeanutsAsCreditor = upcomingPeanutsAsCreditor;
-            TodaysPeanutsAsParticipator = todaysPeanutsAsParticipator;
+            UpcomingPeanutsAsParticipator = upcomingPeanutsAsParticipator;
             PeanutInvitations = peanutInvitations;
             UpcomingPeanuts = upcomingPeanuts;
         }
 
         /// <summary>
-        /// Ruft die Peanut-Teilnahmen ab, die heute stattfinden und für die der aktuelle Nutzer einen produzierenden Teilnahmetyp ausgewählt hat.
+        /// Ruft die Peanut-Teilnahmen ab, die heute stattfinden und für die der aktuelle Nutzer einen produzierenden Teilnahme-Typ ausgewählt hat.
         /// </summary>
         public IList<PeanutParticipation> UpcomingPeanutsAsProducer { get; }
 
@@ -25,7 +25,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Home {
         /// <summary>
         /// Ruft die Peanut-Teilnahmen des heutigen Tages ab, bei denen der Nutzer als normaler Teilnehmer zugesagt hat.
         /// </summary>
-        public IList<PeanutParticipation> TodaysPeanutsAsParticipator { get; }
+        public IList<PeanutParticipation> UpcomingPeanutsAsParticipator { get; }
 
         /// <summary>
         /// Ruft die Peanuts ab, zu denen der Nutzer eingeladen wurde.
