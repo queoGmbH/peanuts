@@ -1,0 +1,40 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts.PeanutParticipation
+
+
+@functions {
+
+    string GetNewsModifier() {
+        if ((Model.Peanut.Day - DateTime.Today) < TimeSpan.FromDays(2)) {
+            return "news-item--danger";
+        }
+        if ((Model.Peanut.Day - DateTime.Today) < TimeSpan.FromDays(4)) {
+            return "news-item--warning";
+        }
+        if ((Model.Peanut.Day - DateTime.Today) >= TimeSpan.FromDays(4)) {
+            return "news-item--info";
+        }
+
+        return "";
+    }
+
+}
+
+
+<div class="news-item @GetNewsModifier()">
+    <div class="news-item__icon">
+        @if (Model.ParticipationType.IsProducer) {
+            <span class="icon icon-peanut-producer"></span>
+        }
+        @if (Model.ParticipationType.IsCreditor) {
+            <span class="icon icon-peanut-creditor"></span>
+        }
+        
+    </div>
+    <div class="news-item__title">
+        @Html.Display().GetDayString(Model.Peanut.Day) @(Model.ParticipationType.Name)
+    </div>
+    <div class="news-item__content">
+        Du bist @Html.Display().GetDayString(Model.Peanut.Day) @(Model.ParticipationType.Name) für @Html.Partial("PeanutLink", Model.Peanut)!
+    </div>
+</div>

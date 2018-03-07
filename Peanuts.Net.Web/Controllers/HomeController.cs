@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
+using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Security;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 using Com.QueoFlow.Peanuts.Net.Core.Service;
@@ -48,10 +49,10 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         }
 
         public async Task<ActionResult> Index(User currentUser) {
-            DashboardInfos dashboardInfos = GetDashboardInfos(currentUser);
-            DashboardNews dashboardNews = GetDashboardNews(currentUser);
+            Require.NotNull(currentUser, "currentUser");
 
-            return View("Index", new IndexViewModel(dashboardInfos, dashboardNews, currentUser, GetShowCurrentVersionNews(currentUser)));
+            DashboardInfos dashboardInfos = GetDashboardInfos(currentUser);
+            return View("Index", new IndexViewModel(dashboardInfos, currentUser));
         }
 
         public ActionResult MenuContentPartial() {
@@ -177,7 +178,13 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             return dashboardInfos;
         }
 
-        private DashboardNews GetDashboardNews(User currentUser) {
+        private List<Peanut> GetUnattendedPeanutsFromUpcomingPeanuts(IPage<Peanut> upcomingPeanutsForUser, User currentUser) {
+            return upcomingPeanutsForUser.Where(
+                peanut => !peanut.IsFixed).Where(peanut => !peanut.Participations.Any(part => part.UserGroupMembership.User.Equals(currentUser))).ToList();
+        }
+
+        public ActionResult DashboardNews(User currentUser) {
+
             IPage<UserGroupMembership> memberships = UserGroupService.FindMembershipsByUser(
                 PageRequest.All,
                 currentUser,
@@ -189,23 +196,12 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 DateTime.Today.AddDays(5),
                 memberships.Select(mem => mem.UserGroup).ToArray());
 
-            List<PeanutParticipation> upcomingPeanutsAsProducer = GetParticipationsAsProducerFromUpcomingPeanuts(upcomingPeanutsForUser, currentUser);
-            List<PeanutParticipation> upcomingPeanutsAsCreditor = GetParticipationsAsCreditorFromUpcomingPeanuts(upcomingPeanutsForUser, currentUser);
-            List<PeanutParticipation> upcomingPeanutsAsParticipator = GetUnobtrusiveParticipationsFromUpcomingPeanuts(upcomingPeanutsForUser, currentUser);
-            List<PeanutParticipation> invitations = GetInvitationsFromUpcomingPeanuts(upcomingPeanutsForUser, currentUser);
-            List<Peanut> upcomingPeanuts = GetUnattendedPeanutsFromUpcomingPeanuts(upcomingPeanutsForUser, currentUser);
-            DashboardNews dashboardNews = new DashboardNews(
-                upcomingPeanutsAsProducer,
-                upcomingPeanutsAsCreditor,
-                upcomingPeanutsAsParticipator,
-                invitations,
-                upcomingPeanuts);
-            return dashboardNews;
-        }
+            IList<PeanutParticipation> upcomingPeanutParticipations = upcomingPeanutsForUser.SelectMany(p => p.Participations).Where(part => memberships.Contains(part.UserGroupMembership)).ToList();
+            IList<Peanut> upcomingAttendablePeanuts = upcomingPeanutsForUser.Except(upcomingPeanutParticipations.Select(part => part.Peanut)).ToList();
 
-        private List<Peanut> GetUnattendedPeanutsFromUpcomingPeanuts(IPage<Peanut> upcomingPeanutsForUser, User currentUser) {
-            return upcomingPeanutsForUser.Where(
-                peanut => !peanut.IsFixed).Where(peanut => !peanut.Participations.Any(part => part.UserGroupMembership.User.Equals(currentUser))).ToList();
+            DashboardNews dashboardNews = new DashboardNews(currentUser, GetShowCurrentVersionNews(currentUser), upcomingPeanutParticipations, upcomingAttendablePeanuts);
+
+            return PartialView("DashboardNews", dashboardNews);
         }
     }
 }

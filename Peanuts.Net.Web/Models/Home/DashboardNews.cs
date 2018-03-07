@@ -1,40 +1,42 @@
 ﻿using System.Collections.Generic;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts;
+using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
+using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
 
 namespace Com.QueoFlow.Peanuts.Net.Web.Models.Home {
     public class DashboardNews {
         /// <inheritdoc />
-        public DashboardNews(IList<PeanutParticipation> upcomingPeanutsAsProducer, IList<PeanutParticipation> upcomingPeanutsAsCreditor, IList<PeanutParticipation> upcomingPeanutsAsParticipator, IList<PeanutParticipation> peanutInvitations, IList<Core.Domain.Peanuts.Peanut> upcomingPeanuts) {
-            UpcomingPeanutsAsProducer = upcomingPeanutsAsProducer;
-            UpcomingPeanutsAsCreditor = upcomingPeanutsAsCreditor;
-            UpcomingPeanutsAsParticipator = upcomingPeanutsAsParticipator;
-            PeanutInvitations = peanutInvitations;
-            UpcomingPeanuts = upcomingPeanuts;
+        public DashboardNews(User currentUser, bool showCurrentVersionNews, IList<PeanutParticipation> upcomingPeanutParticipations, IList<Core.Domain.Peanuts.Peanut> upcomingAttendablePeanuts) {
+            Require.NotNull(currentUser, "currentUser");
+            Require.NotNull(upcomingAttendablePeanuts, "upcomingAttendablePeanuts");
+            Require.NotNull(upcomingPeanutParticipations, "upcomingPeanutParticipations");
+
+            ShowCurrentVersionNews = showCurrentVersionNews;
+            UpcomingPeanutParticipations = upcomingPeanutParticipations;
+            UpcomingAttendablePeanuts = upcomingAttendablePeanuts;
+            CurrentUser = currentUser;
         }
 
         /// <summary>
-        /// Ruft die Peanut-Teilnahmen ab, die heute stattfinden und für die der aktuelle Nutzer einen produzierenden Teilnahme-Typ ausgewählt hat.
+        /// Ruft ab, ob die Versionsinformationen der aktuellen Version angezeigt werden sollen.
         /// </summary>
-        public IList<PeanutParticipation> UpcomingPeanutsAsProducer { get; }
+        public bool ShowCurrentVersionNews {
+            get; private set;
+        }
 
         /// <summary>
-        /// Ruft die Peanut-Teilnahmen der nächsten Tage ab, bei denen sich der aktuelle Nutzer als Einkäufer eingetragen hat.
+        /// Ruft den aktuell angemeldeten Nutzer ab.
         /// </summary>
-        public IList<PeanutParticipation> UpcomingPeanutsAsCreditor { get; }
+        public User CurrentUser { get; }
 
         /// <summary>
-        /// Ruft die Peanut-Teilnahmen des heutigen Tages ab, bei denen der Nutzer als normaler Teilnehmer zugesagt hat.
+        /// Ruft die zugesagten Teilnahmen der nächsten Tage ab.
         /// </summary>
-        public IList<PeanutParticipation> UpcomingPeanutsAsParticipator { get; }
+        public IList<PeanutParticipation> UpcomingPeanutParticipations { get; }
 
         /// <summary>
-        /// Ruft die Peanuts ab, zu denen der Nutzer eingeladen wurde.
+        /// Ruft die Peanuts der nächsten Tage ab, an denen der Nutzer bisher nicht teilnimmt.
         /// </summary>
-        public IList<PeanutParticipation> PeanutInvitations { get; }
-
-        /// <summary>
-        /// Ruft die kommenden Peanuts ab, an denen der Nutzer bisher nicht teilnimmt.
-        /// </summary>
-        public IList<Core.Domain.Peanuts.Peanut> UpcomingPeanuts { get; }
+        public IList<Core.Domain.Peanuts.Peanut> UpcomingAttendablePeanuts { get; }
     }
 }
