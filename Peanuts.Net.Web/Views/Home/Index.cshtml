@@ -3,7 +3,7 @@
 @model Com.QueoFlow.Peanuts.Net.Web.Models.Home.IndexViewModel
 
 @{
-    string title = "Hallo, " + Model.UserName;
+    string title = "Hallo, " + Model.CurrentUser.DisplayName;
     string subtitle = string.Format("Heute ist {0:dddd', der' dd. MMMM yyyy}.", DateTime.Now);
     Layout = "~/Views/Shared/_LayoutFullscreen.cshtml";
 }
@@ -30,6 +30,20 @@
         }
     }
 
+    IHtmlString GetDayString(DateTime day) {
+        if (day.Date == DateTime.Today) {
+            return Html.Raw("heute");
+        }
+        if (day.Date == DateTime.Today.AddDays(1)) {
+            return Html.Raw("morgen");
+        }
+        if (day.Date == DateTime.Today.AddDays(2)) {
+            return Html.Raw("übermorgen");
+        } else {
+            return Html.Raw(day.ToString("dddd"));
+        }
+    }
+
 }
 
 
@@ -42,24 +56,21 @@
     </p>
 </div>
 
-@if (Model.Memberships.Any()) {
+@Html.Action("DashboardNews", "Home")
 
-
-    foreach (UserGroupMembership userGroupMembership in Model.Memberships) {
-
+@if (Model.DashboardInfos.Memberships.Any()) {
+    foreach (UserGroupMembership userGroupMembership in Model.DashboardInfos.Memberships) {
         if (userGroupMembership.Account.Balance > 50) {
             <div class="alert alert-info">
-                Dein Konto in der Gruppe <a href="@Url.Action("Membership", "UserGroup", new {userGroup = userGroupMembership.UserGroup.BusinessId, userGroupMembership = userGroupMembership.BusinessId})">@(userGroupMembership.UserGroup.DisplayName)</a> steht inzwischen bei @(string.Format("{0:C}", userGroupMembership.Account.Balance)).
+                Dein Konto in der Gruppe <a href="@Url.Action("Membership", "UserGroup", new { userGroup = userGroupMembership.UserGroup.BusinessId, userGroupMembership = userGroupMembership.BusinessId })">@(userGroupMembership.UserGroup.DisplayName)</a> steht inzwischen bei @(string.Format("{0:C}", userGroupMembership.Account.Balance)).
             </div>
         }
         if (userGroupMembership.Account.Balance < -20) {
             <div class="alert alert-danger">
-                Dein Konto in der Gruppe <a href="@Url.Action("Membership", "UserGroup", new {userGroup = userGroupMembership.UserGroup.BusinessId, userGroupMembership = userGroupMembership.BusinessId})">@(userGroupMembership.UserGroup.DisplayName)</a> steht inzwischen bei @(string.Format("{0:C}", userGroupMembership.Account.Balance)).
+                Dein Konto in der Gruppe <a href="@Url.Action("Membership", "UserGroup", new { userGroup = userGroupMembership.UserGroup.BusinessId, userGroupMembership = userGroupMembership.BusinessId })">@(userGroupMembership.UserGroup.DisplayName)</a> steht inzwischen bei @(string.Format("{0:C}", userGroupMembership.Account.Balance)).
             </div>
         }
-
     }
-
 
     <div class="shortcut-grid-dashboard">
 
@@ -98,14 +109,14 @@
 }
 
 <div class="cards-grid-dashboard">
-    @if (Model.Memberships.Any()) {
+    @if (Model.DashboardInfos.Memberships.Any()) {
         <a class="card-dashboard" href="@Url.Action("Index", "Peanut")">
             <span class="card-dashboard__icon icon-calendar"></span>
             <span class="card-dashboard__text">
                 <span class="h2">
                     Peanuts
                 </span>
-                @RenderTodaysPeanutsDescription(Model.TodaysPeanuts.ToList())
+                @RenderTodaysPeanutsDescription(Model.DashboardInfos.TodaysPeanuts.ToList())
             </span>
         </a>
         <a class="card-dashboard" href="@Url.Action("AllMemberships", "UserGroup")">
@@ -114,7 +125,7 @@
                 <span class="h2">
                     Gruppen
                 </span>
-                Mitglied in @Model.Memberships.TotalElements Gruppe(n)
+                Mitglied in @Model.DashboardInfos.Memberships.TotalElements Gruppe(n)
 
             </span>
         </a>
@@ -124,13 +135,13 @@
                 <span class="h2">
                     Rechnungen
                 </span>
-                @if (Model.DeclinedBills.TotalElements > 0) {
+                @if (Model.DashboardInfos.DeclinedBills.TotalElements > 0) {
                     <span class="text-danger">
-                        @(Model.DeclinedBills.TotalElements + "abgelehnte Rechnungen")
+                        @(Model.DashboardInfos.DeclinedBills.TotalElements) abgelehnte Rechnungen
                     </span>
                 }
 
-                @Model.PendingBills.Count offene Rechnungen
+                @Model.DashboardInfos.PendingBills.Count offene Rechnungen
 
             </span>
         </a>
@@ -140,13 +151,13 @@
                 <span class="h2">
                     Zahlungen
                 </span>
-                @if (Model.DeclinedPayments.TotalElements > 0) {
+                @if (Model.DashboardInfos.DeclinedPayments.TotalElements > 0) {
                     <span class="text-danger">
-                        @Model.DeclinedPayments.TotalElements abgelehnte Zahlung
+                        @Model.DashboardInfos.DeclinedPayments.TotalElements abgelehnte Zahlung
                     </span>
                 }
 
-                @Model.PendingPayments.TotalElements unbestätigte Zahlung
+                @Model.DashboardInfos.PendingPayments.TotalElements unbestätigte Zahlung
 
             </span>
         </a>

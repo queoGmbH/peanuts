@@ -327,6 +327,7 @@
     <Compile Include="Controllers\PayPalPaymentCommand.cs" />
     <Compile Include="Controllers\PeanutController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
+    <Compile Include="Controllers\VersionNewsController.cs" />
     <Compile Include="Helper\Grid.cs" />
     <Compile Include="Helper\GridColumn.cs" />
     <Compile Include="Helper\GridExtension.cs" />
@@ -341,6 +342,7 @@
     <Compile Include="Helper\MvcSecurityExtension.cs" />
     <Compile Include="Helper\TemporaryTextWriter.cs" />
     <Compile Include="Helper\UrlColumn.cs" />
+    <Compile Include="Helper\VersionHelper.cs" />
     <Compile Include="Infrastructure\ErrorHandling\HandleArgumentNullExceptionAttribute.cs" />
     <Compile Include="Infrastructure\ErrorHandling\HttpExceptionFilterAttribute.cs" />
     <Compile Include="Infrastructure\ErrorHandling\ModelStateErrorActionFilter.cs" />
@@ -369,6 +371,8 @@
     <Compile Include="Models\Bill\BillRefuseCommand.cs" />
     <Compile Include="Models\Bill\BillRefuseViewModel.cs" />
     <Compile Include="Models\Bill\BillShowViewModel.cs" />
+    <Compile Include="Models\Home\DashboardInfos.cs" />
+    <Compile Include="Models\Home\DashboardNews.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\Home\UserGroupMembershipModel.cs" />
     <Compile Include="Models\Manage\ShowMeViewModel.cs" />
@@ -573,6 +577,14 @@
     <Content Include="Views\UserGroup\UserGroupMembers.cshtml" />
     <Content Include="Views\Peanut\PeanutIsFixed.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\LinkListFromString.cshtml" />
+    <Content Include="Views\VersionNews\Index.cshtml" />
+    <Content Include="Views\VersionNews\Version_1_1_0.cshtml" />
+    <Content Include="Views\Shared\PeanutLink.cshtml" />
+    <Content Include="Views\Shared\UserGroupLink.cshtml" />
+    <Content Include="Views\Home\DashboardNews.cshtml" />
+    <Content Include="Views\Home\DashboardNews\PendingPeanutParticipation.cshtml" />
+    <Content Include="Views\Home\DashboardNews\ConfirmedPeanutParticipation.cshtml" />
+    <Content Include="Views\Home\DashboardNews\CanceledPeanut.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

@@ -7,24 +7,43 @@
     padding-right: 20px;
 
     border-left-style: solid;
-    border-left-width: thick;
+    border-left-width: 3px;
     border-left-color: @gray;
+    border-right-style: solid;
+    border-right-width: 3px;
+    border-right-color: @gray;
     margin-bottom: @padding-base-vertical;
 
     &--success{
         border-left-color: @brand-success;
+        border-right-color: @brand-success;
+        .news-item__icon{
+            color: @brand-success;
+        }
     }
 
     &--info{
         border-left-color: @brand-info;
+        border-right-color: @brand-info;
+        .news-item__icon{
+            color: @brand-info;
+        }
     }
 
     &--warning{
         border-left-color: @brand-warning;
+        border-right-color: @brand-warning;
+        .news-item__icon{
+            color: @brand-warning;
+        }
     }
 
     &--danger{
         border-left-color: @brand-danger;
+        border-right-color: @brand-danger;
+        .news-item__icon{
+            color: @brand-danger;
+        }
     }
 
     &:hover{
@@ -38,16 +57,27 @@
     &__icon{
         position: absolute;
         width: 30px;
-        font-size: 30px;
+        font-size: 24px;
         left: 15px;
         top: 50%;
-
         transform: translateY(-50%);
+        
+        &--close{
+            position: absolute;
+            top: 2*@padding-base-vertical;
+            right: -@padding-base-vertical;
+        }
+
     }
 
     &__title{
-        font-size: 20px;        
+        .h2;
+        color: @gray-dark;
         margin-bottom: @padding-base-vertical;
+        
+        &:first-letter{
+            text-transform: uppercase;
+        }
     }
 
     &__content{
@@ -56,4 +86,20 @@
         }
     }
 
+    .feature-list{
+        .feature-list-item{
+            display: list-item;
+            margin-left: 2*@padding-base-horizontal;
+            margin-bottom: @padding-base-vertical;
+
+            &__title{
+                font-weight: normal;
+                margin-bottom: 0;
+            }
+
+            &__description{
+                display: none;
+            }
+        }
+    }
 }

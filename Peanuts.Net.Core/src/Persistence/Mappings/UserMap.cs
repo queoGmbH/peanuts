@@ -1,5 +1,5 @@
 ﻿using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
-
+using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate.UserTypes;
 using FluentNHibernate.Mapping;
 
 namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
@@ -42,6 +42,9 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
             Map(user => user.NotifyMeAsCreditorOnSettleableBills).Not.Nullable().Default("1");
             Map(user => user.NotifyMeOnPeanutInvitation).Not.Nullable().Default("1");
             Map(user => user.SendMeWeeklySummaryAndForecast).Not.Nullable().Default("1");
+
+            /*Versionsinformationen*/
+            Map(user => user.LatestReadVersionNews).Nullable().CustomSqlType("nvarchar(30)").CustomType<VersionUserType>();
 
 
             /*Administrative Informationen*/

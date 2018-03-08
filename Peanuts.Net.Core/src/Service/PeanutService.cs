@@ -132,6 +132,11 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             return PeanutDao.FindPeanutsInGroups(pageRequest, new List<UserGroup> { userGroup });
         }
 
+        /// <inheritdoc />
+        public IPage<Peanut> FindPeanutsInGroups(IPageable pageRequest, DateTime from, DateTime to, params UserGroup[] userGroups) {
+            return PeanutDao.FindPeanutsInGroups(pageRequest, userGroups, from, to);
+        }
+
         /// <summary>
         ///     Sucht nach Peanuts, an denen der Nutzer teilnehmen kann, da das Peanut in seiner Gruppe erstellt wurde und er
         ///     bisher nicht als Teilnehmer eingetragen ist bzw. seine Teilnahme nicht bestätigt hat.

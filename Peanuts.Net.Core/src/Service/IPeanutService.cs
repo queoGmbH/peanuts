@@ -167,5 +167,10 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="userGroup"></param>
         /// <returns></returns>
         IPage<Peanut> FindAllPeanutsInGroup(IPageable pageRequest, UserGroup userGroup);
+
+        /// <summary>
+        /// Sucht nach Peanuts in einer oder mehreren Gruppen in einem bestimmten Zeitraum.
+        /// </summary>
+        IPage<Peanut> FindPeanutsInGroups(IPageable pageRequest, DateTime from, DateTime to, params UserGroup[] userGroups);
     }
 }

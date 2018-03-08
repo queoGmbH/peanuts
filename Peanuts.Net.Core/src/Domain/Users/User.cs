@@ -35,6 +35,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         private string _email;
         private string _firstName;
 
+        private Version _latestReadVersionNews;
+
         private bool _isDeleted;
         private bool _isEnabled = true;
         private string _lastName;
@@ -157,6 +159,14 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         /// </summary>
         public virtual User CreatedBy {
             get { return _createdBy; }
+        }
+
+        /// <summary>
+        /// Ruft die Versionsnummer ab, dessen Neuigkeiten der Nutzer zuletzt als gelesen markiert hat.
+        /// Die Information wird verwendet, um auf der Startseite zu entscheiden, ob die Neuigkeiten der aktuellen Version angezeigt werden oder nicht.
+        /// </summary>
+        public virtual Version LatestReadVersionNews {
+            get { return _latestReadVersionNews; }
         }
 
         /// <summary>
@@ -532,6 +542,18 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         /// <param name="passwordResetCode"></param>
         public virtual void UpdatePasswordResetCode(Guid? passwordResetCode) {
             _passwordResetCode = passwordResetCode;
+        }
+
+        /// <summary>
+        /// Hinterlegt am Nutzer Versionsnummer, der Version dessen Neuigkeiten der Nutzer zuletzt gelesen hat.
+        /// </summary>
+        /// <param name="version"></param>
+        public virtual void HasReadNewsOfVersion(Version version) {
+            if (version != null) {
+                _latestReadVersionNews = version;
+            } else {
+                _latestReadVersionNews = null;
+            }
         }
 
         private void Update(UserPaymentDto paymentDto) {

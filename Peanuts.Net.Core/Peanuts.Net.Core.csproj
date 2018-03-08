@@ -238,6 +238,7 @@
     <Compile Include="src\Persistence\Mappings\RecipientBookingEntryMap.cs" />
     <Compile Include="src\Persistence\Mappings\SenderBookingEntryMap.cs" />
     <Compile Include="src\Persistence\Mappings\UserGroupMembershipMap.cs" />
+    <Compile Include="src\Persistence\NHibernate\UserTypes\VersionUserType.cs" />
     <Compile Include="src\Persistence\PaymentDao.cs" />
     <Compile Include="src\Persistence\PeanutDao.cs" />
     <Compile Include="src\Persistence\PeanutParticipationDao.cs" />
@@ -371,6 +372,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Database\DBScripts\V1.1.0.0.01__ParticipationTypeByUserGroup.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.05__User_LatestReadVersionInfo.sql" />
     <Content Include="Database\DBScripts\V1.1.0.0.04__Peanut_ExternalLinks.sql" />
     <Content Include="Database\DBScripts\V1.1.0.0.03__AutoAcceptBills.sql" />
     <Content Include="Database\DBScripts\V1.1.0.0.02__MaximumParticipations.sql" />

@@ -38,7 +38,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
             return HibernateTemplate.Execute(finder);
         }
 
-        public IPage<Bill> FindDebitorBillsForUser(IPageable pageRequest, User user, bool? isSettled) {
+        public IPage<Bill> FindBillsWhereUserIsDebitor(IPageable pageRequest, User user, bool? isSettled) {
             HibernateDelegate<IPage<Bill>> finder = delegate(ISession session) {
                 Require.NotNull(pageRequest, "pageRequest");
                 Require.NotNull(user, "user");
@@ -64,7 +64,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
             return HibernateTemplate.Execute(finder);
         }
 
-        public IPage<Bill> FindDeclinedCreditorBillsByUser(PageRequest pageRequest, User user) {
+        public IPage<Bill> FindRefusedBillsWhereUserIsCreditor(PageRequest pageRequest, User user) {
             Require.NotNull(pageRequest, "pageRequest");
             Require.NotNull(user, "user");
 
@@ -73,13 +73,10 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
                 QueryOver<UserGroupMembership, UserGroupMembership> userGroupMembershipSubQuery =
                         QueryOver.Of<UserGroupMembership>().Where(mem => mem.User == user).Select(mem => mem.Id);
 
-                QueryOver<BillUserGroupDebitor, BillUserGroupDebitor> debitorSubQuery =
-                        QueryOver.Of<BillUserGroupDebitor>().Where(deb => deb.BillAcceptState == BillAcceptState.Refused).Select(deb => deb.Id);
-                IList<BillUserGroupDebitor> userGroupDebitorAlias = null;
+                BillUserGroupDebitor userGroupDebitorAlias = null;
                 QueryOver<Bill, Bill> debitorBillsSubquery =
                         QueryOver.Of<Bill>()
-                                .JoinAlias(bill => bill.UserGroupDebitors, () => userGroupDebitorAlias)
-                                .WithSubquery.WhereExists(debitorSubQuery)
+                                .JoinAlias(bill => bill.UserGroupDebitors, () => userGroupDebitorAlias).Where(() => userGroupDebitorAlias.BillAcceptState == BillAcceptState.Refused)
                                 .Select(bill => bill.Id);
 
                 IQueryOver<Bill, Bill> queryOver = session.QueryOver<Bill>();

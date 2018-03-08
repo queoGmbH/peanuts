@@ -20,11 +20,11 @@
     <input type="hidden" value="@initialParticipationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationUpdateCommand>(cmd => cmd.PeanutParticipationType))"/>
 }
 <div class="btn-group">
-    <button type="submit" class="btn btn-warning" form="attend_as_invited_form_@memberShipId">
+    <button type="submit" class="btn btn-info" form="attend_as_invited_form_@memberShipId">
         <span class="icon icon-pencil"></span>
         als @initialParticipationType.DisplayName
     </button>
-    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
