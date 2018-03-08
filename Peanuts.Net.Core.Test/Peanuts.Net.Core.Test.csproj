@@ -206,9 +206,9 @@
     <None Include="Resources\MailTemplates\TestWithoutCulture.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Config\Spring.Properties.config">
+    <Content Include="Config\Spring.Properties.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Peanuts.Net.Core\Peanuts.Net.Core.csproj">

@@ -1,0 +1,19 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutParticipationRejectedViewModel
+
+@{
+    ViewBag.Title = "Teilnahme nicht möglich";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <p>
+        Du kannst an @Model.Peanut.Name nicht teilnehmen, da die maximale Anzahl an Teilnehmern (@Model.Peanut.MaximumParticipations) erreicht ist.
+        </p>
+        <hr/>
+        <a href="@Url.Action("Index")" class="btn btn-default">
+            <span>@Resources_Web.btn_Cancel</span>
+        </a>
+    </div>
+</div>

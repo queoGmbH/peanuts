@@ -310,6 +310,24 @@
       <setting name="enabled" control="gc-enabled-normal">true</setting>
     </event>
 
+    <event path="vm/gc/metaspace/gc_threshold">
+      <setting name="enabled" control="gc-enabled-normal">true</setting>
+    </event>
+
+    <event path="vm/gc/metaspace/allocation_failure">
+      <setting name="enabled" control="gc-enabled-normal">true</setting>
+      <setting name="stackTrace">true</setting>
+    </event>
+
+    <event path="vm/gc/metaspace/out_of_memory">
+      <setting name="enabled" control="gc-enabled-normal">true</setting>
+      <setting name="stackTrace">true</setting>
+    </event>
+
+    <event path="vm/gc/metaspace/chunk_free_list_summary">
+      <setting name="enabled" control="gc-enabled-normal">true</setting>
+    </event>
+
     <event path="vm/gc/collector/garbage_collection">
       <setting name="enabled" control="gc-enabled-normal">true</setting>
       <setting name="threshold">0 ms</setting>
@@ -373,6 +391,11 @@
 
     <event path="vm/gc/detailed/concurrent_mode_failure">
       <setting name="enabled" control="gc-enabled-normal">true</setting>
+    </event>
+
+    <event path="vm/gc/detailed/allocation_requiring_gc">
+      <setting name="enabled" control="gc-enabled-all">false</setting>
+      <setting name="stackTrace">true</setting>
     </event>
 
     <event path="vm/compiler/config">

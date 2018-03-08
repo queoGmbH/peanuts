@@ -130,7 +130,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 return View("GotMoney", new GotMoneyViewModel(otherMembershipsInUsersGroups, gotMoneyCommand));
             }
 
-            UserGroupMembership sender = UserGroupService.FindMembershipsByUserAndGroup(currentUser, gotMoneyCommand.Sender.UserGroup);
+            UserGroupMembership sender = UserGroupService.FindMembershipByUserAndGroup(currentUser, gotMoneyCommand.Sender.UserGroup);
 
             string paymentUrl = Url.Action("PendingPayments", "Payment", null, Request.Url.Scheme);
             PaymentService.Create(gotMoneyCommand.PaymentDto,
@@ -182,7 +182,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 return View("PayMoney", new PayMoneyViewModel(otherMembershipsInUsersGroups, payMoneyCommand));
             }
 
-            UserGroupMembership sender = UserGroupService.FindMembershipsByUserAndGroup(currentUser, payMoneyCommand.Recipient.UserGroup);
+            UserGroupMembership sender = UserGroupService.FindMembershipByUserAndGroup(currentUser, payMoneyCommand.Recipient.UserGroup);
 
             switch (payMoneyCommand.PaymentDto.PaymentType) {
                 case PaymentType.PayPal: {
@@ -199,6 +199,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
         [Route("Out/CreateForm")]
         public ActionResult PayMoneyForm(UserGroup userGroup, User currentUser) {
+            Require.NotNull(currentUser, "currentUser");
+
             IList<UserGroupMembership> otherMembershipsInUsersGroups = FindOtherMembershipsInUsersGroups(currentUser, userGroup);
             return View("PayMoney", new PayMoneyViewModel(otherMembershipsInUsersGroups));
         }

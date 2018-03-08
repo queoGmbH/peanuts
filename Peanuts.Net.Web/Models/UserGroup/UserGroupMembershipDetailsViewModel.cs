@@ -1,44 +1,40 @@
 ﻿using System.Collections.Generic;
-
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
-using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 
 namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
-
     /// <summary>
-    /// ViewModel für die Anzeige einer Gruppen-Mitgliedschaft.
+    ///     ViewModel für die Anzeige einer Gruppen-Mitgliedschaft.
     /// </summary>
     public class UserGroupMembershipDetailsViewModel {
-        public UserGroupMembershipDetailsViewModel(UserGroupMembership userGroupMembership, IList<UserGroupMembership> userGroupMembers, UserGroupMembershipOptions userGroupMembershipOptions, IPage<Core.Domain.Peanuts.Peanut> peanuts) {
+        public UserGroupMembershipDetailsViewModel(UserGroupMembership userGroupMembership, UserGroupMembership currentUsersMembershipInGroup, UserGroupMembershipOptions userGroupMembershipOptions) {
             Require.NotNull(userGroupMembership, "userGroupMembership");
-            Require.NotNull(userGroupMembers, "userGroupMembers");
             Require.NotNull(userGroupMembershipOptions, "userGroupMembershipOptions");
 
             UserGroupMembership = userGroupMembership;
-            UserGroupMembers = userGroupMembers;
+            CurrentUsersMembershipInGroup = currentUsersMembershipInGroup;
             UserGroupMembershipOptions = userGroupMembershipOptions;
-            Peanuts = peanuts;
+
+            if (currentUsersMembershipInGroup != null) {
+                UserGroupMembershipUpdateCommand = new UserGroupMembershipUpdateCommand(currentUsersMembershipInGroup);
+            }
         }
 
         /// <summary>
-        /// Ruft die anzuzeigende Mitgliedschaft ab.
+        ///     Ruft die anzuzeigende Mitgliedschaft ab.
         /// </summary>
-        public UserGroupMembership UserGroupMembership { get; private set; }
+        public UserGroupMembership UserGroupMembership { get; }
+
+        public UserGroupMembership CurrentUsersMembershipInGroup { get; }
 
         /// <summary>
-        /// Ruft die Mitgliedschaften der Gruppe auf.
+        ///     Ruft die Optionen der Seite ab.
         /// </summary>
-        public IList<UserGroupMembership> UserGroupMembers { get; private set; }
+        public UserGroupMembershipOptions UserGroupMembershipOptions { get; }
 
         /// <summary>
-        /// Ruft die Optionen der Seite ab.
+        /// Ruft das Command zum Ändern der Einstellungen für die Mitgliedschaft in der Gruppe ab.
         /// </summary>
-        public UserGroupMembershipOptions UserGroupMembershipOptions { get; private set; }
-
-        /// <summary>
-        /// Liefert die Liste der Peanuts
-        /// </summary>
-        public IPage<Core.Domain.Peanuts.Peanut> Peanuts { get; set; }
+        public UserGroupMembershipUpdateCommand UserGroupMembershipUpdateCommand { get; }
     }
 }

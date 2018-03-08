@@ -98,6 +98,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             IList<BillUserGroupDebitor> debitorEntities = GetDebitors(debitors, creator);
             IList<BillGuestDebitor> guestDebitorEntities = GetGuestDebitors(guestDebitors);
             Bill bill = new Bill(userGroup, billDto, creditor, debitorEntities, guestDebitorEntities, new EntityCreatedDto(creator, DateTime.Now));
+
             if (peanut != null) {
                 PeanutService.ClearPeanut(peanut, bill);
             }
@@ -185,12 +186,12 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         ///     null => Ob die Rechnung <see cref="Bill.IsSettled">abgerechnet ist</see> spielt keine Rolle.
         /// </param>
         /// <returns></returns>
-        public IPage<Bill> FindDebitorBillsForUser(IPageable pageRequest, User user, bool? isSettled) {
-            return BillDao.FindDebitorBillsForUser(pageRequest, user, isSettled);
+        public IPage<Bill> FindBillsWhereUserIsDebitor(IPageable pageRequest, User user, bool? isSettled) {
+            return BillDao.FindBillsWhereUserIsDebitor(pageRequest, user, isSettled);
         }
 
-        public IPage<Bill> FindDeclinedCreditorBillsByUser(PageRequest pageRequest, User user) {
-            return BillDao.FindDeclinedCreditorBillsByUser(pageRequest, user);
+        public IPage<Bill> FindRefusedBillsWhereUserIsCreditor(PageRequest pageRequest, User user) {
+            return BillDao.FindRefusedBillsWhereUserIsCreditor(pageRequest, user);
         }
 
         /// <summary>
@@ -231,22 +232,22 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         }
 
         private static IList<BillUserGroupDebitor> GetDebitors(IList<BillUserGroupDebitorDto> debitors, User creator) {
-            Dictionary<UserGroupMembership, List<BillUserGroupDebitorDto>> debitorsByMembership =
-                    debitors.GroupBy(dto => dto.UserGroupMembership).ToDictionary(g => g.Key, g => g.ToList());
+            Dictionary<UserGroupMembership, List<BillUserGroupDebitorDto>> debitorsByMembership = debitors.GroupBy(dto => dto.UserGroupMembership).ToDictionary(g => g.Key, g => g.ToList());
 
             IList<BillUserGroupDebitor> debitorEntities = new List<BillUserGroupDebitor>();
             foreach (UserGroupMembership userGroupMembership in debitorsByMembership.Keys) {
                 BillAcceptState billAcceptState;
-                if (creator.Equals(userGroupMembership.User)) {
+                if (userGroupMembership.User.Equals(creator)) {
                     /*Wenn ich selber die Rechnung erstelle, kann ich die auch gleich akzeptieren*/
+                    billAcceptState = BillAcceptState.Accepted;
+                } else if (userGroupMembership.AutoAcceptBills) {
+                    /*Wenn das Mitglied das automatische akzeptieren der Rechnung aktiviert hat, gleich akzeptieren*/
                     billAcceptState = BillAcceptState.Accepted;
                 } else {
                     /*Die anderen müssen die Rechnung explizit akzeptieren.*/
                     billAcceptState = BillAcceptState.Pending;
                 }
-                BillUserGroupDebitor billUserGroupDebitor = new BillUserGroupDebitor(userGroupMembership,
-                    debitorsByMembership[userGroupMembership].Sum(dto => dto.Portion),
-                    billAcceptState);
+                BillUserGroupDebitor billUserGroupDebitor = new BillUserGroupDebitor(userGroupMembership, debitorsByMembership[userGroupMembership].Sum(dto => dto.Portion), billAcceptState);
                 debitorEntities.Add(billUserGroupDebitor);
             }
             return debitorEntities;

@@ -1,36 +1,12 @@
 .debitor-list-item {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 3px;
-
-    .form-group {
-        margin-bottom: 3px;
-
-        .control-value {
-            
-            
-            .select2-selection {
-                width: 200px;
-               
-            }
-        }
+    &.form__row{
+        margin-bottom: @padding-base-horizontal !important;
     }
-
     
-
-    input[name$=".Portion"] {
-        width: 75px;
-        text-align: right;
-    }
-
-    input[name$=".Unit"] {
-        width: 50px;
-        margin-right: 5px;
-    }
-
-
     .remove-list-item {
         height: 32px;
         padding: 0 6px;
     }
 }
+
+

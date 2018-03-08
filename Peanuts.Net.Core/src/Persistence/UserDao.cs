@@ -5,7 +5,7 @@ using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
-
+using FluentNHibernate.Utils;
 using NHibernate;
 using NHibernate.Criterion;
 
@@ -56,7 +56,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
             };
             return HibernateTemplate.ExecuteFind(finder);
         }
-
+        
         /// <summary>
         ///     Sucht einen Nutzer anhand des Benutzernamen aus.
         /// </summary>

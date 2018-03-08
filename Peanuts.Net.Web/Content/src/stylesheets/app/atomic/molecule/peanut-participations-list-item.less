@@ -5,43 +5,30 @@
 
 
     &__name {
-        width: 100px !important;
-        max-width: 100px;
+        text-align: left !important;
     }
 
     &__participation_state {
-        max-width: 80px;
-        width: 80px !important;
+        max-width: 30px;
+        width: 30px !important;
         text-align: center !important;
+        font-size: 18px;
     }
 
     &__participation_type {
-        width: auto !important;
-        form {
-            display: flex;
-            flex-wrap: wrap;
-            
-            .form-group {
-                flex: 1 1 200px;
-                display: flex;
-                padding-right: 0;
-                margin-left: auto;
-                margin-right: auto;
+        .btn-group{
+            width: 100%;
+            [type=submit]{
+                flex-grow: 1;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                text-align: left !important;
+                font-weight: normal;
+                padding-right: @padding-base-vertical;
             }
-
-            .select2 {
-                text-align: left;
-            }
-
-            *[type=submit] {
-                flex: 0 1 25px;
-                width: 25px;
-                height: @input-height-base;
-                padding: 8px 0 8px 8px;
-            }
-        }
+        }      
     }
-
 
     .form-inline {
         width: 100%;
@@ -50,19 +37,7 @@
             padding-left: 0 !important;
             padding-right: 0 !important;
             width: 100% !important;
-        }
-        /*.form-group {
-            margin: 0;
-            margin-bottom: 3px;
-            padding-right: 0;
-            width: 100%;
-
-            .control-value {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-                width: 100% !important;
-            }
-        }*/
+        }        
     }
 
     label {

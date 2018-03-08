@@ -1,0 +1,1 @@
+﻿Alter table tblPeanut add MaximumParticipations INT null;

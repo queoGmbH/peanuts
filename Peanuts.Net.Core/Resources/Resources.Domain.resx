@@ -861,4 +861,13 @@
   <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup_BalanceOverdraftLimit" xml:space="preserve">
     <value>Dispo-Limit</value>
   </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_MaximumParticipations" xml:space="preserve">
+    <value>Maximale Anzahl Teilnehmer</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_AutoAcceptBills" xml:space="preserve">
+    <value>Rechnungen automatisch akzeptieren</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_ExternalLinks" xml:space="preserve">
+    <value>Links</value>
+  </data>
 </root>

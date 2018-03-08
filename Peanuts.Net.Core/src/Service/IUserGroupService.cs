@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Com.QueoFlow.Peanuts.Net.Core.Domain.Dto;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users.Dto;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
@@ -111,7 +111,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// </summary>
         /// <param name="membershipsToUpdate"></param>
         /// <param name="changedBy"></param>
-        void UpdateMembershipTypes(IDictionary<UserGroupMembership, UserGroupMembershipType> membershipsToUpdate, User changedBy);
+        void UpdateUsergroupMembershipTypes(IDictionary<UserGroupMembership, UserGroupMembershipType> membershipsToUpdate, User changedBy);
 
         /// <summary>
         /// Sucht nach der Mitgliedschaft eines Nutzers in einer Gruppe.
@@ -119,7 +119,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="user"></param>
         /// <param name="userGroup"></param>
         /// <returns></returns>
-        UserGroupMembership FindMembershipsByUserAndGroup(User user, UserGroup userGroup);
+        UserGroupMembership FindMembershipByUserAndGroup(User user, UserGroup userGroup);
 
         /// <summary>
         /// Ruft die Gruppen ab, in denen der Nutzer kein Mitglied ist.
@@ -136,6 +136,14 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="currentUser"></param>
         /// <param name="editUrl"></param>
         void RequestMembership(UserGroup userGroup, User currentUser, string editUrl);
+
+        /// <summary>
+        /// Aktualisiert die Einstellungen einer Mitgliedschaft in einer Gruppe.
+        /// </summary>
+        /// <param name="userGroupMembership"></param>
+        /// <param name="userGroupMembershipDto"></param>
+        /// <param name="changedBy"></param>
+        void UpdateUserGroupMembership(UserGroupMembership userGroupMembership, UserGroupMembershipDto userGroupMembershipDto, User changedBy);
 
         /// <summary>
         /// Lädt den Nutzer zu einer Mitgliedschaft in einer Gruppe ein.

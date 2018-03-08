@@ -19,6 +19,12 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Peanut
         public Core.Domain.Users.UserGroup UserGroup { get; set; }
 
         /// <summary>
+        /// Ruft die Teilnahmeart des Nutzers ab, der den Peanut erstellt oder legt diesen fest.
+        /// Bei NULL wird der aktuelle Nutzer nicht als Teilnehmer am Peanut hinzugefügt.
+        /// </summary>
+        public PeanutParticipationType MyParticipationType { get; set; }
+
+        /// <summary>
         ///     Ruft die Voraussetzungen für den Peanut ab oder legt diese fest.
         /// </summary>
         public IDictionary<string, RequirementDto> Requirements { get; set; }

@@ -5,12 +5,14 @@ using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 
 namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
     public class UserGroupMemberShipAccountViewModel {
-        public UserGroupMemberShipAccountViewModel(UserGroupMembership userGroupMembership, IPage<BookingEntry> bookings) {
+        public UserGroupMemberShipAccountViewModel(UserGroupMembership userGroupMembership, IPage<BookingEntry> bookings, UserGroupMembershipOptions userGroupMembershipOptions) {
             Require.NotNull(userGroupMembership, "userGroupMembership");
             Require.NotNull(bookings, "bookings");
+            Require.NotNull(userGroupMembershipOptions, "userGroupMembershipOptions");
 
             UserGroupMembership = userGroupMembership;
             Bookings = bookings;
+            UserGroupMembershipOptions = userGroupMembershipOptions;
         }
 
         /// <summary>
@@ -23,5 +25,12 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
         /// </summary>
         public IPage<BookingEntry> Bookings { get; private set; }
 
+
+        /// <summary>
+        ///     Ruft die Optionen der Seite ab.
+        /// </summary>
+        public UserGroupMembershipOptions UserGroupMembershipOptions {
+            get;
+        }
     }
 }

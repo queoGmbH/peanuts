@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -167,21 +168,27 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms {
             }
         }
 
-        public string GetDependingAttributeMarkup(object dependsOnValue) {
-            return string.Format("js-depends-on-value={0}", dependsOnValue);
-
+        public string GetDependingAttributeMarkup(object[] dependsOnValues) {
+            if (dependsOnValues != null && dependsOnValues.Any()) {
+                IEnumerable<string> dependsOnValuesInQuotes = dependsOnValues.Select(v => "\"" + v + "\"");
+                string commaSeparatedDependsOnValuesInQuotes = string.Join(",", dependsOnValuesInQuotes);
+                return string.Format("data-js-depends-on-value='[{0}]'", commaSeparatedDependsOnValuesInQuotes);
+            } else {
+                return string.Empty;
+            }
         }
 
         public string GetDependingAttribute(object selectableItem) {
             if (DependingDropDownOptions != null) {
-                return GetDependingAttributeMarkup(DependingDropDownOptions.GetDependsOnValue(selectableItem));
+                object[] dependsOnValues = DependingDropDownOptions.GetDependsOnValue(selectableItem);
+                return GetDependingAttributeMarkup(dependsOnValues);
             } else {
                 return "";
             }
         }
 
         /// <summary>
-        ///     Ruft ab, ob die DropDownBox eine Mehrfachauswahl zu lässt und liefert das entsprechende Html-Attribute.
+        ///     Ruft ab, ob die DropDownBox eine Mehrfachauswahl zulässt und liefert das entsprechende Html-Attribute.
         /// </summary>
         /// <returns></returns>
         public string GetMultipleDropDown() {

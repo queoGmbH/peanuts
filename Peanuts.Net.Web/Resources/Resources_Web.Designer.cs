@@ -295,6 +295,15 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Übernehmen ähnelt.
+        /// </summary>
+        public static string common_btn_Submit {
+            get {
+                return ResourceManager.GetString("common_btn_Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Es ist ein Fehler aufgetreten. ähnelt.
         /// </summary>
         public static string common_error_Message {

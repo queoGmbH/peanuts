@@ -15,6 +15,7 @@
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,10 +58,6 @@
     </Reference>
     <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NHibernate.Logging.CommonLogging, Version=4.0.3.4000, Culture=neutral, PublicKeyToken=63d83fd55b02701d, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.Logging.4.0.3\lib\net45\NHibernate.Logging.CommonLogging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Quartz, Version=2.5.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
@@ -183,6 +180,7 @@
     <Compile Include="src\Domain\Users\Dto\UserGroupDto.cs" />
     <Compile Include="src\Domain\Users\Dto\UserPaymentDto.cs" />
     <Compile Include="src\Domain\Users\Dto\UserPermissionDto.cs" />
+    <Compile Include="src\Domain\Users\UserGroupMembershipDto.cs" />
     <Compile Include="src\Domain\Users\UserNotificationOptionsDto.cs" />
     <Compile Include="src\Domain\Users\UserGroup.cs" />
     <Compile Include="src\Domain\Users\Permission.cs" />
@@ -240,6 +238,7 @@
     <Compile Include="src\Persistence\Mappings\RecipientBookingEntryMap.cs" />
     <Compile Include="src\Persistence\Mappings\SenderBookingEntryMap.cs" />
     <Compile Include="src\Persistence\Mappings\UserGroupMembershipMap.cs" />
+    <Compile Include="src\Persistence\NHibernate\UserTypes\VersionUserType.cs" />
     <Compile Include="src\Persistence\PaymentDao.cs" />
     <Compile Include="src\Persistence\PeanutDao.cs" />
     <Compile Include="src\Persistence\PeanutParticipationDao.cs" />
@@ -372,12 +371,20 @@
     <EmbeddedResource Include="Config\Spring.Scheduling.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="Database\DBScripts\V1.1.0.0.01__ParticipationTypeByUserGroup.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.05__User_LatestReadVersionInfo.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.04__Peanut_ExternalLinks.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.03__AutoAcceptBills.sql" />
+    <Content Include="Database\DBScripts\V1.1.0.0.02__MaximumParticipations.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.8__AcceptedBalance.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.7__PeanutState.sql" />
     <Content Include="Resources\MailTemplates\BillAccepted.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\MailTemplates\BillDeclined.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\MailTemplates\BillAutoAccepted.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\MailTemplates\PaymentReceived.template">
@@ -436,7 +443,6 @@
     <Content Include="Database\DBScripts\V0.1.0.0.4__PeanutComments.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.3__PeanutRequirements.sql" />
     <Content Include="Database\DBScripts\V0.1.0.0.2__ParticipationTypes.sql" />
-    <Content Include="Database\db_ddl.sql" />
     <Content Include="Database\flyway\drivers\put-your-jdbc-drivers-here.txt" />
     <Content Include="Database\flyway\drivers\sqljdbc4.jar" />
     <Content Include="Database\flyway\jre\bin\attach.dll" />

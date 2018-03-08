@@ -13,7 +13,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence.Mappings {
             Map(peanut => peanut.CreatedAt).Not.Nullable();
             References(peanut => peanut.ChangedBy).Nullable().NotFound.Ignore();
             Map(peanut => peanut.ChangedAt).Nullable();
-            References(peanut => peanut.UserGroup).Not.Nullable().NotFound.Ignore();
+
+            References(peanut => peanut.UserGroup).Nullable().NotFound.Ignore();
         }
     }
 }

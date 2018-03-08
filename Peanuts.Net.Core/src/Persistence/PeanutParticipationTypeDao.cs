@@ -6,17 +6,27 @@ using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 using NHibernate;
+using NHibernate.Criterion;
 using Spring.Data.NHibernate.Generic;
 
 namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
     public class PeanutParticipationTypeDao : GenericDao<PeanutParticipationType, int>, IPeanutParticipationTypeDao
     {
-        public IList<PeanutParticipationType> Find(UserGroup userGroup)
+        public IList<PeanutParticipationType> FindForGroup(UserGroup userGroup)
         {
             HibernateDelegate<IPage<PeanutParticipationType>> finder = delegate(ISession session)
             {
                 IQueryOver<PeanutParticipationType, PeanutParticipationType> queryOver = session.QueryOver<PeanutParticipationType>();
-                queryOver.Where(p => p.UserGroup.Id == userGroup.Id);
+
+                if (userGroup != null) {
+                    queryOver.Where(Restrictions.Or(
+                        Restrictions.Where<PeanutParticipationType>(participationType => participationType.UserGroup == userGroup),
+                        Restrictions.Where<PeanutParticipationType>(participationType => participationType.UserGroup == null)));
+                } else {
+                    /*Participation types without assigned usergroup are for all usergroups*/
+                    queryOver.Where(part => part.UserGroup == null);
+                }
+                
                 return FindPage(queryOver, PageRequest.All);
             };
             return HibernateTemplate.Execute(finder).ToList();
@@ -24,6 +34,6 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
     }
 
     public interface IPeanutParticipationTypeDao : IGenericDao<PeanutParticipationType, int> {
-        IList<PeanutParticipationType> Find(UserGroup userGroup);
+        IList<PeanutParticipationType> FindForGroup(UserGroup userGroup);
     }
 }

@@ -32,7 +32,6 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.User {
         public UserUpdateCommand(Core.Domain.Users.User user) {
             Require.NotNull(user, "user");
 
-            Username = user.UserName;
             UserContactDto = user.GetUserContactDto();
             UserDataDto = user.GetUserDataDto();
             UserPermissionDto = user.GetUserPermissionDto();
@@ -80,12 +79,6 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Areas.Admin.Models.User {
         ///     Gibt oder Setzt das UserDataDto
         /// </summary>
         public UserDataDto UserDataDto { get; set; }
-
-        /// <summary>
-        ///     Ruft den <see cref="User.UserName" /> des Nutzers ab oder legt diesen fest.
-        /// </summary>
-        [Required]
-        public string Username { get; set; }
 
         /// <summary>
         ///     Liefert oder setzt das PermissionDto für die Berechtigungseinstellungen

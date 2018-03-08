@@ -5,7 +5,17 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
     /// Sammelt Optionen, die auf der Detailseite einer Mitgliedschaft zur Verfügung stehen und ob ein Nutzer darauf Zugriff hat.
     /// </summary>
     public class UserGroupMembershipOptions {
-        public UserGroupMembershipOptions(UserGroupMembership userGroupMembership, UserGroupMembership currentUsersMembership) {
+
+
+        public static UserGroupMembershipOptions ForCurrentUser(UserGroupMembership currentUsersMembership) {
+            return new UserGroupMembershipOptions(currentUsersMembership, currentUsersMembership);
+        }
+
+        public static UserGroupMembershipOptions ForOtherUser(UserGroupMembership otherUsersMembership, UserGroupMembership currentUsersMembership) {
+            return new UserGroupMembershipOptions(otherUsersMembership, currentUsersMembership);
+        }
+
+        private UserGroupMembershipOptions(UserGroupMembership userGroupMembership, UserGroupMembership currentUsersMembership) {
             if (currentUsersMembership==null || !userGroupMembership.UserGroup.Equals(currentUsersMembership.UserGroup)) {
                 return;
             }
@@ -19,6 +29,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
             CanRefuseRequest = userGroupMembership.MembershipType == UserGroupMembershipType.Request && currentUsersMembership.MembershipType == UserGroupMembershipType.Administrator;
 
             CanViewUserGroupMembers = userGroupMembership.IsActiveMembership;
+
+            CanAdministrate = userGroupMembership.MembershipType == UserGroupMembershipType.Administrator;
         }
 
         /// <summary>
@@ -60,5 +72,10 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
         public bool CanViewUserGroupMembers {
             get; private set;
         }
+
+        /// <summary>
+        /// Ruft ab, ob der Nutzer die Gruppe administrieren darf.
+        /// </summary>
+        public bool CanAdministrate { get; private set; }
     }
 }

@@ -1,0 +1,1 @@
+﻿Alter table tblPeanut add ExternalLinks NVARCHAR(4000) null;

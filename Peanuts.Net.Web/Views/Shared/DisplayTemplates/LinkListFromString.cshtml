@@ -1,0 +1,32 @@
+﻿@model string
+
+@functions {
+
+    string WellFormLink(string source) {
+        if (!(source.Contains("://"))) {
+            return "http://" + source;
+        } else {
+            return source;
+        }
+    }
+
+    string[] SplitLinksFromString(string source) {
+        return source.Split(new[] {" ", Environment.NewLine, "<br>", "<br/>"}, StringSplitOptions.RemoveEmptyEntries);
+    }
+}
+
+
+@if (!string.IsNullOrWhiteSpace(Model)) {
+
+    string[] linksInSourceString = SplitLinksFromString(Model);
+    foreach (string link in linksInSourceString) {
+        <a href="@(WellFormLink(link))" title="@link" target="_blank">
+            @link
+            <span class="icon icon-external-link"></span>
+        </a> 
+        <br/>
+    }
+
+
+
+}

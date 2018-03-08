@@ -26,7 +26,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Peanut {
                         p => p.UserGroupMembership.User.Equals(currentUser));
 
             /*Man kann die Teilnahme hinzufügen, wenn man noch kein Teilnehmer ist und der Peanut noch nicht fixiert ist*/
-            CanAddParticipation = !isCurrentUserConfirmedParticipator && !peanut.IsFixed;
+            CanAddParticipation = !isCurrentUserConfirmedParticipator && !peanut.IsFixed && !peanut.IsMaximumParticipationCountReached;
 
             /*Man kann die Teilnahme absagen, wenn man Teilnehmer ist und der Peanut noch nicht fixiert ist*/
             CanCancelParticipation = isCurrentUserParticipator && !peanut.IsFixed;

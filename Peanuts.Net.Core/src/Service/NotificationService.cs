@@ -69,6 +69,17 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                 MailMessage mailMessage = EmailService.CreateMailMessage(userEmail, modelMap, "BillReceived");
                 EmailService.SendMessage(mailMessage);
             }
+            foreach (BillUserGroupDebitor billUserGroupDebitor in FindDebitorsToNotifyOnAutoAcceptedBill(bill)) {
+                string userEmail = billUserGroupDebitor.UserGroupMembership.User.Email;
+                ModelMap modelMap = new ModelMap();
+                modelMap.Add("debitor", billUserGroupDebitor.UserGroupMembership.User);
+                modelMap.Add("creditor", bill.Creditor.User);
+                modelMap.Add("billUrl", billUrl);
+                modelMap.Add("bill", bill);
+                modelMap.Add("amount", bill.GetPartialAmountByPortion(billUserGroupDebitor.Portion));
+                MailMessage mailMessage = EmailService.CreateMailMessage(userEmail, modelMap, "BillAutoAccepted");
+                EmailService.SendMessage(mailMessage);
+            }
 
             foreach (var billGuestDebitor in bill.GuestDebitors) {
                 string userEmail = billGuestDebitor.Email;
@@ -81,8 +92,6 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                 MailMessage mailMessage = EmailService.CreateMailMessage(userEmail, modelMap, "BillReceivedGuest");
                 EmailService.SendMessage(mailMessage);
             }
-
-            
         }
 
         public void SendNotificationAboutUserActivation(User user, string editLink) {
@@ -235,6 +244,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                     modelMap.Add("editor", user);
                     modelMap.Add("recipient", peanutParticipation.UserGroupMembership.User);
                     modelMap.Add("participation", peanutParticipation);
+                    modelMap.Add("participationType", peanutParticipation.ParticipationType.DisplayName);
                     modelMap.Add("peanutUrl", notificationOptions.PeanutUrl);
                     MailMessage mailMessage = EmailService.CreateMailMessage(peanutParticipation.UserGroupMembership.User.Email,
                         modelMap,
@@ -316,14 +326,31 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         }
 
         private static IEnumerable<BillUserGroupDebitor> FindDebitorsToNotifyOnBillCreated(Bill bill) {
-            /*Alle Schuldner*/
-            IList<BillUserGroupDebitor> allDebitors = bill.UserGroupDebitors;
+            
             /*außer der Gläubiger der Rechnung, falls dieser ebenfalls beteiligt sein sollte.*/
             IList<BillUserGroupDebitor> findDebitorsToNotifyOnBillCreated =
-                    allDebitors.Where(ugd => !ugd.UserGroupMembership.Equals(bill.Creditor) &&
-                                             /*Nur die, die benachrichtigt werden wollen.*/
-                                             ugd.UserGroupMembership.User.NotifyMeAsDebitorOnIncomingBills)
-                            .ToList();
+
+                bill.UserGroupDebitors
+                    /*Alle Schuldner, die nicht direkt akzeptiert haben.*/
+                    .Where(ugd => ugd.BillAcceptState == BillAcceptState.Pending)
+                    /*außer der Gläubiger der Rechnung, falls dieser ebenfalls beteiligt sein sollte.*/
+                    .Where(ugd => !ugd.UserGroupMembership.Equals(bill.Creditor))
+                    /*Nur die, die benachrichtigt werden wollen.*/
+                    .Where(ugd => ugd.UserGroupMembership.User.NotifyMeAsDebitorOnIncomingBills)
+                    .ToList();
+            return findDebitorsToNotifyOnBillCreated;
+        }
+
+        private static IEnumerable<BillUserGroupDebitor> FindDebitorsToNotifyOnAutoAcceptedBill(Bill bill) {
+            IList<BillUserGroupDebitor> findDebitorsToNotifyOnBillCreated =
+                 bill.UserGroupDebitors
+                     /*Alle Schuldner, die direkt akzeptiert haben*/
+                    .Where(ugd => ugd.BillAcceptState == BillAcceptState.Accepted)
+                     /*außer der Gläubiger der Rechnung, falls dieser ebenfalls beteiligt sein sollte.*/
+                    .Where(ugd => !ugd.UserGroupMembership.Equals(bill.Creditor))
+                    /*Nur die, die benachrichtigt werden wollen.*/
+                    .Where(ugd => ugd.UserGroupMembership.User.NotifyMeAsDebitorOnIncomingBills)
+                    .ToList();
             return findDebitorsToNotifyOnBillCreated;
         }
 

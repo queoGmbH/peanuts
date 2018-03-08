@@ -72,6 +72,12 @@
           autowire="autodetect">
   </object>
 
+  <object id="versionNewsController"
+          singleton="false"
+          type="Com.QueoFlow.Peanuts.Net.Web.Controllers.VersionNewsController, Peanuts.Net"
+          autowire="autodetect">
+  </object>
+
   <object id="userStoreAdapter"
           type="Com.QueoFlow.Peanuts.Net.Web.Infrastructure.Security.UserStoreAdapter, Peanuts.Net"
           autowire="autodetect">

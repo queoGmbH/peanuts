@@ -6,8 +6,45 @@ include app/atomic/molecule/card-dashboard
 include app/atomic/atom/link-icon
 include app/atomic/atom/admin-link-start
 
+include app/atomic/organism/news
+include app/atomic/molecule/news-item
+
 block content
     +headline-start(startHeadline.title, startHeadline.text)
+
+    +news()
+        +news-item('info', 'Heute noch nichts geplant!', 'calendar')
+            | In deinen Gruppen ist für heute noch kein Peanut geplant. 
+            a(href='#') Wie wäre es, wenn du einen Vorschlag machst?
+        +news-item('success', 'Heute - Nudeln mit roter Soße', 'calendar')
+            | In deiner Gruppe "C# and friends" steht heute der Peanut 
+            a(href='#') Nudeln mit roter Soße
+            |  an!
+        +news-item('info', 'Morgen? - Nudeln mit roter Soße', 'calendar')
+            | Du wurdest für morgen zum Peanut 
+            a(href='#') Nudeln mit roter Soße
+            |  in deiner Gruppe "C# and friends" eingeladen.
+        +news-item('info', 'Übermorgen? - Nudeln mit weißer Soße', 'calendar')
+            | Du wurdest für morgen zum Peanut 
+            a(href='#') Nudeln mit roter Soße
+            |  in deiner Gruppe "C# and friends" eingeladen.
+        +news-item('warning', 'Morgen - Einkaufen für Nudeln mit roter Soße', 'shopping-cart')        
+            | Das hast dich für morgen als Einkäufer des Peanuts 
+            a(href='#') Nudeln mit roter Soße
+            |  eingetragen. Und wie sieht das hier überhaupt aus, wenn der Text ein wenig länger wird?
+        +news-item('warning', 'Heute Koch', 'legal')
+            | Das hast dich für heute als Koch des Peanuts 
+            a(href='#') Nudeln mit roter Soße
+            |  eingetragen
+        +news-item('warning', 'Zahlung erhalten', 'euro')
+            | Du hast eine Zahlung erhalten. Du solltest sie 
+            |
+            a(href='#') bestätigen
+            | !
+        +news-item('warning', 'Offene Rechnungen', 'inbox')
+            | Du hast eine offene 
+            a(href='#') Rechnung
+            | .
 
     +cards-grid-dashboard()
         +card-dashboard(navigation.dashboard[0])
