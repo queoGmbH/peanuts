@@ -584,6 +584,7 @@
     <Content Include="Views\Home\DashboardNews.cshtml" />
     <Content Include="Views\Home\DashboardNews\PendingPeanutParticipation.cshtml" />
     <Content Include="Views\Home\DashboardNews\ConfirmedPeanutParticipation.cshtml" />
+    <Content Include="Views\Home\DashboardNews\CanceledPeanut.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

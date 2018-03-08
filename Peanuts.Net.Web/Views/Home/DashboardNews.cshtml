@@ -30,19 +30,36 @@
             </div>
         </div>
     }
+                    
+    @if (!Model.UpcomingPeanutParticipations.Any() && !Model.UpcomingAttendablePeanuts.Any()) {
+        <div class="news-item news-item--info">
+            <div class="news-item__icon">
+                <span class="icon icon-calendar"></span>
+            </div>
+            <div class="news-item__title">
+                Keine Peanuts
+            </div>
+            <div class="news-item__content">
+                In deinen Gruppen sind in den nächsten Tagen keine Peanuts geplant. 
+                Erstelle doch einen @Html.ActionLink("neuen Peanut", "CreateForm", "Peanut")?!
+            </div>
+        </div>
+    }
+
     @if (Model.UpcomingPeanutParticipations.Any()) {
         foreach (PeanutParticipation peanutParticipation in Model.UpcomingPeanutParticipations.OrderBy(p => p.Peanut.Day)) {
-            switch (peanutParticipation.ParticipationState) {
-                 case PeanutParticipationState.Confirmed:
-                    @Html.Partial("DashboardNews/ConfirmedPeanutParticipation", peanutParticipation)
-                    break;
-                 case PeanutParticipationState.Pending:
-                    @Html.Partial("DashboardNews/PendingPeanutParticipation", peanutParticipation)
-                    break;
+            if (peanutParticipation.Peanut.IsCanceled) {
+                @Html.Partial("DashboardNews/CanceledPeanut", peanutParticipation.Peanut)
+            } else {
+                switch (peanutParticipation.ParticipationState) {
+                    case PeanutParticipationState.Confirmed:
+                        @Html.Partial("DashboardNews/ConfirmedPeanutParticipation", peanutParticipation)
+                        break;
+                    case PeanutParticipationState.Pending:
+                        @Html.Partial("DashboardNews/PendingPeanutParticipation", peanutParticipation)
+                        break;
+                }
             }
-
-
-            
         }
     }
     
