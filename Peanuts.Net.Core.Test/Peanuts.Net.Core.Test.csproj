@@ -208,6 +208,7 @@
     </None>
     <Content Include="Config\Spring.Properties.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
