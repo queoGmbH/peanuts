@@ -97,51 +97,58 @@
                 <legend class="form__legend pull-left">
                     <span>Teilnehmer (@Model.Peanut.Participations.Count(s=>s.ParticipationState==PeanutParticipationState.Confirmed)/@Model.Peanut.Participations.Count)</span>                    
                 </legend>
-                @if (Model.PeanutEditOptions.CanCancelParticipation) {
-                    using (Html.BeginForm("DeclineParticipation", "Peanut", new { peanut = Model.Peanut.BusinessId, peanutParticipation = Model.UsersPeanutParticipation.BusinessId }, FormMethod.Post, new {
-                        @class = "form form-inline pull-right", role = "form"
-                    })) {
-                        @Html.AntiForgeryToken()
-                        @Html.HttpMethodOverride(HttpVerbs.Delete)
-                        <button type="submit" class="btn btn-danger">
-                            <span class="icon icon-thumbs-down">Nicht teilnehmen</span>
-                        </button>
-                    }
-                }
-                
-                @if (Model.PeanutEditOptions.CanAddParticipation) {
-                    PeanutParticipationType initialParticipationType = Model.ParticipationTypes.First();
-                    if (Model.UsersPeanutParticipation != null) {
-                        initialParticipationType = Model.UsersPeanutParticipation.ParticipationType;
+                <div>
+                    @if (Model.PeanutEditOptions.CanCancelParticipation) {
+                        using (Html.BeginForm("DeclineParticipation", "Peanut", new {
+                            peanut = Model.Peanut.BusinessId, peanutParticipation = Model.UsersPeanutParticipation.BusinessId
+                        }, FormMethod.Post, new {
+                            @class = "form form-inline pull-right", role = "form"
+                        })) {
+                            @Html.AntiForgeryToken()
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button type="submit" class="btn btn-danger">
+                                <span class="icon icon-thumbs-down">Nicht teilnehmen</span>
+                            </button>
+                        }
                     }
 
-                    <div class="btn-group pull-right">
-                        @using (Html.BeginForm("Attend", "Peanut", new {}, FormMethod.Post, new {id = "attend_as_invited_form"})) {
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" value="@initialParticipationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationCreateCommand>(cmd => cmd.PeanutParticipationType))"/>
+                    @if (Model.PeanutEditOptions.CanAddParticipation) {
+                        PeanutParticipationType initialParticipationType = Model.ParticipationTypes.First();
+                        if (Model.UsersPeanutParticipation != null) {
+                            initialParticipationType = Model.UsersPeanutParticipation.ParticipationType;
                         }
-                        <button type="submit" class="btn btn-warning" form="attend_as_invited_form">
-                            <span class="icon icon-thumbs-up">als @initialParticipationType.DisplayName</span>
-                        </button>
-                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            @foreach (PeanutParticipationType participationType in Model.ParticipationTypes.Except(new[] { initialParticipationType })) {
-                                <li>
-                                    @using (Html.BeginForm("Attend", "Peanut", new { }, FormMethod.Post)) {
-                                        @Html.AntiForgeryToken()
-                                        <input type="hidden" value="@participationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationCreateCommand>(cmd => cmd.PeanutParticipationType))"/>
-                                        <button class="btn btn-link" type="submit">Teilnehmen als @participationType.DisplayName</button>
-                                    }
-                                </li>
+
+                        <div class="btn-group pull-right">
+                            @using (Html.BeginForm("Attend", "Peanut", new {
+                            }, FormMethod.Post, new {
+                                id = "attend_as_invited_form"
+                            })) {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" value="@initialParticipationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationCreateCommand>(cmd => cmd.PeanutParticipationType))" />
                             }
-                        </ul>
-                    </div>
-                }
-                
-                <table class="list peanut-participations-list">
+                            <button type="submit" class="btn btn-warning" form="attend_as_invited_form">
+                                <span class="icon icon-thumbs-up">als @initialParticipationType.DisplayName</span>
+                            </button>
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                @foreach (PeanutParticipationType participationType in Model.ParticipationTypes.Except(new[] { initialParticipationType })) {
+                                    <li>
+                                        @using (Html.BeginForm("Attend", "Peanut", new {
+                                        }, FormMethod.Post)) {
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" value="@participationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationCreateCommand>(cmd => cmd.PeanutParticipationType))" />
+                                            <button class="btn btn-link" type="submit">Teilnehmen als @participationType.DisplayName</button>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <table class="peanut-participations-list">
                     @foreach (PeanutParticipation participation in Model.Peanut.Participations) {
                         <tr class="peanut-participations-list-item">
                             <td class="peanut-participations-list-item__participation_state">
