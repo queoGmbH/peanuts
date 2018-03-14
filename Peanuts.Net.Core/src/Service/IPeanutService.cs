@@ -128,7 +128,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="invitationNotificationOptions"></param>
         /// <param name="peanutInvitationNotificationOptions"></param>
         /// <param name="user"></param>
-        void InviteAllGroupMembers(Peanut peanut, UserGroup userGroup, PeanutParticipationType invitationNotificationOptions, PeanutInvitationNotificationOptions peanutInvitationNotificationOptions, User user);
+        void InviteAllActiveGroupMembers(Peanut peanut, UserGroup userGroup, PeanutParticipationType invitationNotificationOptions, PeanutInvitationNotificationOptions peanutInvitationNotificationOptions, User user);
 
 
         /// <summary>

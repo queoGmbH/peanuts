@@ -257,20 +257,20 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="peanutInvitationNotificationOptions"></param>
         /// <param name="user"></param>
         [Transaction]
-        public void InviteAllGroupMembers(
+        public void InviteAllActiveGroupMembers(
             Peanut peanut, UserGroup userGroup, PeanutParticipationType peanutParticipationType,
             PeanutInvitationNotificationOptions peanutInvitationNotificationOptions, User user) {
             IList<UserGroupMembership> members =
                 UserGroupService.FindMembershipsByGroups(
                     PageRequest.All,
                     new List<UserGroup> { userGroup },
-                    new List<UserGroupMembershipType> { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member }).ToList();
+                    UserGroupMembership.ActiveTypes).Where(membership => membership.User.IsActiveUser).ToList();
+            
             PeanutParticipationType participationType = peanutParticipationType;
             if (participationType != null) {
                 PeanutParticipationDto peanutParticipationDto = new PeanutParticipationDto(participationType, PeanutParticipationState.Pending);
                 /*Alle Nutzer einladen, die noch nicht als Teilnehmer am Peanut hinterlegt sind.*/
-                IList<UserGroupMembership> inviteableMembers =
-                    members.Except(peanut.Participations.Select(part => part.UserGroupMembership)).ToList();
+                IList<UserGroupMembership> inviteableMembers = members.Except(peanut.Participations.Select(part => part.UserGroupMembership)).ToList();
                 foreach (UserGroupMembership inviteableMember in inviteableMembers) {
                     InviteUser(peanut, inviteableMember, peanutParticipationDto, peanutInvitationNotificationOptions, user);
                 }

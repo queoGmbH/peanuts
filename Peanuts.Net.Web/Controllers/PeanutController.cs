@@ -280,7 +280,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                     new PeanutInvitationNotificationOptions(peanutUrl, attendPeanutUrl),
                     currentUser);
             } else {
-                PeanutService.InviteAllGroupMembers(peanut,
+                PeanutService.InviteAllActiveGroupMembers(peanut,
                     peanut.UserGroup,
                     peanutInvitationCreateCommand.PeanutParticipationType,
                     new PeanutInvitationNotificationOptions(peanutUrl, attendPeanutUrl),
