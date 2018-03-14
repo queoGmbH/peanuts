@@ -37,7 +37,7 @@
             <ul class="nav sidebar-nav">
                 @Html.Action("MenuContentPartial", "Home", new { area = "" })
                 <li class="sidebar-nav-item">
-                    <a class="link icon-envelope-o" href="mailto:d.wuttig@queo-group.com?subject=Feedback"></a>
+                    <a class="link icon-envelope-o" href="@("mailto:feedback@peanuts.queo.com?subject=" + Html.Encode("Feedback zu Peanuts"))"></a>
                 </li>
             </ul>
         </nav>
