@@ -247,7 +247,7 @@
         </legend>
         @if (Model.Peanut.Comments.Any()) {
             <table class="list">
-                @foreach (PeanutComment comment in Model.Peanut.Comments) {
+                @foreach (PeanutComment comment in Model.Peanut.Comments.OrderBy(c => c.CreatedAt)) {
                     <tr>
                         <td class="list-data--text">
                             @(comment.CreatedBy.DisplayName) am @(comment.CreatedAt.ToString("d")) um @(comment.CreatedAt.ToString("t")) Uhr:
