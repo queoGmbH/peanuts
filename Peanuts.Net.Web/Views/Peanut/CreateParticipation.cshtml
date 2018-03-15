@@ -101,26 +101,26 @@
                         @switch (participation.ParticipationState) {
                             case PeanutParticipationState.Confirmed: {
                                 <div class="label label-success">
-                                    @participation.ParticipationState
+                                    @LabelHelper.EnumToLocalizedString(participation.ParticipationState)
                                 </div>
                                 break;
                             }
                             case PeanutParticipationState.Requested: {
                                 <div class="label label-warning">
-                                    @participation.ParticipationState
+                                    @LabelHelper.EnumToLocalizedString(participation.ParticipationState)
                                 </div>
                                 break;
                             }
                             case PeanutParticipationState.Refused: {
                                 <div class="label label-danger">
-                                    @participation.ParticipationState
+                                    @LabelHelper.EnumToLocalizedString(participation.ParticipationState)
                                 </div>
                                 break;
                             }
                             case PeanutParticipationState.Pending:
                             default: {
                                 <div class="label label-default">
-                                    @participation.ParticipationState
+                                    @LabelHelper.EnumToLocalizedString(participation.ParticipationState)
                                 </div>
                                 break;
                             }

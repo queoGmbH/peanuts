@@ -586,6 +586,7 @@
     <Content Include="Views\Home\DashboardNews\ConfirmedPeanutParticipation.cshtml" />
     <Content Include="Views\Home\DashboardNews\CanceledPeanut.cshtml" />
     <Content Include="Views\Shared\FavIcons.cshtml" />
+    <Content Include="Views\Home\DashboardNews\StartedPeanut.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
