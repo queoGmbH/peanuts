@@ -11,6 +11,12 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         Scheduling,
 
         /// <summary>
+        /// Der Peanut wurde abgesagt.
+        /// Bsp.: Koch-Peanut => "Kochen wurde abgesagt"
+        /// </summary>
+        Canceled,
+
+        /// <summary>
         /// Die Planung des Peanuts ist abgeschlossen.
         /// Bsp.: Koch-Peanut => "Rezept-Findung und Mengenplanung"
         /// </summary>
@@ -45,12 +51,6 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         /// Der Peanut wurde durchgeführt
         /// Bsp.: Koch-Peanut => "Essen beendet"
         /// </summary>
-        Realized,
-
-        /// <summary>
-        /// Der Peanut wurde abgesagt.
-        /// Bsp.: Koch-Peanut => "Kochen wurde abgesagt"
-        /// </summary>
-        Canceled
+        Realized
     }
 }

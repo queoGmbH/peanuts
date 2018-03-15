@@ -50,6 +50,8 @@
         foreach (PeanutParticipation peanutParticipation in Model.UpcomingPeanutParticipations.OrderBy(p => p.Peanut.Day)) {
             if (peanutParticipation.Peanut.IsCanceled) {
                 @Html.Partial("DashboardNews/CanceledPeanut", peanutParticipation.Peanut)
+            } else if (peanutParticipation.Peanut.PeanutState == PeanutState.Started) {
+                @Html.Partial("DashboardNews/StartedPeanut", peanutParticipation.Peanut)
             } else {
                 switch (peanutParticipation.ParticipationState) {
                     case PeanutParticipationState.Confirmed:
