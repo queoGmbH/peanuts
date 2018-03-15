@@ -1,4 +1,5 @@
-﻿@model Com.QueoFlow.Peanuts.Net.Web.Models.Account.SendCodeViewModel
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Account.SendCodeViewModel
 @{
     ViewBag.Title = "Überprüfungscode senden";
 }
@@ -6,7 +7,7 @@
 @using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
     @Html.Hidden("rememberMe", @Model.RememberMe)
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     <div class="row">
         <div class="col-md-8">

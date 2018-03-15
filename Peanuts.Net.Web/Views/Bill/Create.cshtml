@@ -24,7 +24,7 @@
 
 @using (Html.BeginForm("Create", "Bill", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     <fieldset>
         <legend>Kopfdaten</legend>

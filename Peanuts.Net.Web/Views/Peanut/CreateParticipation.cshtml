@@ -22,7 +22,7 @@
 
 @using (Html.BeginForm("Attend", "Peanut", new { peanut = Model.Peanut.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<PeanutParticipation>(IdForElement.Form, IdForAction.Create) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     <fieldset>
         <legend class="form__legend pull-left">Teilnahme</legend>

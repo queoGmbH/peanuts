@@ -32,7 +32,7 @@
 
 @using (Html.BeginForm("Update", "UserAdministration", FormMethod.Post, new { role = "form", @class = "form-horizontal", id = Html.GenerateId<User>(IdForElement.Form, IdForAction.Update) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new {
     @class = "form-validation-summary"
 }, "p")
 

@@ -47,7 +47,7 @@
 
 @using (Html.BeginForm("Create", "UserAdministration", routeValues, FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<User>(IdForElement.Form, IdForAction.Create) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {@class = "form-validation-summary"}, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new {@class = "form-validation-summary"}, "p")
     
 
     <div class="nav-tabs-content tab-content">

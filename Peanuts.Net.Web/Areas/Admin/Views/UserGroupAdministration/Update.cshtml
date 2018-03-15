@@ -11,7 +11,7 @@
 @using (Html.BeginForm("Update", "UserGroupAdministration", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<UserGroup>(IdForElement.Form, IdForAction.Update) })) {
     @Html.HttpMethodOverride(HttpVerbs.Put)
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new {
     @class = "form-validation-summary"
 }, "p")
 

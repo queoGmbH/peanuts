@@ -1,4 +1,5 @@
-﻿@model Com.QueoFlow.Peanuts.Net.Web.Models.Manage.AddPhoneNumberViewModel
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Resources
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Manage.AddPhoneNumberViewModel
 @{
     ViewBag.Title = "Telefonnummer";
 }
@@ -8,7 +9,7 @@
     @Html.AntiForgeryToken()
     <h4>Telefonnummer hinzufügen</h4>
     <hr />
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new {
     @class = "form-validation-summary"
 }, "p")
     <div class="form-group">

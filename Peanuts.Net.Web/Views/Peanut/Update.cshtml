@@ -36,7 +36,7 @@
     @class = "form form-horizontal", role = "form", id = Html.GenerateId<Peanut>(IdForElement.Form, IdForAction.Update)
 })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {
+    @Html.ValidationSummary(false, "Bitte überprüfe folgende Eingaben:", new {
         @class = "form-validation-summary"
     }, "p")
     @Html.HttpMethodOverride(HttpVerbs.Put)
