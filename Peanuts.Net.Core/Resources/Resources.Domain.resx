@@ -870,4 +870,13 @@
   <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_ExternalLinks" xml:space="preserve">
     <value>Links</value>
   </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Guest" xml:space="preserve">
+    <value>Gast</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Inactive" xml:space="preserve">
+    <value>Inaktiv</value>
+  </data>
+  <data name="label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Invited" xml:space="preserve">
+    <value>Eingeladen</value>
+  </data>
 </root>

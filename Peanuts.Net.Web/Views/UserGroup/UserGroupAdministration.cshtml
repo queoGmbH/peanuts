@@ -1,4 +1,6 @@
-﻿@using Com.QueoFlow.Peanuts.Net.Web.Helper
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
 @model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.UserGroupAdministrationViewModel
 
 @{
@@ -62,6 +64,19 @@
                 @Html.Form().Static(m => m.UserGroup.CreatedAt)
                 @Html.Form().Static(m => m.UserGroup.AdditionalInformations)
                 @Html.Form().Static(m => m.UserGroup.BalanceOverdraftLimit)
+            </fieldset>
+            <fieldset>
+                <legend class="form__legend pull-left">
+                    Mitglieder
+                </legend>
+                <div class="container-content--full">
+                    @(Html.DisplayFor().GridFor(m => m.UserGroupMembers, true)
+                        .ColumnFor(mem => mem, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy(mem => mem.User.DisplayName).Display("UserGroupMemberWithStatus")
+                        .ColumnFor(mem => mem.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).OrderBy().AttributeBody("class", mem => mem.Account.Balance < 0 ? "text-danger" : "").DisplayFormat("{0:C}")
+                        .ColumnFor(mem => mem.CreatedAt, "Mitglied seit").OrderBy()
+                        .ColumnFor(mem => mem, "Art der Mitgliedschaft").OrderBy(mem => mem.MembershipType).Editor("UpdateMembershipType")
+                    )
+                </div>
             </fieldset>
         </div>
     </div>

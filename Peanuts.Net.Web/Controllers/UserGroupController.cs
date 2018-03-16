@@ -10,6 +10,7 @@ using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 using Com.QueoFlow.Peanuts.Net.Core.Service;
 using Com.QueoFlow.Peanuts.Net.Web.Infrastructure.Security;
+using Com.QueoFlow.Peanuts.Net.Web.Models.Peanut;
 using Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup;
 
 namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
@@ -217,6 +218,12 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             currentUsersMembershipInGroup = foundCurrentUsersMembershipInGroup;
         }
 
+        private void AssertCurrentUserIsAdministratorInGroup(UserGroup userGroup, User currentUser) {
+            UserGroupMembership foundCurrentUsersMembershipInGroup = UserGroupService.FindMembershipByUserAndGroup(currentUser, userGroup);
+            Require.NotNull(foundCurrentUsersMembershipInGroup, "currentUsersMembershipInGroup");
+            Require.IsTrue(() => foundCurrentUsersMembershipInGroup.MembershipType == UserGroupMembershipType.Administrator, "userGroupMembership");
+        }
+
         [Route("{userGroup}/UserGroupMembership/{userGroupMembership}")]
         [HttpDelete]
         [ValidateAntiForgeryToken]
@@ -309,7 +316,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             UserGroupMembership currentUsersMembershipInGroup;
             AssertCurrentUserIsActiveMemberInGroup(userGroup, currentUser, out currentUsersMembershipInGroup);
 
-            IList<UserGroupMembership> members = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }, UserGroupMembership.ActiveTypes).ToList();
+            IList<UserGroupMembership> members = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }).ToList();
             UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForCurrentUser(currentUsersMembershipInGroup);
             UserGroupAdministrationViewModel userGroupMembershipDetailsViewModel = new UserGroupAdministrationViewModel(userGroup, currentUsersMembershipInGroup, members, userGroupMembershipOptions);
             return View("UserGroupAdministration", userGroupMembershipDetailsViewModel);
@@ -360,6 +367,21 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
             UserGroupService.UpdateUserGroupMembership(currentUsersMembershipInGroup, userGroupMembershipUpdateCommand.UserGroupMembershipDto, currentUser);
             return RedirectToAction("MembershipDetails", new { userGroup = userGroup.BusinessId });
+        }
+
+        [Route("{userGroup}/Administration/{userGroupMembership}")]
+        [HttpPut]
+        public ActionResult UpdateMembershipType(UserGroup userGroup, UserGroupMembership userGroupMembership, User currentUser, UserGroupMembershipTypeUpdateCommand userGroupMembershipTypeUpdateCommand) {
+            Require.NotNull(userGroup, "userGroup");
+            Require.NotNull(userGroupMembership, "userGroupMembership");
+            Require.NotNull(userGroupMembershipTypeUpdateCommand, "userGroupMembershipTypeUpdateCommand");
+            Require.IsTrue(() => userGroupMembership.UserGroup.Equals(userGroup), "userGroupMembership");
+            AssertCurrentUserIsAdministratorInGroup(userGroup, currentUser);
+
+            Dictionary<UserGroupMembership, UserGroupMembershipType> newUserGroupMembershipTypes = new Dictionary<UserGroupMembership, UserGroupMembershipType> { {userGroupMembership, userGroupMembershipTypeUpdateCommand.UserGroupMembershipType} };
+            UserGroupService.UpdateUsergroupMembershipTypes(newUserGroupMembershipTypes, currentUser);
+
+            return RedirectToAction("Administration", new { userGroup = userGroup.BusinessId });
         }
     }
 }

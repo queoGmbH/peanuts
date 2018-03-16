@@ -1,0 +1,33 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+
+@using System.Linq;
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Peanut
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Users.UserGroupMembership
+
+@{
+    string memberShipId = Model.BusinessId.ToString().Replace("-", "-");
+    UserGroupMembershipType[] userGroupMembershipTypes = Enum.GetValues(typeof(UserGroupMembershipType)).OfType<UserGroupMembershipType>().ToArray();
+}
+
+<div class="btn-group">
+    <button type="submit" class="btn btn-info" form="update_membershiptype_form_@memberShipId">
+        @*<span class="icon icon-pencil"></span>*@
+        @LabelHelper.EnumToLocalizedString(Model.MembershipType)
+    </button>
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        @foreach (UserGroupMembershipType userGroupMembershipType in userGroupMembershipTypes.Except(new [] {Model.MembershipType}).Except(UserGroupMembership.PendingTypes)) {
+            <li>
+                @using (Html.BeginForm("UpdateMembershipType", "UserGroup", new { userGroup = Model.UserGroup.BusinessId, userGroupMembership = Model.BusinessId }, FormMethod.Post, new { id = "update_membershiptype_form_" + memberShipId })) {
+                    @Html.AntiForgeryToken()
+                    @Html.HttpMethodOverride(HttpVerbs.Put)
+                    <input type="hidden" value="@userGroupMembershipType" name="UserGroupMembershipTypeUpdateCommand.@(Objects.GetPropertyName<UserGroupMembershipTypeUpdateCommand>(cmd => cmd.UserGroupMembershipType))" />
+                    <button class="btn btn-link" type="submit">@LabelHelper.EnumToLocalizedString(userGroupMembershipType)</button>
+                }
+            </li>
+        }
+    </ul>
+</div>

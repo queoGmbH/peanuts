@@ -407,6 +407,7 @@
     <Compile Include="Models\Peanut\PeanutsListViewModel.cs" />
     <Compile Include="Models\Peanut\PeanutUpdateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutUpdateViewModel.cs" />
+    <Compile Include="Models\Peanut\UserGroupMembershipTypeUpdateCommand.cs" />
     <Compile Include="Models\Shared\Display\AlertModel.cs" />
     <Compile Include="Models\Shared\Display\AlertType.cs" />
     <Compile Include="Models\Shared\Display\PaginationModel.cs" />
@@ -587,6 +588,8 @@
     <Content Include="Views\Home\DashboardNews\CanceledPeanut.cshtml" />
     <Content Include="Views\Shared\FavIcons.cshtml" />
     <Content Include="Views\Home\DashboardNews\StartedPeanut.cshtml" />
+    <Content Include="Views\UserGroup\EditorTemplates\UpdateMembershipType.cshtml" />
+    <Content Include="Views\UserGroup\DisplayTemplates\UserGroupMemberWithStatus.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

@@ -24,6 +24,5 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.Peanut {
         public PeanutParticipationType PeanutParticipationType {
             get; set;
         }
-
     }
 }
