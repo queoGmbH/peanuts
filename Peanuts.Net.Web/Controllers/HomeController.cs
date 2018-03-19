@@ -196,8 +196,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 DateTime.Today.AddDays(5),
                 memberships.Select(mem => mem.UserGroup).ToArray());
 
-            IList<PeanutParticipation> upcomingPeanutParticipations = upcomingPeanutsForUser.SelectMany(p => p.Participations).Where(part => part.Peanut.IsRealized &&  memberships.Contains(part.UserGroupMembership)).ToList();
-            IList<Peanut> upcomingAttendablePeanuts = upcomingPeanutsForUser.Except(upcomingPeanutParticipations.Select(part => part.Peanut)).ToList();
+            IList<PeanutParticipation> upcomingPeanutParticipations = upcomingPeanutsForUser.SelectMany(p => p.Participations).Where(part => !part.Peanut.IsRealized &&  memberships.Contains(part.UserGroupMembership)).ToList();
+            IList<Peanut> upcomingAttendablePeanuts = upcomingPeanutsForUser.Where(p => !p.IsFixed).Except(upcomingPeanutParticipations.Select(part => part.Peanut)).ToList();
 
             DashboardNews dashboardNews = new DashboardNews(currentUser, GetShowCurrentVersionNews(currentUser), upcomingPeanutParticipations, upcomingAttendablePeanuts);
 
