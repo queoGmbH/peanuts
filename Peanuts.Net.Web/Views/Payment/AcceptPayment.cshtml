@@ -27,7 +27,7 @@
 
 @using (Html.BeginForm("AcceptPayment", "Payment", new { payment = Model.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
     @Html.HttpMethodOverride(HttpVerbs.Patch)
 
     <p class="alert alert-info">

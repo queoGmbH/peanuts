@@ -2322,6 +2322,34 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Gast ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Guest {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Guest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Inaktiv ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Inactive {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Inactive" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eingeladen ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Invited {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Invited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Mitglied ähnelt.
         /// </summary>
         public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Member {

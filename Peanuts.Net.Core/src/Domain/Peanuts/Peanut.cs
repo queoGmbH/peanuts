@@ -249,6 +249,13 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         }
 
         /// <summary>
+        /// Ruft ab, ob der Peanut durchgeführt wurde.
+        /// </summary>
+        public virtual bool IsRealized {
+            get { return _peanutState == PeanutState.Realized; }
+        }
+
+        /// <summary>
         /// Fügt einen neuen Kommentar zum Peanut hinzu.
         /// </summary>
         /// <param name="updateComment"></param>

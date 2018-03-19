@@ -13,7 +13,7 @@
             <div class="news-item__icon">
                 <span class="icon icon-info-circle"></span>
             </div>
-            <div class="news-item__title">Version 1.1.0 mit neuen Features</div>
+            <div class="news-item__title">Version 1.1.1 mit neuen Features</div>
             <div class="news-item__content">
                 @Html.Action("CurrentVersionNews", "VersionNews")
             </div>
@@ -50,6 +50,8 @@
         foreach (PeanutParticipation peanutParticipation in Model.UpcomingPeanutParticipations.OrderBy(p => p.Peanut.Day)) {
             if (peanutParticipation.Peanut.IsCanceled) {
                 @Html.Partial("DashboardNews/CanceledPeanut", peanutParticipation.Peanut)
+            } else if (peanutParticipation.Peanut.PeanutState == PeanutState.Started) {
+                @Html.Partial("DashboardNews/StartedPeanut", peanutParticipation.Peanut)
             } else {
                 switch (peanutParticipation.ParticipationState) {
                     case PeanutParticipationState.Confirmed:

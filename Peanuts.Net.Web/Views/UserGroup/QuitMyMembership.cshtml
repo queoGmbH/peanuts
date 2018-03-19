@@ -7,7 +7,7 @@
 @using (Html.BeginForm("QuitMembership", "UserGroup", new {userGroup = Model.UserGroup.BusinessId, userGroupMembership = Model.BusinessId}, FormMethod.Post, new { @class = "form form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
     @Html.HttpMethodOverride(HttpVerbs.Delete)
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     if (Model.IsActiveMembership) {
         ViewBag.Title = "Mitgliedschaft kündigen";

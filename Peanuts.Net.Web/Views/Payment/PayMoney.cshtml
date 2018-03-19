@@ -4,6 +4,7 @@
 @using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
 @using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
 @using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
 @model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.PayMoneyViewModel
 
 @{
@@ -24,7 +25,7 @@
 
 @using (Html.BeginForm("PayMoney", "Payment", FormMethod.Post, new { id = Html.GenerateId<Payment>(IdForElement.Form, IdForAction.Create), @class = "form form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     @Html.Form().Select(m => m.PayMoneyCommand.Recipient, Objects.GetPropertyName<UserGroupMembership>(m => m.BusinessId), Objects.GetPropertyName<UserGroupMembership>(m => m.DisplayName), (IList)Model.GroupMembers, "Nutzer wählen ...", "An")
     @Html.Form().Number(m => m.PayMoneyCommand.PaymentDto.Amount)

@@ -14,7 +14,7 @@
 
 @using (Html.BeginForm("Invite", "UserGroup", new {userGroup = Model.UserGroup.BusinessId}, FormMethod.Post, new {  @class = "form form-horizontal", role = "form", id = Html.GenerateId<UserGroupMembership>(IdForElement.Form, IdForAction.Create) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {  @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new {  @class = "form-validation-summary" }, "p")
 
     @Html.Form().Select(m => m.User, Objects.GetPropertyName<User>(u => u.BusinessId), Objects.GetPropertyName<User>(u => u.DisplayName), (IList)Model.InvitableUsers, "Nutzer wählen ...", label: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User)    
 }

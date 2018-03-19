@@ -790,6 +790,15 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bitte überprüfe folgende Eingaben: ähnelt.
+        /// </summary>
+        public static string hint_ValidateYourInput {
+            get {
+                return ResourceManager.GetString("hint_ValidateYourInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Nein ähnelt.
         /// </summary>
         public static string label_False {

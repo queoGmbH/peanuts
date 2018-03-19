@@ -2,6 +2,7 @@
 @using Com.QueoFlow.Peanuts.Net.Core.Resources
 @using Com.QueoFlow.Peanuts.Net.Web.Helper
 @using Com.QueoFlow.Peanuts.Net.Web.Models.Account
+@using Com.QueoFlow.Peanuts.Net.Web.Resources
 @model Com.QueoFlow.Peanuts.Net.Web.Models.Account.LoginViewModel
 @{
     Layout = "~/Views/Shared/_LayoutFullscreen.cshtml";
@@ -18,7 +19,7 @@
 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form form-horizontal form-login", role = "form" })) {
     @Html.AntiForgeryToken()
 
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     @Html.Form().TextBox(m => m.Email, placeholder: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_UserName)
     @Html.Form().Password(m => m.Password, placeholder: Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_Password)

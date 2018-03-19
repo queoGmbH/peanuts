@@ -407,6 +407,7 @@
     <Compile Include="Models\Peanut\PeanutsListViewModel.cs" />
     <Compile Include="Models\Peanut\PeanutUpdateCommand.cs" />
     <Compile Include="Models\Peanut\PeanutUpdateViewModel.cs" />
+    <Compile Include="Models\Peanut\UserGroupMembershipTypeUpdateCommand.cs" />
     <Compile Include="Models\Shared\Display\AlertModel.cs" />
     <Compile Include="Models\Shared\Display\AlertType.cs" />
     <Compile Include="Models\Shared\Display\PaginationModel.cs" />
@@ -586,6 +587,10 @@
     <Content Include="Views\Home\DashboardNews\ConfirmedPeanutParticipation.cshtml" />
     <Content Include="Views\Home\DashboardNews\CanceledPeanut.cshtml" />
     <Content Include="Views\Shared\FavIcons.cshtml" />
+    <Content Include="Views\Home\DashboardNews\StartedPeanut.cshtml" />
+    <Content Include="Views\UserGroup\EditorTemplates\UpdateMembershipType.cshtml" />
+    <Content Include="Views\UserGroup\DisplayTemplates\UserGroupMemberWithStatus.cshtml" />
+    <Content Include="Views\VersionNews\Version_1_1_1.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -709,10 +714,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Peanuts.Net.Core.Test\Peanuts.Net.Core.Test.csproj">
-      <Project>{81e05af3-a0ba-445d-9b9d-cc2abaf1a7ba}</Project>
-      <Name>Peanuts.Net.Core.Test</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Peanuts.Net.Core\Peanuts.Net.Core.csproj">
       <Project>{8ac65b8e-ebe2-4e5e-97be-2bc70a35b09c}</Project>
       <Name>Peanuts.Net.Core</Name>

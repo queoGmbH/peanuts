@@ -11,7 +11,7 @@
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form form-horizontal form-login", role = "form" })) {
     @Html.AntiForgeryToken()
 
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
     
     @Html.Form().TextBox(m => m.FirstName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_FirstName)
     @Html.Form().TextBox(m => m.LastName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User_LastName)
