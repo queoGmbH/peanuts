@@ -6,7 +6,7 @@
 du hast eine <a href="{billUrl}" title="Rechnung anzeigen und bestätigen">Rechnung</a> von {creditor.DisplayName} über {amount:C} mit dem Betreff "{bill.Subject}" erhalten und automatisch akzeptiert.
 </p>
 <p>
-Solange die <a href="{billUrl}" title="Rechnung anzeigen und bestätigen">Rechnung</a> nicht abgerechnet ist, kannst du sie jedoch noch ablehnen.
+Solange die Rechnung nicht abgerechnet ist, kannst du sie jedoch noch ablehnen.
 </p>
 <p>
 Einen schönen Tag wünscht,<br/>

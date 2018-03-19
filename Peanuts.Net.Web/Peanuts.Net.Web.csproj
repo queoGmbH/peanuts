@@ -714,10 +714,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Peanuts.Net.Core.Test\Peanuts.Net.Core.Test.csproj">
-      <Project>{81e05af3-a0ba-445d-9b9d-cc2abaf1a7ba}</Project>
-      <Name>Peanuts.Net.Core.Test</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Peanuts.Net.Core\Peanuts.Net.Core.csproj">
       <Project>{8ac65b8e-ebe2-4e5e-97be-2bc70a35b09c}</Project>
       <Name>Peanuts.Net.Core</Name>
