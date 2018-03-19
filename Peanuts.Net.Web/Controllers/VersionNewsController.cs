@@ -25,7 +25,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         [Route("CurrentVersion")]
         public ActionResult CurrentVersionNews() {
             // TODO: Should be resolved automagically
-            return PartialView("Version_1_1_0");
+            return PartialView("Version_1_1_1");
         }
 
         [HttpPost]
