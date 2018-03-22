@@ -64,8 +64,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                                     userGroup =>
                                         UserGroupService.FindMembershipsByGroups(PageRequest.All,
                                             new List<UserGroup> { userGroup },
-                                            new List<UserGroupMembershipType>
-                                                    { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member }))
+                                            UserGroupMembership.AvailableTypes))
                                 .ToList();
                 return View("Create", new BillCreateViewModel(userGroupMemberships, members, billCreateCommand));
             }
@@ -114,7 +113,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                                 userGroup =>
                                     UserGroupService.FindMembershipsByGroups(PageRequest.All,
                                         new List<UserGroup> { userGroup },
-                                        UserGroupMembership.ActiveTypes))
+                                        UserGroupMembership.AvailableTypes))
                             .ToList();
             return View("Create", new BillCreateViewModel(usersUserGroupMemberships, members, selectedUserGroup));
         }
@@ -128,7 +127,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             IList<UserGroupMembership> availableUserGroupMemberships =
                     UserGroupService.FindMembershipsByGroups(PageRequest.All,
                         new List<UserGroup> { peanut.UserGroup },
-                        UserGroupMembership.ActiveTypes).ToList();
+                        UserGroupMembership.AvailableTypes).ToList();
             BillCreateViewModel billCreateViewModel = new BillCreateViewModel(new List<UserGroupMembership> { currentUsersMembershipsInPeanutGroup },
                 availableUserGroupMemberships,
                 peanut);

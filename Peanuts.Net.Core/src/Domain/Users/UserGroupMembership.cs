@@ -47,6 +47,16 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         }
 
         /// <summary>
+        /// Ruft alle Mitgliedschafts-Typen ab, die ein Mitglied als in der Gruppe verfügbar markieren.
+        /// Alle verfügbaren Nutzer können zum Beispiel explizit zu einem Peanut eingeladen werden oder eine Rechnung erhalten.
+        /// </summary>
+        public static UserGroupMembershipType[] AvailableTypes {
+            get {
+                return new[] { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member };
+            }
+        }
+
+        /// <summary>
         /// Ruft alle Mitgliedschafts-Typen ab. 
         /// </summary>
         public static UserGroupMembershipType[] AllTypes {

@@ -18,10 +18,6 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
     [Authorization]
     [RoutePrefix("Peanut")]
     public class PeanutController : Controller {
-        private static readonly List<UserGroupMembershipType> ActiveUsergroupMembershipTypes = new List<UserGroupMembershipType> {
-            UserGroupMembershipType.Administrator, UserGroupMembershipType.Member
-        };
-
         /// <summary>
         ///     Liefert oder setzt den PeanutParticipationTypeService
         /// </summary>
@@ -156,7 +152,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
         private PeanutCreateViewModel GetPeanutCreateViewModel(User currentUser) {
             List<UserGroupMembership> userGroupMemberships =
-                UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, ActiveUsergroupMembershipTypes).ToList();
+                UserGroupService.FindMembershipsByUser(PageRequest.All, currentUser, UserGroupMembership.AvailableTypes).ToList();
             List<UserGroup> userGroups = userGroupMemberships.Select(membership => membership.UserGroup).ToList();
             IDictionary<UserGroup, PeanutParticipationType[]> participationTypesByGroup = userGroups.ToDictionary(
                 ug => ug,
@@ -316,8 +312,8 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
 
         private List<UserGroupMembership> GetInvitableUserForPeanut(Peanut peanut) {
 
-            List<UserGroupMembership> userGroupMemberships = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { peanut.UserGroup }, UserGroupMembership.ActiveTypes).ToList();
-            IList<UserGroupMembership> onlyActiveMembersAndUsers = userGroupMemberships.Where(mem => mem.IsActiveMembership && mem.User.IsActiveUser).ToList();
+            List<UserGroupMembership> userGroupMemberships = UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { peanut.UserGroup }, UserGroupMembership.AvailableTypes).ToList();
+            IList<UserGroupMembership> onlyActiveMembersAndUsers = userGroupMemberships.Where(mem => mem.User.IsActiveUser).ToList();
 
             return onlyActiveMembersAndUsers.Except(peanut.Participations.Where(part => part.ParticipationState != PeanutParticipationState.Refused).Select(part => part.UserGroupMembership)).ToList();
         }
@@ -410,7 +406,7 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
         private Dictionary<UserGroupMembership, PeanutParticipationDto> GetInitialParticipators(PeanutCreateCommand peanutCreateCommand, User creator) {
             IPage<UserGroupMembership> groupMemberships = UserGroupService.FindMembershipsByGroups(PageRequest.All,
                 new List<UserGroup> { peanutCreateCommand.UserGroup },
-                new List<UserGroupMembershipType> { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member });
+                UserGroupMembership.AvailableTypes);
             UserGroupMembership creatorsMembership = groupMemberships.SingleOrDefault(membership => membership.User.Equals(creator));
 
             /*Initiator als Member hinzufügen*/
