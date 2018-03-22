@@ -61,7 +61,7 @@
 
             <fieldset>
                 <legend class="form__legend pull-left">
-                    Aktuelle Mitglieder der Gruppe
+                    Aktive Mitglieder der Gruppe
                     <a class="btn btn-default pull-right" href="@Url.Action("InviteForm", new { userGroup = Model.UserGroup.BusinessId })">
                         <span class="icon icon-user-plus"></span>
                         Nutzer einladen
@@ -69,7 +69,8 @@
                 </legend>
                 <div class="container-content--full">
                     @(
-        Html.DisplayFor().GridFor(m => m.CurrentUserGroupMembers, true)
+        Html.DisplayFor().GridFor(m => m.ActiveMembers, true)
+            .Id("tbl_active_memebers")
             .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
             .ColumnFor(m => m.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).DisplayFormat("{0:C}").OrderBy(s => s.Account.Balance)
             .ColumnFor(m => m.CreatedAt, "Mitglied seit").OrderBy()
@@ -77,6 +78,25 @@
                           )
                 </div>
             </fieldset>
+            @if (Model.InactiveMembers.Any()) {
+                <fieldset>
+                    <legend class="form__legend pull-left">
+                        Inaktive Mitglieder der Gruppe
+                    </legend>
+                    <div class="container-content--full">
+                        @(
+                    Html.DisplayFor().GridFor(m => m.InactiveMembers, true)
+                        .Id("tbl_inactive_memebers")
+                        .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
+                        .ColumnFor(m => m.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).DisplayFormat("{0:C}").OrderBy(s => s.Account.Balance)
+                        .ColumnFor(m => m.CreatedAt, "Mitglied seit").OrderBy()
+                        .ColumnFor(m => m.MembershipType, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_MembershipType).OrderBy()
+                              )
+                    </div>
+                </fieldset>
+            }
+
+
             @if (Model.InvitedMembers.Any()) {
                 <fieldset>
                     <legend class="form__legend pull-left">
@@ -85,6 +105,7 @@
                     <div class="container-content--full">
                         @(
                     Html.DisplayFor().GridFor(m => m.InvitedMembers, true)
+                        .Id("tbl_invited_memebers")
                         .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
                         .ColumnFor(m => m.CreatedAt, "Eingeladen am").OrderBy()
                               )
@@ -100,6 +121,7 @@
                     <div class="container-content--full">
                         @(
                     Html.DisplayFor().GridFor(m => m.RequestingMembers, true)
+                        .Id("tbl_requesting_memebers")
                         .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
                         .ColumnFor(m => m.CreatedAt, "Angefragt am").OrderBy()
                               )
@@ -115,6 +137,7 @@
                     <div class="container-content--full">
                         @(
                     Html.DisplayFor().GridFor(m => m.FormerUserGroupMembers, true)
+                        .Id("tbl_former_memebers")
                         .ColumnFor(m => m.User.DisplayName, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy()
                         .ColumnFor(m => m.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).DisplayFormat("{0:C}").OrderBy(s => s.Account.Balance)
                         .ColumnFor(m => m.CreatedAt, "Mitglied seit").OrderBy()

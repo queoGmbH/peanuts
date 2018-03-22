@@ -339,11 +339,14 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
             IList<UserGroupMembership> requestingMembers =
                 members.Where(mem => mem.MembershipType == UserGroupMembershipType.Request && mem.User.IsActiveUser).ToList();
 
-            IList<UserGroupMembership> currentMembers =
+            IList<UserGroupMembership> inactiveMembers =
+                members.Where(mem => UserGroupMembership.InactiveTypes.Contains(mem.MembershipType) && mem.User.IsActiveUser).ToList();
+
+            IList<UserGroupMembership> activeMembers =
                 members.Where(mem => UserGroupMembership.ActiveTypes.Contains(mem.MembershipType) && mem.User.IsActiveUser).ToList();
 
             UserGroupMembershipOptions userGroupMembershipOptions = UserGroupMembershipOptions.ForOtherUser(currentUsersMembershipInGroup, currentUsersMembershipInGroup);
-            UserGroupMembersViewModel userGroupMembershipDetailsViewModel = new UserGroupMembersViewModel(userGroup, currentUsersMembershipInGroup, currentMembers, requestingMembers, invitedMembers, formerMembers, userGroupMembershipOptions);
+            UserGroupMembersViewModel userGroupMembershipDetailsViewModel = new UserGroupMembersViewModel(userGroup, currentUsersMembershipInGroup, activeMembers, inactiveMembers, requestingMembers, invitedMembers, formerMembers, userGroupMembershipOptions);
             return View("UserGroupMembers", userGroupMembershipDetailsViewModel);
         }
 

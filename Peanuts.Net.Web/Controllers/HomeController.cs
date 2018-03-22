@@ -148,7 +148,17 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Controllers {
                 return true;
             }
 
-            if (currentUser.LatestReadVersionNews < VersionHelper.GetCurrentApplicationVersion()) {
+            Version currentUserLatestReadVersionNews = currentUser.LatestReadVersionNews;
+            Version currentApplicationVersion = VersionHelper.GetCurrentApplicationVersion();
+
+
+            if (currentUserLatestReadVersionNews.Major < currentApplicationVersion.Major) {
+                return true;
+            }
+            if (currentUserLatestReadVersionNews.Minor < currentApplicationVersion.Minor) {
+                return true;
+            }
+            if (currentUserLatestReadVersionNews.Build < currentApplicationVersion.Build) {
                 return true;
             }
 
