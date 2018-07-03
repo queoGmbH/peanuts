@@ -52,7 +52,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         public Payment Create(PaymentDto paymentDto, Account recipient, Account sender, User requestRecipient, User requestSender, User creator, string paymentUrl) {
             Payment payment = new Payment(paymentDto, recipient, sender, requestRecipient, requestSender, new EntityCreatedDto(creator, DateTime.Now));
             PaymentDao.Save(payment);
-            NotificationService.SendPaymentReceivedNotification(payment,paymentUrl);
+            NotificationService.SendPaymentReceivedNotification(payment, paymentUrl);
             return payment;
         }
 

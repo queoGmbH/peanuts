@@ -83,7 +83,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// Sendet eine Benachrichtigung bei Änderung des Status eines Peanuts.
         /// </summary>
         /// <param name="peanut">Der Peanut, dessen Staus geändert wurde.</param>
-        /// <param name="notificationOptions">Benachrichtigungsinformationen.</param>
+        /// <param name="notificationOptions">Benachrichtigungs-Informationen.</param>
         /// <param name="user">Der Nutzer der den Status gesetzt hat.</param>
         void SendPeanutUpdateStateNotification(Peanut peanut, PeanutUpdateNotificationOptions notificationOptions, User user);
 

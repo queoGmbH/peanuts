@@ -120,8 +120,16 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             modelMap.Add("paymentUrl", paymentUrl);
             modelMap.Add("payment", payment);
             modelMap.Add("amount", payment.Amount);
-            MailMessage mailMessage = EmailService.CreateMailMessage(userEmail, modelMap, "PaymentReceived");
-            EmailService.SendMessage(mailMessage);
+            
+            if (payment.RequestRecipient.Equals(payment.Recipient.Membership.User)) {
+                MailMessage paymentReveivedMailMessage = EmailService.CreateMailMessage(userEmail, modelMap, "PaymentReceived");
+                EmailService.SendMessage(paymentReveivedMailMessage);
+            } else if (payment.RequestRecipient.Equals(payment.Sender.Membership.User)) {
+                MailMessage paymentDoneMailMessage = EmailService.CreateMailMessage(userEmail, modelMap, "PaymentSent");
+                EmailService.SendMessage(paymentDoneMailMessage);
+            }
+            
+            
         }
 
         public void SendPeanutCommentNotification(Peanut peanut, string comment, PeanutUpdateNotificationOptions notificationOptions, User user) {

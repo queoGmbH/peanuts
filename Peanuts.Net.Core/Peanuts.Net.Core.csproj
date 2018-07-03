@@ -387,6 +387,9 @@
     <None Include="Resources\MailTemplates\BillAutoAccepted.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\MailTemplates\PaymentSent.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\MailTemplates\PaymentReceived.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
