@@ -591,6 +591,7 @@
     <Content Include="Views\UserGroup\EditorTemplates\UpdateMembershipType.cshtml" />
     <Content Include="Views\UserGroup\DisplayTemplates\UserGroupMemberWithStatus.cshtml" />
     <Content Include="Views\VersionNews\Version_1_1_1.cshtml" />
+    <Content Include="Views\VersionNews\Version_1_1_2.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

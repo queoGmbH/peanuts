@@ -52,7 +52,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         /// </summary>
         public static UserGroupMembershipType[] AvailableTypes {
             get {
-                return new[] { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member };
+                return new[] { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member, UserGroupMembershipType.Guest };
             }
         }
 
@@ -70,7 +70,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Users {
         ///     Mitgliedschaft als inaktiv gilt.
         /// </summary>
         public static UserGroupMembershipType[] InactiveTypes {
-            get { return new[] { UserGroupMembershipType.Inactive, UserGroupMembershipType.Quit, UserGroupMembershipType.Guest }; }
+            get { return new[] { UserGroupMembershipType.Inactive, UserGroupMembershipType.Guest }; }
         }
 
         /// <summary>

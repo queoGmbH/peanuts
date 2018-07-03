@@ -7,15 +7,18 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
     ///     ViewModel für die Anzeige einer Gruppen-Mitgliedschaft.
     /// </summary>
     public class UserGroupMembersViewModel {
-        public UserGroupMembersViewModel(Core.Domain.Users.UserGroup userGroup, UserGroupMembership currentUsersMembershipInGroup, IList<UserGroupMembership> currentMembers, IList<UserGroupMembership> requestingMembers, IList<UserGroupMembership> invitedMembers, IList<UserGroupMembership> formerMembers, UserGroupMembershipOptions userGroupMembershipOptions) {
+        public UserGroupMembersViewModel(Core.Domain.Users.UserGroup userGroup, UserGroupMembership currentUsersMembershipInGroup, IList<UserGroupMembership> activeMembers, IList<UserGroupMembership> inactiveMembers, IList<UserGroupMembership> requestingMembers, IList<UserGroupMembership> invitedMembers, IList<UserGroupMembership> formerMembers, UserGroupMembershipOptions userGroupMembershipOptions) {
             Require.NotNull(userGroup, "userGroup");
-            Require.NotNull(currentMembers, "currentMembers");
+            Require.NotNull(activeMembers, "activeMembers");
+            Require.NotNull(inactiveMembers, "inactiveMembers");
             Require.NotNull(formerMembers, "formerMembers");
             Require.NotNull(userGroupMembershipOptions, "userGroupMembershipOptions");
 
             UserGroup = userGroup;
             CurrentUsersMembershipInGroup = currentUsersMembershipInGroup;
-            CurrentUserGroupMembers = currentMembers;
+
+            ActiveMembers = activeMembers;
+            InactiveMembers = inactiveMembers;
             RequestingMembers = requestingMembers;
             InvitedMembers = invitedMembers;
             FormerUserGroupMembers = formerMembers;
@@ -32,9 +35,16 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup {
         public UserGroupMembership CurrentUsersMembershipInGroup { get; }
 
         /// <summary>
-        ///     Ruft die Mitgliedschaften der Gruppe ab.
+        ///     Ruft die aktiven Mitgliedschaften der Gruppe ab.
         /// </summary>
-        public IList<UserGroupMembership> CurrentUserGroupMembers {
+        public IList<UserGroupMembership> ActiveMembers {
+            get;
+        }
+
+        /// <summary>
+        ///     Ruft die inaktiven Mitgliedschaften der Gruppe ab.
+        /// </summary>
+        public IList<UserGroupMembership> InactiveMembers {
             get;
         }
 
