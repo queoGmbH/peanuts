@@ -37,17 +37,34 @@
     string GetPeanutParticipationStateModifierClass(PeanutParticipationState participationState) {
         switch (participationState) {
             case PeanutParticipationState.Confirmed: {
-                return "success";
+                    return "success";
+                }
+            case PeanutParticipationState.Requested: {
+                    return "warning";
+                }
+            case PeanutParticipationState.Refused: {
+                    return "danger";
+                }
+            case PeanutParticipationState.Pending:
+            default: {
+                    return "default";
+                }
+        }
+    }
+    string GetPeanutParticipationStateIconClass(PeanutParticipationState participationState) {
+        switch (participationState) {
+            case PeanutParticipationState.Confirmed: {
+                return "check-circle";
             }
             case PeanutParticipationState.Requested: {
-                return "warning";
+                return "question-circle";
             }
             case PeanutParticipationState.Refused: {
-                return "danger";
+                return "exclamation-circle";
             }
             case PeanutParticipationState.Pending:
             default: {
-                return "default";
+                return "clock-o";
             }
         }
     }
@@ -64,6 +81,10 @@
                 @Html.Form().Static(m => m.Peanut.Name)
                 @Html.Form().Static(m => m.Peanut.UserGroup.DisplayName)
                 @Html.Form().Static(m => m.Peanut.Day, formatString: "{0:d}")
+                @Html.Form().Static(m => m.Peanut.MaximumParticipations)
+                @if (!string.IsNullOrWhiteSpace(Model.Peanut.ExternalLinks)) {
+                    @Html.Form().Static(m => m.Peanut.ExternalLinks, staticTemplate: "DisplayTemplates/LinkListFromString")
+                }
             </div>
             <div class="form__col">
                 @Html.Form().Static(m => m.Peanut.Description)
@@ -74,37 +95,73 @@
         <div class="form__col">
             <fieldset>
                 <legend class="form__legend pull-left">
-                    <span>Teilnehmer (@Model.Peanut.Participations.Count(s=>s.ParticipationState==PeanutParticipationState.Confirmed)/@Model.Peanut.Participations.Count)</span>
-                    @if (Model.PeanutEditOptions.CanAddParticipation) {
-                        <a href="@Url.Action("AttendForm", new { peanut = Model.Peanut.BusinessId })" class="btn btn-warning pull-right">
-                            <span class="icon icon-thumbs-up">Teilnehmen</span>
-                        </a>
+                    <span>Teilnehmer (@Model.Peanut.Participations.Count(s=>s.ParticipationState==PeanutParticipationState.Confirmed)/@Model.Peanut.Participations.Count)</span>                    
+                </legend>
+                
+                @if (Model.PeanutEditOptions.CanCancelParticipation) {
+                    using (Html.BeginForm("DeclineParticipation", "Peanut", new {
+                        peanut = Model.Peanut.BusinessId, peanutParticipation = Model.UsersPeanutParticipation.BusinessId
+                    }, FormMethod.Post, new {
+                        @class = "form form-inline pull-right", role = "form"
+                    })) {
+                        @Html.AntiForgeryToken()
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button type="submit" class="btn btn-danger">
+                            <span class="icon icon-thumbs-down">Nicht teilnehmen</span>
+                        </button>
                     }
-                    @if (Model.PeanutEditOptions.CanCancelParticipation) {
-                        using (Html.BeginForm("DeclineParticipation", "Peanut", new {
-                            peanut = Model.Peanut.BusinessId, peanutParticipation = Model.UsersPeanutParticipation.BusinessId
+                }
+
+                @if (Model.PeanutEditOptions.CanAddParticipation) {
+                    PeanutParticipationType initialParticipationType = Model.ParticipationTypes.First();
+                    if (Model.UsersPeanutParticipation != null) {
+                        initialParticipationType = Model.UsersPeanutParticipation.ParticipationType;
+                    }
+
+                    <div class="btn-group pull-right">
+                        @using (Html.BeginForm("Attend", "Peanut", new {
                         }, FormMethod.Post, new {
-                            @class = "form form-inline pull-right", role = "form"
+                            id = "attend_as_invited_form"
                         })) {
                             @Html.AntiForgeryToken()
-                            @Html.HttpMethodOverride(HttpVerbs.Delete)
-                            <button type="submit" class="btn btn-danger">
-                                <span class="icon icon-thumbs-down">Nicht teilnehmen</span>
-                            </button>
+                            <input type="hidden" value="@initialParticipationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationCreateCommand>(cmd => cmd.PeanutParticipationType))" />
                         }
-                    }
-                </legend>
-
-                <table class="list peanut-participations-list">
+                        <button type="submit" class="btn btn-warning" form="attend_as_invited_form">
+                            <span class="icon icon-thumbs-up">als @initialParticipationType.DisplayName</span>
+                        </button>
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            @foreach (PeanutParticipationType participationType in Model.ParticipationTypes.Except(new[] { initialParticipationType })) {
+                                <li>
+                                    @using (Html.BeginForm("Attend", "Peanut", new {
+                                    }, FormMethod.Post)) {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" value="@participationType.BusinessId" name="PeanutParticipationCreateCommand.@(Objects.GetPropertyName<PeanutParticipationCreateCommand>(cmd => cmd.PeanutParticipationType))" />
+                                        <button class="btn btn-link" type="submit">Teilnehmen als @participationType.DisplayName</button>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @if (Model.PeanutEditOptions.CanAddParticipation || Model.PeanutEditOptions.CanCancelParticipation) {
+                    <div class="clearfix"></div>
+                    <hr/>
+                }
+                
+                <table class="peanut-participations-list">
                     @foreach (PeanutParticipation participation in Model.Peanut.Participations) {
                         <tr class="peanut-participations-list-item">
+                            <td class="peanut-participations-list-item__participation_state">
+                                <span class="text-@(GetPeanutParticipationStateModifierClass(participation.ParticipationState))">
+                                    <span class="icon icon-@(GetPeanutParticipationStateIconClass(participation.ParticipationState))" title="@(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutParticipationState), participation.ParticipationState.ToString()))"></span>
+                                </span>
+                            </td>
                             <td class="peanut-participations-list-item__name">
                                 @participation.UserGroupMembership.User.DisplayName
-                            </td>
-                            <td class="peanut-participations-list-item__participation_state">
-                                <div class="label label-@(GetPeanutParticipationStateModifierClass(participation.ParticipationState))">
-                                    @(LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutParticipationState), participation.ParticipationState.ToString()))
-                                </div>
                             </td>
                             <td class="peanut-participations-list-item__participation_type">
                                 @if (Model.PeanutEditOptions.CanUpdatePeanut) {
@@ -118,11 +175,12 @@
                 </table>
 
                 @if (Model.InviteableUsers.Any() && !Model.Peanut.IsFixed) {
+                    <div class="clearfix"></div>
                     <hr/>
                     using (Html.BeginForm("InviteUser", "Peanut", FormMethod.Post, new { peanut = Model.Peanut.BusinessId })) {
                         @Html.AntiForgeryToken()
                         
-                        @Html.Form().Select(m => m.PeanutInvitationCreateCommand.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(membership => membership.BusinessId), Objects.GetPropertyName<UserGroupMembership>(membership => membership.DisplayName), (IList)Model.InviteableUsers, $"Alle Nutzer der Gruppe {Model.Peanut.UserGroup.DisplayName} einladen...", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_UserGroupMembership)
+                        @Html.Form().Select(m => m.PeanutInvitationCreateCommand.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(membership => membership.BusinessId), Objects.GetPropertyName<UserGroupMembership>(membership => membership.DisplayName), (IList)Model.InviteableUsers, $"Alle aktiven Mitglieder der Gruppe {Model.Peanut.UserGroup.DisplayName} einladen...", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_UserGroupMembership)
                         @Html.Form().Select(m => m.PeanutInvitationCreateCommand.PeanutParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), (IList)Model.ParticipationTypes, "Einladen als ...", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType)
 
                         <button type="submit" class="btn btn-secondary">
@@ -189,7 +247,7 @@
         </legend>
         @if (Model.Peanut.Comments.Any()) {
             <table class="list">
-                @foreach (PeanutComment comment in Model.Peanut.Comments) {
+                @foreach (PeanutComment comment in Model.Peanut.Comments.OrderBy(c => c.CreatedAt)) {
                     <tr>
                         <td class="list-data--text">
                             @(comment.CreatedBy.DisplayName) am @(comment.CreatedAt.ToString("d")) um @(comment.CreatedAt.ToString("t")) Uhr:
@@ -223,14 +281,12 @@
             </div>
         }
     </fieldset>
-
-
 </div>
 
 @section toolbar {
     <a href="@Url.Action("Index", "Peanut")" class="btn btn-default">
         <span class="icon-arrow-left"></span>
-        <span class="">@Resources_Web.btn_Cancel</span>
+        <span class="">@Resources_Web.common_btn_PagerPrevious</span>
     </a>
 
 

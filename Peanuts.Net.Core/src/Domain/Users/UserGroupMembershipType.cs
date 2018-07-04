@@ -11,6 +11,17 @@
         Member,
 
         /// <summary>
+        /// Das Mitglied der Gruppe ist inaktiv. Das bedeutet, dass er zwar noch in der Gruppe ist, aber nicht aktiver Teilnehmer an den Aktivitäten der Gruppe.
+        /// </summary>
+        Inactive,
+
+        /// <summary>
+        /// Das Mitglied ist Gast in der Gruppe. 
+        /// Es ist also nicht wirklich aktiv, kann aber trotzdem an den Aktivitäten der Gruppe teilnehmen.
+        /// </summary>
+        Guest,
+
+        /// <summary>
         ///     Der Nutzer hat die Gruppe verlassen.
         /// </summary>
         Quit,

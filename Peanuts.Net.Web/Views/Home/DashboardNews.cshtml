@@ -1,0 +1,84 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts
+@using Com.QueoFlow.Peanuts.Net.Core.Domain.Users
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Web.Models.Home.DashboardNews
+
+@functions {
+    
+}
+
+<div class="news-list">
+    @if (Model.ShowCurrentVersionNews) {
+        <div class="news-item news-item--info" id="update_version_news_hidden">
+            <div class="news-item__icon">
+                <span class="icon icon-info-circle"></span>
+            </div>
+            <div class="news-item__title">Version 1.1.2 mit neuen Features</div>
+            <div class="news-item__content">
+                @Html.Action("CurrentVersionNews", "VersionNews")
+            </div>
+            <div class="news-item__icon--close">
+                @{
+                    AjaxOptions closeCurrentVersionNewsAjaxOptions = new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "update_version_news_hidden", InsertionMode = InsertionMode.ReplaceWith };
+                }
+                @using (Ajax.BeginForm("UserHasReadCurrentVersionNews", "VersionNews", closeCurrentVersionNewsAjaxOptions)) {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-link js-accept">
+                        <span class="icon icon-close"></span>
+                    </button>
+                }
+            </div>
+        </div>
+    }
+                    
+    @if (!Model.UpcomingPeanutParticipations.Any() && !Model.UpcomingAttendablePeanuts.Any()) {
+        <div class="news-item news-item--info">
+            <div class="news-item__icon">
+                <span class="icon icon-calendar"></span>
+            </div>
+            <div class="news-item__title">
+                Keine Peanuts
+            </div>
+            <div class="news-item__content">
+                In deinen Gruppen sind in den nächsten Tagen keine Peanuts geplant. 
+                Erstelle doch einen @Html.ActionLink("neuen Peanut", "CreateForm", "Peanut")?!
+            </div>
+        </div>
+    }
+
+    @if (Model.UpcomingPeanutParticipations.Any()) {
+        foreach (PeanutParticipation peanutParticipation in Model.UpcomingPeanutParticipations.OrderBy(p => p.Peanut.Day)) {
+            if (peanutParticipation.Peanut.IsCanceled) {
+                @Html.Partial("DashboardNews/CanceledPeanut", peanutParticipation.Peanut)
+            } else if (peanutParticipation.Peanut.PeanutState == PeanutState.Started) {
+                @Html.Partial("DashboardNews/StartedPeanut", peanutParticipation.Peanut)
+            } else {
+                switch (peanutParticipation.ParticipationState) {
+                    case PeanutParticipationState.Confirmed:
+                        @Html.Partial("DashboardNews/ConfirmedPeanutParticipation", peanutParticipation)
+                        break;
+                    case PeanutParticipationState.Pending:
+                        @Html.Partial("DashboardNews/PendingPeanutParticipation", peanutParticipation)
+                        break;
+                }
+            }
+        }
+    }
+    
+    @if (Model.UpcomingAttendablePeanuts.Any()) {
+        foreach (Peanut peanut in Model.UpcomingAttendablePeanuts.OrderBy(p => p.Day)) {
+            <div class="news-item news-item--info">
+                <div class="news-item__icon">
+                    <span class="icon icon-calendar"></span>
+                </div>
+                <div class="news-item__title">
+                    @Html.Display().GetDayString(peanut.Day) @(peanut.Name)
+                </div>
+                <div class="news-item__content">
+                    In deiner Gruppe @Html.Partial("UserGroupLink", peanut.UserGroup) ist für 
+                    @Html.Display().GetDayString(peanut.Day) @Html.Partial("PeanutLink", peanut) geplant! Willst du @Html.ActionLink("teilnehmen", "AttendForm", "Peanut", new {peanut = peanut.BusinessId}, null)?
+                </div>
+            </div>
+        }
+    }
+</div>

@@ -4,6 +4,8 @@
 @using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
 @using Com.QueoFlow.Peanuts.Net.Core.Resources
 @using Com.QueoFlow.Peanuts.Net.Web.Helper
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Peanut
+@using Com.QueoFlow.Peanuts.Net.Web.Models.Shared.Forms
 @using Com.QueoFlow.Peanuts.Net.Web.Resources
 @model Com.QueoFlow.Peanuts.Net.Web.Models.Peanut.PeanutCreateViewModel
 
@@ -13,14 +15,14 @@
     string userGroupPlaceholder = null;
     if (Model.PeanutCreateCommand.UserGroup == null) {
         userGroupPlaceholder = "Gruppe wählen ...";
-    }
+    }    
 }
 
 
 
 @using (Html.BeginForm("Create", "Peanut", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<Peanut>(IdForElement.Form, IdForAction.Create) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     <fieldset>
         <legend>Allgemein</legend>
@@ -29,12 +31,21 @@
         @Html.Form().TextBox(m => m.PeanutCreateCommand.PeanutDto.Name)
         @Html.Form().TextArea(m => m.PeanutCreateCommand.PeanutDto.Description)
         @Html.Form().Date(m => m.PeanutCreateCommand.PeanutDto.Day)
+        @Html.Form().Number(m => m.PeanutCreateCommand.PeanutDto.MaximumParticipations, "keine Begrenzung")
+        @Html.Form().TextArea(m => m.PeanutCreateCommand.PeanutDto.ExternalLinks)
     </fieldset>
 
     <fieldset>
         <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Participations</legend>
-        @Html.Form().Select(m => m.PeanutCreateCommand.MyParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), (IList)Model.ParticipationTypes, "Ich werde nicht teilnehmen", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType)
+
+        @{
+            string dependsOnId = Html.ViewData.TemplateInfo.GetFullHtmlFieldId(Objects.GetPropertyPath<PeanutCreateViewModel>(vm => vm.PeanutCreateCommand.UserGroup));
+            string dependsOnProperty = Objects.GetPropertyName<UserGroup>(userGroup => userGroup.BusinessId);
+            DependingDropDownOptions<PeanutCreateViewModel, PeanutParticipationType, UserGroup> dependingOptions = new DependingDropDownOptions<PeanutCreateViewModel, PeanutParticipationType, UserGroup>(dependsOnId, dependsOnProperty, Model.ParticipationTypesByUserGroup);
+        }
+        @Html.Form().SelectDepending(m => m.PeanutCreateCommand.MyParticipationType, Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.BusinessId), Objects.GetPropertyName<PeanutParticipationType>(userGroup => userGroup.Name), dependingOptions, "Ich werde nicht teilnehmen", Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_PeanutParticipation_ParticipationType)
     </fieldset>
+    
     <fieldset>
         <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_Requirements</legend>
         @using (MvcDynamicList<RequirementDto> dynList = Html.Form().BeginDynamicList(m => m.PeanutCreateCommand.Requirements, new RouteValueDictionary { { "class", "peanut-requirements-list" } })) {

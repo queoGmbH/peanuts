@@ -262,6 +262,17 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             return UserDao.FindByRole(Roles.Administrator);
         }
 
+        /// <inheritdoc />
+        [Transaction]
+        public void UpdateUserHasReadNewsOfVersion(User user, Version version) {
+            Require.NotNull(user, "user");
+            Require.NotNull(version, "version");
+
+            if (user.LatestReadVersionNews == null || user.LatestReadVersionNews < version) {
+                user.HasReadNewsOfVersion(version);
+            }
+        }
+
         /// <summary>
         ///     Setzt den Nutzer aktiv, die Email wurde bestätigt
         /// </summary>

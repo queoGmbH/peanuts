@@ -33,6 +33,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         private readonly User _createdBy;
 
         private readonly IList<PeanutParticipation> _participations = new List<PeanutParticipation>();
+        private int? _maximumParticipations;
 
         private readonly IList<PeanutRequirement> _requirements = new List<PeanutRequirement>();
         private readonly UserGroup _userGroup;
@@ -42,6 +43,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         private readonly IList<PeanutComment> _comments = new List<PeanutComment>();
         private DateTime _day;
         private string _description;
+        private string _externalLinks;
 
         private IList<Document> _documents = new List<Document>();
         private string _name;
@@ -62,6 +64,14 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
             Update(requirements);
             _createdBy = entityCreatedDto.CreatedBy;
             _createdAt = entityCreatedDto.CreatedAt;
+        }
+
+        /// <summary>
+        /// Ruft durch Leerzeichen oder Zeilenumbruch getrennte Links ab, die evtl. weitere Informationen zum Peanut enthalten. 
+        /// Bsp. können zum Beispiel Links zu Rezepten in Kochportalen, Links zu Veranstaltungen oder ähnlichem sein.
+        /// </summary>
+        public virtual string ExternalLinks {
+            get { return _externalLinks; }
         }
 
         public Peanut(UserGroup userGroup, PeanutDto peanutDto, IList<RequirementDto> requirements,
@@ -111,6 +121,13 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         }
 
         /// <summary>
+        /// Ruft die maximale Anzahl von Teilnehmern am Peanut ab oder NULL, wenn es keine Einschränkung gibt.
+        /// </summary>
+        public virtual int? MaximumParticipations {
+            get { return _maximumParticipations; }
+        }
+
+        /// <summary>
         ///     Ruft den Tag ab, an dem der Peanut durchgeführt wird.
         /// </summary>
         public virtual DateTime Day {
@@ -150,6 +167,26 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
 
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Ruft ab, ob die maximale Anzahl an Teilnehmern erreicht ist.
+        /// </summary>
+        public virtual bool IsMaximumParticipationCountReached {
+            get {
+                if (MaximumParticipations.HasValue) {
+                    return ConfirmedParticipationsCount >= MaximumParticipations;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Ruft die Anzahl der bestätigten Teilnahmen ab.
+        /// </summary>
+        public virtual int ConfirmedParticipationsCount {
+            get { return ConfirmedParticipations.Count; }
         }
 
         /// <summary>
@@ -209,6 +246,13 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         /// <remarks>Alternative zum eher technischen <see cref="object.ToString"/></remarks>
         public virtual string DisplayName {
             get { return string.Format("{0} ({1})", _name, LabelHelper.GetLabelFromResourceByPropertyName<Resources_Domain>(typeof(PeanutState), _peanutState.ToString())); }
+        }
+
+        /// <summary>
+        /// Ruft ab, ob der Peanut durchgeführt wurde.
+        /// </summary>
+        public virtual bool IsRealized {
+            get { return _peanutState == PeanutState.Realized; }
         }
 
         /// <summary>
@@ -291,7 +335,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
         }
 
         public virtual PeanutDto GetDto() {
-            return new PeanutDto(_name, _description, _day);
+            return new PeanutDto(_name, _description, _day, _maximumParticipations, _externalLinks);
         }
 
         /// <summary>
@@ -346,6 +390,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts {
             _name = peanutDto.Name;
             _day = peanutDto.Day;
             _description = peanutDto.Description;
+            _maximumParticipations = peanutDto.MaximumParticipations;
+            _externalLinks = peanutDto.ExternalLinks;
         }
 
         private void Update(EntityChangedDto entityChanged) {

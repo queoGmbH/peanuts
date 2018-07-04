@@ -1,0 +1,14 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts.Peanut
+
+<div class="news-item news-item--danger">
+    <div class="news-item__icon">
+        <span class="icon icon-exclamation-triangle"></span>
+    </div>
+    <div class="news-item__title">
+        Es geht los!
+    </div>
+    <div class="news-item__content">
+        Der Peanut @Html.Partial("PeanutLink", Model) wurde gestartet!
+    </div>
+</div>

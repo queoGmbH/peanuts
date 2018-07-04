@@ -1,4 +1,7 @@
-﻿using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts;
+﻿using System.Collections.Generic;
+using Com.QueoFlow.Peanuts.Net.Core.Domain.Dto;
+using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts;
+using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
 
 namespace Com.QueoFlow.Peanuts.Net.Core.Service {
@@ -13,5 +16,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="pageRequest"></param>
         /// <returns></returns>
         IPage<PeanutParticipationType> GetAll(IPageable pageRequest);
+
+        PeanutParticipationType Create(PeanutParticipationTypeDto participationTypeDto, UserGroup userGroup, User createdBy);
+        IList<PeanutParticipationType> FindForGroup( UserGroup userGroup);
     }
 }

@@ -87,7 +87,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         ///     null => Ob die Rechnung <see cref="Bill.IsSettled">abgerechnet ist</see> spielt keine Rolle.
         /// </param>
         /// <returns></returns>
-        IPage<Bill> FindDebitorBillsForUser(IPageable pageRequest, User user, bool? isSettled);
+        IPage<Bill> FindBillsWhereUserIsDebitor(IPageable pageRequest, User user, bool? isSettled);
 
         /// <summary>
         ///     Sucht nach nicht abgerechneten Rechnungen, bei denen der Nutzer der Kreditor ist (der Gläubiger) und bei denen
@@ -96,7 +96,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="pageRequest"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        IPage<Bill> FindDeclinedCreditorBillsByUser(PageRequest pageRequest, User user);
+        IPage<Bill> FindRefusedBillsWhereUserIsCreditor(PageRequest pageRequest, User user);
 
         /// <summary>
         ///     Ruft alle offenen Rechnungen für einen Nutzer ab, egal ob Eingans- oder Ausgangsrechnungen.

@@ -219,8 +219,19 @@ namespace Com.QueoFlow.Peanuts.Net.Web.Helper {
             }
         }
 
-       
-
+        public MvcHtmlString GetDayString(DateTime day) {
+            if (day.Date == DateTime.Today) {
+                return new MvcHtmlString("heute");
+            }
+            if (day.Date == DateTime.Today.AddDays(1)) {
+                return new MvcHtmlString("morgen");
+            }
+            if (day.Date == DateTime.Today.AddDays(2)) {
+                return new MvcHtmlString("übermorgen");
+            } else {
+                return new MvcHtmlString(day.ToString("dddd"));
+            }
+        }
 
         public MvcHtmlString Pagination<T>(IPage<T> page) {
             RouteValueDictionary routeValueDictionary = Helper.ViewContext.RouteData.Values;

@@ -398,4 +398,10 @@
   <data name="peanut_requirement_url_placeholder" xml:space="preserve">
     <value>URL</value>
   </data>
+  <data name="common_btn_Submit" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="hint_ValidateYourInput" xml:space="preserve">
+    <value>Bitte überprüfe folgende Eingaben:</value>
+  </data>
 </root>

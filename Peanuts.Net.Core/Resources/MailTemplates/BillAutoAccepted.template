@@ -1,0 +1,15 @@
+﻿Subject: Rechnung "{bill.Subject}" von {creditor.DisplayName} über {amount:C} automatisch akzeptiert
+
+<p>Hallo {debitor.FirstName},</p>
+
+<p>
+du hast eine <a href="{billUrl}" title="Rechnung anzeigen und bestätigen">Rechnung</a> von {creditor.DisplayName} über {amount:C} mit dem Betreff "{bill.Subject}" erhalten und automatisch akzeptiert.
+</p>
+<p>
+Solange die Rechnung nicht abgerechnet ist, kannst du sie jedoch noch ablehnen.
+</p>
+<p>
+Einen schönen Tag wünscht,<br/>
+Dein Peanuts-Team
+</p>
+

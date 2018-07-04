@@ -22,7 +22,7 @@
 
 @using (Html.BeginForm("Attend", "Peanut", new { peanut = Model.Peanut.BusinessId }, FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<PeanutParticipation>(IdForElement.Form, IdForAction.Create) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     <fieldset>
         <legend class="form__legend pull-left">Teilnahme</legend>
@@ -41,6 +41,7 @@
                 @Html.Form().Static(m => m.Peanut.Name)
                 @Html.Form().Static(m => m.Peanut.UserGroup.DisplayName)
                 @Html.Form().Static(m => m.Peanut.Day, formatString: "{0:D}")
+                @Html.Form().Static(m => m.Peanut.MaximumParticipations)
             </div>
             <div class="form__col">
                 @Html.Form().Static(m => m.Peanut.CreatedAt)
@@ -100,26 +101,26 @@
                         @switch (participation.ParticipationState) {
                             case PeanutParticipationState.Confirmed: {
                                 <div class="label label-success">
-                                    @participation.ParticipationState
+                                    @LabelHelper.EnumToLocalizedString(participation.ParticipationState)
                                 </div>
                                 break;
                             }
                             case PeanutParticipationState.Requested: {
                                 <div class="label label-warning">
-                                    @participation.ParticipationState
+                                    @LabelHelper.EnumToLocalizedString(participation.ParticipationState)
                                 </div>
                                 break;
                             }
                             case PeanutParticipationState.Refused: {
                                 <div class="label label-danger">
-                                    @participation.ParticipationState
+                                    @LabelHelper.EnumToLocalizedString(participation.ParticipationState)
                                 </div>
                                 break;
                             }
                             case PeanutParticipationState.Pending:
                             default: {
                                 <div class="label label-default">
-                                    @participation.ParticipationState
+                                    @LabelHelper.EnumToLocalizedString(participation.ParticipationState)
                                 </div>
                                 break;
                             }

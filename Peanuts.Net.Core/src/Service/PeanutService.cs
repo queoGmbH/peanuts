@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Accounting;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Dto;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Peanuts;
@@ -11,7 +10,6 @@ using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Checks;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
-
 using Spring.Transaction.Interceptor;
 
 namespace Com.QueoFlow.Peanuts.Net.Core.Service {
@@ -50,7 +48,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         }
 
         [Transaction]
-        public IList<PeanutParticipation> AddOrUpdateParticipations(Peanut peanut,
+        public IList<PeanutParticipation> AddOrUpdateParticipations(
+            Peanut peanut,
             IDictionary<UserGroupMembership, PeanutParticipationDto> participations, User user) {
             Require.NotNull(peanut, "peanut");
             Require.NotNull(participations, "participations");
@@ -60,8 +59,11 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                 throw new InvalidOperationException("Einem fixierten Peanut können keine weiteren Teilnehmer hinzugefügt werden.");
             }
 
+            AssertMaximumParticipationsAreNotViolated(peanut, participations);
+
             foreach (UserGroupMembership membership in participations.Keys) {
-                PeanutParticipation existingParticipation = peanut.Participations.SingleOrDefault(part => part.UserGroupMembership.Equals(membership));
+                PeanutParticipation existingParticipation =
+                    peanut.Participations.SingleOrDefault(part => part.UserGroupMembership.Equals(membership));
                 if (existingParticipation != null) {
                     /*Der Nutzer nimmt bereits teil. In diesem Falle wird die Art der Teilnahme angepasst und der Status auf Confirmed gesetzt.*/
                     if (!existingParticipation.GetDto().Equals(participations[membership])) {
@@ -69,7 +71,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                     }
                 } else {
                     /*Es handelt sich um einen neuen Teilnehmer*/
-                    PeanutParticipation newParticipation = new PeanutParticipation(peanut,
+                    PeanutParticipation newParticipation = new PeanutParticipation(
+                        peanut,
                         membership,
                         participations[membership],
                         new EntityCreatedDto(user, DateTime.Now));
@@ -103,7 +106,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="user"></param>
         /// <returns></returns>
         [Transaction]
-        public Peanut Create(UserGroup userGroup, PeanutDto peanutDto, IList<RequirementDto> requirements,
+        public Peanut Create(
+            UserGroup userGroup, PeanutDto peanutDto, IList<RequirementDto> requirements,
             IDictionary<UserGroupMembership, PeanutParticipationDto> initialParticipators, User user) {
             foreach (UserGroupMembership groupMembership in initialParticipators.Keys) {
                 if (!userGroup.Equals(groupMembership.UserGroup)) {
@@ -118,11 +122,19 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <summary>
         ///     Liefert alle Peanuts der Gruppe
         /// </summary>
+        /// <param name="pageRequest"></param>
         /// <param name="userGroup"></param>
         /// <returns></returns>
-        public IPage<Peanut> FindAllPeanutsInGroup(UserGroup userGroup) {
+        public IPage<Peanut> FindAllPeanutsInGroup(IPageable pageRequest, UserGroup userGroup) {
             Require.NotNull(userGroup, "userGroup");
-            return PeanutDao.FindPeanutsInGroups(PageRequest.All, new List<UserGroup>() { userGroup });
+            Require.NotNull(pageRequest, "pageRequest");
+
+            return PeanutDao.FindPeanutsInGroups(pageRequest, new List<UserGroup> { userGroup });
+        }
+
+        /// <inheritdoc />
+        public IPage<Peanut> FindPeanutsInGroups(IPageable pageRequest, DateTime from, DateTime to, params UserGroup[] userGroups) {
+            return PeanutDao.FindPeanutsInGroups(pageRequest, userGroups, from, to);
         }
 
         /// <summary>
@@ -175,7 +187,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="from">Frühester Termin ab dem Peanuts gefunden werden</param>
         /// <param name="to">Spätester Termin bis zu dem Peanuts gefunden werden</param>
         /// <returns></returns>
-        public IPage<PeanutParticipation> FindParticipationsOfUser(IPageable pageRequest, User forUser, DateTime from, DateTime to,
+        public IPage<PeanutParticipation> FindParticipationsOfUser(
+            IPageable pageRequest, User forUser, DateTime from, DateTime to,
             IList<PeanutParticipationState> participationStates = null) {
             return PeanutDao.FindParticipationsOfUser(pageRequest, forUser, from, to, participationStates);
         }
@@ -184,12 +197,13 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             Require.NotNull(userGroupMembership, "userGroupMembership");
 
             List<Peanut> allPeanutsInGroup =
-                    PeanutDao.FindPeanutsInGroups(PageRequest.All,
-                        new List<UserGroup> { userGroupMembership.UserGroup },
-                        new DateTime(2000, 1, 1),
-                        new DateTime(3000, 1, 1)).ToList();
+                PeanutDao.FindPeanutsInGroups(
+                    PageRequest.All,
+                    new List<UserGroup> { userGroupMembership.UserGroup },
+                    new DateTime(2000, 1, 1),
+                    new DateTime(3000, 1, 1)).ToList();
             List<PeanutParticipation> allParticipationsOfMember =
-                    allPeanutsInGroup.SelectMany(p => p.Participations).Where(part => part.UserGroupMembership.Equals(userGroupMembership)).ToList();
+                allPeanutsInGroup.SelectMany(p => p.Participations).Where(part => part.UserGroupMembership.Equals(userGroupMembership)).ToList();
 
             if (!allPeanutsInGroup.Any()) {
                 return null;
@@ -201,10 +215,11 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         public int GetUserGroupMemberKarma(UserGroupMembership userGroupMembership) {
             Require.NotNull(userGroupMembership, "userGroupMembership");
             IList<Peanut> allPeanutsInGroup =
-                    PeanutDao.FindPeanutsInGroups(PageRequest.All,
-                        new List<UserGroup> { userGroupMembership.UserGroup },
-                        new DateTime(2000, 1, 1),
-                        new DateTime(3000, 1, 1)).ToList();
+                PeanutDao.FindPeanutsInGroups(
+                    PageRequest.All,
+                    new List<UserGroup> { userGroupMembership.UserGroup },
+                    new DateTime(2000, 1, 1),
+                    new DateTime(3000, 1, 1)).ToList();
 
             return GetUserGroupMemberKarma(userGroupMembership, allPeanutsInGroup);
         }
@@ -218,18 +233,19 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             Require.NotNull(userGroup, "userGroup");
 
             List<UserGroupMembership> userGroupMemberships =
-                    UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }, UserGroupMembership.ActiveTypes)
-                            .ToList();
+                UserGroupService.FindMembershipsByGroups(PageRequest.All, new List<UserGroup> { userGroup }, UserGroupMembership.ActiveTypes)
+                    .ToList();
             IList<Peanut> allPeanutsInGroup =
-                    PeanutDao.FindPeanutsInGroups(PageRequest.All,
-                        new List<UserGroup> { userGroup },
-                        new DateTime(2000, 1, 1),
-                        new DateTime(3000, 1, 1)).ToList();
+                PeanutDao.FindPeanutsInGroups(
+                    PageRequest.All,
+                    new List<UserGroup> { userGroup },
+                    new DateTime(2000, 1, 1),
+                    new DateTime(3000, 1, 1)).ToList();
 
             return
-                    userGroupMemberships.ToDictionary(u => u, u => GetUserGroupMemberKarma(u, allPeanutsInGroup))
-                            .OrderBy(b => b.Value)
-                            .ToDictionary(d => d.Key, d => d.Value);
+                userGroupMemberships.ToDictionary(u => u, u => GetUserGroupMemberKarma(u, allPeanutsInGroup))
+                    .OrderBy(b => b.Value)
+                    .ToDictionary(d => d.Key, d => d.Value);
         }
 
         /// <summary>
@@ -241,12 +257,15 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <param name="peanutInvitationNotificationOptions"></param>
         /// <param name="user"></param>
         [Transaction]
-        public void InviteAllGroupMembers(Peanut peanut, UserGroup userGroup, PeanutParticipationType peanutParticipationType,
+        public void InviteAllActiveGroupMembers(
+            Peanut peanut, UserGroup userGroup, PeanutParticipationType peanutParticipationType,
             PeanutInvitationNotificationOptions peanutInvitationNotificationOptions, User user) {
             IList<UserGroupMembership> members =
-                    UserGroupService.FindMembershipsByGroups(PageRequest.All,
-                        new List<UserGroup> { userGroup },
-                        new List<UserGroupMembershipType> { UserGroupMembershipType.Administrator, UserGroupMembershipType.Member }).ToList();
+                UserGroupService.FindMembershipsByGroups(
+                    PageRequest.All,
+                    new List<UserGroup> { userGroup },
+                    UserGroupMembership.ActiveTypes).Where(membership => membership.User.IsActiveUser).ToList();
+            
             PeanutParticipationType participationType = peanutParticipationType;
             if (participationType != null) {
                 PeanutParticipationDto peanutParticipationDto = new PeanutParticipationDto(participationType, PeanutParticipationState.Pending);
@@ -259,10 +278,12 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         }
 
         [Transaction]
-        public void InviteUser(Peanut peanut, UserGroupMembership userGroupMembership, PeanutParticipationDto peanutParticipationDto,
+        public void InviteUser(
+            Peanut peanut, UserGroupMembership userGroupMembership, PeanutParticipationDto peanutParticipationDto,
             PeanutInvitationNotificationOptions peanutInvitationNotificationOptions, User user) {
             /*Nutzer/Teilnahme hinzufügen*/
-            AddOrUpdateParticipations(peanut,
+            AddOrUpdateParticipations(
+                peanut,
                 new Dictionary<UserGroupMembership, PeanutParticipationDto> { { userGroupMembership, peanutParticipationDto } },
                 user);
 
@@ -277,20 +298,23 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             Require.NotNull(user, "user");
 
             if (peanut.IsFixed) {
-                throw new InvalidOperationException("Die Teilnahme  an einem fixierten Peanut kann nicht abgesagt werden.");
+                throw new InvalidOperationException("Die Teilnahme an einem fixierten Peanut kann nicht abgesagt werden.");
             }
 
             peanut.RemoveParticipators(new EntityChangedDto(user, DateTime.Now), participators.ToArray());
         }
 
         [Transaction]
-        public void Update(Peanut peanut, PeanutDto peanutDto, IList<RequirementDto> requirements, string updateComment,
+        public void Update(
+            Peanut peanut, PeanutDto peanutDto, IList<RequirementDto> requirements, string updateComment,
             PeanutUpdateNotificationOptions notificationOptions, User user) {
             Require.NotNull(peanut, "peanut");
             Require.NotNull(peanutDto, "peanutDto");
             Require.NotNull(requirements, "requirements");
             Require.NotNull(user, "user");
             Require.NotNull(notificationOptions, "notificationOptions");
+
+            AssertMaximumParticipationsIsNotViolatingConfirmedParticipations(peanutDto.MaximumParticipations, peanut.Participations);
 
             PeanutDto dtoBeforeUpdate = peanut.GetDto();
             IList<PeanutRequirement> requirementsBeforeUpdate = peanut.Requirements;
@@ -303,7 +327,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                 }
 
                 if (notificationOptions.SendNotification) {
-                    NotificationService.SendPeanutUpdateNotification(peanut,
+                    NotificationService.SendPeanutUpdateNotification(
+                        peanut,
                         dtoBeforeUpdate,
                         requirementsBeforeUpdate,
                         updateComment,
@@ -311,7 +336,8 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
                         user);
                 }
                 if (HaveRequirementsChanged(requirementsBeforeUpdate, requirements)) {
-                    NotificationService.SendPeanutUpdateRequirementsNotification(peanut,
+                    NotificationService.SendPeanutUpdateRequirementsNotification(
+                        peanut,
                         updateComment,
                         new PeanutUpdateRequirementsNotificationOptions(notificationOptions.PeanutUrl),
                         user);
@@ -340,10 +366,11 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             }
 
             if (peanutState >= PeanutState.SchedulingDone && !peanut.IsFixed) {
-                RemoveParticipations(peanut,
+                RemoveParticipations(
+                    peanut,
                     peanut.Participations.Where(s => s.ParticipationState == PeanutParticipationState.Pending)
-                            .Select(s => s.UserGroupMembership)
-                            .ToList(),
+                        .Select(s => s.UserGroupMembership)
+                        .ToList(),
                     user);
             }
             peanut.UpdateState(peanutState, new EntityChangedDto(user, DateTime.Now));
@@ -358,10 +385,10 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
         /// <returns></returns>
         private static int GetUserGroupMemberKarma(UserGroupMembership userGroupMembership, IList<Peanut> allPeanuts) {
             IList<Peanut> relevantPeanuts =
-                    allPeanuts.Where(
-                        p =>
-                            p.PeanutState == PeanutState.Realized
-                            && p.Participations.Any(part => part.UserGroupMembership.Equals(userGroupMembership))).ToList();
+                allPeanuts.Where(
+                    p =>
+                        p.PeanutState == PeanutState.Realized
+                        && p.Participations.Any(part => part.UserGroupMembership.Equals(userGroupMembership))).ToList();
 
             int karma = 0;
 
@@ -371,39 +398,61 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Service {
             /*Für jedes mal Herstellen erhält man 2 Punkte*/
             karma += 3
                      * relevantPeanuts.SelectMany(p => p.Participations)
-                             .Count(
-                                 part =>
-                                     part.UserGroupMembership.Equals(userGroupMembership) && part.ParticipationType.IsProducer
-                                     && !part.ParticipationType.IsCreditor);
+                         .Count(
+                             part =>
+                                 part.UserGroupMembership.Equals(userGroupMembership) && part.ParticipationType.IsProducer
+                                 && !part.ParticipationType.IsCreditor);
 
             /*Für jedes mal Einkaufen erhält man 2 Punkte*/
             karma += 3
                      * relevantPeanuts.SelectMany(p => p.Participations)
-                             .Count(
-                                 part =>
-                                     part.UserGroupMembership.Equals(userGroupMembership) && !part.ParticipationType.IsProducer
-                                     && part.ParticipationType.IsCreditor);
+                         .Count(
+                             part =>
+                                 part.UserGroupMembership.Equals(userGroupMembership) && !part.ParticipationType.IsProducer
+                                 && part.ParticipationType.IsCreditor);
 
             /*Für jedes mal Einkaufen und Herstellen erhält man 1 Extra-Punkt*/
             karma += 1
                      * relevantPeanuts.SelectMany(p => p.Participations)
-                             .Count(
-                                 part =>
-                                     part.UserGroupMembership.Equals(userGroupMembership) && part.ParticipationType.IsProducer
-                                     && part.ParticipationType.IsCreditor);
+                         .Count(
+                             part =>
+                                 part.UserGroupMembership.Equals(userGroupMembership) && part.ParticipationType.IsProducer
+                                 && part.ParticipationType.IsCreditor);
 
             /*Für jede normale Teilnahme ohne irgendwie behilflich zu sein, bekommt man einen Punkt Abzug*/
             karma -= 1
                      * relevantPeanuts.SelectMany(p => p.Participations)
-                             .Count(
-                                 part =>
-                                     part.UserGroupMembership.Equals(userGroupMembership) && !part.ParticipationType.IsProducer
-                                     && !part.ParticipationType.IsCreditor);
+                         .Count(
+                             part =>
+                                 part.UserGroupMembership.Equals(userGroupMembership) && !part.ParticipationType.IsProducer
+                                 && !part.ParticipationType.IsCreditor);
 
             /*Jeder Euro des Kontostands ist ein Karma-Punkt.*/
             karma += (int)userGroupMembership.Account.Balance;
 
             return karma;
+        }
+
+        private void AssertMaximumParticipationsAreNotViolated(
+            Peanut peanut, IDictionary<UserGroupMembership, PeanutParticipationDto> participations) {
+            if (peanut.MaximumParticipations.HasValue) {
+
+                int newNumberOfConfirmedParticipations = peanut.ConfirmedParticipations.Count(p => !participations.Keys.Contains(p.UserGroupMembership)) +
+                    participations.Count(p => p.Value.ParticipationState == PeanutParticipationState.Confirmed);
+
+                if (newNumberOfConfirmedParticipations > peanut.MaximumParticipations) {
+                    throw new InvalidOperationException("Die maximale Anzahl an Teilnehmer würde überschritten werden.");
+                }
+            }
+        }
+
+        private void AssertMaximumParticipationsIsNotViolatingConfirmedParticipations(
+            int? maximumParticipations, IList<PeanutParticipation> peanutParticipations) {
+            if (maximumParticipations.HasValue) {
+                if (maximumParticipations < peanutParticipations.Count(part => part.ParticipationState == PeanutParticipationState.Confirmed)) {
+                    throw new InvalidOperationException("Es gibt bereits mehr Zusagen als die maximale Anzahl ein Teilnahmen.");
+                }
+            }
         }
 
         private bool HasPeanutChanged(Peanut peanut, PeanutDto peanutDto, IList<RequirementDto> requirements) {

@@ -19,43 +19,62 @@
     }
     string userGroupSelectId = Html.ViewData.TemplateInfo.GetFullHtmlFieldId(ExpressionHelper.GetExpressionText(Objects.GetPropertyPath<BillCreateViewModel>(vm => vm.BillCreateCommand.UserGroup)));
 
-    Dictionary<UserGroupMembership, UserGroup> dependingValues = Model.UserGroupMembershipsInMyGroups.ToDictionary(mem => mem, mem => mem.UserGroup);
+    IDictionary<UserGroup, UserGroupMembership[]> dependingValues = Model.UserGroupMembershipsInMyGroups.GroupBy(mem => mem.UserGroup).ToDictionary(g => g.Key, g => g.ToArray());
 }
 
 @using (Html.BeginForm("Create", "Bill", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     <fieldset>
         <legend>Kopfdaten</legend>
-        @Html.Form().Select(m => m.BillCreateCommand.UserGroup, Objects.GetPropertyName<UserGroup>(userGroup => userGroup.BusinessId), Objects.GetPropertyPath<UserGroup>(userGroup => userGroup.Name), Model.MyUserGroupMemberships.Select(mem => mem.UserGroup).ToList(), userGroupPlaceholder, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup)
-        @Html.Form().TextBox(m => m.BillCreateCommand.BillDto.Subject)
-        @Html.Form().Number(m => m.BillCreateCommand.BillDto.Amount)
+        <div class="form__row">
+            <div class="form__col">
+                @Html.Form().TextBox(m => m.BillCreateCommand.BillDto.Subject)
+                @Html.Form().Number(m => m.BillCreateCommand.BillDto.Amount)
+            </div>
+            <div class="form__col">
+                @Html.Form().Select(m => m.BillCreateCommand.UserGroup, Objects.GetPropertyName<UserGroup>(userGroup => userGroup.BusinessId), Objects.GetPropertyPath<UserGroup>(userGroup => userGroup.Name), Model.MyUserGroupMemberships.Select(mem => mem.UserGroup).ToList(), userGroupPlaceholder, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroup)
+            </div>
+        </div>
         @Html.Form().Hidden(m => m.BillCreateCommand.CreatedFromPeanut, Objects.GetPropertyName<Peanut>(b => b.BusinessId))
     </fieldset>
     <fieldset>
         <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_UserGroupDebitors</legend>
         @using (MvcDynamicList<BillUserGroupDebitorDto> dynList = Html.Form().BeginDynamicList(m => m.BillCreateCommand.UserGroupDebitors, new RouteValueDictionary { { "class", "debitor-list" } })) {
             DependingDropDownOptions<BillUserGroupDebitorDto, UserGroupMembership, UserGroup> dependingDropDownOptions =
-                    new DependingDropDownOptions<BillUserGroupDebitorDto, UserGroupMembership, UserGroup>(userGroupSelectId, Objects.GetPropertyPath<UserGroup>(m => m.BusinessId), dependingValues);
+                new DependingDropDownOptions<BillUserGroupDebitorDto, UserGroupMembership, UserGroup>(userGroupSelectId, Objects.GetPropertyPath<UserGroup>(m => m.BusinessId), dependingValues);
 
             foreach (KeyValuePair<string, BillUserGroupDebitorDto> userGroupDebitor in dynList.ListItems) {
-                using (MvcDynamicListItem<BillUserGroupDebitorDto> item = dynList.BeginListItem(userGroupDebitor)) {
-                    @item.Html.Form().SelectDepending(m => m.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(m => m.BusinessId), Objects.GetPropertyName<UserGroupMembership>(m => m.DisplayName), dependingDropDownOptions, null)
-                    @item.Html.Form().Number(m => m.Portion, "1")
-                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
-                        <span class="icon icon-trash"></span>
-                    </button>
+                using (MvcDynamicListItem<BillUserGroupDebitorDto> item = dynList.BeginListItem(userGroupDebitor, new RouteValueDictionary { { "class", "form__row debitor-list-item" } })) {
+                    <div class="form__col debitor-list-item__debitor">
+                        @item.Html.Form().SelectDepending(m => m.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(m => m.BusinessId), Objects.GetPropertyName<UserGroupMembership>(m => m.DisplayName), dependingDropDownOptions, null)
+                    </div>
+                    <div class="form__col debitor-list-item__portion">
+                        @item.Html.Form().Number(m => m.Portion, "1")
+                    </div>
+                    <div class="form__col debitor-list-item__options">
+                        <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                            <span class="icon icon-trash"></span>
+                        </button>
+                    </div>
                 }
             }
 
-            using (MvcDynamicListItemAdder<BillUserGroupDebitorDto> addItem = dynList.BeginListItemAdder(new BillUserGroupDebitorDto())) {
-                <div class="dynamic-list-item debitor-list-item">
-                    @addItem.Html.Form().SelectDepending(m => m.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(m => m.BusinessId), Objects.GetPropertyName<UserGroupMembership>(m => m.DisplayName), dependingDropDownOptions, null)
-                    @addItem.Html.Form().Number(m => m.Portion, "1")
-                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
-                        <span class="icon icon-trash"></span>
-                    </button>
+            using (MvcDynamicListItemAdder<BillUserGroupDebitorDto>
+                addItem = dynList.BeginListItemAdder(new BillUserGroupDebitorDto())) {
+                <div class="form__row dynamic-list-item debitor-list-item">
+                    <div class="form__col debitor-list-item__debitor">
+                        @addItem.Html.Form().SelectDepending(m => m.UserGroupMembership, Objects.GetPropertyName<UserGroupMembership>(m => m.BusinessId), Objects.GetPropertyName<UserGroupMembership>(m => m.DisplayName), dependingDropDownOptions, null)
+                    </div>
+                    <div class="form__col debitor-list-item__portion">
+                        @addItem.Html.Form().Number(m => m.Portion, "1")
+                    </div>
+                    <div class="form__col debitor-list-item__options">
+                        <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                            <span class="icon icon-trash"></span>
+                        </button>
+                    </div>
                 </div>
             }
         }
@@ -64,44 +83,55 @@
         <legend>@Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Bill_GuestDebitors</legend>
         @using (MvcDynamicList<BillGuestDebitorDto> dynList = Html.Form().BeginDynamicList(m => m.BillCreateCommand.GuestDebitors, new RouteValueDictionary { { "class", "debitor-list" } })) {
             foreach (KeyValuePair<string, BillGuestDebitorDto> userGroupDebitor in dynList.ListItems) {
-                using (MvcDynamicListItem<BillGuestDebitorDto> item = dynList.BeginListItem(userGroupDebitor)) {
-                    @item.Html.Form().TextBox(m => m.Name)
-                    @item.Html.Form().Email(m => m.Email)
-                    @item.Html.Form().Number(m => m.Portion, "1")
-
-                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
-                        <span class="icon icon-trash"></span>
-                    </button>
+                using (MvcDynamicListItem<BillGuestDebitorDto> item = dynList.BeginListItem(userGroupDebitor, new RouteValueDictionary { { "class", "form__row debitor-list-item" } })) {
+                    <div class="form__col debitor-list-item__debitor">
+                        @item.Html.Form().TextBox(m => m.Name)
+                        @item.Html.Form().Email(m => m.Email)
+                    </div>
+                    <div class="form__col debitor-list-item__portion">
+                        @item.Html.Form().Number(m => m.Portion, "1")
+                    </div>
+                    <div class="form__col debitor-list-item__options">
+                        <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                            <span class="icon icon-trash"></span>
+                        </button>
+                    </div>
                 }
             }
 
-            using (MvcDynamicListItemAdder<BillGuestDebitorDto> addItem = dynList.BeginListItemAdder(new BillGuestDebitorDto())) {
-                <div class="dynamic-list-item debitor-list-item">
-                    @addItem.Html.Form().TextBox(m => m.Name)
-                    @addItem.Html.Form().Email(m => m.Email)
-                    @addItem.Html.Form().Number(m => m.Portion, "1")
-
-                    <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
-                        <span class="icon icon-trash"></span>
-                    </button>
+            using (MvcDynamicListItemAdder<BillGuestDebitorDto>
+                addItem = dynList.BeginListItemAdder(new BillGuestDebitorDto())) {
+                <div class="form__row dynamic-list-item debitor-list-item">
+                    <div class="form__col debitor-list-item__debitor">
+                        @addItem.Html.Form().TextBox(m => m.Name)
+                        @addItem.Html.Form().Email(m => m.Email)
+                    </div>
+                    <div class="form__col debitor-list-item__portion">
+                        @addItem.Html.Form().Number(m => m.Portion, "1")
+                    </div>
+                    <div class="form__col debitor-list-item__options">
+                        <button type="button" class="remove-list-item btn btn-link text-danger" data-remove-directly="true">
+                            <span class="icon icon-trash"></span>
+                        </button>
+                    </div>
                 </div>
             }
         }
     </fieldset>
 
-    <button type="submit" class="btn btn-primary" form="@(Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create))">
+    @*<button type="submit" class="btn btn-primary" form="@(Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create))">
         <i></i>
         <span>Rechnung stellen</span>
-    </button>
+    </button>*@
 }
 
 @section toolbar {
-    <button type="submit" class="btn btn-primary" form="@(Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create))">
-        <i></i>
+    <button type="submit" class="btn btn-primary pull-right" form="@(Html.GenerateId<Bill>(IdForElement.Form, IdForAction.Create))">
+        <span class="icon icon-inbox"></span>
         <span>@Resources_Web.bill_btn_create</span>
     </button>
     <a href="@Url.Action("Index")" class="btn btn-default">
-        <i></i>
+        <span class="icon icon-arrow-left"></span>
         <span>@Resources_Web.btn_Cancel_Create</span>
     </a>
 }

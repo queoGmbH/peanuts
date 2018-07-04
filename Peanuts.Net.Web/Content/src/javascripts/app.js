@@ -10,7 +10,7 @@ import 'jquery.cookie';
 import 'jquery-validation';
 import 'jquery-validation/dist/localization/methods_de.js';
 import 'jquery-validation-unobtrusive';
-//import './app/jquery-validate-overrides.js';
+import 'jquery-ajax-unobtrusive';
 
 import 'pwstrength-bootstrap/dist/pwstrength-bootstrap';
 

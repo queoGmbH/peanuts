@@ -13,7 +13,7 @@
 
 @using (Html.BeginForm("Update", "UserGroup", new {userGroup = Model.UserGroup.BusinessId}, FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<UserGroup>(IdForElement.Form, IdForAction.Create) })) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new {@class = "form-validation-summary"}, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new {@class = "form-validation-summary"}, "p")
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
     @Html.Form().TextBox(m => m.UserGroupUpdateCommand.UserGroupDto.Name)

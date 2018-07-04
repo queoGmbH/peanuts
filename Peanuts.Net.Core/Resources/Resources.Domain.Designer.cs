@@ -959,11 +959,29 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Links ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_ExternalLinks {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_ExternalLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Planung abgeschlossen ähnelt.
         /// </summary>
         public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_IsFixed {
             get {
                 return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_IsFixed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Maximale Anzahl Teilnehmer ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_MaximumParticipations {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Peanuts_Peanut_MaximumParticipations", resourceCulture);
             }
         }
         
@@ -2274,6 +2292,16 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rechnungen automatisch akzeptieren ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_AutoAcceptBills {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_AutoAcceptBi" +
+                        "lls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Mitgliedstyp ähnelt.
         /// </summary>
         public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembership_MembershipType {
@@ -2290,6 +2318,34 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Resources {
             get {
                 return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Administ" +
                         "rator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Gast ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Guest {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Guest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Inaktiv ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Inactive {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Inactive" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eingeladen ähnelt.
+        /// </summary>
+        public static string label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Invited {
+            get {
+                return ResourceManager.GetString("label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_UserGroupMembershipType_Invited", resourceCulture);
             }
         }
         

@@ -12,7 +12,7 @@
 @using (Html.BeginForm("Update", "UserProfile", FormMethod.Post, new { @class = "form form-horizontal", role = "form", id = Html.GenerateId<User>(IdForElement.Form, IdForAction.Update) })) {
     @Html.AntiForgeryToken()
     @Html.HttpMethodOverride(HttpVerbs.Patch)
-    @Html.ValidationSummary(false, "Bitte überprüfen Sie folgende Eingaben:", new { @class = "form-validation-summary" }, "p")
+    @Html.ValidationSummary(false, Resources_Web.hint_ValidateYourInput, new { @class = "form-validation-summary" }, "p")
 
     <fieldset>
         <legend class="form__legend">Allgemein</legend>

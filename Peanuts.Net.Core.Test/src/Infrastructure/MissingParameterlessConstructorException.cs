@@ -2,7 +2,7 @@
 
 namespace Com.QueoFlow.Peanuts.Net.Core.Infrastructure {
     /// <summary>
-    /// Excpetion die geworfen wird, wenn von einem Typ ein parameterloser Konstruktor erwartet wird, dieser aber nicht vorhanden.
+    /// Exception die geworfen wird, wenn von einem Typ ein parameterloser Konstruktor erwartet wird, dieser aber nicht vorhanden.
     /// </summary>
     public class MissingParameterlessConstructorException:Exception {
         private readonly Type _typeWithoutParameterlessConstructor;

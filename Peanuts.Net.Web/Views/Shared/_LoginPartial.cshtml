@@ -18,6 +18,9 @@
                 </li>
             }
             <li>
+                @Html.ActionLink("Versionshistorie", "Index", "VersionNews", routeValues: new { area = "" }, htmlAttributes: new {@class = "link icon-info-circle"})
+            </li>
+            <li>
                 @using (Html.BeginForm("LogOff", "Account", new { area = ""  }, FormMethod.Get, new { id = "logoutForm", @class = "navbar-right" })) {
                     @Html.AntiForgeryToken()
                 }

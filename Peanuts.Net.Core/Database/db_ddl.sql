@@ -288,7 +288,9 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        BusinessId UNIQUEIDENTIFIER not null unique,
        Name NVARCHAR(255) not null,
        Description NVARCHAR(4000) null,
+       ExternalLinks NVARCHAR(4000) null,
        Day date not null,
+       MaximumParticipations INT null,
        PeanutState NVARCHAR(255) not null,
        CreatedAt DATETIME not null,
        ChangedAt DATETIME null,
@@ -350,6 +352,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        ChangedAt DATETIME null,
        CreatedBy_Id INT null,
        ChangedBy_Id INT null,
+       UserGroup_Id INT null,
        primary key (Id)
     )
 
@@ -387,6 +390,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        ChangedAt DATETIME null,
        CreatedAt DATETIME not null,
        Name NVARCHAR(255) not null,
+       BalanceOverdraftLimit FLOAT(53) null,
        ChangedBy_Id INT null,
        CreatedBy_Id INT not null,
        primary key (Id)
@@ -395,6 +399,7 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
     create table tblUserGroupMembership (
         Id INT IDENTITY NOT NULL,
        BusinessId UNIQUEIDENTIFIER not null unique,
+       AutoAcceptBills BIT not null,
        CreatedAt DATETIME not null,
        ChangedAt DATETIME null,
        MembershipType NVARCHAR(255) not null,
@@ -427,16 +432,17 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
        PhonePrivate NVARCHAR(30) null,
        Mobile NVARCHAR(30) null,
        PayPalBusinessName NVARCHAR(255) null,
-       AutoAcceptPayPalPayments BIT not null,
-       NotifyMeAsCreditorOnPeanutDeleted BIT not null,
-       NotifyMeAsCreditorOnPeanutRequirementsChanged BIT not null,
-       NotifyMeAsParticipatorOnPeanutChanged BIT not null,
-       NotifyMeAsCreditorOnDeclinedBills BIT not null,
-       NotifyMeAsDebitorOnIncomingBills BIT not null,
-       NotifyMeOnIncomingPayment BIT not null,
-       NotifyMeAsCreditorOnSettleableBills BIT not null,
-       NotifyMeOnPeanutInvitation BIT not null,
-       SendMeWeeklySummaryAndForecast BIT not null,
+       AutoAcceptPayPalPayments BIT default 0  not null,
+       NotifyMeAsCreditorOnPeanutDeleted BIT default 1  not null,
+       NotifyMeAsCreditorOnPeanutRequirementsChanged BIT default 1  not null,
+       NotifyMeAsParticipatorOnPeanutChanged BIT default 1  not null,
+       NotifyMeAsCreditorOnDeclinedBills BIT default 1  not null,
+       NotifyMeAsDebitorOnIncomingBills BIT default 1  not null,
+       NotifyMeOnIncomingPayment BIT default 1  not null,
+       NotifyMeAsCreditorOnSettleableBills BIT default 1  not null,
+       NotifyMeOnPeanutInvitation BIT default 1  not null,
+       SendMeWeeklySummaryAndForecast BIT default 1  not null,
+       LatestReadVersionNews nvarchar(30) null,
        IsDeleted BIT default 0  not null,
        IsEnabled BIT not null,
        Birthday date null,
@@ -625,6 +631,51 @@ alter table tblUserDocument  drop constraint FK_USER_WITH_DOCUMENTS
     alter table tblUserGroupMembership 
         add constraint FK_MEMBERSHIP_ACCOUNT 
         foreign key (Account_Id) 
+        references tblAccount
+
+    alter table tblUserRoles 
+        add constraint FK_ROLE_TO_USER 
+        foreign key (User_Id) 
+        references tblUser
+
+    alter table tblUserDocument 
+        add constraint FK_USER_DOCUMENT 
+        foreign key (Document_Id) 
+        references tblDocument
+
+    alter table tblUserDocument 
+        add constraint FK_USER_WITH_DOCUMENTS 
+        foreign key (User_Id) 
+        references tblUser
+K_ROLE_TO_USER 
+        foreign key (User_Id) 
+        references tblUser
+
+    alter table tblUserDocument 
+        add constraint FK_USER_DOCUMENT 
+        foreign key (Document_Id) 
+        references tblDocument
+
+    alter table tblUserDocument 
+        add constraint FK_USER_WITH_DOCUMENTS 
+        foreign key (User_Id) 
+        references tblUser
+add constraint FK_ROLE_TO_USER 
+        foreign key (User_Id) 
+        references tblUser
+
+    alter table tblUserDocument 
+        add constraint FK_USER_DOCUMENT 
+        foreign key (Document_Id) 
+        references tblDocument
+
+    alter table tblUserDocument 
+        add constraint FK_USER_WITH_DOCUMENTS 
+        foreign key (User_Id) 
+        references tblUser
+User_Id) 
+        references tblUser
+
         references tblAccount
 
     alter table tblUserRoles 

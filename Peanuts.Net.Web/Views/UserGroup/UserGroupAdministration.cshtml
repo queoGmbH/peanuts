@@ -1,0 +1,83 @@
+﻿@using Com.QueoFlow.Peanuts.Net.Core.Infrastructure.Utils
+@using Com.QueoFlow.Peanuts.Net.Core.Resources
+@using Com.QueoFlow.Peanuts.Net.Web.Helper
+@model Com.QueoFlow.Peanuts.Net.Web.Models.UserGroup.UserGroupAdministrationViewModel
+
+@{
+    ViewBag.Title = Model.UserGroup.Name;
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+
+@section toolbar {
+    <a class="btn btn-default" href="@Url.Action("AllMemberships", "UserGroup")">
+        <span class="icon-arrow-left"></span>
+        Zurück
+    </a>
+}
+
+@section tabs {
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation">
+            <a href="@Url.Action("MembershipDetails", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="membership" role="tab">
+                Mitgliedschaft
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="@Url.Action("Members", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="members" role="tab">
+                Mitglieder
+            </a>
+        </li>
+        @if (Model.CurrentUsersMembershipInGroup != null) {
+            <li role="presentation">
+                <a href="@Url.Action("Account", new { userGroup = Model.CurrentUsersMembershipInGroup.UserGroup.BusinessId, userGroupMembership = Model.CurrentUsersMembershipInGroup.BusinessId })" aria-controls="account" role="tab">
+                    Konto
+                </a>
+            </li>
+        }
+        <li role="presentation">
+            <a href="@Url.Action("Peanuts", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="peanuts" role="tab">
+                Peanuts
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="@Url.Action("Statistics", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="statistics" role="tab">
+                Statistik
+            </a>
+        </li>
+        <li role="presentation" class="active">
+            <a href="@Url.Action("Administration", new { userGroup = Model.UserGroup.BusinessId })" aria-controls="administration" role="tab">
+                Administration
+            </a>
+        </li>
+    </ul>
+}
+
+<div class="form form-horizontal">
+
+    <div class="nav-tabs-content tab-content">
+        <div class="nav-tabs-panel tab-pane active" role="tabpanel" id="administration">
+            <fieldset>
+                <legend class="form__legend pull-left">
+                    Nutzergruppe
+                </legend>
+                @Html.Form().Static(m => m.UserGroup.Name)
+                @Html.Form().Static(m => m.UserGroup.CreatedAt)
+                @Html.Form().Static(m => m.UserGroup.AdditionalInformations)
+                @Html.Form().Static(m => m.UserGroup.BalanceOverdraftLimit)
+            </fieldset>
+            <fieldset>
+                <legend class="form__legend pull-left">
+                    Mitglieder
+                </legend>
+                <div class="container-content--full">
+                    @(Html.DisplayFor().GridFor(m => m.UserGroupMembers, true)
+                        .ColumnFor(mem => mem, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Users_User).OrderBy(mem => mem.User.DisplayName).Display("UserGroupMemberWithStatus")
+                        .ColumnFor(mem => mem.Account.Balance, Resources_Domain.label_Com_QueoFlow_Peanuts_Net_Core_Domain_Accounting_Account_Balance).OrderBy().AttributeBody("class", mem => mem.Account.Balance < 0 ? "text-danger" : "").DisplayFormat("{0:C}")
+                        .ColumnFor(mem => mem.CreatedAt, "Mitglied seit").OrderBy()
+                        .ColumnFor(mem => mem, "Art der Mitgliedschaft").OrderBy(mem => mem.MembershipType).Editor("UpdateMembershipType")
+                    )
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

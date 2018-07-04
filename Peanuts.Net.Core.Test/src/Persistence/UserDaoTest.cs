@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Com.QueoFlow.Peanuts.Net.Core.CreatorUtils;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Documents;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Dto;
@@ -8,7 +8,7 @@ using Com.QueoFlow.Peanuts.Net.Core.Domain.Users;
 using Com.QueoFlow.Peanuts.Net.Core.Domain.Users.Dto;
 using Com.QueoFlow.Peanuts.Net.Core.Infrastructure;
 using Com.QueoFlow.Peanuts.Net.Core.Persistence.NHibernate;
-
+using Com.QueoFlow.Peanuts.Net.Core.TestDataBuilders;
 using FluentAssertions;
 
 using NHibernate;
@@ -144,7 +144,7 @@ namespace Com.QueoFlow.Peanuts.Net.Core.Persistence {
 
             //When: WHEN
             IList<User> users = UserDao.FindByRole(Roles.Administrator);
-
+            
             //Then: THEN
             Assert.IsTrue(users.Contains(user1));
             Assert.IsTrue(users.Contains(user2));
